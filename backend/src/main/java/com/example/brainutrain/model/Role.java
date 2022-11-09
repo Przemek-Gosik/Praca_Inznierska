@@ -1,11 +1,9 @@
 package com.example.brainutrain.model;
 
-import com.example.brainutrain.constants.FontSize;
-import com.example.brainutrain.constants.Theme;
-import lombok.EqualsAndHashCode;
+import com.example.brainutrain.constants.RoleName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -17,28 +15,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @Entity
-@Table(name="settings")
-public class Setting {
+@Table(name="roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idSetting;
+    private Long idRole;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private FontSize fontSize;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Theme theme;
-
-    public Setting(FontSize fontSize, Theme theme) {
-        this.fontSize = fontSize;
-        this.theme = theme;
-    }
+    private RoleName roleName;
+   public Role(RoleName roleName){
+       this.roleName=roleName;
+   }
 }
