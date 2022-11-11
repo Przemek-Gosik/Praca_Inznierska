@@ -1,17 +1,22 @@
 package com.example.brainutrain.config.security;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.example.brainutrain.exception.AuthenticationFailedException;
+import com.example.brainutrain.exception.ErrorMessage;
 import com.example.brainutrain.service.TokenService;
 import com.example.brainutrain.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
@@ -21,8 +26,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private static final String HEADER="Authorization";
     private static final String PREFIX="Bearer";
 
-
-
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager,UserService userService,TokenService tokenService) {
         super(authenticationManager);
         this.userService=userService;
@@ -30,20 +33,27 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws IOException, ServletException{
-        UsernamePasswordAuthenticationToken passwordAuthenticationToken = authenticateUser(httpServletRequest);
-        if(passwordAuthenticationToken == null){
-            filterChain.doFilter(httpServletRequest,httpServletResponse);
-        }
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws IOException{
         try {
+            UsernamePasswordAuthenticationToken passwordAuthenticationToken = authenticateUser(httpServletRequest);
             SecurityContextHolder.getContext().setAuthentication(passwordAuthenticationToken);
-        }catch (AuthenticationException e){
-            logger.warn(e.getMessage());
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+        }catch(Exception exception){
+            logger.warn(exception.getMessage());
+            int statusCode = HttpStatus.FORBIDDEN.value();
+            httpServletResponse.setContentType("application/json");
+            httpServletResponse.setCharacterEncoding("UTF-8");
+            httpServletResponse.setStatus(statusCode);
+            ObjectMapper objectMapper = new ObjectMapper();
+            httpServletResponse.getWriter().print(objectMapper.writeValueAsString(
+                    new ErrorMessage(
+                    statusCode, LocalDateTime.now(),
+                    exception.getMessage(),httpServletRequest.getPathInfo())));
+
         }
-        filterChain.doFilter(httpServletRequest,httpServletResponse);
     }
 
-    private UsernamePasswordAuthenticationToken authenticateUser(HttpServletRequest request){
+    private UsernamePasswordAuthenticationToken authenticateUser(HttpServletRequest request) throws AuthenticationException, TokenExpiredException {
         String token = request.getHeader(HEADER);
         if(token !=null && token.startsWith(PREFIX)){
             String login = tokenService.getLoginFromToken(token);
@@ -52,7 +62,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 return new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
             }
         }
-        return null;
+            throw new AuthenticationFailedException("No token provided or token is without right prefix");
     }
 
     @Override
@@ -61,6 +71,5 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 request.getRequestURI().equals("/login") ||
                 request.getRequestURI().equals("/docs/swagger-ui/index.html");
     }
-
 
 }

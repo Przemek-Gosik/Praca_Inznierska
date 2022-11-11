@@ -2,6 +2,7 @@ package com.example.brainutrain.controller;
 
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
+import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.model.User;
 import com.example.brainutrain.service.TokenService;
 import com.example.brainutrain.service.UserService;
@@ -36,9 +37,11 @@ public class AuthController {
     private final PasswordEncoder encoder;
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@Valid @RequestBody RegisterDto registerDto) throws Exception{
+    public ResponseEntity<User> register(@Valid @RequestBody RegisterDto registerDto) {
         if(userService.checkIfEmailIsAlreadyTaken(registerDto.getEmail()) || userService.checkIfLoginIsAlreadyTaken(registerDto.getLogin())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            String message="Email or login are already taken";
+            logger.warn(message);
+            throw new AuthenticationFailedException(message);
         }
         registerDto.setPassword(encoder.encode(registerDto.getPassword()));
         User user = userService.createUser(registerDto);
@@ -46,27 +49,17 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> login(LoginDto loginDto){
-        try {
+    public ResponseEntity<String> login(LoginDto loginDto) {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
                             loginDto.getUserName(), loginDto.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = tokenService.createUserToken(authentication);
             return ResponseEntity.ok(token);
-        }catch (AuthenticationException e){
-            logger.warn(e.getMessage());
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @GetMapping("/dupa")
-    public ResponseEntity<String> dupa(){
-        try {
-            return ResponseEntity.ok().body("Dupa");
-        }catch(Exception e){
-            logger.warn(e.getMessage());
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<String> dupa() {
+        return ResponseEntity.ok("Duuupa");
     }
 }

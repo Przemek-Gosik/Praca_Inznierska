@@ -42,8 +42,6 @@
             <artifactId>java-jwt</artifactId>
             <version>4.2.1</version>
         </dependency>
-
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

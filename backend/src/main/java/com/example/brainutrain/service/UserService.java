@@ -12,7 +12,6 @@ import com.example.brainutrain.repository.RoleRepository;
 import com.example.brainutrain.repository.SettingRepository;
 import com.example.brainutrain.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,7 +50,7 @@ public class UserService implements UserDetailsService{
     public User createUser(RegisterDto registerDto){
         User newUser=userFromDto(registerDto);
         logger.info("created user"+newUser);
-        Role userRole = roleRepository.findByRoleName(RoleName.USER);
+        Role userRole = createUserRoleIfNotExist();
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
         newUser.setRoles(roles);
@@ -70,5 +69,15 @@ public class UserService implements UserDetailsService{
         user.setPassword(registerDto.getPassword());
         user.setEmail(registerDto.getEmail());
         return user;
+    }
+
+    private Role createUserRoleIfNotExist(){
+        Role role = roleRepository.findByRoleName(RoleName.USER);
+        if(role == null){
+            Role newRole = new Role(RoleName.USER);
+            return roleRepository.save(newRole);
+        }else {
+            return role;
+        }
     }
 }
