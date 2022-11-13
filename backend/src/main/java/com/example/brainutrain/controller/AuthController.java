@@ -6,6 +6,7 @@ import com.example.brainutrain.dto.ResponseWithToken;
 import com.example.brainutrain.dto.UserDto;
 import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.model.User;
+import com.example.brainutrain.service.EmailService;
 import com.example.brainutrain.service.TokenService;
 import com.example.brainutrain.service.UserService;
 import lombok.AllArgsConstructor;

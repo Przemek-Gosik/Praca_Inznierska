@@ -18,6 +18,8 @@ import com.example.brainutrain.repository.UserRepository;
 import com.example.brainutrain.repository.ValidationCodeRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,6 +40,7 @@ public class UserService implements UserDetailsService{
     private final RoleRepository roleRepository;
     private final SettingRepository settingRepository;
     private final ValidationCodeRepository validationCodeRepository;
+    private final EmailService emailService;
 
     @Override
     @Transactional
@@ -68,7 +71,8 @@ public class UserService implements UserDetailsService{
         newUser.setRoles(roles);
         newUser.setIsEmailConfirmed(false);
         newUser.setSetting(settingRepository.save(createUserSettings()));
-        generateCode(userRepository.save(newUser));
+        String code=generateCode(userRepository.save(newUser));
+        emailService.sendEmailWithCode(code, newUser.getEmail(), newUser.getLogin());
         return UserMapper.INSTANCE.toDto(newUser);
     }
 
@@ -86,7 +90,7 @@ public class UserService implements UserDetailsService{
         }
     }
 
-    public void generateCode(User user){
+    public String generateCode(User user){
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=0;i<5;i++){
@@ -98,6 +102,7 @@ public class UserService implements UserDetailsService{
         validationCode.setCode(code);
         validationCode.setUser(user);
         validationCodeRepository.save(validationCode);
+        return validationCode.getCode();
     }
 
     public void validateEmailWithCode(String code){
@@ -109,6 +114,6 @@ public class UserService implements UserDetailsService{
         user.setIsEmailConfirmed(true);
         log.info("Email for user "+userName+" confirmed");
         userRepository.save(user);
-
     }
+
 }
