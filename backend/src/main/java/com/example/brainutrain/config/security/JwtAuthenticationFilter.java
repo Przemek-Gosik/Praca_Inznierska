@@ -67,8 +67,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getRequestURI().equals("/register") ||
-                request.getRequestURI().equals("/login") ||
+        return request.getRequestURI().equals("/api/auth/register")  ||
+                request.getRequestURI().equals("/api/auth/login")  ||
+                request.getRequestURI().equals("/api//emailIsTaken")  ||
+                request.getRequestURI().equals("/api/auth/loginIsTaken")  ||
                 request.getRequestURI().equals("/docs/swagger-ui/index.html");
     }
 

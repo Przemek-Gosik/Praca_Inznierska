@@ -33,7 +33,8 @@ public class SecurityConfig {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests(auth->auth
-                        .mvcMatchers("/register","/login").permitAll()
+                        .antMatchers("/api/auth/emailIsTaken","/api/auth/loginIsTaken",
+                                "/api/auth/login","/api/auth/register").permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
