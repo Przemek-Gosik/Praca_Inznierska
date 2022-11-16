@@ -3,6 +3,7 @@ package com.example.brainutrain.controller;
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.ResponseWithToken;
+import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.service.UserService;
 import lombok.AllArgsConstructor;
@@ -59,8 +60,14 @@ public class UserController {
     }
 
     @PutMapping("/changePassword")
-    public ResponseEntity<Void> changePassword(@RequestBody NewPasswordRequest newPasswordRequest){
+    public ResponseEntity<Void> changePassword(@Valid @RequestBody NewPasswordRequest newPasswordRequest){
         userService.changeUserPassword(newPasswordRequest,encoder,authenticationManager);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @PutMapping("/changeLogin")
+    public ResponseEntity<ResponseWithToken> changeLogin(@Valid @RequestBody NewLoginRequest newLoginRequest){
+        return ResponseEntity.ok(userService.changeUserLogin(newLoginRequest));
+    }
+
 }

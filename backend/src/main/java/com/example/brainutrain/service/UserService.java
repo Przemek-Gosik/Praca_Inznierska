@@ -9,6 +9,7 @@ import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
+import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
@@ -34,8 +35,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.ConstraintViolationException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -157,5 +156,25 @@ public class UserService implements UserDetailsService{
         user.setPassword(passwordEncoder.encode(newPasswordRequest.getNewPassword()));
         userRepository.save(user);
         log.info("New password set for user "+user.getIdUser());
+    }
+
+    public ResponseWithToken changeUserLogin(NewLoginRequest newLoginRequest){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = findUser(authentication.getPrincipal().toString());
+        if(!authentication.getPrincipal().toString().equals(user.getLogin())){
+            throw new AuthenticationFailedException("No permissions to change login for user");
+        }
+        if(newLoginRequest.getNewLogin().equals(newLoginRequest.getOldLogin())){
+            throw new IllegalArgumentException("New login can not be the same as old for user:"+user.getIdUser());
+        }
+        user.setLogin(newLoginRequest.getNewLogin());
+        userRepository.save(user);
+        Setting setting = settingRepository.findByUserIdUser(user.getIdUser()).orElseThrow(
+                ()-> new ResourceNotFoundException("Settings not found for user:"+user.getIdUser())
+        );
+        String token = tokenService.createUserToken(user.getLogin());
+        UserDto userDto = UserMapper.INSTANCE.toDto(user);
+        SettingDto settingDto = SettingMapper.INSTANCE.toDto(setting);
+        return new ResponseWithToken(userDto,settingDto,token);
     }
 }
