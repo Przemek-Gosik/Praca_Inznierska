@@ -9,6 +9,7 @@ import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
+import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.mapper.SettingMapper;
@@ -33,6 +34,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.ConstraintViolationException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -52,8 +55,11 @@ public class UserService implements UserDetailsService{
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("User not found for:"+username));
+        User user = findUser(username);
         return new UserDetailsImpl(user);
+    }
+    private User findUser(String username)throws UsernameNotFoundException{
+        return userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("User not found for:"+username));
     }
     public ResponseWithToken logInUser(LoginDto loginDto, AuthenticationManager authenticationManager) {
         Authentication authentication = authenticationManager
@@ -61,8 +67,7 @@ public class UserService implements UserDetailsService{
                         loginDto.getUserName(), loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String userName = loginDto.getUserName();
-        User user = userRepository.findUserByLogin(userName).orElseThrow(
-                ()-> new UsernameNotFoundException("User not found for:"+userName));
+        User user = findUser(userName);
         Setting setting = settingRepository.findByUserIdUser(user.getIdUser()).orElseThrow(
                 ()->new ResourceNotFoundException("Settings not found for user "+user.getIdUser()));
         String token = tokenService.createUserToken(userName);
@@ -129,8 +134,7 @@ public class UserService implements UserDetailsService{
     public void validateEmailWithCode(String code){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getPrincipal().toString();
-        User user = userRepository.findUserByLogin(userName)
-                .orElseThrow(()->new UsernameNotFoundException("User not found for username: "+userName));
+        User user = findUser(userName);
         validationCodeRepository.findValidationCodeByCodeAndUser(code,user).orElseThrow(
                 ()->new AuthenticationFailedException("Wrong code provided for user: "+user.getIdUser()));
         user.setIsEmailConfirmed(true);
@@ -138,5 +142,20 @@ public class UserService implements UserDetailsService{
         userRepository.save(user);
     }
 
-
+    public void changeUserPassword(NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
+            ,AuthenticationManager authenticationManager){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user = findUser(authentication.getPrincipal().toString());
+        if(!newPasswordRequest.getUserName().equals(user.getLogin())){
+            throw new AuthenticationFailedException("No permissions to change password for user:"+newPasswordRequest.getUserName());
+        }
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(newPasswordRequest.getUserName(),newPasswordRequest.getOldPassword()));
+        if(newPasswordRequest.getOldPassword().equals(newPasswordRequest.getNewPassword())){
+            throw new IllegalArgumentException("New password can not be the same as old for user:"+user.getIdUser());
+        }
+        user.setPassword(passwordEncoder.encode(newPasswordRequest.getNewPassword()));
+        userRepository.save(user);
+        log.info("New password set for user "+user.getIdUser());
+    }
 }

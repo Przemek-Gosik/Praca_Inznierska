@@ -62,6 +62,17 @@ public class ControllerExceptionHandler {
                 webRequest.getDescription(false)
         );
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleIllegalArgumentException(IllegalArgumentException illegalArgumentException,WebRequest webRequest){
+        log.warn(illegalArgumentException.getMessage());
+        return new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now(),
+                illegalArgumentException.getMessage(),
+                webRequest.getDescription(false)
+        );
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

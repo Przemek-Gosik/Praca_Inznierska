@@ -3,6 +3,7 @@ package com.example.brainutrain.controller;
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.ResponseWithToken;
+import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -55,5 +56,11 @@ public class UserController {
     public ResponseEntity<Void> confirmEmail(String code){
             userService.validateEmailWithCode(code);
             return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<Void> changePassword(@RequestBody NewPasswordRequest newPasswordRequest){
+        userService.changeUserPassword(newPasswordRequest,encoder,authenticationManager);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
