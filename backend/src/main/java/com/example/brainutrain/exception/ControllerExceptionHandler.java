@@ -1,7 +1,10 @@
 package com.example.brainutrain.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
@@ -37,6 +40,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage handleGlobalException(Exception exception, WebRequest webRequest){
+        log.error(exception.getClass().getName());
         log.error(exception.getMessage());
         return new ErrorMessage(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -62,14 +66,17 @@ public class ControllerExceptionHandler {
                 webRequest.getDescription(false)
         );
     }
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({IllegalArgumentException.class,
+                HttpMessageNotReadableException.class,
+                DataIntegrityViolationException.class,
+                InvalidDataAccessApiUsageException.class} )
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleIllegalArgumentException(IllegalArgumentException illegalArgumentException,WebRequest webRequest){
-        log.warn(illegalArgumentException.getMessage());
+    public ErrorMessage handleIllegalArgumentException(Exception exception, WebRequest webRequest){
+        log.warn(exception.getMessage());
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now(),
-                illegalArgumentException.getMessage(),
+                exception.getMessage(),
                 webRequest.getDescription(false)
         );
     }

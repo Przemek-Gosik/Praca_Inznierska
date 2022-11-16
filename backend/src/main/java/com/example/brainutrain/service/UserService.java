@@ -68,7 +68,7 @@ public class UserService implements UserDetailsService{
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String userName = loginDto.getUserName();
         User user = findUser(userName);
-        Setting setting = settingRepository.findByUserIdUser(user.getIdUser()).orElseThrow(
+        Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
                 ()->new ResourceNotFoundException("Settings not found for user "+user.getIdUser()));
         String token = tokenService.createUserToken(userName);
         UserDto userDto = UserMapper.INSTANCE.toDto(user);
@@ -166,7 +166,7 @@ public class UserService implements UserDetailsService{
         }
         user.setLogin(newLoginRequest.getNewLogin());
         userRepository.save(user);
-        Setting setting = settingRepository.findByUserIdUser(user.getIdUser()).orElseThrow(
+        Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
                 ()-> new ResourceNotFoundException("Settings not found for user:"+user.getIdUser())
         );
         String token = tokenService.createUserToken(user.getLogin());
@@ -192,6 +192,16 @@ public class UserService implements UserDetailsService{
         return UserMapper.INSTANCE.toDto(user);
     }
 
+    public SettingDto changeUserSetting(Long id,SettingDto settingDto){
+        checkPermission(id);
+        Setting setting = settingRepository.findSettingByIdSetting(settingDto.getIdSetting()).orElseThrow(
+                ()->new ResourceNotFoundException("Setting not found for Id: "+settingDto.getIdSetting()));
+        setting.setFontSize(settingDto.getFontSize());
+        setting.setTheme(settingDto.getTheme());
+        settingRepository.save(setting);
+        return SettingMapper.INSTANCE.toDto(setting);
+    }
+
     private User checkPermission(Long id){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findUserByIdUser(id).orElseThrow(
@@ -202,6 +212,7 @@ public class UserService implements UserDetailsService{
         }
         throw new AuthenticationFailedException("No permissions to change details for user: "+user.getIdUser());
     }
+
 
 
 }

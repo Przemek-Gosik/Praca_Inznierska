@@ -3,6 +3,7 @@ package com.example.brainutrain.controller;
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.ResponseWithToken;
+import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
 import com.example.brainutrain.dto.request.NewEmailRequest;
 import com.example.brainutrain.dto.request.NewLoginRequest;
@@ -76,6 +77,11 @@ public class UserController {
     @PutMapping("/changeEmail/{id}")
     public ResponseEntity <UserDto> changeEmail(@PathVariable Long id, @Valid @RequestBody NewEmailRequest newEmailRequest){
         return ResponseEntity.ok(userService.changeUserEmail(id, newEmailRequest));
+    }
+
+    @PutMapping("/changeSetting/{id}")
+    public ResponseEntity<SettingDto> changeSetting(@PathVariable Long id,@Valid @RequestBody SettingDto settingDto){
+        return ResponseEntity.ok(userService.changeUserSetting(id,settingDto));
     }
 
 }
