@@ -15,11 +15,9 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(source = "setting",target = "setting")
     @Mapping(source = "roles",target = "roles")
     UserDto toDto(User user);
 
-    @Mapping(target = "setting",ignore = true)
     @Mapping(target = "roles",ignore = true)
     List<UserDto> toDto(Collection<User> users);
 

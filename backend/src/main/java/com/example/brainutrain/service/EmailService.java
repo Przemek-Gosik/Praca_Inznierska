@@ -19,6 +19,7 @@ public class EmailService {
 
     private final JavaMailSender javaMailSender;
 
+    @Async
     public void sendEmailWithCode(String code,String emailAddress,String userName){
         String message = "<body style='font-family:sans-serif;font-size:12px;'>"
                 +"<h3>Czesc "+userName+",</h3<br>"
@@ -30,7 +31,7 @@ public class EmailService {
         sendMessage(emailAddress,subject,message);
     }
 
-    @Async
+
     public void sendMessage(String to,String subject,String text){
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {

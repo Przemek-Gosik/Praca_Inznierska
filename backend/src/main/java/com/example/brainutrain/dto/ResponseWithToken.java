@@ -13,5 +13,6 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class ResponseWithToken {
     private UserDto userDto;
+    private SettingDto settingDto;
     private String token;
 }

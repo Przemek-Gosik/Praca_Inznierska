@@ -29,7 +29,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name="users",uniqueConstraints = {@UniqueConstraint(columnNames = "email" )})
+@Table(name="users",uniqueConstraints = {@UniqueConstraint(columnNames = "email" ),
+        @UniqueConstraint(columnNames = "login")})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,9 +53,4 @@ public class User {
     joinColumns = @JoinColumn(name="User_idUser"),
             inverseJoinColumns = @JoinColumn(name="Role_idRole"))
     private Set<Role> roles = new HashSet<>();
-
-    @NotNull
-    @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Setting setting;
 }

@@ -25,6 +25,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException
                                                         , WebRequest webRequest){
+        log.warn(resourceNotFoundException.getMessage());
         return new ErrorMessage(
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now(),
@@ -53,6 +54,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     public ErrorMessage handleAuthenticationFailedException(Exception exception,
                                                             WebRequest webRequest){
+        log.warn(exception.getMessage());
         return new ErrorMessage(
                 HttpStatus.FORBIDDEN.value(),
                 LocalDateTime.now(),
