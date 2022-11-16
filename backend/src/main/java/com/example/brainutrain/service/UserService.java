@@ -1,6 +1,7 @@
 package com.example.brainutrain.service;
 
 import com.example.brainutrain.config.security.UserDetailsImpl;
+import com.example.brainutrain.config.utils.PermissionChecker;
 import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.RoleName;
 import com.example.brainutrain.constants.Theme;
@@ -51,6 +52,7 @@ public class UserService implements UserDetailsService{
     private final ValidationCodeRepository validationCodeRepository;
     private final TokenService tokenService;
     private final EmailService emailService;
+    private final PermissionChecker permissionChecker;
 
     @Override
     @Transactional
@@ -138,7 +140,7 @@ public class UserService implements UserDetailsService{
     }
 
     public void validateEmailWithCode(Long userId,String code){
-        User user=checkPermission(userId);
+        User user=permissionChecker.checkPermission(userId);
         validationCodeRepository.findValidationCodeByCodeAndUser(code,user).orElseThrow(
                 ()->new AuthenticationFailedException("Wrong code provided for user: "+user.getIdUser()));
         user.setIsEmailConfirmed(true);
@@ -148,7 +150,7 @@ public class UserService implements UserDetailsService{
 
     public void changeUserPassword(Long userId,NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
             ,AuthenticationManager authenticationManager){
-        User user = checkPermission(userId);
+        User user = permissionChecker.checkPermission(userId);
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getLogin(),newPasswordRequest.getOldPassword()));
         if(newPasswordRequest.getOldPassword().equals(newPasswordRequest.getNewPassword())){
@@ -160,7 +162,7 @@ public class UserService implements UserDetailsService{
     }
 
     public ResponseWithToken changeUserLogin(Long userId,NewLoginRequest newLoginRequest){
-        User user = checkPermission(userId);
+        User user = permissionChecker.checkPermission(userId);
         if(newLoginRequest.getNewLogin().equals(newLoginRequest.getOldLogin())){
             throw new IllegalArgumentException("New login can not be the same as old for user:"+user.getIdUser());
         }
@@ -176,7 +178,7 @@ public class UserService implements UserDetailsService{
     }
 
     public UserDto changeUserEmail(Long userId,NewEmailRequest newEmailRequest){
-        User user = checkPermission(userId);
+        User user = permissionChecker.checkPermission(userId);
         if(newEmailRequest.getNewEmail().equals(newEmailRequest.getOldEmail())){
             throw new IllegalArgumentException("New email address can not be the same as old for user: "+user.getIdUser());
         }
@@ -193,7 +195,7 @@ public class UserService implements UserDetailsService{
     }
 
     public SettingDto changeUserSetting(Long id,SettingDto settingDto){
-        checkPermission(id);
+        permissionChecker.checkPermission(id);
         Setting setting = settingRepository.findSettingByIdSetting(settingDto.getIdSetting()).orElseThrow(
                 ()->new ResourceNotFoundException("Setting not found for Id: "+settingDto.getIdSetting()));
         setting.setFontSize(settingDto.getFontSize());
@@ -202,16 +204,7 @@ public class UserService implements UserDetailsService{
         return SettingMapper.INSTANCE.toDto(setting);
     }
 
-    private User checkPermission(Long id){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findUserByIdUser(id).orElseThrow(
-                ()->new ResourceNotFoundException("User not found for id: "+id)
-        );
-        if(user.getLogin().equals(authentication.getPrincipal().toString())){
-            return user;
-        }
-        throw new AuthenticationFailedException("No permissions to change details for user: "+user.getIdUser());
-    }
+
 
 
 
