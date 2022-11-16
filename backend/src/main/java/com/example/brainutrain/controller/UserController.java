@@ -25,7 +25,7 @@ import javax.validation.Valid;
         path = "/api/auth",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
-public class AuthController {
+public class UserController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
