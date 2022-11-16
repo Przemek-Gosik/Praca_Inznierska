@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -12,13 +13,14 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class NewPasswordRequest {
+public class NewEmailRequest {
 
     @NotBlank
-    @Size(min=5,max=45)
-    private String oldPassword;
+    @Email
+    @Size(max=45)
+    private String newEmail;
 
     @NotBlank
-    @Size(min=5,max=45)
-    private String newPassword;
+    @Email
+    private String oldEmail;
 }

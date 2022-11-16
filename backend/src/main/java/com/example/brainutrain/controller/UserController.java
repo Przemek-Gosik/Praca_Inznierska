@@ -3,6 +3,8 @@ package com.example.brainutrain.controller;
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.ResponseWithToken;
+import com.example.brainutrain.dto.UserDto;
+import com.example.brainutrain.dto.request.NewEmailRequest;
 import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.service.UserService;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,21 +56,26 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfLoginIsAlreadyTaken(login));
     }
 
-    @PutMapping("/confirmEmail")
-    public ResponseEntity<Void> confirmEmail(String code){
-            userService.validateEmailWithCode(code);
+    @PutMapping("/confirmEmail/{id}")
+    public ResponseEntity<Void> confirmEmail(@PathVariable Long id,@RequestBody String code){
+            userService.validateEmailWithCode(id,code);
             return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/changePassword")
-    public ResponseEntity<Void> changePassword(@Valid @RequestBody NewPasswordRequest newPasswordRequest){
-        userService.changeUserPassword(newPasswordRequest,encoder,authenticationManager);
+    @PutMapping("/changePassword/{id}")
+    public ResponseEntity<Void> changePassword(@PathVariable Long id,@Valid @RequestBody NewPasswordRequest newPasswordRequest){
+        userService.changeUserPassword(id,newPasswordRequest,encoder,authenticationManager);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/changeLogin")
-    public ResponseEntity<ResponseWithToken> changeLogin(@Valid @RequestBody NewLoginRequest newLoginRequest){
-        return ResponseEntity.ok(userService.changeUserLogin(newLoginRequest));
+    @PutMapping("/changeLogin/{id}")
+    public ResponseEntity<ResponseWithToken> changeLogin(@PathVariable Long id,@Valid @RequestBody NewLoginRequest newLoginRequest){
+        return ResponseEntity.ok(userService.changeUserLogin(id,newLoginRequest));
+    }
+
+    @PutMapping("/changeEmail/{id}")
+    public ResponseEntity <UserDto> changeEmail(@PathVariable Long id, @Valid @RequestBody NewEmailRequest newEmailRequest){
+        return ResponseEntity.ok(userService.changeUserEmail(id, newEmailRequest));
     }
 
 }

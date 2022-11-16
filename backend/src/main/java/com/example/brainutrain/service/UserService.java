@@ -9,6 +9,7 @@ import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
+import com.example.brainutrain.dto.request.NewEmailRequest;
 import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.exception.AuthenticationFailedException;
@@ -84,6 +85,12 @@ public class UserService implements UserDetailsService{
     }
 
     public ResponseWithToken createUser(RegisterDto registerDto,PasswordEncoder passwordEncoder){
+        if(checkIfLoginIsAlreadyTaken(registerDto.getLogin())){
+            throw new IllegalArgumentException("Login already taken for: "+registerDto.getLogin());
+        }
+        if(checkIfEmailIsAlreadyTaken(registerDto.getEmail())){
+            throw new IllegalArgumentException("Email already taken for: "+registerDto.getEmail());
+        }
         registerDto.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         User newUser=UserMapper.INSTANCE.fromDto(registerDto);
         Role userRole = createUserRoleIfNotExist();
@@ -91,8 +98,13 @@ public class UserService implements UserDetailsService{
         roles.add(userRole);
         newUser.setRoles(roles);
         newUser.setIsEmailConfirmed(false);
-        String code=generateCode(userRepository.save(newUser));
+        userRepository.save(newUser);
         log.info("created user"+newUser.getLogin());
+        String code=generateCode();
+        ValidationCode validationCode = new ValidationCode();
+        validationCode.setCode(code);
+        validationCode.setUser(newUser);
+        validationCodeRepository.save(validationCode);
         emailService.sendEmailWithCode(code, newUser.getEmail(), newUser.getLogin());
         String token = tokenService.createUserToken(newUser.getLogin());
         Setting newSetting = createUserSettings(newUser);
@@ -115,41 +127,30 @@ public class UserService implements UserDetailsService{
         }
     }
 
-    public String generateCode(User user){
+    private String generateCode(){
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=0;i<5;i++){
             int randNumber=random.nextInt(10);
             stringBuilder.append(randNumber);
         }
-        String code = stringBuilder.toString();
-        ValidationCode validationCode = new ValidationCode();
-        validationCode.setCode(code);
-        validationCode.setUser(user);
-        validationCodeRepository.save(validationCode);
-        return validationCode.getCode();
+        return stringBuilder.toString();
     }
 
-    public void validateEmailWithCode(String code){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getPrincipal().toString();
-        User user = findUser(userName);
+    public void validateEmailWithCode(Long userId,String code){
+        User user=checkPermission(userId);
         validationCodeRepository.findValidationCodeByCodeAndUser(code,user).orElseThrow(
                 ()->new AuthenticationFailedException("Wrong code provided for user: "+user.getIdUser()));
         user.setIsEmailConfirmed(true);
-        log.info("Email for user "+userName+" confirmed");
+        log.info("Email for user "+user.getIdUser()+" confirmed");
         userRepository.save(user);
     }
 
-    public void changeUserPassword(NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
+    public void changeUserPassword(Long userId,NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
             ,AuthenticationManager authenticationManager){
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        User user = findUser(authentication.getPrincipal().toString());
-        if(!newPasswordRequest.getUserName().equals(user.getLogin())){
-            throw new AuthenticationFailedException("No permissions to change password for user:"+newPasswordRequest.getUserName());
-        }
+        User user = checkPermission(userId);
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(newPasswordRequest.getUserName(),newPasswordRequest.getOldPassword()));
+                new UsernamePasswordAuthenticationToken(user.getLogin(),newPasswordRequest.getOldPassword()));
         if(newPasswordRequest.getOldPassword().equals(newPasswordRequest.getNewPassword())){
             throw new IllegalArgumentException("New password can not be the same as old for user:"+user.getIdUser());
         }
@@ -158,12 +159,8 @@ public class UserService implements UserDetailsService{
         log.info("New password set for user "+user.getIdUser());
     }
 
-    public ResponseWithToken changeUserLogin(NewLoginRequest newLoginRequest){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = findUser(authentication.getPrincipal().toString());
-        if(!authentication.getPrincipal().toString().equals(user.getLogin())){
-            throw new AuthenticationFailedException("No permissions to change login for user");
-        }
+    public ResponseWithToken changeUserLogin(Long userId,NewLoginRequest newLoginRequest){
+        User user = checkPermission(userId);
         if(newLoginRequest.getNewLogin().equals(newLoginRequest.getOldLogin())){
             throw new IllegalArgumentException("New login can not be the same as old for user:"+user.getIdUser());
         }
@@ -177,4 +174,34 @@ public class UserService implements UserDetailsService{
         SettingDto settingDto = SettingMapper.INSTANCE.toDto(setting);
         return new ResponseWithToken(userDto,settingDto,token);
     }
+
+    public UserDto changeUserEmail(Long userId,NewEmailRequest newEmailRequest){
+        User user = checkPermission(userId);
+        if(newEmailRequest.getNewEmail().equals(newEmailRequest.getOldEmail())){
+            throw new IllegalArgumentException("New email address can not be the same as old for user: "+user.getIdUser());
+        }
+        user.setEmail(newEmailRequest.getNewEmail());
+        user.setIsEmailConfirmed(false);
+        ValidationCode validationCode = validationCodeRepository.findValidationCodeByUserIdUser(user.getIdUser()).orElseThrow(
+                ()->new ResourceNotFoundException("Validation code not found for user id:"+user.getIdUser())
+        );
+        userRepository.save(user);
+        validationCode.setCode(generateCode());
+        validationCodeRepository.save(validationCode);
+        emailService.sendEmailWithCode(validationCode.getCode(), user.getEmail(), user.getLogin());
+        return UserMapper.INSTANCE.toDto(user);
+    }
+
+    private User checkPermission(Long id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findUserByIdUser(id).orElseThrow(
+                ()->new ResourceNotFoundException("User not found for id: "+id)
+        );
+        if(user.getLogin().equals(authentication.getPrincipal().toString())){
+            return user;
+        }
+        throw new AuthenticationFailedException("No permissions to change details for user: "+user.getIdUser());
+    }
+
+
 }
