@@ -18,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,29 +60,29 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfLoginIsAlreadyTaken(login));
     }
 
-    @PutMapping("/confirmEmail/{id}")
+    @PatchMapping("/confirmEmail/{id}")
     public ResponseEntity<Void> confirmEmail(@PathVariable Long id,@Valid @RequestBody CodeRequest codeRequest){
             userService.validateEmailWithCode(id,codeRequest.getCode());
             return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/changePassword/{id}")
+    @PatchMapping("/changePassword/{id}")
     public ResponseEntity<Void> changePassword(@PathVariable Long id,@Valid @RequestBody NewPasswordRequest newPasswordRequest){
         userService.changeUserPassword(id,newPasswordRequest,encoder,authenticationManager);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/changeLogin/{id}")
+    @PatchMapping("/changeLogin/{id}")
     public ResponseEntity<ResponseWithToken> changeLogin(@PathVariable Long id,@Valid @RequestBody NewLoginRequest newLoginRequest){
         return ResponseEntity.ok(userService.changeUserLogin(id,newLoginRequest));
     }
 
-    @PutMapping("/changeEmail/{id}")
+    @PatchMapping("/changeEmail/{id}")
     public ResponseEntity <UserDto> changeEmail(@PathVariable Long id, @Valid @RequestBody NewEmailRequest newEmailRequest){
         return ResponseEntity.ok(userService.changeUserEmail(id, newEmailRequest));
     }
 
-    @PutMapping("/changeSetting/{id}")
+    @PatchMapping("/changeSetting/{id}")
     public ResponseEntity<SettingDto> changeSetting(@PathVariable Long id,@Valid @RequestBody SettingDto settingDto){
         return ResponseEntity.ok(userService.changeUserSetting(id,settingDto));
     }
