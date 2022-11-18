@@ -1,5 +1,7 @@
 package com.example.brainutrain.model;
 
+import com.example.brainutrain.constants.FontSize;
+import com.example.brainutrain.constants.Purpose;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,7 +10,11 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,8 +39,21 @@ public class ValidationCode {
     @NotBlank
     private String code;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Purpose purpose;
+
     @NotNull
-    @OneToOne
+    private boolean wasUsed;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    public ValidationCode (Purpose purpose,User user){
+        this.purpose = purpose;
+        this.user = user;
+        this.wasUsed = false;
+    }
 }

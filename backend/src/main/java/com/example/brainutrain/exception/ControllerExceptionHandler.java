@@ -6,7 +6,11 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -52,12 +56,29 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler({AuthenticationFailedException.class,
             AuthenticationException.class,
-            AccessDeniedException.class,
             BadCredentialsException.class
     })
-    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public ErrorMessage handleAuthenticationFailedException(Exception exception,
                                                             WebRequest webRequest){
+        log.warn(exception.getMessage());
+        return new ErrorMessage(
+                HttpStatus.UNAUTHORIZED.value(),
+                LocalDateTime.now(),
+                exception.getMessage(),
+                webRequest.getDescription(false)
+        );
+    }
+
+    @ExceptionHandler({AccessDeniedException.class,
+            DisabledException.class,
+            CredentialsExpiredException.class,
+            LockedException.class,
+            AccountExpiredException.class
+    })
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    public ErrorMessage handleForbiddenAuthenticationException(Exception exception,
+                                                               WebRequest webRequest){
         log.warn(exception.getMessage());
         return new ErrorMessage(
                 HttpStatus.FORBIDDEN.value(),
@@ -84,6 +105,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public MethodArgumentNotValidErrorMessage handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException){
+        log.warn(methodArgumentNotValidException.getMessage());
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         return processFieldErrors(fieldErrors);
@@ -92,6 +114,7 @@ public class ControllerExceptionHandler {
     private MethodArgumentNotValidErrorMessage processFieldErrors(List<FieldError> fieldErrors){
         MethodArgumentNotValidErrorMessage errorMessage = new MethodArgumentNotValidErrorMessage();
         errorMessage.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        errorMessage.setMessage("Not valid arguments passed");
         errorMessage.setTimestamp(LocalDateTime.now());
         for(FieldError fieldError: fieldErrors){
             errorMessage.addFieldError(fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());

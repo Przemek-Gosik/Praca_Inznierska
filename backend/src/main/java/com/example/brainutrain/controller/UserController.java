@@ -2,7 +2,8 @@ package com.example.brainutrain.controller;
 
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
-import com.example.brainutrain.dto.ResponseWithToken;
+import com.example.brainutrain.dto.request.CodeRequest;
+import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
 import com.example.brainutrain.dto.request.NewEmailRequest;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,19 +49,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.logInUser(loginDto,authenticationManager));
     }
 
-    @GetMapping("/emailIsTaken")
-    public ResponseEntity<Boolean> checkIfEmailIsTaken(String email){
+    @GetMapping("/emailIsTaken/{email}")
+    public ResponseEntity<Boolean> checkIfEmailIsTaken(@PathVariable String email){
         return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfEmailIsAlreadyTaken(email));
     }
 
-    @GetMapping("/loginIsTaken")
-    public ResponseEntity<Boolean> checkIfLoginIsTaken(String login){
+    @GetMapping("/loginIsTaken/{login}")
+    public ResponseEntity<Boolean> checkIfLoginIsTaken(@PathVariable String login){
         return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfLoginIsAlreadyTaken(login));
     }
 
     @PutMapping("/confirmEmail/{id}")
-    public ResponseEntity<Void> confirmEmail(@PathVariable Long id,@RequestBody String code){
-            userService.validateEmailWithCode(id,code);
+    public ResponseEntity<Void> confirmEmail(@PathVariable Long id,@Valid @RequestBody CodeRequest codeRequest){
+            userService.validateEmailWithCode(id,codeRequest.getCode());
             return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -83,5 +85,14 @@ public class UserController {
     public ResponseEntity<SettingDto> changeSetting(@PathVariable Long id,@Valid @RequestBody SettingDto settingDto){
         return ResponseEntity.ok(userService.changeUserSetting(id,settingDto));
     }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteUserAccount(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+
+
 
 }

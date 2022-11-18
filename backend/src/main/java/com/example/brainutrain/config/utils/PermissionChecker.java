@@ -1,10 +1,10 @@
 package com.example.brainutrain.config.utils;
 
-import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.model.User;
 import com.example.brainutrain.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class PermissionChecker {
         if(user.getLogin().equals(authentication.getPrincipal().toString())){
             return user;
         }
-        throw new AuthenticationFailedException("No permissions to change details for user: "+user.getIdUser());
+        throw new AccessDeniedException("No permissions to change details for user: "+user.getIdUser());
     }
 
 }

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,10 +19,10 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode
 public class SettingDto {
 
-    @NotBlank
+    @NotNull
     private Long idSetting;
-    @NotBlank
+    @NotNull
     private FontSize fontSize;
-    @NotBlank
+    @NotNull
     private Theme theme;
 }

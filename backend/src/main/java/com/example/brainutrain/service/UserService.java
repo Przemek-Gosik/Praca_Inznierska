@@ -3,11 +3,12 @@ package com.example.brainutrain.service;
 import com.example.brainutrain.config.security.UserDetailsImpl;
 import com.example.brainutrain.config.utils.PermissionChecker;
 import com.example.brainutrain.constants.FontSize;
+import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
 import com.example.brainutrain.constants.Theme;
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
-import com.example.brainutrain.dto.ResponseWithToken;
+import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
 import com.example.brainutrain.dto.request.NewEmailRequest;
@@ -95,19 +96,18 @@ public class UserService implements UserDetailsService{
         }
         registerDto.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         User newUser=UserMapper.INSTANCE.fromDto(registerDto);
-        Role userRole = createUserRoleIfNotExist();
+        Role userRole = getUserRoleOrCreateIfNotExist();
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
         newUser.setRoles(roles);
         newUser.setIsEmailConfirmed(false);
+        newUser.setIsActive(true);
         userRepository.save(newUser);
         log.info("created user"+newUser.getLogin());
-        String code=generateCode();
-        ValidationCode validationCode = new ValidationCode();
-        validationCode.setCode(code);
-        validationCode.setUser(newUser);
+        ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,newUser);
+        validationCode.setCode(generateCode());
         validationCodeRepository.save(validationCode);
-        emailService.sendEmailWithCode(code, newUser.getEmail(), newUser.getLogin());
+        emailService.sendEmailWithCode(validationCode.getCode(), newUser.getEmail(), newUser.getLogin());
         String token = tokenService.createUserToken(newUser.getLogin());
         Setting newSetting = createUserSettings(newUser);
         SettingDto settingDto= SettingMapper.INSTANCE.toDto(newSetting);
@@ -119,7 +119,7 @@ public class UserService implements UserDetailsService{
         return settingRepository.save(new Setting(FontSize.MEDIUM, Theme.DAY,user));
     }
 
-    private Role createUserRoleIfNotExist(){
+    private Role getUserRoleOrCreateIfNotExist(){
         Role role = roleRepository.findByRoleName(RoleName.USER);
         if(role == null){
             Role newRole = new Role(RoleName.USER);
@@ -141,11 +141,19 @@ public class UserService implements UserDetailsService{
 
     public void validateEmailWithCode(Long userId,String code){
         User user=permissionChecker.checkPermission(userId);
-        validationCodeRepository.findValidationCodeByCodeAndUser(code,user).orElseThrow(
-                ()->new AuthenticationFailedException("Wrong code provided for user: "+user.getIdUser()));
-        user.setIsEmailConfirmed(true);
-        log.info("Email for user "+user.getIdUser()+" confirmed");
-        userRepository.save(user);
+        ValidationCode validationCode =validationCodeRepository.
+                findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user,Purpose.EMAIL_VERIFICATION).
+                orElseThrow(()->new ResourceNotFoundException("No code for user by id: "+userId)
+        );
+        if(validationCode.getCode().equals(code)) {
+            user.setIsEmailConfirmed(true);
+            log.info("Email for user " + user.getIdUser() + " confirmed");
+            userRepository.save(user);
+            validationCode.setWasUsed(true);
+            validationCodeRepository.save(validationCode);
+        }else {
+            throw new AuthenticationFailedException("Podano zły kod dla użytkownika o loginie: "+user.getLogin());
+        }
     }
 
     public void changeUserPassword(Long userId,NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
@@ -184,10 +192,8 @@ public class UserService implements UserDetailsService{
         }
         user.setEmail(newEmailRequest.getNewEmail());
         user.setIsEmailConfirmed(false);
-        ValidationCode validationCode = validationCodeRepository.findValidationCodeByUserIdUser(user.getIdUser()).orElseThrow(
-                ()->new ResourceNotFoundException("Validation code not found for user id:"+user.getIdUser())
-        );
         userRepository.save(user);
+        ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,user);
         validationCode.setCode(generateCode());
         validationCodeRepository.save(validationCode);
         emailService.sendEmailWithCode(validationCode.getCode(), user.getEmail(), user.getLogin());
@@ -204,8 +210,11 @@ public class UserService implements UserDetailsService{
         return SettingMapper.INSTANCE.toDto(setting);
     }
 
-
-
-
+    public void deleteUserAccount(Long id){
+        User user=permissionChecker.checkPermission(id);
+        user.setIsActive(false);
+        userRepository.save(user);
+        log.info("User by id "+id+" deactivated");
+    }
 
 }

@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     private final UserService userService;
@@ -39,19 +38,26 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             SecurityContextHolder.getContext().setAuthentication(passwordAuthenticationToken);
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }catch(Exception exception){
-            logger.warn(exception.getMessage());
-            int statusCode = HttpStatus.FORBIDDEN.value();
+            int statusCode;
+            if( exception instanceof IOException){
+                logger.info(exception.getClass());
+                statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+            }else {
+                logger.info(exception.getClass());
+                statusCode = HttpStatus.UNAUTHORIZED.value();
+            }
             httpServletResponse.setContentType("application/json");
             httpServletResponse.setCharacterEncoding("UTF-8");
             httpServletResponse.setStatus(statusCode);
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.findAndRegisterModules();
             httpServletResponse.getWriter().print(objectMapper.writeValueAsString(
                     new ErrorMessage(
                     statusCode, LocalDateTime.now(),
                     exception.getMessage(),httpServletRequest.getPathInfo())));
-
         }
     }
+
 
     private UsernamePasswordAuthenticationToken authenticateUser(HttpServletRequest request) throws AuthenticationException, TokenExpiredException {
         String token = request.getHeader(HEADER);
@@ -59,18 +65,25 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             String login = tokenService.getLoginFromToken(token);
             if(login!=null){
                 UserDetailsImpl userDetails =(UserDetailsImpl) userService.loadUserByUsername(login);
-                return new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(),null,userDetails.getAuthorities());
+                if(!userDetails.isEnabled()){
+                    usernamePasswordAuthenticationToken.setAuthenticated(false);
+                }
+                return  usernamePasswordAuthenticationToken;
             }
         }
             throw new AuthenticationFailedException("No token provided or token is without right prefix");
     }
 
+
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return request.getRequestURI().equals("/api/auth/register")  ||
                 request.getRequestURI().equals("/api/auth/login")  ||
-                request.getRequestURI().equals("/api//emailIsTaken")  ||
-                request.getRequestURI().equals("/api/auth/loginIsTaken")  ||
+                request.getRequestURI().contains("/api/auth/emailIsTaken/")  ||
+                request.getRequestURI().contains("/api/auth/loginIsTaken/")  ||
                 request.getRequestURI().equals("/docs/swagger-ui/index.html");
     }
 

@@ -1,5 +1,7 @@
-package com.example.brainutrain.dto;
+package com.example.brainutrain.dto.response;
 
+import com.example.brainutrain.dto.SettingDto;
+import com.example.brainutrain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
