@@ -8,6 +8,9 @@ import com.example.brainutrain.constants.RoleName;
 import com.example.brainutrain.constants.Theme;
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
+import com.example.brainutrain.dto.request.CodeRequest;
+import com.example.brainutrain.dto.request.EmailRequest;
+import com.example.brainutrain.dto.response.ResponseWithPassword;
 import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
@@ -208,6 +211,48 @@ public class UserService implements UserDetailsService{
         setting.setTheme(settingDto.getTheme());
         settingRepository.save(setting);
         return SettingMapper.INSTANCE.toDto(setting);
+    }
+    public void sendEmailForPasswordRecovery(EmailRequest emailRequest){
+        User user = userRepository.findUsersByEmail(emailRequest.getEmail()).orElseThrow(
+                ()->new ResourceNotFoundException("Nie znaleziono konta dla podanego maila: "+ emailRequest.getEmail())
+        );
+        ValidationCode validationCode = new ValidationCode(Purpose.PASSWORD_REMINDER,user);
+        validationCode.setCode(generateCode());
+        emailService.sendEmailWithCode(validationCode.getCode(),emailRequest.getEmail(),user.getLogin());
+        validationCodeRepository.save(validationCode);
+    }
+
+    public ResponseWithPassword createNewPassword(String email, CodeRequest codeRequest, PasswordEncoder passwordEncoder){
+        User user = userRepository.findUsersByEmail(email).orElseThrow(
+                ()->new ResourceNotFoundException("User not found for email: "+email)
+        );
+        ValidationCode validationCode = validationCodeRepository.findValidationCodeByUserAndPurposeAndWasUsedIsFalse(
+                user,Purpose.PASSWORD_REMINDER).orElseThrow(
+                ()->new ResourceNotFoundException("Nie znaleziono kodu dla uzytkownika o emailu: "+user.getEmail())
+        );
+        if(codeRequest.getCode().equals(validationCode.getCode())){
+            String newPassword = generatePassword();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            validationCode.setWasUsed(true);
+            log.info("New password set for user by Id: "+user.getIdUser());
+            return new ResponseWithPassword(newPassword);
+        }else{
+            throw new AuthenticationFailedException("Podano zły kod dla użytkownika o emailu: "+user.getEmail());
+        }
+    }
+
+    private String generatePassword(){
+        final int LENGTH_LIMIT=8;
+        final int MIN_CHAR = 48;
+        final int MAX_CHAR = 122;
+        Random random = new Random();
+        return random.ints(MIN_CHAR,MAX_CHAR+1)
+                .filter(c->(c<=57 || c>=63) && (c<=90 || c>=97))
+                .limit(LENGTH_LIMIT)
+                .collect(StringBuilder::new,StringBuilder::appendCodePoint,
+                        StringBuilder::append)
+                .toString();
     }
 
     public void deleteUserAccount(Long id){

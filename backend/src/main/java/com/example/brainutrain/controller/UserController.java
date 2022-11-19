@@ -3,6 +3,8 @@ package com.example.brainutrain.controller;
 import com.example.brainutrain.dto.LoginDto;
 import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.request.CodeRequest;
+import com.example.brainutrain.dto.request.EmailRequest;
+import com.example.brainutrain.dto.response.ResponseWithPassword;
 import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -87,13 +88,21 @@ public class UserController {
         return ResponseEntity.ok(userService.changeUserSetting(id,settingDto));
     }
 
+    @PostMapping("/passwordRecovery/email")
+    public ResponseEntity<Void> recoverPassword(@RequestBody EmailRequest emailRequest){
+        userService.sendEmailForPasswordRecovery(emailRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PatchMapping("/passwordRecovery/code/{email}")
+    public ResponseEntity<ResponseWithPassword> getNewPassword(@PathVariable String email,@Valid @RequestBody CodeRequest codeRequest){
+        return ResponseEntity.ok(userService.createNewPassword(email,codeRequest,encoder));
+    }
+
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.deleteUserAccount(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-
-
 
 }
