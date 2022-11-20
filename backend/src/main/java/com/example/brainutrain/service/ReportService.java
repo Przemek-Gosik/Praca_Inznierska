@@ -1,6 +1,6 @@
 package com.example.brainutrain.service;
 
-import com.example.brainutrain.config.utils.PermissionChecker;
+import com.example.brainutrain.config.utils.AuthenticationUtils;
 import com.example.brainutrain.dto.ReportDto;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.mapper.ReportMapper;
@@ -20,12 +20,12 @@ import java.util.List;
 public class ReportService {
 
     private final ReportRepository reportRepository;
-    private final PermissionChecker permissionChecker;
+    private final AuthenticationUtils authenticationUtils;
     private final UserRepository userRepository;
 
 
     public void createReport(ReportDto reportDto){
-        User user = permissionChecker.checkPermission(reportDto.getIdUser());
+        User user = authenticationUtils.getUserFromAuthentication();
         Report report = ReportMapper.INSTANCE.fromDto(reportDto);
         if(report.getEmail().equals("")){
             report.setEmail(user.getEmail());

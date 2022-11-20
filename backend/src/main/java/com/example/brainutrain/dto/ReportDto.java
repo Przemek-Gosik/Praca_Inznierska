@@ -30,9 +30,4 @@ public class ReportDto {
     @Size(max=45,message = "Email should have max 45 letters")
     @Email(message = "Should be email type given")
     private String email;
-
-    @NotNull
-    private Long idUser;
-
-    private String username;
 }

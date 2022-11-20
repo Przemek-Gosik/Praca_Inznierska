@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 
 @AllArgsConstructor
@@ -61,31 +60,31 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfLoginIsAlreadyTaken(login));
     }
 
-    @PatchMapping("/confirmEmail/{id}")
-    public ResponseEntity<Void> confirmEmail(@PathVariable Long id,@Valid @RequestBody CodeRequest codeRequest){
-            userService.validateEmailWithCode(id,codeRequest.getCode());
+    @PatchMapping("/confirmEmail")
+    public ResponseEntity<Void> confirmEmail(@Valid @RequestBody CodeRequest codeRequest){
+            userService.validateEmailWithCode(codeRequest.getCode());
             return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PatchMapping("/changePassword/{id}")
-    public ResponseEntity<Void> changePassword(@PathVariable Long id,@Valid @RequestBody NewPasswordRequest newPasswordRequest){
-        userService.changeUserPassword(id,newPasswordRequest,encoder,authenticationManager);
+    @PatchMapping("/changePassword")
+    public ResponseEntity<Void> changePassword(@Valid @RequestBody NewPasswordRequest newPasswordRequest){
+        userService.changeUserPassword(newPasswordRequest,encoder,authenticationManager);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PatchMapping("/changeLogin/{id}")
-    public ResponseEntity<ResponseWithToken> changeLogin(@PathVariable Long id,@Valid @RequestBody NewLoginRequest newLoginRequest){
-        return ResponseEntity.ok(userService.changeUserLogin(id,newLoginRequest));
+    @PatchMapping("/changeLogin")
+    public ResponseEntity<ResponseWithToken> changeLogin(@Valid @RequestBody NewLoginRequest newLoginRequest){
+        return ResponseEntity.ok(userService.changeUserLogin(newLoginRequest));
     }
 
-    @PatchMapping("/changeEmail/{id}")
-    public ResponseEntity <UserDto> changeEmail(@PathVariable Long id, @Valid @RequestBody NewEmailRequest newEmailRequest){
-        return ResponseEntity.ok(userService.changeUserEmail(id, newEmailRequest));
+    @PatchMapping("/changeEmail")
+    public ResponseEntity <UserDto> changeEmail( @Valid @RequestBody NewEmailRequest newEmailRequest){
+        return ResponseEntity.ok(userService.changeUserEmail(newEmailRequest));
     }
 
-    @PatchMapping("/changeSetting/{id}")
-    public ResponseEntity<SettingDto> changeSetting(@PathVariable Long id,@Valid @RequestBody SettingDto settingDto){
-        return ResponseEntity.ok(userService.changeUserSetting(id,settingDto));
+    @PatchMapping("/changeSetting")
+    public ResponseEntity<SettingDto> changeSetting(@Valid @RequestBody SettingDto settingDto){
+        return ResponseEntity.ok(userService.changeUserSetting(settingDto));
     }
 
     @PostMapping("/passwordRecovery/email")
@@ -99,9 +98,9 @@ public class UserController {
         return ResponseEntity.ok(userService.createNewPassword(email,codeRequest,encoder));
     }
 
-    @DeleteMapping("/deleteUser/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
-        userService.deleteUserAccount(id);
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<Void> deleteUser(){
+        userService.deleteUserAccount();
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

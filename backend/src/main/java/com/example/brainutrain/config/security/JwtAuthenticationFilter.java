@@ -66,7 +66,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             if(login!=null){
                 UserDetailsImpl userDetails =(UserDetailsImpl) userService.loadUserByUsername(login);
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(),null,userDetails.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 if(!userDetails.isEnabled()){
                     usernamePasswordAuthenticationToken.setAuthenticated(false);
                 }

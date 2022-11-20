@@ -16,18 +16,13 @@ public interface ReportMapper {
 
     ReportMapper INSTANCE = Mappers.getMapper(ReportMapper.class);
 
-    @Mapping(target = "idUser",source = "user.idUser")
-    @Mapping(target = "username",source = "user.login")
     ReportDto toDto(Report report);
 
     @Named("mapWithoutDetails")
     @Mapping(target = "text",ignore = true)
-    @Mapping(target = "idUser",source = "user.idUser")
-    @Mapping(target = "username",source = "user.login")
     ReportDto toDtoList(Report report);
 
     @IterableMapping(qualifiedByName = "mapWithoutDetails")
-    @Mapping(target = "username",source = "user.login")
     List<ReportDto> toDto(Collection<Report> reports);
 
     @Mapping(target = "user",ignore = true)

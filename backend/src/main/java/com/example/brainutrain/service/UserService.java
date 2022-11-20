@@ -1,7 +1,7 @@
 package com.example.brainutrain.service;
 
 import com.example.brainutrain.config.security.UserDetailsImpl;
-import com.example.brainutrain.config.utils.PermissionChecker;
+import com.example.brainutrain.config.utils.AuthenticationUtils;
 import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService{
     private final ValidationCodeRepository validationCodeRepository;
     private final TokenService tokenService;
     private final EmailService emailService;
-    private final PermissionChecker permissionChecker;
+    private final AuthenticationUtils authenticationUtils;
 
     @Override
     @Transactional
@@ -142,11 +142,11 @@ public class UserService implements UserDetailsService{
         return stringBuilder.toString();
     }
 
-    public void validateEmailWithCode(Long userId,String code){
-        User user=permissionChecker.checkPermission(userId);
+    public void validateEmailWithCode(String code){
+        User user = authenticationUtils.getUserFromAuthentication();
         ValidationCode validationCode =validationCodeRepository.
                 findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user,Purpose.EMAIL_VERIFICATION).
-                orElseThrow(()->new ResourceNotFoundException("No code for user by id: "+userId)
+                orElseThrow(()->new ResourceNotFoundException("No code for user by id: "+user.getIdUser())
         );
         if(validationCode.getCode().equals(code)) {
             user.setIsEmailConfirmed(true);
@@ -159,9 +159,9 @@ public class UserService implements UserDetailsService{
         }
     }
 
-    public void changeUserPassword(Long userId,NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
+    public void changeUserPassword(NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
             ,AuthenticationManager authenticationManager){
-        User user = permissionChecker.checkPermission(userId);
+        User user = authenticationUtils.getUserFromAuthentication();
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getLogin(),newPasswordRequest.getOldPassword()));
         if(newPasswordRequest.getOldPassword().equals(newPasswordRequest.getNewPassword())){
@@ -172,8 +172,8 @@ public class UserService implements UserDetailsService{
         log.info("New password set for user "+user.getIdUser());
     }
 
-    public ResponseWithToken changeUserLogin(Long userId,NewLoginRequest newLoginRequest){
-        User user = permissionChecker.checkPermission(userId);
+    public ResponseWithToken changeUserLogin(NewLoginRequest newLoginRequest){
+        User user = authenticationUtils.getUserFromAuthentication();
         if(newLoginRequest.getNewLogin().equals(newLoginRequest.getOldLogin())){
             throw new IllegalArgumentException("New login can not be the same as old for user:"+user.getIdUser());
         }
@@ -188,8 +188,8 @@ public class UserService implements UserDetailsService{
         return new ResponseWithToken(userDto,settingDto,token);
     }
 
-    public UserDto changeUserEmail(Long userId,NewEmailRequest newEmailRequest){
-        User user = permissionChecker.checkPermission(userId);
+    public UserDto changeUserEmail(NewEmailRequest newEmailRequest){
+        User user = authenticationUtils.getUserFromAuthentication();
         if(newEmailRequest.getNewEmail().equals(newEmailRequest.getOldEmail())){
             throw new IllegalArgumentException("New email address can not be the same as old for user: "+user.getIdUser());
         }
@@ -203,10 +203,10 @@ public class UserService implements UserDetailsService{
         return UserMapper.INSTANCE.toDto(user);
     }
 
-    public SettingDto changeUserSetting(Long id,SettingDto settingDto){
-        permissionChecker.checkPermission(id);
-        Setting setting = settingRepository.findSettingByIdSetting(settingDto.getIdSetting()).orElseThrow(
-                ()->new ResourceNotFoundException("Setting not found for Id: "+settingDto.getIdSetting()));
+    public SettingDto changeUserSetting(SettingDto settingDto){
+        User user = authenticationUtils.getUserFromAuthentication();
+        Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
+                ()->new ResourceNotFoundException("Setting not found for idUser: "+user.getIdUser()));
         setting.setFontSize(settingDto.getFontSize());
         setting.setTheme(settingDto.getTheme());
         settingRepository.save(setting);
@@ -255,11 +255,11 @@ public class UserService implements UserDetailsService{
                 .toString();
     }
 
-    public void deleteUserAccount(Long id){
-        User user=permissionChecker.checkPermission(id);
+    public void deleteUserAccount(){
+        User user = authenticationUtils.getUserFromAuthentication();
         user.setIsActive(false);
         userRepository.save(user);
-        log.info("User by id "+id+" deactivated");
+        log.info("User by id "+user.getIdUser()+" deactivated");
     }
 
 }
