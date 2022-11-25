@@ -1,7 +1,6 @@
 package com.example.brainutrain.model;
 
-import com.example.brainutrain.constants.Level;
-import com.example.brainutrain.constants.TypeMemory;
+import com.example.brainutrain.constants.TypeFastReading;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,26 +25,26 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name="memorizings")
-public class Memorizing {
+@Table(name = "fastReadingResults")
+public class FastReadingResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMemorizing;
+    private Long idFastWritingResult;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private TypeMemory type;
+    @NotNull
+    private TypeFastReading type;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Level level;
+    private Double score;
 
-    @NotNull
-    private Long score;
 
     @NotNull
     private Timestamp startTime;
+
+    @NotNull
+    private float time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)

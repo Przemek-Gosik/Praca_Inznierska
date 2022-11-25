@@ -17,6 +17,5 @@ public class UserDto {
     private Long idUser;
     private String login;
     private String email;
-    private boolean isEmailConfirmed;
     private List<RoleDto> roles;
 }
