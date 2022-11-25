@@ -17,8 +17,10 @@ import com.example.brainutrain.dto.UserDto;
 import com.example.brainutrain.dto.request.NewEmailRequest;
 import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
+import com.example.brainutrain.exception.AlreadyExistsException;
 import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
+import com.example.brainutrain.exception.UserNotFoundException;
 import com.example.brainutrain.mapper.SettingMapper;
 import com.example.brainutrain.mapper.UserMapper;
 import com.example.brainutrain.model.Role;
@@ -42,6 +44,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -260,6 +263,53 @@ public class UserService implements UserDetailsService{
         user.setIsActive(false);
         userRepository.save(user);
         log.info("User by id "+user.getIdUser()+" deactivated");
+    }
+
+    public List<UserDto> getAllUsers(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info(authentication.getPrincipal().toString());
+        List<User> users = userRepository.findUsersByLoginIsNotLike(authentication.getPrincipal().toString());
+        return UserMapper.INSTANCE.toDto(users);
+    }
+
+    public UserDto getUserById(Long id){
+        User user = userRepository.findUserByIdUser(id).orElseThrow(
+                ()->new UserNotFoundException(id)
+        );
+        return UserMapper.INSTANCE.toDto(user);
+    }
+    public void deleteUserById(Long id){
+        User user = userRepository.findUserByIdUser(id).orElseThrow(
+                ()-> new UserNotFoundException(id)
+        );
+        user.setIsActive(false);
+        userRepository.save(user);
+        log.info("User by id "+id+" deactivated");
+    }
+
+    public UserDto giveUserAdminRole(Long id){
+        User user = userRepository.findUserByIdUser(id).orElseThrow(
+                () -> new UserNotFoundException(id)
+        );
+        Role adminRole = roleRepository.findByRoleName(RoleName.ADMIN);
+        if(user.getRoles().contains(adminRole)){
+            throw new AlreadyExistsException("Użytkownik o id:"+id+"posiada już role administratora");
+        }
+        user.getRoles().add(adminRole);
+        roleRepository.save(adminRole);
+        userRepository.save(user);
+        return UserMapper.INSTANCE.toDto(user);
+    }
+
+    public UserDto takeUserAdminRole(Long id){
+        User user = userRepository.findUserByIdUser(id).orElseThrow(
+                ()-> new UserNotFoundException(id)
+        );
+        Role adminRole = roleRepository.findByRoleName(RoleName.ADMIN);
+        user.getRoles().remove(adminRole);
+        roleRepository.save(adminRole);
+        userRepository.save(user);
+        return UserMapper.INSTANCE.toDto(user);
     }
 
 }

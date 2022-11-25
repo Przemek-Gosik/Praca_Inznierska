@@ -28,7 +28,8 @@ import java.util.List;
 @ResponseBody
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler({ResourceNotFoundException.class,
+                        UserNotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException
                                                         , WebRequest webRequest){
@@ -90,7 +91,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler({IllegalArgumentException.class,
                 HttpMessageNotReadableException.class,
                 DataIntegrityViolationException.class,
-                InvalidDataAccessApiUsageException.class} )
+                InvalidDataAccessApiUsageException.class,
+                AlreadyExistsException.class} )
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleIllegalArgumentException(Exception exception, WebRequest webRequest){
         log.warn(exception.getMessage());
