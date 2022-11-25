@@ -1,5 +1,6 @@
 package com.example.brainutrain.dto;
 
+import com.example.brainutrain.constants.Level;
 import com.example.brainutrain.constants.TypeFastReading;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,9 @@ public class FastReadingResultDto {
     private TypeFastReading type;
 
     @NotNull
+    private Level level;
+
+    @NotNull
     private Double score;
 
     @NotNull
@@ -28,4 +32,6 @@ public class FastReadingResultDto {
 
     @NotNull
     private float time;
+
+    private Long idFastReadingText;
 }
