@@ -6,6 +6,7 @@ import com.example.brainutrain.constants.TypeFastReading;
 import com.example.brainutrain.dto.FastReadingQuestionDto;
 import com.example.brainutrain.dto.FastReadingResultDto;
 import com.example.brainutrain.dto.FastReadingTextDto;
+import com.example.brainutrain.exception.AlreadyExistsException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.mapper.FastReadingQuestionMapper;
 import com.example.brainutrain.mapper.FastReadingResultMapper;
@@ -74,6 +75,9 @@ public class FastReadingService {
     }
 
     public void createNewText(FastReadingTextDto fastReadingTextDto){
+        if(fastReadingTextRepository.existsByTitle(fastReadingTextDto.getTitle())){
+            throw new AlreadyExistsException("Tekst o tytule:"+fastReadingTextDto.getTitle()+" już istnieje!");
+        }
         FastReadingText fastReadingText = FastReadingTextMapper.INSTANCE.fromDto(fastReadingTextDto);
         if(!fastReadingText.getQuestions().isEmpty()){
             fastReadingQuestionRepository.saveAll(fastReadingText.getQuestions());

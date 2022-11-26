@@ -9,4 +9,6 @@ import java.util.List;
 public interface FastReadingTextRepository extends JpaRepository<FastReadingText,Long> {
 
     List<FastReadingText> findAllByLevel(Level level);
+
+    Boolean existsByTitle(String title);
 }
