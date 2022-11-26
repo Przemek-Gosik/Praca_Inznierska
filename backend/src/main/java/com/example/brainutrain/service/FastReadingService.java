@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @AllArgsConstructor
 @Service
@@ -92,6 +93,20 @@ public class FastReadingService {
         fastReadingQuestionRepository.save(fastReadingQuestion);
         fastReadingText.getQuestions().add(fastReadingQuestion);
         fastReadingTextRepository.save(fastReadingText);
+    }
+
+    public FastReadingTextDto drawText(){
+        List<FastReadingText> textPool = fastReadingTextRepository.findAll();
+        Random random = new Random();
+        FastReadingText fastReadingText = textPool.get(random.nextInt(textPool.size()));
+        return FastReadingTextMapper.INSTANCE.toDto(fastReadingText);
+    }
+
+    public FastReadingTextDto drawTextByLevel(Level level){
+        List<FastReadingText> textPool = fastReadingTextRepository.findAllByLevel(level);
+        Random random = new Random();
+        FastReadingText fastReadingText = textPool.get(random.nextInt(textPool.size()));
+        return FastReadingTextMapper.INSTANCE.toDto(fastReadingText);
     }
 
 }

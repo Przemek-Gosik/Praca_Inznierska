@@ -37,6 +37,4 @@ public class FastWritingLesson {
     @NotNull
     @Size(max = 10)
     private String generatedCharacters;
-
-
 }
