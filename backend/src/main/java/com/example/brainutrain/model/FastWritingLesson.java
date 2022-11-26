@@ -31,10 +31,11 @@ public class FastWritingLesson {
     @Column(nullable = false,unique = true)
     private int number;
 
-    @NotNull
+    @Column(nullable = false,unique = true)
     private String name;
 
     @NotNull
     @Size(max = 10)
+    @Column(unique = true)
     private String generatedCharacters;
 }

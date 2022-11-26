@@ -108,5 +108,4 @@ public class FastReadingService {
         FastReadingText fastReadingText = textPool.get(random.nextInt(textPool.size()));
         return FastReadingTextMapper.INSTANCE.toDto(fastReadingText);
     }
-
 }
