@@ -33,7 +33,7 @@ public class FastReadingService {
     private final FastReadingQuestionRepository fastReadingQuestionRepository;
     private final AuthenticationUtils authenticationUtils;
 
-    public void createFastReadingResult(FastReadingResultDto fastReadingResultDto){
+    public void createResult(FastReadingResultDto fastReadingResultDto){
         User user = authenticationUtils.getUserFromAuthentication();
         FastReadingResult fastReadingResult = FastReadingResultMapper.INSTANCE.create(fastReadingResultDto);
         fastReadingResult.setUser(user);
