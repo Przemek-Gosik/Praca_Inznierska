@@ -1,28 +1,27 @@
-package com.example.brainutrain.dto;
+package com.example.brainutrain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FastWritingModuleDto {
+public class FastWritingLessonUserResponse {
 
-    private Long idFastWritingModule;
+    private Long idFastWritingLesson;
 
-    @NotNull
     private int number;
 
-    @NotNull
     private String name;
 
-    private List<FastWritingLessonDto> fastWritingLessons;
+    private String generatedCharacters;
 
+    private Long idFastWritingCourse;
+
+    private Double Score;
 }

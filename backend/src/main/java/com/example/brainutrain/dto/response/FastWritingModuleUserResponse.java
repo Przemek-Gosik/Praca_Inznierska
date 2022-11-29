@@ -1,4 +1,4 @@
-package com.example.brainutrain.dto;
+package com.example.brainutrain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FastWritingModuleDto {
+public class FastWritingModuleUserResponse {
 
     private Long idFastWritingModule;
 
@@ -23,6 +23,5 @@ public class FastWritingModuleDto {
     @NotNull
     private String name;
 
-    private List<FastWritingLessonDto> fastWritingLessons;
-
+    private List<FastWritingLessonUserResponse> fastWritingLessons;
 }
