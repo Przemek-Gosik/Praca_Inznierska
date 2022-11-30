@@ -1,4 +1,4 @@
-package com.example.brainutrain.config.utils;
+package com.example.brainutrain.utils;
 
 import com.example.brainutrain.config.security.UserDetailsImpl;
 import com.example.brainutrain.model.User;

@@ -2,8 +2,8 @@ package com.example.brainutrain.config.security;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.brainutrain.exception.AuthenticationFailedException;
-import com.example.brainutrain.exception.ErrorMessage;
-import com.example.brainutrain.service.TokenService;
+import com.example.brainutrain.exception.message.ErrorMessage;
+import com.example.brainutrain.utils.TokenCreator;
 import com.example.brainutrain.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -21,14 +21,14 @@ import java.time.LocalDateTime;
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     private final UserService userService;
-    private final TokenService tokenService;
+    private final TokenCreator tokenCreator;
     private static final String HEADER="Authorization";
     private static final String PREFIX="Bearer";
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager,UserService userService,TokenService tokenService) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, TokenCreator tokenCreator) {
         super(authenticationManager);
         this.userService=userService;
-        this.tokenService=tokenService;
+        this.tokenCreator = tokenCreator;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken authenticateUser(HttpServletRequest request) throws AuthenticationException, TokenExpiredException {
         String token = request.getHeader(HEADER);
         if(token !=null && token.startsWith(PREFIX)){
-            String login = tokenService.getLoginFromToken(token);
+            String login = tokenCreator.getLoginFromToken(token);
             if(login!=null){
                 UserDetailsImpl userDetails =(UserDetailsImpl) userService.loadUserByUsername(login);
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =

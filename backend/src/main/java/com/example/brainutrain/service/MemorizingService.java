@@ -1,6 +1,6 @@
 package com.example.brainutrain.service;
 
-import com.example.brainutrain.config.utils.AuthenticationUtils;
+import com.example.brainutrain.utils.AuthenticationUtils;
 import com.example.brainutrain.constants.TypeMemory;
 import com.example.brainutrain.dto.MemorizingDto;
 import com.example.brainutrain.exception.ResourceNotFoundException;

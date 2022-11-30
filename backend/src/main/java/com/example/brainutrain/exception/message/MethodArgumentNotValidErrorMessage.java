@@ -1,4 +1,4 @@
-package com.example.brainutrain.exception;
+package com.example.brainutrain.exception.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,9 +1,6 @@
-package com.example.brainutrain.service;
+package com.example.brainutrain.utils;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 @AllArgsConstructor
 @Slf4j
 @Service
-public class EmailService {
+public class EmailSender {
 
     private final JavaMailSender javaMailSender;
 

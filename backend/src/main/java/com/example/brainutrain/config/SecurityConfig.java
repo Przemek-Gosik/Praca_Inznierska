@@ -1,7 +1,7 @@
 package com.example.brainutrain.config;
 
 import com.example.brainutrain.config.security.JwtAuthenticationFilter;
-import com.example.brainutrain.service.TokenService;
+import com.example.brainutrain.utils.TokenCreator;
 import com.example.brainutrain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +27,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 public class SecurityConfig {
 
     private final UserService userService;
-    private final TokenService tokenService;
+    private final TokenCreator tokenCreator;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 ).sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(),userService,tokenService));
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(),userService, tokenCreator));
                 return httpSecurity.build();
     }
 

@@ -1,7 +1,7 @@
 package com.example.brainutrain.service;
 
 import com.example.brainutrain.config.security.UserDetailsImpl;
-import com.example.brainutrain.config.utils.AuthenticationUtils;
+import com.example.brainutrain.utils.AuthenticationUtils;
 import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
@@ -31,6 +31,8 @@ import com.example.brainutrain.repository.RoleRepository;
 import com.example.brainutrain.repository.SettingRepository;
 import com.example.brainutrain.repository.UserRepository;
 import com.example.brainutrain.repository.ValidationCodeRepository;
+import com.example.brainutrain.utils.EmailSender;
+import com.example.brainutrain.utils.TokenCreator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -57,8 +59,8 @@ public class UserService implements UserDetailsService{
     private final RoleRepository roleRepository;
     private final SettingRepository settingRepository;
     private final ValidationCodeRepository validationCodeRepository;
-    private final TokenService tokenService;
-    private final EmailService emailService;
+    private final TokenCreator tokenCreator;
+    private final EmailSender emailSender;
     private final AuthenticationUtils authenticationUtils;
 
     @Override
@@ -79,7 +81,7 @@ public class UserService implements UserDetailsService{
         User user = findUser(userName);
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
                 ()->new ResourceNotFoundException("Settings not found for user "+user.getIdUser()));
-        String token = tokenService.createUserToken(userName);
+        String token = tokenCreator.createUserToken(userName);
         UserDto userDto = UserMapper.INSTANCE.toDto(user);
         SettingDto settingDto = SettingMapper.INSTANCE.toDto(setting);
         return new ResponseWithToken(userDto,settingDto,token);
@@ -113,8 +115,8 @@ public class UserService implements UserDetailsService{
         ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,newUser);
         validationCode.setCode(generateCode());
         validationCodeRepository.save(validationCode);
-        emailService.sendEmailWithCode(validationCode.getCode(), newUser.getEmail(), newUser.getLogin());
-        String token = tokenService.createUserToken(newUser.getLogin());
+        emailSender.sendEmailWithCode(validationCode.getCode(), newUser.getEmail(), newUser.getLogin());
+        String token = tokenCreator.createUserToken(newUser.getLogin());
         Setting newSetting = createUserSettings(newUser);
         SettingDto settingDto= SettingMapper.INSTANCE.toDto(newSetting);
         UserDto userDto=UserMapper.INSTANCE.toDto(newUser);
@@ -185,7 +187,7 @@ public class UserService implements UserDetailsService{
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
                 ()-> new ResourceNotFoundException("Settings not found for user:"+user.getIdUser())
         );
-        String token = tokenService.createUserToken(user.getLogin());
+        String token = tokenCreator.createUserToken(user.getLogin());
         UserDto userDto = UserMapper.INSTANCE.toDto(user);
         SettingDto settingDto = SettingMapper.INSTANCE.toDto(setting);
         return new ResponseWithToken(userDto,settingDto,token);
@@ -202,7 +204,7 @@ public class UserService implements UserDetailsService{
         ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,user);
         validationCode.setCode(generateCode());
         validationCodeRepository.save(validationCode);
-        emailService.sendEmailWithCode(validationCode.getCode(), user.getEmail(), user.getLogin());
+        emailSender.sendEmailWithCode(validationCode.getCode(), user.getEmail(), user.getLogin());
         return UserMapper.INSTANCE.toDto(user);
     }
 
@@ -221,7 +223,7 @@ public class UserService implements UserDetailsService{
         );
         ValidationCode validationCode = new ValidationCode(Purpose.PASSWORD_REMINDER,user);
         validationCode.setCode(generateCode());
-        emailService.sendEmailWithCode(validationCode.getCode(),emailRequest.getEmail(),user.getLogin());
+        emailSender.sendEmailWithCode(validationCode.getCode(),emailRequest.getEmail(),user.getLogin());
         validationCodeRepository.save(validationCode);
     }
 

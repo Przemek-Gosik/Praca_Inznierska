@@ -1,5 +1,11 @@
-package com.example.brainutrain.exception;
+package com.example.brainutrain.exception.handler;
 
+import com.example.brainutrain.exception.AlreadyExistsException;
+import com.example.brainutrain.exception.AuthenticationFailedException;
+import com.example.brainutrain.exception.message.ErrorMessage;
+import com.example.brainutrain.exception.message.MethodArgumentNotValidErrorMessage;
+import com.example.brainutrain.exception.ResourceNotFoundException;
+import com.example.brainutrain.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;

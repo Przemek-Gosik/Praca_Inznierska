@@ -1,6 +1,6 @@
 package com.example.brainutrain.service;
 
-import com.example.brainutrain.config.utils.AuthenticationUtils;
+import com.example.brainutrain.utils.AuthenticationUtils;
 import com.example.brainutrain.constants.Level;
 import com.example.brainutrain.constants.TypeFastReading;
 import com.example.brainutrain.dto.FastReadingQuestionDto;
