@@ -30,7 +30,7 @@ public class FastWritingTest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFastWritingResult;
+    private Long idFastWritingTest;
 
     @Lob
     @Column(nullable = false)
@@ -48,7 +48,11 @@ public class FastWritingTest {
     @Column
     private float time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private FastWritingText text;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 }

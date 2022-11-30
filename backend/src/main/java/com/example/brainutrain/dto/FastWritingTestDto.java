@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -15,13 +15,15 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FastWritingCourseDto {
+public class FastWritingTestDto {
 
-    private Long idFastWritingCourse;
+    private Long idFastWritingTest;
+
+    @Lob
+    @NotNull
+    private String typedText;
 
     @NotNull
-    @Min(value = 0,message = "Wynik nie może byc liczbą mniejszą od 0")
-    @Max(value=1,message = "Wynik nie może być liczbą większą od 1")
     private Double score;
 
     @NotNull
@@ -30,7 +32,6 @@ public class FastWritingCourseDto {
     @NotNull
     private float time;
 
-    private int numberOfAttempts;
-
-    private Long idFastWritingLesson;
+    @NotNull
+    private Long idText;
 }

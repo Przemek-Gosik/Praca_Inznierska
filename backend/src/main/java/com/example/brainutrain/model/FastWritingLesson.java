@@ -41,8 +41,4 @@ public class FastWritingLesson {
     @Size(max = 10)
     @Column(unique = true)
     private String generatedCharacters;
-
-    @OneToOne
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private FastWritingCourse fastWritingCourse;
 }

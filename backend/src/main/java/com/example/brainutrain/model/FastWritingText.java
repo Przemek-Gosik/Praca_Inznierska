@@ -23,7 +23,7 @@ public class FastWritingText {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTextWriting;
+    private Long idTextWriting;
 
     @Column(nullable = false)
     private String title;
