@@ -1,5 +1,6 @@
 package com.example.brainutrain.service;
 
+import com.example.brainutrain.mapper.enum_mapper.TypeMemoryMapper;
 import com.example.brainutrain.utils.AuthenticationUtils;
 import com.example.brainutrain.constants.TypeMemory;
 import com.example.brainutrain.dto.MemorizingDto;
@@ -10,6 +11,7 @@ import com.example.brainutrain.model.User;
 import com.example.brainutrain.repository.MemorizingRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -30,23 +32,34 @@ public class MemorizingService {
         memorizing.setStartTime(Timestamp.valueOf(memorizingDto.getStartTime()));
         memorizing.setUser(user);
         memorizingRepository.save(memorizing);
-        log.info("New memorizing result created with id: "+ memorizing.getIdMemorizing());
+        log.info("Nowy rezultat gry utworzony o id : "+ memorizing.getIdMemorizing());
     }
 
-    public List<MemorizingDto> getAllUserResultsByType(TypeMemory type){
+    public List<MemorizingDto> getAllUserResults(){
+        User user = authenticationUtils.getUserFromAuthentication();
+        List<Memorizing> memorizings = memorizingRepository.findAllByUserIdUser(user.getIdUser());
+        return MemorizingMapper.INSTANCE.toDto(memorizings);
+    }
+
+    public List<MemorizingDto> getAllUserResultsByType(String type){
+        TypeMemory typeMemory = TypeMemoryMapper.getTypeFromString(type);
         User user = authenticationUtils.getUserFromAuthentication();
         List<Memorizing> memorizingList = memorizingRepository
-                .findAllByUserIdUserAndTypeOrderByStartTime(user.getIdUser(),type);
+                .findAllByUserIdUserAndTypeOrderByStartTime(user.getIdUser(),typeMemory);
         return MemorizingMapper.INSTANCE.toDto(memorizingList);
     }
 
-    public MemorizingDto getUserResult(Long id){
+    public MemorizingDto getResultById(Long id){
         User user = authenticationUtils.getUserFromAuthentication();
         Memorizing memorizing = memorizingRepository.findMemorizingByIdMemorizing(id).orElseThrow(
                 ()->new ResourceNotFoundException(
                         "Result not found for id: "+id
                                )
         );
+        if(memorizing.getUser().getIdUser()==user.getIdUser()){
+            throw new AccessDeniedException(
+                    "Uzytkownik o id: "+user.getIdUser()+" nie ma dostępu do wyniku o id: "+memorizing.getIdMemorizing());
+        }
         return MemorizingMapper.INSTANCE.toDto(memorizing);
     }
 }

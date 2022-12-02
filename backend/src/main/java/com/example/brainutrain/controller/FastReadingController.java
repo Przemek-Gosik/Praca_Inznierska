@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
@@ -35,6 +36,12 @@ public class FastReadingController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PostMapping("/text")
+    public ResponseEntity<Void> saveText(@Valid @RequestBody FastReadingTextDto fastReadingTextDto){
+        fastReadingService.createNewText(fastReadingTextDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @GetMapping()
     public ResponseEntity<List<FastReadingResultDto>> getAllUserResults(){
         return ResponseEntity.ok(fastReadingService.getAllResults());
@@ -50,13 +57,13 @@ public class FastReadingController {
         return ResponseEntity.ok(fastReadingService.getAllTexts());
     }
 
-    @GetMapping("/text/{level}")
+    @GetMapping("/text/level/{level}")
     public ResponseEntity<List<FastReadingTextDto>> getAllTextsByLevel(@PathVariable Level level){
         return ResponseEntity.ok(fastReadingService.getAllTextsByLevel(level));
     }
 
     @GetMapping("/text/{id}")
-    public ResponseEntity<FastReadingTextDto> getText(@PathVariable Long id){
+    public ResponseEntity<FastReadingTextDto> getText(@PathVariable("id") Long id){
         return ResponseEntity.ok(fastReadingService.getText(id));
     }
 
@@ -66,7 +73,7 @@ public class FastReadingController {
     }
 
     @GetMapping("/text/draw/{level}")
-    public ResponseEntity<FastReadingTextDto> drawTextByLevel(@PathVariable Level level){
+    public ResponseEntity<FastReadingTextDto> drawTextByLevel(@PathVariable("level") String level){
         return ResponseEntity.ok(fastReadingService.drawTextByLevel(level));
     }
 }

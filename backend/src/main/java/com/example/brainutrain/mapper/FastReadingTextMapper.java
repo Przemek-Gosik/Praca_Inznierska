@@ -1,6 +1,5 @@
 package com.example.brainutrain.mapper;
 
-import com.example.brainutrain.dto.FastReadingResultDto;
 import com.example.brainutrain.dto.FastReadingTextDto;
 import com.example.brainutrain.model.FastReadingText;
 import org.mapstruct.IterableMapping;
@@ -27,6 +26,6 @@ public interface FastReadingTextMapper {
     @IterableMapping(qualifiedByName = "mapWithoutDetails")
     List<FastReadingTextDto> toDto(Collection<FastReadingText> fastReadingTexts);
 
-    @Mapping(target = "questions",ignore = true)
+
     FastReadingText fromDto(FastReadingTextDto fastReadingTextDto);
 }

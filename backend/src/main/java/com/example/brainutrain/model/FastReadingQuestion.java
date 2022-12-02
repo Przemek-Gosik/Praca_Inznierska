@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,4 +38,7 @@ public class FastReadingQuestion {
     @NotNull
     private boolean answer;
 
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private FastReadingText fastReadingText;
 }

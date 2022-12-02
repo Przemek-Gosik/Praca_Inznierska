@@ -6,7 +6,7 @@ import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
 import com.example.brainutrain.constants.Theme;
-import com.example.brainutrain.dto.LoginDto;
+import com.example.brainutrain.dto.request.LoginRequest;
 import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.request.CodeRequest;
 import com.example.brainutrain.dto.request.EmailRequest;
@@ -32,6 +32,7 @@ import com.example.brainutrain.repository.SettingRepository;
 import com.example.brainutrain.repository.UserRepository;
 import com.example.brainutrain.repository.ValidationCodeRepository;
 import com.example.brainutrain.utils.EmailSender;
+import com.example.brainutrain.utils.StringGenerator;
 import com.example.brainutrain.utils.TokenCreator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +63,7 @@ public class UserService implements UserDetailsService{
     private final TokenCreator tokenCreator;
     private final EmailSender emailSender;
     private final AuthenticationUtils authenticationUtils;
+    private final StringGenerator stringGenerator;
 
     @Override
     @Transactional
@@ -72,12 +74,12 @@ public class UserService implements UserDetailsService{
     private User findUser(String username)throws UsernameNotFoundException{
         return userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("User not found for:"+username));
     }
-    public ResponseWithToken logInUser(LoginDto loginDto, AuthenticationManager authenticationManager) {
+    public ResponseWithToken logInUser(LoginRequest loginRequest, AuthenticationManager authenticationManager) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        loginDto.getUserName(), loginDto.getPassword()));
+                        loginRequest.getUserName(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String userName = loginDto.getUserName();
+        String userName = loginRequest.getUserName();
         User user = findUser(userName);
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
                 ()->new ResourceNotFoundException("Settings not found for user "+user.getIdUser()));
@@ -113,7 +115,7 @@ public class UserService implements UserDetailsService{
         userRepository.save(newUser);
         log.info("created user"+newUser.getLogin());
         ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,newUser);
-        validationCode.setCode(generateCode());
+        validationCode.setCode(stringGenerator.generateCode());
         validationCodeRepository.save(validationCode);
         emailSender.sendEmailWithCode(validationCode.getCode(), newUser.getEmail(), newUser.getLogin());
         String token = tokenCreator.createUserToken(newUser.getLogin());
@@ -135,16 +137,6 @@ public class UserService implements UserDetailsService{
         }else {
             return role;
         }
-    }
-
-    private String generateCode(){
-        Random random = new Random();
-        StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0;i<5;i++){
-            int randNumber=random.nextInt(10);
-            stringBuilder.append(randNumber);
-        }
-        return stringBuilder.toString();
     }
 
     public void validateEmailWithCode(String code){
@@ -202,7 +194,7 @@ public class UserService implements UserDetailsService{
         user.setIsEmailConfirmed(false);
         userRepository.save(user);
         ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,user);
-        validationCode.setCode(generateCode());
+        validationCode.setCode(stringGenerator.generateCode());
         validationCodeRepository.save(validationCode);
         emailSender.sendEmailWithCode(validationCode.getCode(), user.getEmail(), user.getLogin());
         return UserMapper.INSTANCE.toDto(user);
@@ -222,7 +214,7 @@ public class UserService implements UserDetailsService{
                 ()->new ResourceNotFoundException("Nie znaleziono konta dla podanego maila: "+ emailRequest.getEmail())
         );
         ValidationCode validationCode = new ValidationCode(Purpose.PASSWORD_REMINDER,user);
-        validationCode.setCode(generateCode());
+        validationCode.setCode(stringGenerator.generateCode());
         emailSender.sendEmailWithCode(validationCode.getCode(),emailRequest.getEmail(),user.getLogin());
         validationCodeRepository.save(validationCode);
     }
@@ -236,7 +228,7 @@ public class UserService implements UserDetailsService{
                 ()->new ResourceNotFoundException("Nie znaleziono kodu dla uzytkownika o emailu: "+user.getEmail())
         );
         if(codeRequest.getCode().equals(validationCode.getCode())){
-            String newPassword = generatePassword();
+            String newPassword = stringGenerator.generatePassword();
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             validationCode.setWasUsed(true);
@@ -247,19 +239,6 @@ public class UserService implements UserDetailsService{
         }
     }
 
-    private String generatePassword(){
-        final int LENGTH_LIMIT=8;
-        final int MIN_CHAR = 48;
-        final int MAX_CHAR = 122;
-        Random random = new Random();
-        return random.ints(MIN_CHAR,MAX_CHAR+1)
-                .filter(c->(c<=57 || c>=63) && (c<=90 || c>=97))
-                .limit(LENGTH_LIMIT)
-                .collect(StringBuilder::new,StringBuilder::appendCodePoint,
-                        StringBuilder::append)
-                .toString();
-    }
-
     public void deleteUserAccount(){
         User user = authenticationUtils.getUserFromAuthentication();
         user.setIsActive(false);
@@ -268,9 +247,8 @@ public class UserService implements UserDetailsService{
     }
 
     public List<UserDto> getAllUsers(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info(authentication.getPrincipal().toString());
-        List<User> users = userRepository.findUsersByLoginIsNotLike(authentication.getPrincipal().toString());
+        User user = authenticationUtils.getUserFromAuthentication();
+        List<User> users = userRepository.findUsersByLoginIsNotLike(user.getLogin());
         return UserMapper.INSTANCE.toDto(users);
     }
 
@@ -282,8 +260,7 @@ public class UserService implements UserDetailsService{
     }
     public void deleteUserById(Long id){
         User user = userRepository.findUserByIdUser(id).orElseThrow(
-                ()-> new UserNotFoundException(id)
-        );
+                ()-> new UserNotFoundException(id));
         user.setIsActive(false);
         userRepository.save(user);
         log.info("User by id "+id+" deactivated");
@@ -308,6 +285,9 @@ public class UserService implements UserDetailsService{
                 ()-> new UserNotFoundException(id)
         );
         Role adminRole = roleRepository.findByRoleName(RoleName.ADMIN);
+        if(!user.getRoles().contains(adminRole)){
+            throw new IllegalArgumentException("Użytkownik nie posiada już uprawnień admina");
+        }
         user.getRoles().remove(adminRole);
         roleRepository.save(adminRole);
         userRepository.save(user);

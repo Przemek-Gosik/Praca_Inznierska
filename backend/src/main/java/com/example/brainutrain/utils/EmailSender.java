@@ -17,11 +17,23 @@ public class EmailSender {
     private final JavaMailSender javaMailSender;
 
     @Async
-    public void sendEmailWithCode(String code,String emailAddress,String userName){
+    public void sendEmailWithCode(String code,String emailAddress,String username){
         String message = "<body style='font-family:sans-serif;font-size:12px;'>"
-                +"<h3>Czesc "+userName+",</h3<br>"
+                +"<h3>Czesc "+username+",</h3<br>"
                 +"<p>Witamy w serwisie brainUtrain! Aby moc kontynuowac korzystanie "
                 +"ze strony potwierdz swoj adres email, wpisujac podany nizej kod</p>"
+                +"<p>Twoj kod weryfikacyjny:</p>"
+                +"<h1 align='center'>"+code+"</h1></body>";
+        String subject = "Email confirmation code";
+        sendMessage(emailAddress,subject,message);
+    }
+
+    @Async
+    public void sendEmailWithPasswordReminderCode(String code,String emailAddress,String username){
+        String message = "<body style='font-family:sans-serif;font-size:12px;'>"
+                +"<h3>Czesc "+username+",</h3<br>"
+                +"<p>Otrzymalismy informacje o utracie dostepu do twojego konta. "
+                +"Aby wygenerowac nowe haslo wpisz na stronie podany nizej kod weryfikacyjny</p>"
                 +"<p>Twoj kod weryfikacyjny:</p>"
                 +"<h1 align='center'>"+code+"</h1></body>";
         String subject = "Email confirmation code";

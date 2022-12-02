@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Entity
+@Table(name="fastWritingTexts")
 public class FastWritingText {
 
     @Id

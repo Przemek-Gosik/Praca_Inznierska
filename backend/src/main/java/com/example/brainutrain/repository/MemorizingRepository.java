@@ -11,5 +11,7 @@ public interface MemorizingRepository extends JpaRepository<Memorizing,Long> {
 
     Optional<Memorizing> findMemorizingByIdMemorizing(Long idMemorizing);
 
+    List<Memorizing> findAllByUserIdUser(Long idUser);
+
     List<Memorizing> findAllByUserIdUserAndTypeOrderByStartTime(Long idUser, TypeMemory type);
 }

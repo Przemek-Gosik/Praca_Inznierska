@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -47,7 +48,4 @@ public class FastReadingText {
     @NotNull
     private Level level;
 
-    @OneToMany
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private List<FastReadingQuestion> questions = new ArrayList<>();
 }

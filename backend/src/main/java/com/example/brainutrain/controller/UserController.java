@@ -1,6 +1,6 @@
 package com.example.brainutrain.controller;
 
-import com.example.brainutrain.dto.LoginDto;
+import com.example.brainutrain.dto.request.LoginRequest;
 import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.request.CodeRequest;
 import com.example.brainutrain.dto.request.EmailRequest;
@@ -46,8 +46,8 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<ResponseWithToken> login(LoginDto loginDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.logInUser(loginDto,authenticationManager));
+    public ResponseEntity<ResponseWithToken> login(LoginRequest loginRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.logInUser(loginRequest,authenticationManager));
     }
 
     @GetMapping("/emailIsTaken/{email}")

@@ -26,12 +26,12 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name = "fastReadingResults")
+@Table(name = "fast_reading_results")
 public class FastReadingResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFastWritingResult;
+    private Long idFastReadingResult;
 
     @Enumerated(EnumType.STRING)
     @NotNull

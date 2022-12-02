@@ -1,4 +1,4 @@
-package com.example.brainutrain.dto;
+package com.example.brainutrain.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class LoginDto {
+public class LoginRequest {
     @NotNull(message = "Username should not be null")
     String userName;
 
