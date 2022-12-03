@@ -53,7 +53,7 @@ public class MemorizingService {
         User user = authenticationUtils.getUserFromAuthentication();
         Memorizing memorizing = memorizingRepository.findMemorizingByIdMemorizing(id).orElseThrow(
                 ()->new ResourceNotFoundException(
-                        "Result not found for id: "+id
+                        "Nie odnaleziono wyniku gry na zapamiętywanie dla id : "+id
                                )
         );
         if(memorizing.getUser().getIdUser()==user.getIdUser()){

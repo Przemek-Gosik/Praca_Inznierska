@@ -47,6 +47,6 @@ public class ReportService {
             List<Report> reports = reportRepository.findAllByUserLogin(username);
             return ReportMapper.INSTANCE.toDto(reports);
         }
-        throw new ResourceNotFoundException("No user with login:" + username);
+        throw new ResourceNotFoundException("Nie odnaleziono użytkownika dla:" + username);
     }
 }
