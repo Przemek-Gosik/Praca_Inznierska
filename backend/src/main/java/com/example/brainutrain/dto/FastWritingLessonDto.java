@@ -27,4 +27,6 @@ public class FastWritingLessonDto {
     @NotNull
     @Size(max=10,message = "Może być maksymalnie 10 znaków")
     private String generatedCharacters;
+
+    private String text;
 }

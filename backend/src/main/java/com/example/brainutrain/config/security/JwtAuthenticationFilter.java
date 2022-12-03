@@ -85,6 +85,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 request.getRequestURI().contains("/api/auth/emailIsTaken/")  ||
                 request.getRequestURI().contains("/api/auth/loginIsTaken/")  ||
                 request.getRequestURI().contains("/api/auth/passwordRecovery/") ||
+                request.getRequestURI().contains("/api/fast_reading/text/guest") ||
                 request.getRequestURI().equals("/docs/swagger-ui/index.html");
     }
 

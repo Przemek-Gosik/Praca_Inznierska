@@ -23,6 +23,6 @@ public class FastWritingModuleDto {
     @NotNull
     private String name;
 
-    private List<FastWritingLessonDto> fastWritingLessons;
+    private List<FastWritingLessonDto> lessons;
 
 }

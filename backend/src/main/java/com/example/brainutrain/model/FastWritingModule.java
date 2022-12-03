@@ -38,7 +38,4 @@ public class FastWritingModule {
 
     @NotNull
     private String name;
-
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<FastWritingLesson> fastWritingLessons;
 }

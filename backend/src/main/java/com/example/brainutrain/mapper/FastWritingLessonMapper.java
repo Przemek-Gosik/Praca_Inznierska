@@ -1,15 +1,9 @@
 package com.example.brainutrain.mapper;
 
 import com.example.brainutrain.dto.FastWritingLessonDto;
-import com.example.brainutrain.dto.response.FastWritingLessonUserResponse;
 import com.example.brainutrain.model.FastWritingLesson;
-
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-
 import java.util.Collection;
 import java.util.List;
 

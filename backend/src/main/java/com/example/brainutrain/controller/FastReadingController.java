@@ -52,7 +52,7 @@ public class FastReadingController {
         return ResponseEntity.ok(fastReadingService.getAllResultsByType(type));
     }
 
-    @GetMapping("/text")
+    @GetMapping("/text/guest")
     public ResponseEntity<List<FastReadingTextDto>> getAllTexts(){
         return ResponseEntity.ok(fastReadingService.getAllTexts());
     }
@@ -62,17 +62,17 @@ public class FastReadingController {
         return ResponseEntity.ok(fastReadingService.getAllTextsByLevel(level));
     }
 
-    @GetMapping("/text/{id}")
+    @GetMapping("/text/guest/{id}")
     public ResponseEntity<FastReadingTextDto> getText(@PathVariable("id") Long id){
         return ResponseEntity.ok(fastReadingService.getText(id));
     }
 
-    @GetMapping("/text/draw")
+    @GetMapping("/text/guest/draw")
     public ResponseEntity<FastReadingTextDto> drawText(){
         return ResponseEntity.ok(fastReadingService.drawText());
     }
 
-    @GetMapping("/text/draw/{level}")
+    @GetMapping("/text/guest/draw/{level}")
     public ResponseEntity<FastReadingTextDto> drawTextByLevel(@PathVariable("level") String level){
         return ResponseEntity.ok(fastReadingService.drawTextByLevel(level));
     }

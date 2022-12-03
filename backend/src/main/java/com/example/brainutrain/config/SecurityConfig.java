@@ -36,7 +36,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests(auth->auth
                         .antMatchers("/api/auth/emailIsTaken/*","/api/auth/loginIsTaken/*",
-                                "/api/auth/login","/api/auth/register","/api/auth/passwordRecovery/**").permitAll()
+                                "/api/auth/login","/api/auth/register","/api/auth/passwordRecovery/**",
+                                "/api/fast_reading/text/guest/**").permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
