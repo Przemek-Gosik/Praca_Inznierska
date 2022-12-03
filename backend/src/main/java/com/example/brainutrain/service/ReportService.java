@@ -32,13 +32,13 @@ public class ReportService {
         }
         report.setUser(user);
         reportRepository.save(report);
-        log.info("New report created for user with idUser: "+user.getIdUser());
+        log.info("Nowy raport utworzony dla użytkownika o id: "+user.getIdUser());
     }
 
     public ReportDto getUserReport(String username,Long idReport){
         Report report = reportRepository.findReportByUserLoginAndAndIdReport(username,idReport)
                 .orElseThrow(()->new ResourceNotFoundException(
-                        "Report not found for username"+username+" and idReport"+ idReport));
+                        "Nie odnaleziono raportu dla użytkownika o loginie "+username+" i id Raportu: "+ idReport));
         return ReportMapper.INSTANCE.toDto(report);
     }
 

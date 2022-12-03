@@ -28,10 +28,10 @@ public class AdminService {
 
     public void deleteUser(Long userId){
         User user = userRepository.findUserByIdUser(userId).orElseThrow(
-                ()-> new ResourceNotFoundException("No user found for id: "+userId)
+                ()-> new ResourceNotFoundException("Nie odnaleziono użytkownika dla id: "+userId)
         );
         user.setIsActive(false);
         userRepository.save(user);
-        log.info("User by id "+userId+" deactivated");
+        log.info("Użytkownik o id "+userId+" dezaktywowany");
     }
 }

@@ -73,7 +73,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 return  usernamePasswordAuthenticationToken;
             }
         }
-            throw new AuthenticationFailedException("No token provided or token is without right prefix");
+            throw new AuthenticationFailedException("Nie podano tokena, albo podano bez odpowiedniego prefiksa dla żądania : " +
+                    ""+request.getRequestURI());
     }
 
 

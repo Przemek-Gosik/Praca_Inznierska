@@ -72,7 +72,7 @@ public class UserService implements UserDetailsService{
         return new UserDetailsImpl(user);
     }
     private User findUser(String username)throws UsernameNotFoundException{
-        return userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("User not found for:"+username));
+        return userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("Nie znaleziono użytkownika dla: "+username));
     }
     public ResponseWithToken logInUser(LoginRequest loginRequest, AuthenticationManager authenticationManager) {
         Authentication authentication = authenticationManager
@@ -82,7 +82,7 @@ public class UserService implements UserDetailsService{
         String userName = loginRequest.getUserName();
         User user = findUser(userName);
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
-                ()->new ResourceNotFoundException("Settings not found for user "+user.getIdUser()));
+                ()->new ResourceNotFoundException("Nie odnaleziono ustawień dla użytkownika o id: "+user.getIdUser()));
         String token = tokenCreator.createUserToken(userName);
         UserDto userDto = UserMapper.INSTANCE.toDto(user);
         SettingDto settingDto = SettingMapper.INSTANCE.toDto(setting);
@@ -99,10 +99,10 @@ public class UserService implements UserDetailsService{
 
     public ResponseWithToken createUser(RegisterDto registerDto,PasswordEncoder passwordEncoder){
         if(checkIfLoginIsAlreadyTaken(registerDto.getLogin())){
-            throw new IllegalArgumentException("Login already taken for: "+registerDto.getLogin());
+            throw new IllegalArgumentException("Login zajęty dla: "+registerDto.getLogin());
         }
         if(checkIfEmailIsAlreadyTaken(registerDto.getEmail())){
-            throw new IllegalArgumentException("Email already taken for: "+registerDto.getEmail());
+            throw new IllegalArgumentException("Adres email zajęty dla: "+registerDto.getEmail());
         }
         registerDto.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         User newUser=UserMapper.INSTANCE.fromDto(registerDto);
@@ -113,7 +113,7 @@ public class UserService implements UserDetailsService{
         newUser.setIsEmailConfirmed(false);
         newUser.setIsActive(true);
         userRepository.save(newUser);
-        log.info("created user"+newUser.getLogin());
+        log.info("Utworzono nowego użytkownika "+newUser.getLogin());
         ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,newUser);
         validationCode.setCode(stringGenerator.generateCode());
         validationCodeRepository.save(validationCode);
@@ -143,11 +143,11 @@ public class UserService implements UserDetailsService{
         User user = authenticationUtils.getUserFromAuthentication();
         ValidationCode validationCode =validationCodeRepository.
                 findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user,Purpose.EMAIL_VERIFICATION).
-                orElseThrow(()->new ResourceNotFoundException("No code for user by id: "+user.getIdUser())
+                orElseThrow(()->new ResourceNotFoundException("Nie odnaleziono kodu dla użytkownika o id: "+user.getIdUser())
         );
         if(validationCode.getCode().equals(code)) {
             user.setIsEmailConfirmed(true);
-            log.info("Email for user " + user.getIdUser() + " confirmed");
+            log.info("Email dla użytkownika o id " + user.getIdUser() + " zweryfikowany");
             userRepository.save(user);
             validationCode.setWasUsed(true);
             validationCodeRepository.save(validationCode);
@@ -162,22 +162,22 @@ public class UserService implements UserDetailsService{
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getLogin(),newPasswordRequest.getOldPassword()));
         if(newPasswordRequest.getOldPassword().equals(newPasswordRequest.getNewPassword())){
-            throw new IllegalArgumentException("New password can not be the same as old for user:"+user.getIdUser());
+            throw new IllegalArgumentException("Nowe hasło nie może być takie same jak stare dla użytkownika o id: "+user.getIdUser());
         }
         user.setPassword(passwordEncoder.encode(newPasswordRequest.getNewPassword()));
         userRepository.save(user);
-        log.info("New password set for user "+user.getIdUser());
+        log.info("Nowe hasło dla użytkownika o id: "+user.getIdUser());
     }
 
     public ResponseWithToken changeUserLogin(NewLoginRequest newLoginRequest){
         User user = authenticationUtils.getUserFromAuthentication();
         if(newLoginRequest.getNewLogin().equals(newLoginRequest.getOldLogin())){
-            throw new IllegalArgumentException("New login can not be the same as old for user:"+user.getIdUser());
+            throw new IllegalArgumentException("Nowy login nie może być taki sam jak stary:"+user.getIdUser());
         }
         user.setLogin(newLoginRequest.getNewLogin());
         userRepository.save(user);
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
-                ()-> new ResourceNotFoundException("Settings not found for user:"+user.getIdUser())
+                ()-> new ResourceNotFoundException("Nie odnaleziono ustawień dla użytkownika o id: "+user.getIdUser())
         );
         String token = tokenCreator.createUserToken(user.getLogin());
         UserDto userDto = UserMapper.INSTANCE.toDto(user);
@@ -188,7 +188,7 @@ public class UserService implements UserDetailsService{
     public UserDto changeUserEmail(NewEmailRequest newEmailRequest){
         User user = authenticationUtils.getUserFromAuthentication();
         if(newEmailRequest.getNewEmail().equals(newEmailRequest.getOldEmail())){
-            throw new IllegalArgumentException("New email address can not be the same as old for user: "+user.getIdUser());
+            throw new IllegalArgumentException("Nowy adres email nie może być taki sam jak stary dla użytkownika o id: "+user.getIdUser());
         }
         user.setEmail(newEmailRequest.getNewEmail());
         user.setIsEmailConfirmed(false);
@@ -203,7 +203,7 @@ public class UserService implements UserDetailsService{
     public SettingDto changeUserSetting(SettingDto settingDto){
         User user = authenticationUtils.getUserFromAuthentication();
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
-                ()->new ResourceNotFoundException("Setting not found for idUser: "+user.getIdUser()));
+                ()->new ResourceNotFoundException("Nie odnaleziono ustawień dla użytkownika o id: "+user.getIdUser()));
         setting.setFontSize(settingDto.getFontSize());
         setting.setTheme(settingDto.getTheme());
         settingRepository.save(setting);
@@ -221,7 +221,7 @@ public class UserService implements UserDetailsService{
 
     public ResponseWithPassword createNewPassword(String email, CodeRequest codeRequest, PasswordEncoder passwordEncoder){
         User user = userRepository.findUsersByEmail(email).orElseThrow(
-                ()->new ResourceNotFoundException("User not found for email: "+email)
+                ()->new ResourceNotFoundException("Nie odnaleziono użytkownika dla emaila: "+email)
         );
         ValidationCode validationCode = validationCodeRepository.findValidationCodeByUserAndPurposeAndWasUsedIsFalse(
                 user,Purpose.PASSWORD_REMINDER).orElseThrow(
@@ -232,7 +232,7 @@ public class UserService implements UserDetailsService{
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             validationCode.setWasUsed(true);
-            log.info("New password set for user by Id: "+user.getIdUser());
+            log.info("Ustawiono hasło dla użytkownika o id: "+user.getIdUser());
             return new ResponseWithPassword(newPassword);
         }else{
             throw new AuthenticationFailedException("Podano zły kod dla użytkownika o emailu: "+user.getEmail());
@@ -243,7 +243,7 @@ public class UserService implements UserDetailsService{
         User user = authenticationUtils.getUserFromAuthentication();
         user.setIsActive(false);
         userRepository.save(user);
-        log.info("User by id "+user.getIdUser()+" deactivated");
+        log.info("Użytkownik o id "+user.getIdUser()+" dezaktywowany");
     }
 
     public List<UserDto> getAllUsers(){
