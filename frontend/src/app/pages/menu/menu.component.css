@@ -1,0 +1,74 @@
+.font-tab{
+    font-size:25px;
+}
+
+nav.nav-extended .nav-content {
+    position: relative;
+    line-height: 50px;
+    height: 100px;
+}
+
+.tabs{
+    height: 100px;
+    padding-top: 40px;
+    font-size:50px;
+}
+
+i.material-icons{
+    font-size: 40px;
+    color: black; 
+    padding-bottom: 20px
+}
+
+.logo{ 
+    width:139px; 
+    margin-top:0px; 
+    padding-top:20px
+}
+
+.logo-bg a:hover{
+    background-color: rgb(150, 209, 224);
+}
+
+.font{
+    color: black;
+    background-color:rgb(150, 209, 224);
+}
+
+i.material-icons:hover{
+    color: whitesmoke;
+}
+
+.tabs .tab{
+ height: auto;
+ padding-top: 30px;
+}
+
+.tabs .tab a{
+    color:#000;
+    background-color:rgb(150, 209, 224);
+    font-size: 20px;
+    
+} /*Black color to the text*/
+.tabs .tab a:hover {
+    background-color:rgb(150, 209, 224);
+    color:whitesmoke;
+} /*Text color on hover*/
+
+.tabs .tab a:active {
+    background-color:rgb(150, 209, 224);
+    color:whitesmoke;
+} /*Text color on hover*/
+
+.tabs .tab .indicator {
+    background-color: red;
+ } /* Color of underline */
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+div a:hover {
+    color:white;
+}

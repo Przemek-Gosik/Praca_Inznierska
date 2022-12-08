@@ -1,0 +1,20 @@
+.grid {
+    padding: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 100px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: rgba(138, 209, 250, 0.517);
+    color: black;
+}
+  
+  a {
+    margin: 5px;
+  }
+  
+.ng-invalid.ng-touched:not(form){
+    border-bottom: 3px solid red;
+}

@@ -1,0 +1,21 @@
+.page-not-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+    flex-direction: column;
+    font-family: Arial, Helvetica;
+}
+
+h1{
+    font-size: 60px;
+    padding-bottom: 10px;
+    padding-top: 150px;
+    font-weight: bolder;
+}
+
+h2{
+    font-size: 30px;
+    font-weight: lighter;
+}

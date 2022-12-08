@@ -1,0 +1,26 @@
+<div>
+    <nav class="bg-breadcrumb">
+        <div class="">
+          <div class="col s10">
+            <a href="/" class="breadcrumb " style="padding-top:500px"><b>Strona główna</b></a>
+          </div>
+        </div>
+      </nav>
+             
+        <mat-card class="grid home">
+            <mat-card-content> 
+                <mat-card-title style="text-align: center"> <h3><b>{{title}}</b></h3></mat-card-title>
+                <mat-card>
+                    <a routerLink="/reading">{{title_reading}}</a> {{text_reading}}
+                </mat-card>
+                <mat-card>
+                    <a routerLink="/reading">{{title_writing}}</a> {{text_writing}}
+                </mat-card>
+                <mat-card>
+                    <a routerLink="/reading">{{title_memorizing}}</a> {{text_memorizing}}
+                </mat-card>
+            </mat-card-content>
+        </mat-card>
+
+        <button class="waves-effect waves-ligth btn-large btn-2" ><a routerLink="/">{{button_text}}</a></button>
+</div>
