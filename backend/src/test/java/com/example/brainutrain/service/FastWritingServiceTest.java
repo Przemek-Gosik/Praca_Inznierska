@@ -33,10 +33,11 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.access.AccessDeniedException;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.nio.file.AccessDeniedException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -186,7 +187,7 @@ public class FastWritingServiceTest {
         Long idLesson = 1L;
         when(lessonRepository.findById(idLesson)).thenReturn(Optional.ofNullable(null));
 
-        assertThrows(ResourceNotFoundException.class,fastWritingService.getLessonById(idLesson));
+        assertThrows(ResourceNotFoundException.class,()->fastWritingService.getLessonById(idLesson));
     }
 
     @Test

@@ -28,8 +28,10 @@ import com.example.brainutrain.repository.FastWritingModuleRepository;
 import com.example.brainutrain.repository.FastWritingTestRepository;
 import com.example.brainutrain.repository.FastWritingTextRepository;
 import com.example.brainutrain.utils.AuthenticationUtils;
+import com.example.brainutrain.utils.StringGenerator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,6 +54,8 @@ public class FastWritingService {
     private final FastWritingTextRepository textRepository;
 
     private final AuthenticationUtils authenticationUtils;
+
+    private final StringGenerator stringGenerator;
 
     public List<FastWritingModuleDto> getAllModules(){
         List<FastWritingModule> modules = moduleRepository.findAll();
@@ -88,13 +92,22 @@ public class FastWritingService {
         return moduleUserResponseList;
     }
 
+    public FastWritingLessonDto getLessonById(Long id){
+        FastWritingLesson lesson = lessonRepository.findById(id).orElseThrow(
+                ()->new ResourceNotFoundException("Nie odnaleziono lekcji szybkiego pisania dla id: "+id)
+        );
+        FastWritingLessonDto lessonDto = FastWritingLessonMapper.INSTANCE.toDto(lesson);
+        lessonDto.setText(stringGenerator.generateTexts(lessonDto.getGeneratedCharacters()));
+        return lessonDto;
+    }
+
     public FastWritingCourseDto getCourseById(Long id){
         User user = authenticationUtils.getUserFromAuthentication();
         FastWritingCourse course = courseRepository.findByIdFastWritingCourse(id).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono wyniku lekcji szybkiego pisania dla id: "+id)
         );
         if(!course.getUser().equals(user)){
-            throw new AuthenticationFailedException("Brak dostepu do kursu o id: "+id);
+            throw new AccessDeniedException("Brak dostepu do kursu o id: "+id);
         }
         return FastWritingCourseMapper.INSTANCE.toDto(course);
     }
@@ -120,7 +133,7 @@ public class FastWritingService {
                 .orElseThrow(()->new ResourceNotFoundException("Nie odnaleziono wyniku kursu dla id: "
                         +courseDto.getIdFastWritingCourse()));
         if(!course.getUser().equals(user)){
-            throw new AuthenticationFailedException("Brak uprawnień do zmiany wyniku lekcji szybkiego pisania dla id : "
+            throw new AccessDeniedException("Brak uprawnień do zmiany wyniku lekcji szybkiego pisania dla id : "
                     +course.getIdFastWritingCourse());
         }
         course.setScore(courseDto.getScore());
