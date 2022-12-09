@@ -167,6 +167,29 @@ public class FastWritingServiceTest {
     }
 
     @Test
+    void getLessonById_GivenValidId_GetLessonDto(){
+        Long idLesson = 1L;
+        String[] texts = new String[10];
+        for(int i =0;i<10;i++){
+            texts[i]="tekst";
+        }
+        when(lessonRepository.findById(idLesson)).thenReturn(Optional.of(lesson1));
+        when(generator.generateTexts(lesson1.getGeneratedCharacters())).thenReturn(texts);
+
+        FastWritingLessonDto lessonDto = fastWritingService.getLessonById(idLesson);
+
+        assertEquals(texts,lessonDto.getText());
+    }
+
+    @Test
+    void getLessonById_GivenInvalidId_ResourceNotFoundThrown(){
+        Long idLesson = 1L;
+        when(lessonRepository.findById(idLesson)).thenReturn(Optional.ofNullable(null));
+
+        assertThrows(ResourceNotFoundException.class,fastWritingService.getLessonById(idLesson));
+    }
+
+    @Test
     void getCourseById_GivenValidId_GetCourseDto(){
 
         Long idCourse = 1L;
@@ -174,7 +197,6 @@ public class FastWritingServiceTest {
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
         when(courseRepository.findByIdFastWritingCourse(idCourse)).thenReturn(Optional.of(course1));
-
         FastWritingCourseDto courseDto = fastWritingService.getCourseById(idCourse);
 
         assertAll(
