@@ -3,7 +3,6 @@ package com.example.brainutrain.exception.handler;
 import com.example.brainutrain.exception.AlreadyExistsException;
 import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.message.ErrorMessage;
-import com.example.brainutrain.exception.message.MethodArgumentNotValidErrorMessage;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -112,21 +111,26 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public MethodArgumentNotValidErrorMessage handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException){
+    public ErrorMessage handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException,
+                                                                                    WebRequest webRequest){
         log.warn(methodArgumentNotValidException.getMessage());
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        return processFieldErrors(fieldErrors);
+        ErrorMessage errorMessage = processFieldErrors(fieldErrors);
+        errorMessage.setDescription(webRequest.getDescription(false));
+        return errorMessage;
     }
 
-    private MethodArgumentNotValidErrorMessage processFieldErrors(List<FieldError> fieldErrors){
-        MethodArgumentNotValidErrorMessage errorMessage = new MethodArgumentNotValidErrorMessage();
+    private ErrorMessage processFieldErrors(List<FieldError> fieldErrors){
+        ErrorMessage errorMessage = new ErrorMessage();
         errorMessage.setStatusCode(HttpStatus.BAD_REQUEST.value());
-        errorMessage.setMessage("Not valid arguments passed");
         errorMessage.setTimestamp(LocalDateTime.now());
+        StringBuilder message = new StringBuilder();
         for(FieldError fieldError: fieldErrors){
-            errorMessage.addFieldError(fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());
+            message.append(fieldError.getDefaultMessage());
+            message.append(System.getProperty("line.separator"));
         }
+        errorMessage.setMessage(message.toString());
         return errorMessage;
     }
 }

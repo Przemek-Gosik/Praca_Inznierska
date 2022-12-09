@@ -1,6 +1,6 @@
 package com.example.brainutrain.mapper;
 
-import com.example.brainutrain.dto.RegisterDto;
+import com.example.brainutrain.dto.request.RegisterRequest;
 import com.example.brainutrain.dto.UserDto;
 import com.example.brainutrain.model.User;
 import org.mapstruct.Mapper;
@@ -21,5 +21,5 @@ public interface UserMapper {
     @Mapping(target = "roles",ignore = true)
     List<UserDto> toDto(Collection<User> users);
 
-    User fromDto(RegisterDto registerDto);
+    User fromDto(RegisterRequest registerRequest);
 }

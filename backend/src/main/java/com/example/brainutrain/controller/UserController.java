@@ -1,14 +1,13 @@
 package com.example.brainutrain.controller;
 
+import com.example.brainutrain.dto.request.RegisterRequest;
 import com.example.brainutrain.dto.request.LoginRequest;
-import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.request.CodeRequest;
 import com.example.brainutrain.dto.request.EmailRequest;
 import com.example.brainutrain.dto.response.ResponseWithPassword;
 import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
-import com.example.brainutrain.dto.request.NewEmailRequest;
 import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.service.UserService;
@@ -41,8 +40,8 @@ public class UserController {
     private final PasswordEncoder encoder;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseWithToken> register(@Valid @RequestBody RegisterDto registerDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(registerDto,encoder));
+    public ResponseEntity<ResponseWithToken> register(@Valid @RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(registerRequest,encoder));
     }
 
     @GetMapping("/login")
@@ -78,8 +77,8 @@ public class UserController {
     }
 
     @PatchMapping("/changeEmail")
-    public ResponseEntity <UserDto> changeEmail( @Valid @RequestBody NewEmailRequest newEmailRequest){
-        return ResponseEntity.ok(userService.changeUserEmail(newEmailRequest));
+    public ResponseEntity <UserDto> changeEmail( @Valid @RequestBody EmailRequest emailRequest){
+        return ResponseEntity.ok(userService.changeUserEmail(emailRequest));
     }
 
     @PatchMapping("/changeSetting")

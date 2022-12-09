@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @Service
@@ -56,7 +57,7 @@ public class MemorizingService {
                         "Nie odnaleziono wyniku gry na zapamiętywanie dla id : "+id
                                )
         );
-        if(memorizing.getUser().getIdUser()==user.getIdUser()){
+        if(! memorizing.getUser().getIdUser().equals(user.getIdUser()) ){
             throw new AccessDeniedException(
                     "Uzytkownik o id: "+user.getIdUser()+" nie ma dostępu do wyniku o id: "+memorizing.getIdMemorizing());
         }

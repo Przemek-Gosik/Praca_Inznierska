@@ -1,20 +1,19 @@
 package com.example.brainutrain.service;
 
 import com.example.brainutrain.config.security.UserDetailsImpl;
+import com.example.brainutrain.dto.request.RegisterRequest;
 import com.example.brainutrain.utils.AuthenticationUtils;
 import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
 import com.example.brainutrain.constants.Theme;
 import com.example.brainutrain.dto.request.LoginRequest;
-import com.example.brainutrain.dto.RegisterDto;
 import com.example.brainutrain.dto.request.CodeRequest;
 import com.example.brainutrain.dto.request.EmailRequest;
 import com.example.brainutrain.dto.response.ResponseWithPassword;
 import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
-import com.example.brainutrain.dto.request.NewEmailRequest;
 import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.exception.AlreadyExistsException;
@@ -48,7 +47,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -97,15 +95,15 @@ public class UserService implements UserDetailsService{
         return userRepository.existsByEmail(email);
     }
 
-    public ResponseWithToken createUser(RegisterDto registerDto,PasswordEncoder passwordEncoder){
-        if(checkIfLoginIsAlreadyTaken(registerDto.getLogin())){
-            throw new IllegalArgumentException("Login zajęty dla: "+registerDto.getLogin());
+    public ResponseWithToken createUser(RegisterRequest registerRequest, PasswordEncoder passwordEncoder){
+        if(checkIfLoginIsAlreadyTaken(registerRequest.getLogin())){
+            throw new IllegalArgumentException("Login zajęty dla: "+ registerRequest.getLogin());
         }
-        if(checkIfEmailIsAlreadyTaken(registerDto.getEmail())){
-            throw new IllegalArgumentException("Adres email zajęty dla: "+registerDto.getEmail());
+        if(checkIfEmailIsAlreadyTaken(registerRequest.getEmail())){
+            throw new IllegalArgumentException("Adres email zajęty dla: "+ registerRequest.getEmail());
         }
-        registerDto.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        User newUser=UserMapper.INSTANCE.fromDto(registerDto);
+        registerRequest.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        User newUser=UserMapper.INSTANCE.fromDto(registerRequest);
         Role userRole = getUserRoleOrCreateIfNotExist();
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
@@ -171,7 +169,7 @@ public class UserService implements UserDetailsService{
 
     public ResponseWithToken changeUserLogin(NewLoginRequest newLoginRequest){
         User user = authenticationUtils.getUserFromAuthentication();
-        if(newLoginRequest.getNewLogin().equals(newLoginRequest.getOldLogin())){
+        if(newLoginRequest.getNewLogin().equals(user.getLogin())){
             throw new IllegalArgumentException("Nowy login nie może być taki sam jak stary:"+user.getIdUser());
         }
         user.setLogin(newLoginRequest.getNewLogin());
@@ -185,12 +183,12 @@ public class UserService implements UserDetailsService{
         return new ResponseWithToken(userDto,settingDto,token);
     }
 
-    public UserDto changeUserEmail(NewEmailRequest newEmailRequest){
+    public UserDto changeUserEmail(EmailRequest emailRequest){
         User user = authenticationUtils.getUserFromAuthentication();
-        if(newEmailRequest.getNewEmail().equals(newEmailRequest.getOldEmail())){
+        if(emailRequest.getEmail().equals(user.getEmail())){
             throw new IllegalArgumentException("Nowy adres email nie może być taki sam jak stary dla użytkownika o id: "+user.getIdUser());
         }
-        user.setEmail(newEmailRequest.getNewEmail());
+        user.setEmail(emailRequest.getEmail());
         user.setIsEmailConfirmed(false);
         userRepository.save(user);
         ValidationCode validationCode = new ValidationCode(Purpose.EMAIL_VERIFICATION,user);

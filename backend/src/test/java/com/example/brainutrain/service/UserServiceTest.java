@@ -5,13 +5,12 @@ import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
 import com.example.brainutrain.constants.Theme;
-import com.example.brainutrain.dto.RegisterDto;
+import com.example.brainutrain.dto.request.RegisterRequest;
 import com.example.brainutrain.dto.SettingDto;
 import com.example.brainutrain.dto.UserDto;
 import com.example.brainutrain.dto.request.CodeRequest;
 import com.example.brainutrain.dto.request.EmailRequest;
 import com.example.brainutrain.dto.request.LoginRequest;
-import com.example.brainutrain.dto.request.NewEmailRequest;
 import com.example.brainutrain.dto.request.NewLoginRequest;
 import com.example.brainutrain.dto.request.NewPasswordRequest;
 import com.example.brainutrain.dto.response.ResponseWithPassword;
@@ -43,16 +42,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.nio.file.AccessDeniedException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +56,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -205,13 +198,13 @@ public class UserServiceTest {
     @Test
     public void createUser_GivenValidData_GetResponseWithToken(){
         PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
-        RegisterDto registerDto = new RegisterDto(user1.getLogin(),user1.getEmail(),user1.getPassword());
-        when(userRepository.existsByEmail(registerDto.getEmail())).thenReturn(false);
-        when(userRepository.existsByLogin(registerDto.getLogin())).thenReturn(false);
+        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword());
+        when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(false);
+        when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(false);
         when(roleRepository.findByRoleName(RoleName.USER)).thenReturn(roleUser);
         when(settingRepository.save(any())).thenReturn(setting1);
-        when(tokenCreator.createUserToken(registerDto.getLogin())).thenReturn(token);
-        ResponseWithToken response = userService.createUser(registerDto,encoder);
+        when(tokenCreator.createUserToken(registerRequest.getLogin())).thenReturn(token);
+        ResponseWithToken response = userService.createUser(registerRequest,encoder);
         assertAll(
                 ()->assertEquals(user1.getLogin(),response.getUserDto().getLogin()),
                 ()->assertEquals(token,response.getToken())
@@ -221,18 +214,18 @@ public class UserServiceTest {
     @Test
     public void createUser_GivenAlreadyExistingEmail_ThrowIllegalArgumentException(){
         PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
-        RegisterDto registerDto = new RegisterDto(user1.getLogin(),user1.getEmail(),user1.getPassword());
-        when(userRepository.existsByEmail(registerDto.getEmail())).thenReturn(true);
-        when(userRepository.existsByLogin(registerDto.getLogin())).thenReturn(false);
-        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerDto,encoder));
+        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword());
+        when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(true);
+        when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(false);
+        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest,encoder));
     }
 
     @Test
     public void createUser_GivenAlreadyExistingLogin_ThrowIllegalArgumentException(){
         PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
-        RegisterDto registerDto = new RegisterDto(user1.getLogin(),user1.getEmail(),user1.getPassword());
-        when(userRepository.existsByLogin(registerDto.getLogin())).thenReturn(true);
-        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerDto,encoder));
+        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword());
+        when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(true);
+        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest,encoder));
     }
 
     @Test
@@ -298,7 +291,7 @@ public class UserServiceTest {
     @Test
     public void changeUserLogin_GivenNewLogin_GetResponseWithToken(){
         String newLogin="login2";
-        NewLoginRequest loginRequest = new NewLoginRequest(newLogin,user1.getLogin());
+        NewLoginRequest loginRequest = new NewLoginRequest(newLogin);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
         when(settingRepository.findSettingByUserIdUser(user1.getIdUser())).thenReturn(Optional.of(setting1));
         when(tokenCreator.createUserToken(newLogin)).thenReturn(token);
@@ -313,7 +306,7 @@ public class UserServiceTest {
     @Test
     public void changeUserLogin_GivenNewLoginEqualsOld_ThrowIllegalArgumentException(){
         String newLogin="login";
-        NewLoginRequest loginRequest = new NewLoginRequest(newLogin,user1.getLogin());
+        NewLoginRequest loginRequest = new NewLoginRequest(newLogin);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
         assertThrows(IllegalArgumentException.class,
                 ()->userService.changeUserLogin(loginRequest));
@@ -322,7 +315,7 @@ public class UserServiceTest {
     @Test
     public void changeUserLogin_GivenNewLoginEqualsOld_ThrowResourceNotFoundException(){
         String newLogin="login2";
-        NewLoginRequest loginRequest = new NewLoginRequest(newLogin,user1.getLogin());
+        NewLoginRequest loginRequest = new NewLoginRequest(newLogin);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
         when(settingRepository.findSettingByUserIdUser(user1.getIdUser())).thenReturn(Optional.ofNullable(null));
         assertThrows(ResourceNotFoundException.class,
@@ -331,8 +324,8 @@ public class UserServiceTest {
 
     @Test
     public void changeUserEmail_GivenNewValidEmail_GetUserDto(){
-        String newEmail = "email@email.pl";
-        NewEmailRequest emailRequest = new NewEmailRequest(newEmail,user1.getEmail());
+        String newEmail = "email@email.com";
+        EmailRequest emailRequest = new EmailRequest(newEmail);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
         UserDto userDto = userService.changeUserEmail(emailRequest);
         assertAll(
@@ -343,7 +336,7 @@ public class UserServiceTest {
     @Test
     public void changeUserEmail_GivenNewEmailEqualsOld_ThrowIllegalArgumentException(){
         String newEmail = user1.getEmail();
-        NewEmailRequest emailRequest = new NewEmailRequest(newEmail,user1.getEmail());
+        EmailRequest emailRequest = new EmailRequest(newEmail);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
         assertThrows(IllegalArgumentException.class,()->userService.changeUserEmail(emailRequest));
     }

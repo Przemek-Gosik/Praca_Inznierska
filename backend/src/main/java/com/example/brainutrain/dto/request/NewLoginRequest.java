@@ -16,7 +16,4 @@ public class NewLoginRequest {
     @NotBlank
     @Size(max=45)
     private String newLogin;
-
-    @NotBlank
-    private String oldLogin;
 }
