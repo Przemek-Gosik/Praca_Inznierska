@@ -1,11 +1,13 @@
 package com.example.brainutrain.utils;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.Random;
 
 @Service
 @NoArgsConstructor
+@Slf4j
 public class StringGenerator {
 
     public String generateCode(){
@@ -31,4 +33,20 @@ public class StringGenerator {
                 .toString();
     }
 
+    public String[] generateTexts(String generatedCharacters) {
+        String[] generatedTexts = new String[10];
+        int[] charCodes = generatedCharacters.chars().toArray();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int j = 0; j < 15; j++) {
+                int randomCharCode = random.nextInt(charCodes.length);
+
+                stringBuilder.append((char) charCodes[randomCharCode]);
+            }
+            generatedTexts[i] = stringBuilder.toString();
+            log.info(generatedTexts[i]);
+        }
+        return generatedTexts;
+    }
 }
