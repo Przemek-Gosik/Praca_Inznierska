@@ -18,15 +18,16 @@ public class FastWritingLessonDto {
 
     private Long idFastWritingLesson;
 
-    @NotNull
+    @NotNull(message = "Numer lekcji nie może być pusty")
     private int number;
 
-    @NotNull
+    @NotNull(message = "Nazwa Lekcji nie może być pusta")
     private String name;
 
-    @NotNull
-    @Size(max=10,message = "Może być maksymalnie 10 znaków")
+    @NotNull(message = "Wartość generowanych znaków nie może być pusta")
+    @Size(max=10,message = "Nie można podać więcej niż 10 znaków")
     private String generatedCharacters;
 
-    private String text;
+    @Size(max = 10)
+    private String[] text;
 }

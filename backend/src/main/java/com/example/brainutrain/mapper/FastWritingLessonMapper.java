@@ -1,6 +1,7 @@
 package com.example.brainutrain.mapper;
 
 import com.example.brainutrain.dto.FastWritingLessonDto;
+import com.example.brainutrain.dto.response.FastWritingLessonUserResponse;
 import com.example.brainutrain.model.FastWritingLesson;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -18,5 +19,8 @@ public interface FastWritingLessonMapper {
 
     FastWritingLesson fromDto(FastWritingLessonDto fastWritingLessonDto);
 
+    FastWritingLessonUserResponse toUserResponse(FastWritingLesson fastWritingLesson);
+
+    List<FastWritingLessonUserResponse> toUserResponse(Collection<FastWritingLesson> fastWritingLessons);
 
 }

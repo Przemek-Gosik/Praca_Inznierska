@@ -97,20 +97,20 @@ public class FastWritingServiceTest {
         roles.add(role);
         user = new User(1L,"login","login@email.com","password",true,true,roles);
         timestamp = new Timestamp(System.currentTimeMillis());
+        module = new FastWritingModule(1L,1,"Pełne dłonie");
+        modules.add(module);
         lesson1 = new FastWritingLesson(1L,1,"Lewa ręka",
-                "aAqQwW");
+                "aAqQwW",module);
         course1 = new FastWritingCourse(1L,0.8,timestamp, (float) 65.23,1,lesson1,user);
         courseDto1 = new FastWritingCourseDto(course1.getIdFastWritingCourse(),course1.getScore(),
                 course1.getStartTime().toLocalDateTime(),course1.getTime(),course1.getNumberOfAttempts(),
                 lesson1.getIdFastWritingLesson());
-        lesson2 = new FastWritingLesson(2L,2,"Prawa ręka","pPoOlL");
+        lesson2 = new FastWritingLesson(2L,2,"Prawa ręka","pPoOlL",module);
         course2 = new FastWritingCourse(2L,0.4,timestamp,(float) 55.05,1,lesson2,user);
         courses.add(course1);
         courses.add(course2);
         lessons.add(lesson1);
         lessons.add(lesson2);
-        module = new FastWritingModule(1L,1,"Pełne dłonie",lessons);
-        modules.add(module);
         text1 = new FastWritingText(1L,"Kopciuszek","Dawno dawno temu....", Level.EASY);
         text2 = new FastWritingText(2L,"Czerwony kapturek","Jeszcze dawniej temu...",Level.MEDIUM);
         test1 = new FastWritingTest(1L,"Dawno dawwwno ttttm",20.5,timestamp, (float) 154.04,text1,user);
