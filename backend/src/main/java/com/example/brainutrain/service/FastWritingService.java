@@ -198,6 +198,9 @@ public class FastWritingService {
         FastWritingTest test = testRepository.findById(id).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono testu na szybkie pisanie dla id: "+id)
         );
+        if(!test.getUser().equals(user)){
+            throw new AccessDeniedException("Brak uprawnień do wyświetlenia testu o id: "+test.getIdFastWritingTest());
+        }
         return FastWritingTestMapper.INSTANCE.toDto(test);
     }
 }
