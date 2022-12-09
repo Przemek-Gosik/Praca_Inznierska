@@ -94,7 +94,7 @@ public class FastWritingService {
         FastWritingCourse course = courseRepository.findByIdFastWritingCourse(courseDto.getIdFastWritingCourse())
                 .orElseThrow(()->new ResourceNotFoundException("Nie odnaleziono wyniku kursu dla id: "
                         +courseDto.getIdFastWritingCourse()));
-        if(course.getUser().equals(user)){
+        if(!course.getUser().equals(user)){
             throw new AuthenticationFailedException("Brak uprawnień do zmiany wyniku lekcji szybkiego pisania dla id : "
                     +course.getIdFastWritingCourse());
         }
@@ -139,8 +139,8 @@ public class FastWritingService {
 
     public void createNewTest(FastWritingTestDto testDto){
         User user = authenticationUtils.getUserFromAuthentication();
-        FastWritingText text = textRepository.findById(testDto.getIdFastWritingTest()).orElseThrow(
-                ()->new ResourceNotFoundException("Nie odnaleziono tekstu dla id: "+testDto.getIdFastWritingTest())
+        FastWritingText text = textRepository.findById(testDto.getIdText()).orElseThrow(
+                ()->new ResourceNotFoundException("Nie odnaleziono tekstu dla id: "+testDto.getIdText())
         );
         FastWritingTest test = FastWritingTestMapper.INSTANCE.fromDto(testDto);
         test.setText(text);

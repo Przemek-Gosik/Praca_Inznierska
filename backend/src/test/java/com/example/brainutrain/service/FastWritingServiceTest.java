@@ -25,16 +25,21 @@ import com.example.brainutrain.repository.FastWritingLessonRepository;
 import com.example.brainutrain.repository.FastWritingModuleRepository;
 import com.example.brainutrain.repository.FastWritingTestRepository;
 import com.example.brainutrain.repository.FastWritingTextRepository;
+import com.example.brainutrain.utils.StringGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.nio.file.AccessDeniedException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -44,6 +49,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -69,21 +75,24 @@ public class FastWritingServiceTest {
     @Mock
     private FastWritingTestRepository testRepository;
 
+    @Mock
+    private StringGenerator generator;
+
     @InjectMocks
     private FastWritingService fastWritingService;
 
     private User user;
     private Role role;
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
     private FastWritingLesson lesson1;
     private FastWritingLesson lesson2;
-    private List<FastWritingLesson> lessons;
+    private List<FastWritingLesson> lessons = new ArrayList<>();
     private FastWritingCourse course1;
     private FastWritingCourseDto courseDto1;
     private FastWritingCourse course2;
-    private List<FastWritingCourse> courses;
+    private List<FastWritingCourse> courses = new ArrayList<>();
     private FastWritingModule module;
-    private List<FastWritingModule> modules;
+    private List<FastWritingModule> modules = new ArrayList<>();
 
     private FastWritingTest test1;
     private FastWritingTest test2;
@@ -123,14 +132,8 @@ public class FastWritingServiceTest {
 
         //when
         when(moduleRepository.findAll()).thenReturn(modules);
+        when(lessonRepository.findAllByModuleAndOrderByNumber(module)).thenReturn(lessons);
 
-        //Before
-        FastWritingLessonDto lessonDto = new FastWritingLessonDto(
-                lesson1.getIdFastWritingLesson(),
-                lesson1.getNumber(),
-                lesson1.getName(),
-                lesson1.getGeneratedCharacters()
-        );
 
         List<FastWritingModuleDto> moduleDtos = fastWritingService.getAllModules();
 
@@ -139,8 +142,7 @@ public class FastWritingServiceTest {
         assertAll(()->assertFalse(moduleDtos.isEmpty()),
                 ()->assertEquals(modules.size(),moduleDtos.size()),
                 ()->assertEquals(module.getName(),moduleDtos.get(0).getName()),
-                ()->assertEquals(module.getFastWritingLessons().size(),moduleDto.getFastWritingLessons().size()),
-                ()->assertEquals(lessonDto,moduleDto.getFastWritingLessons().get(0)));
+                ()->assertEquals(lessons.size(),moduleDto.getLessons().size()));
     }
 
     @Test
@@ -208,13 +210,13 @@ public class FastWritingServiceTest {
 
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
-        when(courseRepository.findByIdFastWritingCourse(idCourse)).thenReturn(Optional.of(null));
+        when(courseRepository.findByIdFastWritingCourse(idCourse)).thenReturn(Optional.ofNullable(null));
 
         assertThrows(ResourceNotFoundException.class,()->fastWritingService.getCourseById(idCourse));
     }
 
     @Test
-    void getCourseById_GivenUserWithoutPermissions_AuthenticationFailedExceptionThrown(){
+    void getCourseById_GivenUserWithoutPermissions_AccessDeniedExceptionThrown(){
         User user2 = new User(2L,"login2","pass2@email.com","pass2",true,true,roles);
         Long idCourse = 1L;
 
@@ -222,25 +224,23 @@ public class FastWritingServiceTest {
         when(utils.getUserFromAuthentication()).thenReturn(user2);
         when(courseRepository.findByIdFastWritingCourse(idCourse)).thenReturn(Optional.of(course1));
 
-        assertThrows(AuthenticationFailedException.class,()->fastWritingService.getCourseById(idCourse));
+        assertThrows(AccessDeniedException.class,()->fastWritingService.getCourseById(idCourse));
     }
 
     @Test
     void saveNewCourse_GivenValidData_ExistsInRepository(){
 
         courseDto1.setIdFastWritingCourse(null);
-        FastWritingCourse course = course1;
-        course.setIdFastWritingCourse(null);
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
-        when(courseRepository.save(course)).thenReturn(course1);
+        when(courseRepository.save(any(FastWritingCourse.class))).thenReturn(course1);
         when(lessonRepository.findById(courseDto1.getIdFastWritingLesson())).thenReturn(Optional.of(lesson1));
         when(courseRepository.existsByUserAndAndFastWritingLesson(user,lesson1)).thenReturn(false);
 
         fastWritingService.saveNewCourse(courseDto1);
 
         //Then
-        verify(courseRepository).save(course1);
+        verify(courseRepository,times(1)).save(any(FastWritingCourse.class));
     }
 
     @Test
@@ -251,7 +251,6 @@ public class FastWritingServiceTest {
         course.setIdFastWritingCourse(null);
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
-        when(courseRepository.save(course)).thenReturn(course1);
         when(lessonRepository.findById(courseDto1.getIdFastWritingLesson())).thenReturn(Optional.of(lesson1));
         when(courseRepository.existsByUserAndAndFastWritingLesson(user,lesson1)).thenReturn(true);
 
@@ -261,44 +260,28 @@ public class FastWritingServiceTest {
     @Test
     void updateNewCourse_GivenCourseId_ModifyExistingObject(){
         courseDto1.setScore(0.91);
-        FastWritingCourse course = new FastWritingCourse(
-                courseDto1.getIdFastWritingCourse(),
-                courseDto1.getScore(),
-                Timestamp.valueOf(courseDto1.getStartTime()),
-                courseDto1.getTime(),
-                courseDto1.getNumberOfAttempts(),
-                lesson1,user
-        );
+        int numberOfAttempts = course1.getNumberOfAttempts();
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
-        when(courseRepository.save(course)).thenReturn(course);
         when(courseRepository.findByIdFastWritingCourse(courseDto1.getIdFastWritingLesson())).thenReturn(Optional.of(course1));
 
 
         fastWritingService.updateNewCourse(courseDto1);
 
-        assertNotEquals(course1,course);
-        assertEquals(course1.getNumberOfAttempts()+1,course.getNumberOfAttempts());
+        assertEquals(numberOfAttempts+1,course1.getNumberOfAttempts());
+        assertEquals(courseDto1.getScore(),course1.getScore());
     }
 
     @Test
-    void updateNewCourse_GivenWrongUser_ThrowAuthenticationFailedException(){
+    void updateNewCourse_GivenWrongUser_AccessDeniedExceptionThrown(){
 
         User user2 = new User(2L,"login2","pass2@email.com","pass2",true,true,roles);
-        FastWritingCourse course = new FastWritingCourse(
-                courseDto1.getIdFastWritingCourse(),
-                courseDto1.getScore(),
-                Timestamp.valueOf(courseDto1.getStartTime()),
-                courseDto1.getTime(),
-                courseDto1.getNumberOfAttempts(),
-                lesson1,user
-        );
+
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user2);
-        when(courseRepository.save(course)).thenReturn(course);
         when(courseRepository.findByIdFastWritingCourse(courseDto1.getIdFastWritingLesson())).thenReturn(Optional.of(course1));
 
-        assertThrows(AuthenticationFailedException.class,
+        assertThrows(AccessDeniedException.class,
                 ()->fastWritingService.updateNewCourse(courseDto1));
     }
 
@@ -316,8 +299,7 @@ public class FastWritingServiceTest {
         );
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
-        when(courseRepository.save(course)).thenReturn(course);
-        when(courseRepository.findByIdFastWritingCourse(courseDto1.getIdFastWritingLesson())).thenReturn(Optional.of(null));
+        when(courseRepository.findByIdFastWritingCourse(courseDto1.getIdFastWritingLesson())).thenReturn(Optional.ofNullable(null));
 
         assertThrows(ResourceNotFoundException.class,()->fastWritingService.updateNewCourse(courseDto1));
     }
@@ -334,25 +316,20 @@ public class FastWritingServiceTest {
 
         List<FastWritingTextDto> results = fastWritingService.getAllTexts();
 
-        assertAll(
-                ()->assertNull(results.get(0).getText()),
-                ()->assertEquals(fastWritingTextList.size(),results.size())
-        );
+
+        assertEquals(fastWritingTextList.size(),results.size());
     }
 
     @Test
     void getTextById_GivenValidId_GetTextDto(){
 
-        Long idText = 1L;
+        Long idText = text1.getIdFastWritingText();
         //When
         when(textRepository.findById(idText)).thenReturn(Optional.of(text1));
 
         FastWritingTextDto result = fastWritingService.getTextById(idText);
 
-        assertAll(
-                ()->assertNotNull(result.getText()),
-                ()->assertEquals(idText,result.getIdFastWritingText())
-        );
+        assertEquals(idText,result.getIdFastWritingText());
     }
 
     @Test
@@ -360,7 +337,7 @@ public class FastWritingServiceTest {
 
         Long idText = 3L;
         //When
-        when(textRepository.findById(idText)).thenReturn(Optional.of(null));
+        when(textRepository.findById(idText)).thenReturn(Optional.ofNullable(null));
 
         assertThrows(ResourceNotFoundException.class,()->fastWritingService.getTextById(idText));
     }
@@ -394,7 +371,7 @@ public class FastWritingServiceTest {
 
         assertTrue(result.getText().equals(text1.getText()) || result.getText().equals(text3.getText()));
 
-        assertEquals(Level.EASY,result.getText());
+        assertEquals(Level.EASY,result.getLevel());
     }
 
     @Test
@@ -424,10 +401,8 @@ public class FastWritingServiceTest {
         test.setIdFastWritingTest(null);
 
         //When
-        when(testRepository.save(test)).thenReturn(test1);
         when(utils.getUserFromAuthentication()).thenReturn(user);
-        when(textRepository.findById(testDto1.getIdText())).thenReturn(Optional.of(null));
-
+        when(textRepository.findById(testDto1.getIdText())).thenReturn(Optional.ofNullable(null));
         assertThrows(ResourceNotFoundException.class,()->fastWritingService.createNewTest(testDto1));
     }
 

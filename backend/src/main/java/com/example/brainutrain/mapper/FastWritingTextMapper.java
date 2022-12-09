@@ -4,7 +4,6 @@ import com.example.brainutrain.dto.FastWritingTextDto;
 import com.example.brainutrain.model.FastWritingText;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
 import java.util.Collection;
 import java.util.List;
 
