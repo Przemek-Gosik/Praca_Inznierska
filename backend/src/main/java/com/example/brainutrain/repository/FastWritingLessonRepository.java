@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface FastWritingLessonRepository extends JpaRepository<FastWritingLesson,Long> {
 
-    List<FastWritingLesson> findAllByModuleAndOrderByNumber(FastWritingModule module);
+    List<FastWritingLesson> findAllByModuleNameAndOrderByName(String moduleName);
 }

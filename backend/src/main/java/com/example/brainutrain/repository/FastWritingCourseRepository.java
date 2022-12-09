@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface FastWritingCourseRepository extends JpaRepository<FastWritingCourse,Long> {
     List<FastWritingCourse> findAllByUser(User user);
+
+    Optional<FastWritingCourse> findByUserAndAndFastWritingLesson(User user,FastWritingLesson lesson);
     Optional<FastWritingCourse> findByIdFastWritingCourse(Long id);
 
     Boolean existsByUserAndAndFastWritingLesson(User user, FastWritingLesson lesson);

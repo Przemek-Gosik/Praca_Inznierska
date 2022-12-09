@@ -56,4 +56,9 @@ public class FastWritingCourse {
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    public FastWritingCourse(Long idFastWritingCourse,Double score){
+        this.idFastWritingCourse = idFastWritingCourse;
+        this.score = score;
+    }
 }

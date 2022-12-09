@@ -2,14 +2,17 @@ package com.example.brainutrain.service;
 
 import com.example.brainutrain.constants.Level;
 import com.example.brainutrain.dto.FastWritingCourseDto;
+import com.example.brainutrain.dto.FastWritingLessonDto;
 import com.example.brainutrain.dto.FastWritingModuleDto;
 import com.example.brainutrain.dto.FastWritingTestDto;
 import com.example.brainutrain.dto.FastWritingTextDto;
+import com.example.brainutrain.dto.response.FastWritingLessonUserResponse;
 import com.example.brainutrain.dto.response.FastWritingModuleUserResponse;
 import com.example.brainutrain.exception.AlreadyExistsException;
 import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.mapper.FastWritingCourseMapper;
+import com.example.brainutrain.mapper.FastWritingLessonMapper;
 import com.example.brainutrain.mapper.FastWritingModuleMapper;
 import com.example.brainutrain.mapper.FastWritingTestMapper;
 import com.example.brainutrain.mapper.FastWritingTextMapper;
@@ -51,16 +54,38 @@ public class FastWritingService {
     private final AuthenticationUtils authenticationUtils;
 
     public List<FastWritingModuleDto> getAllModules(){
-        List< FastWritingModule> modules = moduleRepository.findAll();
-        return FastWritingModuleMapper.INSTANCE.toDto(modules);
+        List<FastWritingModule> modules = moduleRepository.findAll();
+        List<FastWritingModuleDto> moduleDtoList = FastWritingModuleMapper.INSTANCE.toDto(modules);
+        for(FastWritingModuleDto moduleDto : moduleDtoList){
+            List<FastWritingLesson> writingLessons = lessonRepository.findAllByModuleNameAndOrderByName(moduleDto.getName());
+            List<FastWritingLessonDto> writingLessonDtoList = FastWritingLessonMapper.INSTANCE.toDto(writingLessons);
+            moduleDto.setLessons(writingLessonDtoList);
+            log.info(Integer.toString(moduleDto.getLessons().size()));
+        }
+        return moduleDtoList;
     }
 
     public List<FastWritingModuleUserResponse> getAllUserModules(){
         User user = authenticationUtils.getUserFromAuthentication();
         List<FastWritingModule> modules = moduleRepository.findAll();
-        List< FastWritingCourse> courses = courseRepository.findAllByUser(user);
-        List<FastWritingModuleUserResponse> userResponseList = new ArrayList<>();
-        return userResponseList;
+        List<FastWritingModuleUserResponse> moduleUserResponseList = FastWritingModuleMapper.INSTANCE.toUserResponse(modules);
+        for(FastWritingModuleUserResponse moduleUserResponse : moduleUserResponseList){
+            List<FastWritingLesson> writingLessons = lessonRepository.findAllByModuleNameAndOrderByName(moduleUserResponse.getName());
+            List<FastWritingLessonUserResponse> lessonUserResponseList = writingLessons
+                    .stream().map(
+                            writingLesson -> {
+                                FastWritingLessonUserResponse lessonUserResponse =
+                                        FastWritingLessonMapper.INSTANCE.toUserResponse(writingLesson);
+                                FastWritingCourse course = courseRepository.findByUserAndAndFastWritingLesson(user,writingLesson).orElse(
+                                        new FastWritingCourse(null,0.0)
+                                );
+                                lessonUserResponse.setIdFastWritingCourse(course.getIdFastWritingCourse());
+                                lessonUserResponse.setScore(course.getScore());
+                                return lessonUserResponse;
+                            }).toList();
+            moduleUserResponse.setFastWritingLessons(lessonUserResponseList);
+        }
+        return moduleUserResponseList;
     }
 
     public FastWritingCourseDto getCourseById(Long id){

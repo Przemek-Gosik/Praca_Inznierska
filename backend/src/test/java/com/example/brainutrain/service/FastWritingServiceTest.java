@@ -132,7 +132,7 @@ public class FastWritingServiceTest {
 
         //when
         when(moduleRepository.findAll()).thenReturn(modules);
-        when(lessonRepository.findAllByModuleAndOrderByNumber(module)).thenReturn(lessons);
+        when(lessonRepository.findAllByModuleNameAndOrderByName(module.getName())).thenReturn(lessons);
 
 
         List<FastWritingModuleDto> moduleDtos = fastWritingService.getAllModules();
@@ -151,40 +151,19 @@ public class FastWritingServiceTest {
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
         when(moduleRepository.findAll()).thenReturn(modules);
-        when(courseRepository.findAllByUser(user)).thenReturn(courses);
-
-        //Before
-        FastWritingLessonUserResponse userResponse1 = new FastWritingLessonUserResponse(
-                lesson1.getIdFastWritingLesson(),
-                lesson1.getNumber(),
-                lesson1.getName(),
-                lesson1.getGeneratedCharacters(),
-                course1.getIdFastWritingCourse(),
-                course1.getScore()
-        );
-        FastWritingLessonUserResponse userResponse2 = new FastWritingLessonUserResponse(
-                lesson2.getIdFastWritingLesson(),
-                lesson2.getNumber(),
-                lesson2.getName(),
-                lesson2.getGeneratedCharacters(),
-                course2.getIdFastWritingCourse(),
-                course2.getScore()
-        );
-        List<FastWritingLessonUserResponse> userResponseList = new ArrayList<>();
-        userResponseList.add(userResponse1);
-        userResponseList.add(userResponse2);
-
-        FastWritingModuleUserResponse moduleUserResponse = new FastWritingModuleUserResponse(
-                module.getIdFastWritingModule(),
-                module.getNumber(),
-                module.getName(),
-                userResponseList
-        );
+        when(lessonRepository.findAllByModuleNameAndOrderByName(module.getName())).thenReturn(lessons);
+        when(courseRepository.findByUserAndAndFastWritingLesson(user,lesson1)).thenReturn(Optional.of(course1));
+        when(courseRepository.findByUserAndAndFastWritingLesson(user,lesson2)).thenReturn(Optional.ofNullable(null));
 
         List<FastWritingModuleUserResponse> responses = fastWritingService.getAllUserModules();
-
+        FastWritingModuleUserResponse response = responses.get(0);
         //Then
-        assertTrue(responses.equals(moduleUserResponse));
+        assertAll(
+                ()->assertEquals(lessons.size(),response.getFastWritingLessons().size()),
+                ()->assertEquals(lessons.get(0).getGeneratedCharacters(),response.getFastWritingLessons().get(0).getGeneratedCharacters()),
+                ()->assertEquals(course1.getScore(),response.getFastWritingLessons().get(0).getScore()),
+                ()->assertEquals(0.0,response.getFastWritingLessons().get(1).getScore())
+        );
     }
 
     @Test
