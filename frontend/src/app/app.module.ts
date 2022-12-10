@@ -24,6 +24,7 @@ import { MatInputModule } from "@angular/material/input"
 
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
+import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatchPasswordDirective } from './directives/match-password.directive';
     SettingsComponent,
     ContactComponent,
     FooterComponent,
-    MatchPasswordDirective
+    MatchPasswordDirective,
+    VerificationCodeComponent
   ],
   imports: [
     BrowserModule,

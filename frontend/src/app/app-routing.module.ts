@@ -10,12 +10,14 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { WritingComponent } from './pages/writing/writing.component';
+import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
   { path: 'account/signin', component: SigninComponent},
   { path: 'account/signin/signup', component: SignupComponent},
+  { path: 'account/signin/signup/verification', component: VerificationCodeComponent},
   { path: 'reading', component: ReadingComponent},
   { path: 'writing', component: WritingComponent},
   { path: 'memorizing', component: MemorizingComponent},
