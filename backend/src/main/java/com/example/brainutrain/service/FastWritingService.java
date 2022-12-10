@@ -9,7 +9,6 @@ import com.example.brainutrain.dto.FastWritingTextDto;
 import com.example.brainutrain.dto.response.FastWritingLessonUserResponse;
 import com.example.brainutrain.dto.response.FastWritingModuleUserResponse;
 import com.example.brainutrain.exception.AlreadyExistsException;
-import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.mapper.FastWritingCourseMapper;
 import com.example.brainutrain.mapper.FastWritingLessonMapper;
@@ -34,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -61,7 +59,7 @@ public class FastWritingService {
         List<FastWritingModule> modules = moduleRepository.findAll();
         List<FastWritingModuleDto> moduleDtoList = FastWritingModuleMapper.INSTANCE.toDto(modules);
         for(FastWritingModuleDto moduleDto : moduleDtoList){
-            List<FastWritingLesson> writingLessons = lessonRepository.findAllByModuleNameAndOrderByName(moduleDto.getName());
+            List<FastWritingLesson> writingLessons = lessonRepository.findAllByModuleName(moduleDto.getName());
             List<FastWritingLessonDto> writingLessonDtoList = FastWritingLessonMapper.INSTANCE.toDto(writingLessons);
             moduleDto.setLessons(writingLessonDtoList);
             log.info(Integer.toString(moduleDto.getLessons().size()));
@@ -74,7 +72,7 @@ public class FastWritingService {
         List<FastWritingModule> modules = moduleRepository.findAll();
         List<FastWritingModuleUserResponse> moduleUserResponseList = FastWritingModuleMapper.INSTANCE.toUserResponse(modules);
         for(FastWritingModuleUserResponse moduleUserResponse : moduleUserResponseList){
-            List<FastWritingLesson> writingLessons = lessonRepository.findAllByModuleNameAndOrderByName(moduleUserResponse.getName());
+            List<FastWritingLesson> writingLessons = lessonRepository.findAllByModuleName(moduleUserResponse.getName());
             List<FastWritingLessonUserResponse> lessonUserResponseList = writingLessons
                     .stream().map(
                             writingLesson -> {

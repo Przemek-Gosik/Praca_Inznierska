@@ -47,7 +47,7 @@ public class Memorizing {
     @NotNull
     private Timestamp startTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 }

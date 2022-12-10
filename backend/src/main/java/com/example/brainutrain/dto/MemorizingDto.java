@@ -2,6 +2,10 @@ package com.example.brainutrain.dto;
 
 import com.example.brainutrain.constants.Level;
 import com.example.brainutrain.constants.TypeMemory;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,15 +27,17 @@ public class MemorizingDto {
     private Long idMemorizing;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @NotNull(message = "Typ testu na zapamiętywanie nie może być pusty!")
     private TypeMemory type;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @NotNull(message = "Poziom testu na zapamiętywanie nie może być pusty!")
     private Level level;
 
-    @NotNull
+    @NotNull(message = "Wynik testu na zapamiętywanie nie może być pusty!")
     private Long score;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime startTime;
 }

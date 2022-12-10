@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 public class SettingDto {
 
-    @NotNull
     private Long idSetting;
     @NotNull
     private FontSize fontSize;

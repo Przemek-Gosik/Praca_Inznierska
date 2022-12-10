@@ -8,6 +8,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,4 +29,12 @@ public interface ReportMapper {
 
     @Mapping(target = "user",ignore = true)
     Report fromDto(ReportDto reportDto);
+
+    default Timestamp fromLocalDateTime(LocalDateTime localDateTime){
+        return  localDateTime == null ? null : Timestamp.valueOf(localDateTime);
+    }
+
+    default LocalDateTime toLocalDateTime(Timestamp timestamp){
+        return timestamp == null ? null : timestamp.toLocalDateTime();
+    }
 }

@@ -8,10 +8,8 @@ import com.example.brainutrain.dto.FastWritingLessonDto;
 import com.example.brainutrain.dto.FastWritingModuleDto;
 import com.example.brainutrain.dto.FastWritingTestDto;
 import com.example.brainutrain.dto.FastWritingTextDto;
-import com.example.brainutrain.dto.response.FastWritingLessonUserResponse;
 import com.example.brainutrain.dto.response.FastWritingModuleUserResponse;
 import com.example.brainutrain.exception.AlreadyExistsException;
-import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.ResourceNotFoundException;
 import com.example.brainutrain.model.FastWritingCourse;
 import com.example.brainutrain.model.FastWritingLesson;
@@ -29,7 +27,6 @@ import com.example.brainutrain.utils.StringGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -133,7 +130,7 @@ public class FastWritingServiceTest {
 
         //when
         when(moduleRepository.findAll()).thenReturn(modules);
-        when(lessonRepository.findAllByModuleNameAndOrderByName(module.getName())).thenReturn(lessons);
+        when(lessonRepository.findAllByModuleName(module.getName())).thenReturn(lessons);
 
 
         List<FastWritingModuleDto> moduleDtos = fastWritingService.getAllModules();
@@ -152,7 +149,7 @@ public class FastWritingServiceTest {
         //When
         when(utils.getUserFromAuthentication()).thenReturn(user);
         when(moduleRepository.findAll()).thenReturn(modules);
-        when(lessonRepository.findAllByModuleNameAndOrderByName(module.getName())).thenReturn(lessons);
+        when(lessonRepository.findAllByModuleName(module.getName())).thenReturn(lessons);
         when(courseRepository.findByUserAndAndFastWritingLesson(user,lesson1)).thenReturn(Optional.of(course1));
         when(courseRepository.findByUserAndAndFastWritingLesson(user,lesson2)).thenReturn(Optional.ofNullable(null));
 

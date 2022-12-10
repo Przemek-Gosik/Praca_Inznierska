@@ -33,13 +33,13 @@ public class ReportController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/{username}/{id}")
-    public ResponseEntity<ReportDto> getReport(@PathVariable String username,@PathVariable Long id){
-        return ResponseEntity.ok(reportService.getUserReport(username, id));
+    @GetMapping("/{id}")
+    public ResponseEntity<ReportDto> getReport(@PathVariable("id") Long id){
+        return ResponseEntity.ok(reportService.getUserReport(id));
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<List<ReportDto>> getAllReports(@PathVariable String username){
+    public ResponseEntity<List<ReportDto>> getAllReports(@PathVariable("username") String username){
         return ResponseEntity.ok(reportService.getAllUserReports(username));
     }
 }

@@ -73,6 +73,7 @@ public class UserService implements UserDetailsService{
         return userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("Nie znaleziono użytkownika dla: "+username));
     }
     public ResponseWithToken logInUser(LoginRequest loginRequest, AuthenticationManager authenticationManager) {
+        log.info(loginRequest.getUserName());
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getUserName(), loginRequest.getPassword()));
@@ -95,6 +96,7 @@ public class UserService implements UserDetailsService{
         return userRepository.existsByEmail(email);
     }
 
+    @Transactional
     public ResponseWithToken createUser(RegisterRequest registerRequest, PasswordEncoder passwordEncoder){
         if(checkIfLoginIsAlreadyTaken(registerRequest.getLogin())){
             throw new IllegalArgumentException("Login zajęty dla: "+ registerRequest.getLogin());
