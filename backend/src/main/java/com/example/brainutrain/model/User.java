@@ -48,6 +48,9 @@ public class User {
     @Column(name="isEmailConfirmed")
     private Boolean isEmailConfirmed;
 
+    @Column(name="isActive")
+    private Boolean isActive;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="User_roles",
     joinColumns = @JoinColumn(name="User_idUser"),

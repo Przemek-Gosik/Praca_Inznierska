@@ -13,6 +13,5 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class RoleDto {
-    private Long roleId;
     private RoleName roleName;
 }

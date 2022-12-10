@@ -1,4 +1,4 @@
-package com.example.brainutrain.dto;
+package com.example.brainutrain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -11,8 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ResponseWithToken {
-    private UserDto userDto;
-    private SettingDto settingDto;
-    private String token;
+public class ResponseWithPassword {
+    private String newPassword;
 }

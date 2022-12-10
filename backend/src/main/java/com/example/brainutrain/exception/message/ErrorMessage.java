@@ -1,5 +1,6 @@
-package com.example.brainutrain.exception;
+package com.example.brainutrain.exception.message;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class ErrorMessage {
     private int statusCode;
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime timestamp;
     private String message;
     private String description;
