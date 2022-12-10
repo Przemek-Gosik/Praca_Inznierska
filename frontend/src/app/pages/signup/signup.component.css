@@ -1,20 +1,128 @@
-.grid {
-    padding: 50px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    max-width: 700px;
-    margin: 0 auto;
-    margin-top: 100px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
-    background-color: rgba(138, 209, 250, 0.517);
-    color: black;
+
+    /* label color */
+    .input-field label {
+      color: rgb(3, 86, 137)
+    }
+    /* label focus color */
+    .input-field input[type=text]:focus + label {
+      color:  rgb(3, 86, 137);
+    }
+    /* label underline focus color */
+    .input-field input[type=text]:focus {
+      border-bottom: 1px solid  rgb(3, 86, 137);
+      box-shadow: 0 1px 0 0 rgb(3, 86, 137);
+    }
+    /* valid color*/
+    .input-field input[type=text].valid {
+      border-bottom: 1px solid rgb(13, 173, 56);
+      box-shadow: 0 1px 0 0 rgb(13, 173, 56);
+    }
+
+    .input-field input[type=password].valid {
+      border-bottom: 1px solid rgb(13, 173, 56);
+      box-shadow: 0 1px 0 0 rgb(13, 173, 56);
+    }
+
+    .input-field input[type=email].valid {
+      border-bottom: 1px solid rgb(13, 173, 56);
+      box-shadow: 0 1px 0 0 rgb(13, 173, 56);
+    }
+
+        /* valid color */
+    .input-field input[type=text].valid:focus ~label {
+      color: rgb(13, 173, 56);
+    }
+
+    .input-field input[type=password].valid:focus ~label {
+      color: rgb(13, 173, 56);
+    }
+
+    .input-field input[type=email].valid:focus ~label {
+      color: rgb(13, 173, 56);
+    }
+
+    /* invalid color */
+    .input-field input[type=text].invalid {
+      border-bottom: 1px solid red;
+      box-shadow: 0 1px 0 0 red;
+    }
+
+    .input-field input[type=password].invalid {
+      border-bottom: 1px solid red;
+      box-shadow: 0 1px 0 0 red;
+    }
+
+    /* icon prefix focus color */
+    .input-field .prefix.active{
+      color: rgb(3, 86, 137);
+    }
+
+
+.breadcrumb{
+  font-size: 20px;
+  color: black;
 }
-  
-  a {
-    margin: 5px;
-  }
-  
-.ng-invalid.ng-touched:not(form){
-    border-bottom: 3px solid red;
+
+nav a:hover{
+  font-size: 20px;
+  color: rgb(3, 86, 137);
 }
+.btn-2 {
+  flex-flow: row wrap;
+  justify-content: center;
+  max-width: 200px;
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 200px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+  background-color:rgba(3, 86, 137, 0.622);
+  color: black;
+  font-weight: bold;
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+.center {
+  margin:auto;
+  width: 70%;
+  /* padding-left:100px; */
+}
+
+.btn-position{
+  margin:auto;
+  width:70%;
+
+}
+.btn-visibility{
+  background-color: transparent;
+  padding-top:10px;
+
+}
+.btn-visibility:hover{
+  color:white;
+}
+.btn-2:hover{
+  color:white;
+}
+
+.font-forgot-password{
+  color:rgb(3, 86, 137);
+  font-size: 15px;
+}
+
+.font-forgot-password:hover{
+  color:white;
+}
+
+.font-signup{
+  color:rgb(3, 86, 137);
+  font-size: 15px;
+  margin-left:40px;
+}
+.font-signup:hover{
+  color:white;
+}
+
+/* .ng-invalid.ng-touched:not(form){
+    border-bottom: 10px solid red;
+} */

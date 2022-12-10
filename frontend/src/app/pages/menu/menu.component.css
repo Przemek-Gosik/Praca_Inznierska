@@ -6,12 +6,16 @@ nav.nav-extended .nav-content {
     position: relative;
     line-height: 50px;
     height: 100px;
+    background-color:  rgba(64, 150, 204, 0.539);
 }
 
 .tabs{
     height: 100px;
     padding-top: 40px;
     font-size:50px;
+}
+a.tabs.tabs-transparent .indicator {
+    background-color: black;
 }
 
 i.material-icons{
@@ -27,12 +31,12 @@ i.material-icons{
 }
 
 .logo-bg a:hover{
-    background-color: rgb(150, 209, 224);
+    background-color: transparent;
 }
 
 .font{
     color: black;
-    background-color:rgb(150, 209, 224);
+    background-color:rgba(104, 200, 255, 0.517);
 }
 
 i.material-icons:hover{
@@ -46,17 +50,17 @@ i.material-icons:hover{
 
 .tabs .tab a{
     color:#000;
-    background-color:rgb(150, 209, 224);
+    background-color: transparent;
     font-size: 20px;
     
 } /*Black color to the text*/
 .tabs .tab a:hover {
-    background-color:rgb(150, 209, 224);
+    background-color: transparent;
     color:whitesmoke;
 } /*Text color on hover*/
 
 .tabs .tab a:active {
-    background-color:rgb(150, 209, 224);
+    background-color:transparent;
     color:whitesmoke;
 } /*Text color on hover*/
 

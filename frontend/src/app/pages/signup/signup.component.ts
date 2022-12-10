@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
+import { UserRegistration } from 'src/app/models/userRegistration';
 
 @Component({
   selector: 'app-signup',
@@ -8,11 +8,29 @@ import { User } from 'src/app/models/user';
 })
 export class SignupComponent implements OnInit {
 
-  model: Partial<User> = {}
+  title: string = "Rejestracja";
+  hide: boolean = true;
+  hide2: boolean = true;
 
+  model: Partial<UserRegistration> = {};
+  clickedicon="";
+  clickedlabel='';
   constructor() { }
 
   ngOnInit(): void {
   }
+  send() {
+    console.log(this.model)
+    // this.httpLoginService.postLogin(this.model as UserLogin).subscribe(
+    //   result => console.log(result),
+    //   error => console.log(error);
+    // )
+  }
+  clickedIcon(){
+    this.clickedicon="active";
+  }
 
+  clickedLabel(){
+    this.clickedlabel="active";
+  }
 }

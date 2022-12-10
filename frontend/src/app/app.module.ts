@@ -8,7 +8,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { MatIconModule, MatToolbarModule, MatMenuModule, MatSelectModule, MatCardModule } from '@angular/material';
+import { MatIconModule, MatToolbarModule, MatMenuModule, MatSelectModule } from '@angular/material';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { ReadingComponent } from './pages/reading/reading.component';
 import { WritingComponent } from './pages/writing/writing.component';
@@ -17,6 +17,13 @@ import { AccountComponent } from './pages/account/account.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FooterComponent } from './pages/footer/footer.component';
+
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input"
+
+import { FormsModule } from "@angular/forms";
+import { MatchPasswordDirective } from './directives/match-password.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +39,8 @@ import { FooterComponent } from './pages/footer/footer.component';
     AccountComponent,
     SettingsComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    MatchPasswordDirective
   ],
   imports: [
     BrowserModule,
@@ -42,6 +50,9 @@ import { FooterComponent } from './pages/footer/footer.component';
     MatMenuModule,
     MatSelectModule,
     MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],

@@ -1,0 +1,159 @@
+/* mat-card {
+    max-width: 600px;
+    margin: 2em auto;
+    text-align: center;
+    max-height: 600px;
+  }
+  
+  .header{
+    text-align: center;
+  
+  }
+  .full-width {
+    width: 80%;
+  }
+  
+  .button-row {
+    padding-top: 5px;
+  }
+  
+  .button-row a {
+    margin-right: 8px;
+    text-align: center;
+  }
+  
+  .forget-password{
+    padding-left: 0px;
+  }
+  
+  .emailInput{
+    padding-top: 10px;
+  }
+  
+  .contentBody {
+    padding: 60px 1rem;
+    background :#1b6ca8;
+    display: block;
+  }
+  
+  .aLink{
+    float: right;
+    padding-right: 60px;
+    text-decoration: none;
+  } */
+
+
+
+/* .example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+  }
+  
+  .example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  } */
+    /* label color */
+    .input-field label {
+        color: rgb(3, 86, 137)
+      }
+      /* label focus color */
+      /* .input-field input[type=text]:focus + label {
+        color: #000;
+      } */
+      /* label underline focus color */
+      /* .input-field input[type=text]:focus {
+        border-bottom: 1px solid #000;
+        box-shadow: 0 1px 0 0 #000;
+      } */
+      /* valid color */
+      /* .input-field input[type=text].valid {
+        border-bottom: 1px solid #000;
+        box-shadow: 0 1px 0 0 #000;
+      } */
+      /* invalid color */
+      /* .input-field input[type=text].invalid {
+        border-bottom: 1px solid #000;
+        box-shadow: 0 1px 0 0 #000;
+      } */
+      /* icon prefix focus color */
+      .input-field .prefix.active{
+        color: rgb(3, 86, 137);
+      }
+
+
+.breadcrumb{
+    font-size: 20px;
+    color: black;
+}
+
+nav a:hover{
+    font-size: 20px;
+    color: rgb(3, 86, 137);
+}
+.btn-2 {
+    flex-flow: row wrap;
+    justify-content: center;
+    max-width: 200px;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 200px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color:rgba(3, 86, 137, 0.622);
+    color: black;
+    font-weight: bold;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.center {
+    margin:auto;
+    width: 70%;
+    /* padding-left:100px; */
+  }
+
+.btn-position{
+    margin:auto;
+    width:70%;
+
+}
+.btn-visibility{
+    background-color: transparent;
+    padding-top:10px;
+
+}
+.btn-visibility:hover{
+    color:white;
+}
+.btn-2:hover{
+    color:white;
+}
+
+.font-forgot-password{
+    color:rgb(3, 86, 137);
+    font-size: 15px;
+}
+
+.font-forgot-password:hover{
+    color:white;
+}
+
+.font-signup{
+    color:rgb(3, 86, 137);
+    font-size: 15px;
+    margin-left:40px;
+}
+.font-signup:hover{
+    color:white;
+}
+.active_valid{
+  color: rgb(13, 173, 56);
+}
+

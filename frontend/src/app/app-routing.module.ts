@@ -14,8 +14,8 @@ import { WritingComponent } from './pages/writing/writing.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
-  { path: 'signin', component: SigninComponent},
-  { path: 'signup', component: SignupComponent},
+  { path: 'account/signin', component: SigninComponent},
+  { path: 'account/signin/signup', component: SignupComponent},
   { path: 'reading', component: ReadingComponent},
   { path: 'writing', component: WritingComponent},
   { path: 'memorizing', component: MemorizingComponent},
