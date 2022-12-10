@@ -1,7 +1,7 @@
 package com.example.brainutrain.config;
 
 import com.example.brainutrain.config.security.JwtAuthenticationFilter;
-import com.example.brainutrain.service.TokenService;
+import com.example.brainutrain.utils.TokenCreator;
 import com.example.brainutrain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -21,11 +22,12 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @AllArgsConstructor
 public class SecurityConfig {
 
     private final UserService userService;
-    private final TokenService tokenService;
+    private final TokenCreator tokenCreator;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -33,12 +35,13 @@ public class SecurityConfig {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests(auth->auth
-                        .antMatchers("/api/auth/emailIsTaken","/api/auth/loginIsTaken",
-                                "/api/auth/login","/api/auth/register").permitAll()
+                        .antMatchers("/api/auth/emailIsTaken/*","/api/auth/loginIsTaken/*",
+                                "/api/auth/login","/api/auth/register","/api/auth/passwordRecovery/**",
+                                "/api/fast_reading/text/guest/**").permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(),userService,tokenService));
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(),userService, tokenCreator));
                 return httpSecurity.build();
     }
 

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +15,10 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class SettingDto {
+
     private Long idSetting;
+    @NotNull
     private FontSize fontSize;
+    @NotNull
     private Theme theme;
 }

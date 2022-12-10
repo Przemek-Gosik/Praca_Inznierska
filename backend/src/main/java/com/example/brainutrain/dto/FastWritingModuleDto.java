@@ -6,16 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-public class LoginDto {
-    @NotNull(message = "Username should not be null")
-    String userName;
+public class FastWritingModuleDto {
 
-    @NotNull(message = "Password should not be null")
-    String password;
+    private Long idFastWritingModule;
+
+    @NotNull
+    private int number;
+
+    @NotNull
+    private String name;
+
+    private List<FastWritingLessonDto> lessons;
+
 }
