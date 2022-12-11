@@ -47,6 +47,9 @@
                             </ng-container> 
                             <label for="code"> Kod weryfikacyjny</label>
                             <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="verificationCodeForm.invalid">Aktywuj konto</button>
+                            <div *ngIf="verificationFailed" class="invalid-data" >{{
+                                errorResponse
+                              }}</div>
                         </div>
                     </div>
                 </div>  

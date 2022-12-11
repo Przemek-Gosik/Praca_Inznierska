@@ -73,12 +73,12 @@ public class UserService implements UserDetailsService{
         return userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("Nie znaleziono użytkownika dla: "+username));
     }
     public ResponseWithToken logInUser(LoginRequest loginRequest, AuthenticationManager authenticationManager) {
-        log.info(loginRequest.getUserName());
+        log.info(loginRequest.getLogin());
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUserName(), loginRequest.getPassword()));
+                        loginRequest.getLogin(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String userName = loginRequest.getUserName();
+        String userName = loginRequest.getLogin();
         User user = findUser(userName);
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono ustawień dla użytkownika o id: "+user.getIdUser()));

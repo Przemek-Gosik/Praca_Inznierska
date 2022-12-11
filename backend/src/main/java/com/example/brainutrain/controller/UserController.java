@@ -27,7 +27,6 @@ import javax.validation.Valid;
         path = "/api/auth",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
-@CrossOrigin(origins = "http://localhost:4200/")
 public class UserController {
 
     private final UserService userService;
@@ -40,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseWithToken> login(LoginRequest loginRequest) {
+    public ResponseEntity<ResponseWithToken> login(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.logInUser(loginRequest,authenticationManager));
     }
 

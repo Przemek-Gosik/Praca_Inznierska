@@ -11,15 +11,7 @@
     <div class="row grid">
         <div class="row home">
             <h4><b>{{title}}</b></h4>
-            <div>
-                <button class="waves-effect waves-ligth btn-2" routerLink="/writing/course">
-                  {{course}}
-                </button>
+            <div *ngFor="let module of modules, let i = index" class="app-writing-modules__container">
+              <app-writingmodules [module]="module"></app-writingmodules>  
             </div>
-            <div>
-                <button class="waves-effect waves-ligth btn-2" routerLink="/writing/text" >
-                  {{text}}
-                </button>
-            </div>
-        </div>
     </div>

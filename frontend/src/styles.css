@@ -41,4 +41,5 @@ a.breadcrumb:before {
     float:left;
     margin-left:45px;
     border-color:red;
+    text-align: center;
 }

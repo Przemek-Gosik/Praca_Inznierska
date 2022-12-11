@@ -12,7 +12,8 @@ export class VerificationCodeComponent implements OnInit {
 
   title: string = "Weryfikacja konta"
   instruction: string = "Aby aktywować konto należy wpisać w poniższe pole kod weryfikacyjny otrzymany na adres e-mail (wskazany podczas rejestracji)."
-
+  errorResponse: string=""
+  verificationFailed: boolean = false
   verificationCode: Partial<VerificationCode> = {};  
   
   constructor(private registrationService: RegistrationService,
@@ -20,11 +21,16 @@ export class VerificationCodeComponent implements OnInit {
 
   verify() {
     console.log(this.verificationCode)
-     this.registrationService.verifyUser(this.verificationCode as VerificationCode).subscribe(
-       result => console.log(result),
-       error => console.log(error),
+     this.registrationService.verifyUser(this.verificationCode as VerificationCode).subscribe((res:any)=>{
+      if(res.status == 200){
+         this.router.navigate(['/']);
+      }
+     },err =>{
+        this.errorResponse = err.error.message
+        this.verificationFailed = true
+     }
    )
-   this.router.navigate(['/']);
+  
   }
 
   ngOnInit(): void {

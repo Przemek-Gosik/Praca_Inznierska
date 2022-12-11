@@ -17,14 +17,17 @@ import { AccountComponent } from './pages/account/account.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FooterComponent } from './pages/footer/footer.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input"
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
+import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
+import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
+import { WritingmodulesComponent } from './pages/writing/writingcourses/writingmodules/writingmodules.component';
 
 
 @NgModule({
@@ -44,8 +47,12 @@ import { VerificationCodeComponent } from './pages/signup/verification-code/veri
     FooterComponent,
     MatchPasswordDirective,
     VerificationCodeComponent,
+    WritingcoursesComponent,
+    WritingtextsComponent,
+    WritingmodulesComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
@@ -56,7 +63,8 @@ import { VerificationCodeComponent } from './pages/signup/verification-code/veri
     MatButtonModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

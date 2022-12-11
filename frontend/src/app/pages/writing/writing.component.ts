@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WritingComponent implements OnInit {
   title: string = "Szybkie pisanie";
+  course: string = "Przejdź do kursów";
+  text: string = "Przejdź do pisania tekstów";
   constructor() { }
 
   ngOnInit(): void {

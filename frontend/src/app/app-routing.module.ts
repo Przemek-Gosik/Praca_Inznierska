@@ -11,6 +11,8 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { WritingComponent } from './pages/writing/writing.component';
 import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
+import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
+import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'account/signin/signup/verification', component: VerificationCodeComponent},
   { path: 'reading', component: ReadingComponent},
   { path: 'writing', component: WritingComponent},
+  { path: 'writing/course', component: WritingcoursesComponent},
+  { path: 'writing/text',component:WritingtextsComponent}, 
   { path: 'memorizing', component: MemorizingComponent},
   { path: 'account', component: AccountComponent},
   { path: 'settings', component: SettingsComponent},

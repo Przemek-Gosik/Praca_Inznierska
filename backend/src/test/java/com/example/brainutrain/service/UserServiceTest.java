@@ -162,7 +162,7 @@ public class UserServiceTest {
         String username="login";
         String password="AAAAAA";
         LoginRequest loginRequest = new LoginRequest(username,password);
-        when(manager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword())))
+        when(manager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getLogin(),loginRequest.getPassword())))
                 .thenThrow(new BadCredentialsException("test"));
         assertThrows(BadCredentialsException.class,()->userService.logInUser(loginRequest,manager));
     }

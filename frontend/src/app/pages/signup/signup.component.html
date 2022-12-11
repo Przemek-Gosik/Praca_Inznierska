@@ -27,11 +27,12 @@
                             name="login"
                             class="validate"
                             #login="ngModel"
+                            formC
                             minlength="5"
                             maxlength="15"
                             required
                             />
-                        <ng-container *ngIf="login.invalid && login.touched">
+                        <ng-container *ngIf="login.invalid && login.touched ">
                             <div class="invalid-data" *ngIf="login.errors?.['required']">
                                 Login jest wymagany!
                             </div>
@@ -104,6 +105,7 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </div>
+            
             <!--input confirm password-->
             <!-- <div class="row">
                 <div class="center">
@@ -142,8 +144,12 @@
             
             <div class="btn-position">
                 <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="registrationForm.invalid" (click)="register()">Zarejestruj się</button>
-                <button class="waves-effect waves-ligth btn-small btn-2" type="reset">Wyczyść</button>
+                <button class="waves-effect waves-ligth btn-small btn-2" type="reset" (click)="resetError()">Wyczyść</button>
             </div>
+            <div center *ngIf="registrationFailed" class="invalid-data" >{{
+                errorResponse
+              }}</div>
         </form>
+        
     </div>
 </div>

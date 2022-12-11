@@ -12,11 +12,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import javax.persistence.Enumerated;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Enumeration;
 
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
@@ -73,6 +76,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 return  usernamePasswordAuthenticationToken;
             }
         }
+        logger.info("tutaj"+token);
             throw new AuthenticationFailedException("Nie podano tokena, albo podano bez odpowiedniego prefiksa dla żądania : " +
                     ""+request.getRequestURI());
     }
@@ -87,6 +91,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 request.getRequestURI().contains("/api/auth/loginIsTaken/")  ||
                 request.getRequestURI().contains("/api/auth/passwordRecovery/") ||
                 request.getRequestURI().contains("/api/fast_reading/text/guest") ||
+                request.getRequestURI().contains("api/fast_writing/guest") ||
                 request.getRequestURI().equals("/docs/swagger-ui/index.html");
     }
 
