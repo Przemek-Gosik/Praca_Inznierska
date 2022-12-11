@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, NgModel } from '@angular/forms';
-import { FormGroup, FormControl, Validators} from "@angular/forms"
+import { Router } from '@angular/router';
 import { UserLogin } from 'src/app/models/userLogin';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-signin',
@@ -13,30 +13,33 @@ export class SigninComponent implements OnInit {
   title: string = "Logowanie";
   hide: boolean = true;
 
-  model: Partial<UserLogin> = {};
+  user: Partial<UserLogin> = {};
 
   clickedicon="";
   // clickedlabel: string =' ';
 
 
- // constructor(public http: HttpService, private httpLoginService: httpLoginService) { }
+ constructor(
+  private httpLogin: LoginService,
+  private route: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
-  send() {
-    console.log(this.model)
-    // this.httpLoginService.postLogin(this.model as UserLogin).subscribe(
-    //   result => console.log(result),
-    //   error => console.log(error);
-    // )
+
+  userLogin(){
+    console.log(this.user);
+    this.httpLogin.loginUser(this.user as UserLogin).subscribe((res:any) => {
+      console.log('res',res)
+      localStorage.setItem('token',res.token);
+      this.route.navigateByUrl('/');
+    })
   }
 
   clickedIcon(){
     this.clickedicon="active";
   }
-  // clickedLabel(){
-  //   this.clickedlabel="active_valid";
-  // }
+
   
 }

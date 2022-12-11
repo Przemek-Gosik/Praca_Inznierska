@@ -1,0 +1,21 @@
+.breadcrumb{
+    font-size: 20px;
+    color: black;
+}
+
+nav a:hover{
+    font-size: 20px;
+    color: rgb(3, 86, 137);
+    text-decoration: italic;
+}
+
+.link a{
+    color: rgb(3, 86, 137);
+    font-weight: bolder;
+    font-size: 30px;
+    font-style: italic;
+}
+
+.link a:hover{
+    color:white;
+}

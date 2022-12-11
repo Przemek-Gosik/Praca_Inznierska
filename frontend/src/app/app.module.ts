@@ -9,7 +9,7 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { MatIconModule, MatToolbarModule, MatMenuModule, MatSelectModule } from '@angular/material';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReadingComponent } from './pages/reading/reading.component';
 import { WritingComponent } from './pages/writing/writing.component';
 import { MemorizingComponent } from './pages/memorizing/memorizing.component';
@@ -25,6 +25,7 @@ import { MatInputModule } from "@angular/material/input"
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { VerificationCodeComponent } from './pages/signup/verification-code/veri
     ContactComponent,
     FooterComponent,
     MatchPasswordDirective,
-    VerificationCodeComponent
+    VerificationCodeComponent,
   ],
   imports: [
     BrowserModule,

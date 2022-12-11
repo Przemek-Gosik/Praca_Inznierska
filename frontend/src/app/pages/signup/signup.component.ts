@@ -36,6 +36,7 @@ export class SignupComponent implements OnInit {
    )
    this.router.navigate(['/account/signin/signup/verification']);
   }
+
   clickedIcon(){
     this.clickedicon="active";
   }

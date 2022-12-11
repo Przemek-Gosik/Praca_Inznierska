@@ -28,6 +28,7 @@ a.breadcrumb:before {
     font-size: 20px;
     color: black;
 }
+
 .ng-invalid.ng-touched:not(form){
     border-bottom: 3px solid red;
 }

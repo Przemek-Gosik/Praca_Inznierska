@@ -16,32 +16,27 @@
         <form 
             class="col s10" 
             #loginForm="ngForm" 
-            (ngSubmit)="send()"
             >
                 <div class="row">
                     <div class="center">
                         <div class="input-field col s8 center">
-                            <i class="material-icons prefix" (click)="clickedIcon">email</i>
+                            <i class="material-icons prefix" (click)="clickedIcon">account_circle</i>
                             <input 
-                                id="email" 
-                                type="email" 
-                                [(ngModel)]="model.email"
-                                name="email"
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+                                id="login" 
+                                type="text" 
+                                [(ngModel)]="user.login"
+                                name="login"
                                 class="validate"
-                                #email="ngModel"
+                                #login="ngModel"
                                 required
-                                email
+                                
                                 />
-                            <ng-container *ngIf="email.invalid && email.touched">
-                                <div class="invalid-data" *ngIf="email.errors?.['required']">
-                                    Adres e-mail jest wymagany!
-                                </div>
-                                <div class="invalid-data" *ngIf="email.errors?.['pattern']">
-                                    Adres e-mail jest niepoprawny!
+                            <ng-container *ngIf="login.invalid && login.touched">
+                                <div class="invalid-data" *ngIf="login.errors?.['required']">
+                                    Login jest wymagany!
                                 </div>
                             </ng-container>
-                            <label for="email">Adres e-mail</label>
+                            <label for="login">Login</label>
                         </div>
                     </div>
                 </div>
@@ -53,7 +48,7 @@
                                 id="password" 
                                 type="password" 
                                 name="password"
-                                [(ngModel)]="model.password"
+                                [(ngModel)]="user.password"
                                 class="validate"
                                 [type]="hide ? 'password' : 'text'"
                                 minlength="5"
@@ -79,7 +74,6 @@
                                         </td>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                     <button class="btn-visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -87,7 +81,7 @@
                     </button>
                 </div>
         <div class="btn-position">
-            <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="loginForm.invalid">Zaloguj się</button>
+            <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="loginForm.invalid" (click)="userLogin()">Zaloguj się</button>
             <button class="waves-effect waves-ligth btn-small btn-2" type="reset">Wyczyść</button>
         </div>
         </form>

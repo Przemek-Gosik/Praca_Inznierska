@@ -14,7 +14,7 @@
         <div class="row home">
             <h3><b>{{title}}</b></h3>
         </div>
-        <form class="col s10" #registrationForm="ngForm" (ngSubmit)="register()">
+        <form class="col s10" #registrationForm="ngForm">
             <!--w znaczniku form umieścić [appMatchPassword]="['password', 'confirmPassword']"-->
             <div class="row">
                 <div class="center">
@@ -141,7 +141,7 @@
             </div> -->
             
             <div class="btn-position">
-                <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="registrationForm.invalid">Zarejestruj się</button>
+                <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="registrationForm.invalid" (click)="register()">Zarejestruj się</button>
                 <button class="waves-effect waves-ligth btn-small btn-2" type="reset">Wyczyść</button>
             </div>
         </form>
