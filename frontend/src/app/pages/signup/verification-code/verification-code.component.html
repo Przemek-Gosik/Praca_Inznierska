@@ -1,0 +1,60 @@
+<div>
+    <nav class="bg-breadcrumb">
+        <div>
+          <div class="col s12">
+            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/account" class="breadcrumb " style="padding-top:500pxl"><b>Moje konto</b></a>
+            <a href="/account/signin" class="breadcrumb " style="padding-top:500px"><b>Logowanie</b></a>
+            <a href="/account/signin/signup" class="breadcrumb " style="padding-top:500px"><b>Rejestracja</b></a>
+            <a href="/account/signin/signup/verification" class="breadcrumb " style="padding-top:500px"><b>Weryfikacja konta</b></a>
+          </div>
+        </div>
+    </nav>
+
+    <div class="row grid">
+        <div class="row home">
+            <h3><b>{{title}}</b></h3>
+            <p style="text-align:justify; font-size:20px">{{instruction}} </p>
+        </div>
+        <div class="col s12">
+            <form  #verificationCodeForm="ngForm" class="center" (ngSubmit)=verify() >
+                <div class="row">
+                    <div class="center">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix validate" >vpn_key</i>
+                            <input 
+                                id="code" 
+                                type="text" 
+                                name="code"
+                                class="validate"
+                                [(ngModel)]="verificationCode.code"
+                                class="validate"
+                                minlength="5"
+                                maxlength="5"
+                                #code="ngModel"
+                                required
+                            />
+                            <ng-container *ngIf="code.invalid && code.touched">
+                                <div class="invalid-data" *ngIf="code.errors?.['required']">
+                                    Kod jest wymagany!
+                                </div>
+                                <div class="invalid-data" *ngIf="code.errors?.['minlength']">
+                                   Kod musi mieć 5 znaków!
+                                </div>
+                                <div class="invalid-data" *ngIf="code.errors?.['maxlength']">
+                                    Kod musi mieć 5 znaków!
+                                 </div>
+                            </ng-container> 
+                            <label for="code"> Kod weryfikacyjny</label>
+                            <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="verificationCodeForm.invalid">Aktywuj konto</button>
+                        </div>
+                    </div>
+                </div>  
+            </form>
+            
+        </div>
+
+
+    </div>
+
+</div>
