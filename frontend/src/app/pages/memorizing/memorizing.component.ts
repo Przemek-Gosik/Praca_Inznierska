@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./memorizing.component.css']
 })
 export class MemorizingComponent implements OnInit {
-
+  title: string = "Szybkie zapamiętywanie";
   constructor() { }
 
   ngOnInit(): void {

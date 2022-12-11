@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reading.component.css']
 })
 export class ReadingComponent implements OnInit {
-
+  title: string = "Szybkie czytanie";
   constructor() { }
 
   ngOnInit(): void {
