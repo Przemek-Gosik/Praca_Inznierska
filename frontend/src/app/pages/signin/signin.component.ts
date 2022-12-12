@@ -33,10 +33,10 @@ export class SigninComponent implements OnInit {
   userLogin(){
     console.log(this.user);
     this.httpLogin.loginUser(this.user as UserLogin).subscribe((res:any) => {
-        this.localStorageService.setItemToStorage('token',res.token);
-        this.localStorageService.setItemToStorage('user',res.userDto);
-        this.localStorageService.setItemToStorage('setting',res.settingDto); 
-        this.route.navigateByUrl('/');
+
+        console.log('res',res)
+        this.localStorageService.setItemToStorage('setting',res.settingDto);
+       this.route.navigate(['/']);
     },err =>{
         this.signinFailed=true
         this.errorResponse=err.error.message

@@ -24,8 +24,7 @@ export class SignupComponent implements OnInit {
   clickedicon="";
   clickedlabel='';
   
-  userRegistration: Partial<UserRegistration> = {};  
-  // registerForm?: NgForm = (registrationForm);
+  userRegistration: Partial<UserRegistration> = {};
 
   constructor(
     private registrationService: RegistrationService,

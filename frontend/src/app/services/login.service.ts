@@ -1,19 +1,40 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { User } from '../models/user';
 import { UserLogin } from '../models/userLogin';
+import { LocalstorageService } from './localstorage.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private apiUrl="http://localhost:8080/api/auth/login";
+  private apiUrl="http://localhost:8080/api/auth/";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,    
+    private localstorage: LocalstorageService,
+    private tokenService : TokenService) { }
 
   loginUser(user: UserLogin):Observable<Object>{
-    console.log(user);
-    return this.http.post(`${this.apiUrl}`,user);
+    return this.http.post(`${this.apiUrl}login`,user);
   }
+  
+  public logoutUser(){
+    this.localstorage.removeItemFromStorage('token')
+    this.localstorage.removeItemFromStorage('user')
+    this.localstorage.removeItemFromStorage('setting')
+  }
+
+  public loggedInUser(){
+    return !!this.localstorage.getItemFromStorage('token')
+  }
+
+  deleteUser():Observable<any>{
+    return this.http.delete(`${this.apiUrl}deleteUser`, {headers: this.tokenService.getHeaderWithToken() });
+  }
+
 }

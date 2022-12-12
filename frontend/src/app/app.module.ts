@@ -31,6 +31,8 @@ import { WritingmodulesComponent } from './pages/writing/writingcourses/writingm
 import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
 import { SplitPipe } from './pages/writing/pipe/splitpipe';
 import { WritingResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-result-dialog/writing-result-dialog.component';
+import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { WritingResultDialogComponent } from './pages/writing/writingcourses/wri
     WritingcoursesComponent,
     WritingtextsComponent,
     WritingmodulesComponent,
+    EditAccountComponent,
     WritinglessonComponent,
     SplitPipe,
     WritingResultDialogComponent

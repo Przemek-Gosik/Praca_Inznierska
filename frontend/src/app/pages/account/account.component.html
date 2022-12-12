@@ -9,9 +9,13 @@
     </nav>
         <div class="row grid">
             <div class="row link">
-                <a routerLink="/account/signin" class="link"> Zaloguj się</a>
-                <!-- <a routerLink="/"><h4><b> Edytuj konto </b></h4></a>
-                <a routerLink="/"><h4><b> Usuń konto </b></h4></a>
-                <a routerLink="/"><h4><b> Moje wyniki </b></h4></a> -->
+              <ul>
+                <li> <a routerLink="/account/signin" class="link" *ngIf="!loggedInUser()" > Zaloguj się</a> </li>
+                <li> <a routerLink="/account/signin/signup" class="link" *ngIf="!loggedInUser()"> Zarejestruj się </a> </li>
+                <li> <a routerLink="/" class="link" *ngIf="loggedInUser()"> Moje wyniki </a></li>
+                <li> <a routerLink="/account/editaccount" class="link" *ngIf="loggedInUser()"> Edytuj dane </a> </li>
+                <li> <a routerLink="/" class="link" *ngIf="loggedInUser()" (click)="deleteUser()"> Usuń konto </a> </li>   
+                <li> <a routerLink="/" class="link" *ngIf="loggedInUser()" (click)="logoutUser()"> Wyloguj się </a> </li>   
+              </ul>
             </div>
         </div>

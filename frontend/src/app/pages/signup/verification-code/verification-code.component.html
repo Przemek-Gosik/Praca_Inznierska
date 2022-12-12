@@ -44,12 +44,14 @@
                                 <div class="invalid-data" *ngIf="code.errors?.['maxlength']">
                                     Kod musi mieć 5 znaków!
                                  </div>
+
                             </ng-container> 
                             <label for="code"> Kod weryfikacyjny</label>
+                            <div class="invalid-data" *ngIf="verificationFailed" >
+                                {{errorResponse}}
+                            </div>
                             <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="verificationCodeForm.invalid">Aktywuj konto</button>
-                            <div *ngIf="verificationFailed" class="invalid-data" >{{
-                                errorResponse
-                              }}</div>
+
                         </div>
                     </div>
                 </div>  
