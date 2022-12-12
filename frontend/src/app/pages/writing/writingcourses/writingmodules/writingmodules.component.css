@@ -1,0 +1,11 @@
+.panel{
+    background-color: azure;
+}
+
+.mat-button{
+    background-color: aliceblue;
+}
+
+.mat-button:hover{
+    background-color: cadetblue;
+}

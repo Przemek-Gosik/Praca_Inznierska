@@ -9,7 +9,6 @@ import com.example.brainutrain.dto.request.RegisterRequest;
 import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.repository.UserRepository;
 import com.example.brainutrain.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +26,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
 
@@ -41,7 +39,7 @@ import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@TestPropertySource(locations = "classpath:applicationTest.properties")
+@TestPropertySource(locations = "classpath:application-Test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = BackendApplication.class)
 @AutoConfigureMockMvc
@@ -94,10 +92,9 @@ public class FunctionalUserTest {
         RegisterRequest registerRequest = new RegisterRequest(login,"login@email.com",password);
         userService.createUser(registerRequest,encoder);
 
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/api/auth/login")
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                                .param("password",password)
-                .param("userName",login));
+                                .content(mapper.writeValueAsString(new LoginRequest(login,password))));
 
         resultActions.andExpect(status().isOk());
 

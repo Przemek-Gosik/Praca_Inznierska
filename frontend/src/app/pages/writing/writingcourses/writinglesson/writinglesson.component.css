@@ -7,6 +7,10 @@
     font-size: 20px;
     color: rgb(3, 86, 137);
   }
+
+  .text{
+      flex-direction: column;
+  }
     /* label color */
     .input-field label {
       color: rgb(3, 86, 137)
@@ -114,43 +118,11 @@ nav a:hover{
   border-radius: 10px;
 }
 
-.center {
-  margin:auto;
-  width: 70%;
-  /* padding-left:100px; */
-}
 
 .btn-position{
-  margin:auto;
-  width:70%;
+  flex-direction: column;
 
 }
-.btn-visibility{
-  background-color: transparent;
-  padding-top:10px;
-
-}
-.btn-visibility:hover{
-  color:white;
-}
-.btn-2:hover{
-  color:white;
-}
-
-.font-forgot-password{
-  color:rgb(3, 86, 137);
-  font-size: 15px;
-}
-
-.font-forgot-password:hover{
-  color:white;
-}
-
-.font-signup{
-  color:rgb(3, 86, 137);
-  font-size: 15px;
-  margin-left:40px;
-}
-.font-signup:hover{
-  color:white;
+.result{
+  text-align: center;
 }

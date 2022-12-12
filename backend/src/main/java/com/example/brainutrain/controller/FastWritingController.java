@@ -44,7 +44,7 @@ public class FastWritingController {
         return ResponseEntity.ok(fastWritingService.getAllUserModules());
     }
 
-    @GetMapping("/lesson/{id}")
+    @GetMapping("/guest/lesson/{id}")
     public ResponseEntity<FastWritingLessonDto> getFastWritingLessonById(@PathVariable("id") Long id){
         return ResponseEntity.ok(fastWritingService.getLessonById(id));
     }

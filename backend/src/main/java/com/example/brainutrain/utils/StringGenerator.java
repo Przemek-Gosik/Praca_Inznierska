@@ -7,7 +7,6 @@ import java.util.Random;
 
 @Service
 @NoArgsConstructor
-@Slf4j
 public class StringGenerator {
 
     public String generateCode(){
@@ -34,10 +33,10 @@ public class StringGenerator {
     }
 
     public String[] generateTexts(String generatedCharacters) {
-        String[] generatedTexts = new String[10];
+        String[] generatedTexts = new String[5];
         int[] charCodes = generatedCharacters.chars().toArray();
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             for (int j = 0; j < 15; j++) {
                 int randomCharCode = random.nextInt(charCodes.length);
@@ -45,7 +44,6 @@ public class StringGenerator {
                 stringBuilder.append((char) charCodes[randomCharCode]);
             }
             generatedTexts[i] = stringBuilder.toString();
-            log.info(generatedTexts[i]);
         }
         return generatedTexts;
     }

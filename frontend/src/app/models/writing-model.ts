@@ -5,7 +5,7 @@ export interface Lesson{
     score?: number
     number: number
     generatedCharacters: string
-    test: string[]
+    text: string[]
 }
 
 
@@ -15,4 +15,11 @@ export interface Module{
     number: number
     lessons: Lesson[]
 
+}
+
+export interface Result{
+    idFastWritingCourse?: number
+    startTime: number
+    score: number
+    typedLetters: number
 }

@@ -62,7 +62,6 @@ public class FastWritingService {
             List<FastWritingLesson> writingLessons = lessonRepository.findAllByModuleName(moduleDto.getName());
             List<FastWritingLessonDto> writingLessonDtoList = FastWritingLessonMapper.INSTANCE.toDto(writingLessons);
             moduleDto.setLessons(writingLessonDtoList);
-            log.info(Integer.toString(moduleDto.getLessons().size()));
         }
         return moduleDtoList;
     }

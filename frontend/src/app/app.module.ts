@@ -8,7 +8,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { MatIconModule, MatToolbarModule, MatMenuModule, MatSelectModule } from '@angular/material';
+import { MatIconModule, MatToolbarModule, MatMenuModule, MatSelectModule, MatDialog, MatDialogModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ReadingComponent } from './pages/reading/reading.component';
 import { WritingComponent } from './pages/writing/writing.component';
@@ -28,7 +28,9 @@ import { VerificationCodeComponent } from './pages/signup/verification-code/veri
 import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
 import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
 import { WritingmodulesComponent } from './pages/writing/writingcourses/writingmodules/writingmodules.component';
-
+import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
+import { SplitPipe } from './pages/writing/pipe/splitpipe';
+import { WritingResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-result-dialog/writing-result-dialog.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,9 @@ import { WritingmodulesComponent } from './pages/writing/writingcourses/writingm
     WritingcoursesComponent,
     WritingtextsComponent,
     WritingmodulesComponent,
+    WritinglessonComponent,
+    SplitPipe,
+    WritingResultDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -64,9 +69,14 @@ import { WritingmodulesComponent } from './pages/writing/writingcourses/writingm
     MatInputModule,
     FormsModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    SplitPipe,
+    WritingResultDialogComponent,
+    MatDialog
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

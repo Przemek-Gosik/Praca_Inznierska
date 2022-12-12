@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { TokenService } from "./token.service";
-import { Module } from "../models/writing-model";
+import { Lesson, Module } from "../models/writing-model";
 
 @Injectable({
     providedIn: 'root'
@@ -16,5 +16,9 @@ import { Module } from "../models/writing-model";
 
     getAllModules():Observable<Module[]>{
         return this.http.get<Module[]>(`${this.apiUrl}guest`);
+    }
+
+    getLessonById(lessonId: number) : Observable<Lesson>{
+      return this.http.get<Lesson>(`${this.apiUrl}guest/lesson/${lessonId}`);
     }
   }

@@ -1,5 +1,13 @@
-<mat-expansion-panel [hideToggle]="true" collapsedHeight="40px" expandedHeight="500px">
-    <mat-expansion-panel-header>
-        <h3>{{number}} - {{name}}</h3>
+<mat-expansion-panel class="panel">
+    <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+        <mat-panel-title>
+            {{number}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{name}}
+          </mat-panel-description>
     </mat-expansion-panel-header>
-</mat-expansion-panel>
+    
+    <div *ngFor="let lesson of lessons,let i = index" >
+      <button mat-button (click)="getLinkToLesson(i)"><mat-icon>forward</mat-icon>{{lessonName}}{{lesson.number}} - {{lesson.name}}</button>
+    </div>

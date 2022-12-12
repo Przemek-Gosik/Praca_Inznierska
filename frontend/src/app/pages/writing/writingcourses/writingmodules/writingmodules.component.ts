@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Lesson, Module } from 'src/app/models/writing-model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-writingmodules',
@@ -11,8 +12,8 @@ export class WritingmodulesComponent implements OnInit {
   number: number = 0
   lessonName: String = "Lekcja nr"
   lessons: Lesson[]=[]
-  isPanelExpanded: boolean = false;
-  constructor() { }
+  
+  constructor(private router: Router) { }
   @Input() module?: Module
 
   ngOnInit(): void {
@@ -23,5 +24,12 @@ export class WritingmodulesComponent implements OnInit {
     }
     
   }
+
+  getLinkToLesson(id: number){
+      let lessonId : number | undefined = this.lessons[id].idFastWritingLesson
+      this.router.navigate(["/writing/course/lesson", {id :
+        lessonId }
+      ])
+    }
 
 }

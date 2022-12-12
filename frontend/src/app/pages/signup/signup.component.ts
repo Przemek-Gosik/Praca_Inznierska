@@ -18,6 +18,7 @@ export class SignupComponent implements OnInit {
   hide: boolean = true;
   hide2: boolean = true;
   registrationFailed : boolean = false;
+  
 
 
   clickedicon="";
@@ -37,12 +38,10 @@ export class SignupComponent implements OnInit {
   register() {
     console.log(this.userRegistration)
      this.registrationService.registerUser(this.userRegistration as User).subscribe((res:any)=>{
-        if(res.status == 201){
           this.localStorageService.setItemToStorage('token',res.token);
           this.localStorageService.setItemToStorage('user',res.userDto);
           this.localStorageService.setItemToStorage('setting',res.settingDto);
-          this.router.navigate(['/account/signin/signup/verification']);
-        }
+        this.router.navigate(['/account/signin/signup/verification']);
       },err =>{
         this.registrationFailed = true
         this.errorResponse = err.error.message

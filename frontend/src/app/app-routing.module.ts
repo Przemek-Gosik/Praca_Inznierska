@@ -13,6 +13,7 @@ import { WritingComponent } from './pages/writing/writing.component';
 import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
 import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
 import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
+import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'reading', component: ReadingComponent},
   { path: 'writing', component: WritingComponent},
   { path: 'writing/course', component: WritingcoursesComponent},
+  { path: 'writing/course/lesson',component: WritinglessonComponent},
   { path: 'writing/text',component:WritingtextsComponent}, 
   { path: 'memorizing', component: MemorizingComponent},
   { path: 'account', component: AccountComponent},

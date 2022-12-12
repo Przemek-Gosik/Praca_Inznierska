@@ -9,7 +9,7 @@ import { WritingService } from 'src/app/services/writing.service';
 export class WritingcoursesComponent implements OnInit {
   title: string = "Wybór dostępnych lekcji";
   modules: Module[]=[]; 
-
+  regularDistribution = 100 / 3;
   constructor(private writingService:WritingService) { }
 
   ngOnInit(): void {
