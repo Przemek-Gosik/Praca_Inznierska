@@ -22,9 +22,7 @@ export class VerificationCodeComponent implements OnInit {
   verify() {
     console.log(this.verificationCode)
      this.registrationService.verifyUser(this.verificationCode as VerificationCode).subscribe((res:any)=>{
-      if(res.status == 200){
          this.router.navigate(['/']);
-      }
      },err =>{
         this.errorResponse = err.error.message
         this.verificationFailed = true

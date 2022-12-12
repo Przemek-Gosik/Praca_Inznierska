@@ -18,7 +18,6 @@ export class RegistrationService {
   }
 
   registerUser(user: User):Observable<any>{
-    console.log("tutaj");
     return this.http.post<any>(`${this.apiUrl}register`,user)
   }
 
@@ -31,8 +30,6 @@ export class RegistrationService {
   }
 
   verifyUser(code: VerificationCode):Observable<Object>{
-    
-    //console.log(code);
     return this.http.patch(`${this.apiUrl}confirmEmail`, code , 
       {headers: this.tokenService.getHeaderWithToken() });
   }

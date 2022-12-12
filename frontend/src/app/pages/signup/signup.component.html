@@ -140,16 +140,25 @@
                 <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
 
-            </div> -->
-            
+            </div> -->       
             <div class="btn-position">
                 <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="registrationForm.invalid" (click)="register()">Zarejestruj się</button>
                 <button class="waves-effect waves-ligth btn-small btn-2" type="reset" (click)="resetError()">Wyczyść</button>
             </div>
-            <div center *ngIf="registrationFailed" class="invalid-data" >{{
-                errorResponse
-              }}</div>
+            <div *ngIf="registrationFailed" class="invalid-data" >
+                {{errorResponse}}
+            </div>    
         </form>
-        
     </div>
+
+    <!-- <div class="col s8">
+        <div class="center">
+            <div class=" col s8" style="padding: 100px">
+                <div *ngIf="registrationFailed" class="invalid-data" >
+                    {{errorResponse}}
+                </div>    
+            </div>
+        </div>
+    </div>  -->
+
 </div>

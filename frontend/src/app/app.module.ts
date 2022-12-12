@@ -28,6 +28,7 @@ import { VerificationCodeComponent } from './pages/signup/verification-code/veri
 import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
 import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
 import { WritingmodulesComponent } from './pages/writing/writingcourses/writingmodules/writingmodules.component';
+import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { WritingmodulesComponent } from './pages/writing/writingcourses/writingm
     WritingcoursesComponent,
     WritingtextsComponent,
     WritingmodulesComponent,
+    EditAccountComponent,
   ],
   imports: [
     BrowserAnimationsModule,
