@@ -84,9 +84,12 @@
             <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="loginForm.invalid" (click)="userLogin()">Zaloguj się</button>
             <button class="waves-effect waves-ligth btn-small btn-2" type="reset" (click)="resetError()">Wyczyść</button>
         </div>
-        <div *ngIf="signinFailed" class="invalid-data" >{{
+        <div class="invalid-data" *ngIf="signinFailed" >
+            {{errorResponse}}
+        </div>
+        <!-- <div *ngIf="signinFailed" class="invalid-data" >{{
             errorResponse
-          }}</div>
+          }}</div> -->
         </form>
       </div>
 </div>

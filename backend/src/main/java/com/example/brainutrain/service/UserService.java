@@ -174,6 +174,9 @@ public class UserService implements UserDetailsService{
         if(newLoginRequest.getNewLogin().equals(user.getLogin())){
             throw new IllegalArgumentException("Nowy login nie może być taki sam jak stary:"+user.getIdUser());
         }
+        if(userRepository.existsByLogin(newLoginRequest.getNewLogin())){
+            throw new AlreadyExistsException("Login zajęty dla: "+newLoginRequest.getNewLogin());
+        }
         user.setLogin(newLoginRequest.getNewLogin());
         userRepository.save(user);
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
@@ -189,6 +192,9 @@ public class UserService implements UserDetailsService{
         User user = authenticationUtils.getUserFromAuthentication();
         if(emailRequest.getEmail().equals(user.getEmail())){
             throw new IllegalArgumentException("Nowy adres email nie może być taki sam jak stary dla użytkownika o id: "+user.getIdUser());
+        }
+        if(userRepository.existsByEmail(emailRequest.getEmail())){
+            throw new AlreadyExistsException("Adres email zajęty dla "+emailRequest.getEmail());
         }
         user.setEmail(emailRequest.getEmail());
         user.setIsEmailConfirmed(false);

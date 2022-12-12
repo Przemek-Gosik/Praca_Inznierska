@@ -36,6 +36,8 @@ export class SigninComponent implements OnInit {
 
         console.log('res',res)
         this.localStorageService.setItemToStorage('setting',res.settingDto);
+        this.localStorageService.setItemToStorage("token",res.token);
+        this.localStorageService.setItemToStorage('user',res.userDto);
        this.route.navigate(['/']);
     },err =>{
         this.signinFailed=true
