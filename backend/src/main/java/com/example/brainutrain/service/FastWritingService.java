@@ -36,6 +36,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Service for fast writing services
+ */
+
 @AllArgsConstructor
 @Service
 @Slf4j
@@ -55,6 +59,11 @@ public class FastWritingService {
 
     private final StringGenerator stringGenerator;
 
+    /**
+     * Method to get all modules with lessons
+     *
+     * @return is List of FastWritingModuleDto
+     */
     public List<FastWritingModuleDto> getAllModules(){
         List<FastWritingModule> modules = moduleRepository.findAll();
         List<FastWritingModuleDto> moduleDtoList = FastWritingModuleMapper.INSTANCE.toDto(modules);
@@ -66,6 +75,11 @@ public class FastWritingService {
         return moduleDtoList;
     }
 
+    /**
+     * Method to get all modules with lesson and user scores for every lesson
+     *
+     * @return is List of FastWritingModuleUserResponse
+     */
     public List<FastWritingModuleUserResponse> getAllUserModules(){
         User user = authenticationUtils.getUserFromAuthentication();
         List<FastWritingModule> modules = moduleRepository.findAll();
@@ -89,6 +103,12 @@ public class FastWritingService {
         return moduleUserResponseList;
     }
 
+    /**
+     * Method to get lesson details
+     *
+     * @param id is Long
+     * @return is FastWritingLessonDto
+     */
     public FastWritingLessonDto getLessonById(Long id){
         FastWritingLesson lesson = lessonRepository.findById(id).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono lekcji szybkiego pisania dla id: "+id)
@@ -98,6 +118,12 @@ public class FastWritingService {
         return lessonDto;
     }
 
+    /**
+     * Method to get course details
+     *
+     * @param id is Long
+     * @return is FastWritingCourseDto
+     */
     public FastWritingCourseDto getCourseById(Long id){
         User user = authenticationUtils.getUserFromAuthentication();
         FastWritingCourse course = courseRepository.findByIdFastWritingCourse(id).orElseThrow(
@@ -109,6 +135,11 @@ public class FastWritingService {
         return FastWritingCourseMapper.INSTANCE.toDto(course);
     }
 
+    /**
+     * Method to create new result of course
+     *
+     * @param courseDto is FastWritingCourseDto
+     */
     public void saveNewCourse(FastWritingCourseDto courseDto){
         User user = authenticationUtils.getUserFromAuthentication();
         FastWritingLesson lesson = lessonRepository.findById(courseDto.getIdFastWritingLesson()).
@@ -124,6 +155,11 @@ public class FastWritingService {
         courseRepository.save(course);
     }
 
+    /**
+     * Method to update result for user
+     *
+     * @param courseDto is FastWritingCourseDto
+     */
     public void updateNewCourse(FastWritingCourseDto courseDto){
         User user = authenticationUtils.getUserFromAuthentication();
         FastWritingCourse course = courseRepository.findByIdFastWritingCourse(courseDto.getIdFastWritingCourse())
@@ -140,17 +176,34 @@ public class FastWritingService {
         courseRepository.save(course);
     }
 
+    /**
+     * Method to increment number of attempts to result
+     *
+     * @param course is FastWritingCourse
+     * @return is FastWritingCourse
+     */
     private FastWritingCourse incrementNumberOfAttempts(FastWritingCourse course){
         int numberOfAttempts = course.getNumberOfAttempts();
         course.setNumberOfAttempts(numberOfAttempts+1);
         return course;
     }
 
+    /**
+     * Method to get all text for fast writing
+     *
+     * @return is List of FastWritingTextDto
+     */
     public List<FastWritingTextDto> getAllTexts(){
         List<FastWritingText> texts = textRepository.findAll();
         return FastWritingTextMapper.INSTANCE.toDto(texts);
     }
 
+    /**
+     * Method to get text details
+     *
+     * @param id is Long
+     * @return is FastWritingTextDto
+     */
     public FastWritingTextDto getTextById(Long id){
         FastWritingText text = textRepository.findById(id).orElseThrow(
                 ()->new ResourceNotFoundException("Nie znaleziono tekstu dla id: "+id)
@@ -158,6 +211,11 @@ public class FastWritingService {
         return FastWritingTextMapper.INSTANCE.toDto(text);
     }
 
+    /**
+     * Method to get random text details
+     *
+     * @return is FastWritingTextDto
+     */
     public FastWritingTextDto drawText(){
         List<FastWritingText> textsPool = textRepository.findAll();
         Random random = new Random();
@@ -165,6 +223,12 @@ public class FastWritingService {
         return FastWritingTextMapper.INSTANCE.toDto(text);
     }
 
+    /**
+     * Method to get random text from one level
+     *
+     * @param level is Level
+     * @return is FastWritingTextDto
+     */
     public FastWritingTextDto drawTextByLevel(Level level){
         List<FastWritingText> textPool = textRepository.findAllByLevel(level);
         Random random = new Random();
@@ -172,6 +236,11 @@ public class FastWritingService {
         return FastWritingTextMapper.INSTANCE.toDto(text);
     }
 
+    /**
+     * Method to add new test result
+     *
+     * @param testDto is FastWritingTestDto
+     */
     public void createNewTest(FastWritingTestDto testDto){
         User user = authenticationUtils.getUserFromAuthentication();
         FastWritingText text = textRepository.findById(testDto.getIdText()).orElseThrow(
@@ -184,12 +253,23 @@ public class FastWritingService {
         log.info("Zapisano nowy wynik testu na zapamiętywanie o id: "+test.getIdFastWritingTest());
     }
 
+    /**
+     * Method to get user results of test
+     *
+     * @return is List of FastWritingTestDto
+     */
     public List<FastWritingTestDto> getAllUserTests(){
         User user = authenticationUtils.getUserFromAuthentication();
         List<FastWritingTest> tests = testRepository.findAllByUser(user);
         return FastWritingTestMapper.INSTANCE.toDto(tests);
     }
 
+    /**
+     * Method to get test result details
+     *
+     * @param id is Long
+     * @return is FastWritingTestDto
+     */
     public FastWritingTestDto getUserTestById(Long id){
         User user = authenticationUtils.getUserFromAuthentication();
         FastWritingTest test = testRepository.findById(id).orElseThrow(

@@ -97,6 +97,8 @@ public class MemorizingControllerTest  {
         assertThat(result).extracting(Memorizing::getLevel).contains(memorizingDto.getLevel());
         assertThat(result).extracting(Memorizing::getType).contains(memorizingDto.getType());
         assertEquals(user.getIdUser(),user1.getIdUser());
+
+        memorizingRepository.deleteAll();
     }
 
     @Test
@@ -155,11 +157,8 @@ public class MemorizingControllerTest  {
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION,"Bearer"+token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].idMemorizing",is(memorizing1.getIdMemorizing().intValue())))
-                .andExpect(jsonPath("$[1].idMemorizing",is(memorizing2.getIdMemorizing().intValue())))
-                .andExpect(jsonPath("$",hasSize(2)));
-
-
+                .andExpect(jsonPath("$[0].score",is(memorizing1.getScore().intValue())))
+                .andExpect(jsonPath("$[1].score",is(memorizing2.getScore().intValue())));
     }
 
     @Test
@@ -187,19 +186,19 @@ public class MemorizingControllerTest  {
     public void getResultById_givenValidId_thenStatus200() throws Exception{
         Memorizing memorizing1 = createMemorizingTestResult(TypeMemory.MNEMONICS,Level.EASY,5L,LocalDateTime.now(),user);
 
-        mockMvc.perform(get("/api/memorizing/"+1)
+        mockMvc.perform(get("/api/memorizing/"+memorizing1.getIdMemorizing())
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION,"Bearer"+token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.idMemorizing",is(memorizing1.getIdMemorizing().intValue())));
+                .andExpect(jsonPath("$.score",is(memorizing1.getScore().intValue())));
     }
 
     @Test
     @Rollback
     void getResultById_givenInvalidId_thenStatus404() throws Exception{
-        Memorizing memorizing1 = createMemorizingTestResult(TypeMemory.MNEMONICS,Level.EASY,5L,LocalDateTime.now(),user);
+        createMemorizingTestResult(TypeMemory.MNEMONICS,Level.EASY,5L,LocalDateTime.now(),user);
 
-        mockMvc.perform(get("/api/memorizing/"+2)
+        mockMvc.perform(get("/api/memorizing/"+505)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION,"Bearer"+token))
                 .andExpect(status().isNotFound());
