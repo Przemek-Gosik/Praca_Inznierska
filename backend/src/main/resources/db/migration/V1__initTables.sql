@@ -101,7 +101,7 @@ CREATE TABLE `fast_writing_tests` (
 
 CREATE TABLE `fast_writing_texts` (
                                       `id_fast_writing_text` bigint(20) NOT NULL,
-                                      `level` int(11) NOT NULL,
+                                      `level` varchar(255) NOT NULL,
                                       `text` longtext NOT NULL,
                                       `title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -120,13 +120,6 @@ CREATE TABLE `memorizings` (
                                `type` varchar(255) NOT NULL,
                                `user_id_user` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `memorizings`
---
-
-INSERT INTO `memorizings` (`id_memorizing`, `level`, `score`, `start_time`, `type`, `user_id_user`) VALUES
-    (1, 'ADVANCED', 0, '2022-12-10 15:42:13', 'MEMORY', 1);
 
 -- --------------------------------------------------------
 
@@ -155,13 +148,6 @@ CREATE TABLE `roles` (
                          `role_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Zrzut danych tabeli `roles`
---
-
-INSERT INTO `roles` (`id_role`, `role_name`) VALUES
-    (1, 'USER');
-
 -- --------------------------------------------------------
 
 --
@@ -174,13 +160,6 @@ CREATE TABLE `settings` (
                             `theme` varchar(255) NOT NULL,
                             `user_id_user` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `settings`
---
-
-INSERT INTO `settings` (`id_setting`, `font_size`, `theme`, `user_id_user`) VALUES
-    (1, 'MEDIUM', 'DAY', 1);
 
 -- --------------------------------------------------------
 
@@ -197,13 +176,6 @@ CREATE TABLE `users` (
                          `password` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Zrzut danych tabeli `users`
---
-
-INSERT INTO `users` (`id_user`, `email`, `is_active`, `is_email_confirmed`, `login`, `password`) VALUES
-    (1, 'string@email.com', b'1', b'0', 'string', '$2a$10$rbqb1J3Zfv3Ad25kMhtfDe0eD5uvokEjC3HTgbRW.oVnWR9gKDuM2');
-
 -- --------------------------------------------------------
 
 --
@@ -214,13 +186,6 @@ CREATE TABLE `user_roles` (
                               `user_id_user` bigint(20) NOT NULL,
                               `role_id_role` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `user_roles`
---
-
-INSERT INTO `user_roles` (`user_id_user`, `role_id_role`) VALUES
-    (1, 1);
 
 -- --------------------------------------------------------
 
@@ -235,13 +200,6 @@ CREATE TABLE `validation_code` (
                                    `was_used` bit(1) NOT NULL,
                                    `user_id_user` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `validation_code`
---
-
-INSERT INTO `validation_code` (`id_validation_code`, `code`, `purpose`, `was_used`, `user_id_user`) VALUES
-    (1, '79818', 'EMAIL_VERIFICATION', b'0', 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -339,9 +297,7 @@ ALTER TABLE `settings`
 ALTER TABLE `users`
     ADD PRIMARY KEY (`id_user`),
   ADD UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`),
-  ADD UNIQUE KEY `UK_ow0gan20590jrb00upg3va2fn` (`login`),
-  ADD UNIQUE KEY `UK6dotkott2kjsp8vw4d0m25fb7` (`email`),
-  ADD UNIQUE KEY `UKow0gan20590jrb00upg3va2fn` (`login`);
+  ADD UNIQUE KEY `UK_ow0gan20590jrb00upg3va2fn` (`login`);
 
 --
 -- Indeksy dla tabeli `user_roles`
@@ -413,7 +369,7 @@ ALTER TABLE `fast_writing_texts`
 -- AUTO_INCREMENT dla tabeli `memorizings`
 --
 ALTER TABLE `memorizings`
-    MODIFY `id_memorizing` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+    MODIFY `id_memorizing` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `reports`
@@ -425,25 +381,25 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT dla tabeli `roles`
 --
 ALTER TABLE `roles`
-    MODIFY `id_role` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+    MODIFY `id_role` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `settings`
 --
 ALTER TABLE `settings`
-    MODIFY `id_setting` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+    MODIFY `id_setting` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-    MODIFY `id_user` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+    MODIFY `id_user` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `validation_code`
 --
 ALTER TABLE `validation_code`
-    MODIFY `id_validation_code` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+    MODIFY `id_validation_code` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ograniczenia dla zrzutów tabel
