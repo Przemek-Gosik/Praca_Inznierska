@@ -15,10 +15,11 @@
            
               
               <div *ngFor="let text of lesson.text, let i =index">
-                
-                {{text}}
-                <input #box (keyup)="checkText(box.value,text,i)"  [id]="i" (keyup.enter)="moveOnNext(i,box.value)" >
-              </div>
+                <input #box [style.width.px]='width' (keyup)="checkText(box.value,text,i)"  [id]="i" (keyup.enter)="moveOnNext(i,box.value)" autocomplete="off">
+                <br/>
+                <div layout="row">
+                <div  flex *ngFor="let char of text | split,let j=index" [ngStyle]="{'color' : 'red'}">{{char}}</div>
+                </div>
               
             </div>
             <div class="btn-position">

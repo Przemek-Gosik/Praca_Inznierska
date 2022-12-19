@@ -13,6 +13,7 @@ import { WritingResultDialogComponent } from './writing-result-dialog/writing-re
 export class WritinglessonComponent implements OnInit {
   id : number = 0
   typedTexts : string[] = []
+  width:number = 100
   lesson : Lesson = {
     idFastWritingLesson: 0,
     idFastWritingCourse: 0,
