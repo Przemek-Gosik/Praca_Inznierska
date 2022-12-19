@@ -7,6 +7,10 @@
     font-size: 20px;
     color: rgb(3, 86, 137);
   }
+  .main-text{
+    display: flex;
+    flex-direction: row;
+  }
 
   .text{
       flex-direction: column;

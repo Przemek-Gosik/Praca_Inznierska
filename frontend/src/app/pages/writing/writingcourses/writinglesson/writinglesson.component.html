@@ -7,32 +7,29 @@
           </div>
         </div>
     </nav>
-
     <div class="row grid">
         <div class="row home">
             <h4><b>Lekcja {{lesson.number}}</b></h4>
-        
-           
-              
               <div *ngFor="let text of lesson.text, let i =index">
-                <input #box [style.width.px]='width' (keyup)="checkText(box.value,text,i)"  [id]="i" (keyup.enter)="moveOnNext(i,box.value)" autocomplete="off">
+                <input #box [style.width.px]='width' [(ngModel)]="typedTexts[i]" [disabled]="blockLesson" maxlength="10" [id]="i" (keyup.enter)="moveOn(i+1)" autocomplete="off">
                 <br/>
-                <div layout="row">
-                <div  flex *ngFor="let char of text | split,let j=index" [ngStyle]="{'color' : 'red'}">{{char}}</div>
+                <div class="main-text">
+                  <div  flex *ngFor="let char of text | split,let j=index" [ngStyle]="{'color' : setTextColor(i,j)}">
+                    {{char}}
+                  </div>
                 </div>
-              
-            </div>
+              </div>
+        </div>
             <div class="btn-position">
+              <h2>{{displayTime()}}</h2>
               <div>
-              <button class="waves-effect waves-ligth btn-small btn-2" (click)="startOrPauze()">{{buttonActionName}}</button>
-              <button class="waves-effect waves-ligth btn-small btn-2" (click)="calculatePoints()" >Zakończ</button>
+                <button class="waves-effect waves-ligth btn-small btn-2" (click)="startOrPauze()">{{buttonActionName}}</button>
+                <button class="waves-effect waves-light btn-small btn-2" (click)="reset()">Zresetuj</button>
+                <button class="waves-effect waves-ligth btn-small btn-2" (click)="calculatePoints()" >Zakończ</button>
               </div>
               <ng-container *ngIf="done" class="result">
                   Twój wynik to : {{lesson.score}}
               </ng-container>
             </div>
-          
-        
-
-        
     </div>
+</div>

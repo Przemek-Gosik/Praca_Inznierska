@@ -38,7 +38,7 @@ public class StringGenerator {
         Random random = new Random();
         for (int i = 0; i < 5; i++) {
             StringBuilder stringBuilder = new StringBuilder();
-            for (int j = 0; j < 15; j++) {
+            for (int j = 0; j < 10; j++) {
                 int randomCharCode = random.nextInt(charCodes.length);
 
                 stringBuilder.append((char) charCodes[randomCharCode]);
