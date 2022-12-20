@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatIconModule} from '@angular/material/icon'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -8,7 +8,6 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { MatIconModule, MatToolbarModule, MatMenuModule, MatSelectModule, MatDialog, MatDialogModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ReadingComponent } from './pages/reading/reading.component';
 import { WritingComponent } from './pages/writing/writing.component';
@@ -18,9 +17,13 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input"
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
@@ -76,9 +79,7 @@ import { EditAccountComponent } from './pages/account/edit-account/edit-account.
     MatDialogModule
   ],
   providers: [
-    SplitPipe,
-    WritingResultDialogComponent,
-    MatDialog
+    SplitPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { timeInterval, TimeInterval } from 'rxjs/internal/operators/timeInterval';
@@ -189,7 +189,7 @@ export class WritinglessonComponent implements OnInit {
     console.log(points)
     console.log(this.timeElapsed)
     this.lesson.score=points
-    //this.openDialog(points,typedLettes)
+    this.openDialog(points,typedLettes)
     this.done = true
   }
 
