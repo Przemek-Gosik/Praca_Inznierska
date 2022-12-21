@@ -51,6 +51,13 @@ a.breadcrumb:before {
     margin-bottom:30px;
 }
 
+.font-title-2{
+    font-weight: bold;
+    font-size:20px;
+    text-align: left;
+    margin-bottom:30px;
+  }
+
 .center {
     margin:auto;
     width: 70%;
