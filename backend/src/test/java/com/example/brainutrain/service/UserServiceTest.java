@@ -198,7 +198,7 @@ public class UserServiceTest {
     @Test
     public void createUser_GivenValidData_GetResponseWithToken(){
         PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
-        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword());
+        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword(),user1.getPassword());
         when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(false);
         when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(false);
         when(roleRepository.findByRoleName(RoleName.USER)).thenReturn(roleUser);
@@ -214,7 +214,7 @@ public class UserServiceTest {
     @Test
     public void createUser_GivenAlreadyExistingEmail_ThrowIllegalArgumentException(){
         PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
-        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword());
+        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword(),user1.getPassword());
         when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(true);
         when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(false);
         assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest,encoder));
@@ -223,7 +223,7 @@ public class UserServiceTest {
     @Test
     public void createUser_GivenAlreadyExistingLogin_ThrowIllegalArgumentException(){
         PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
-        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword());
+        RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword(),user1.getPassword());
         when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(true);
         assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest,encoder));
     }
