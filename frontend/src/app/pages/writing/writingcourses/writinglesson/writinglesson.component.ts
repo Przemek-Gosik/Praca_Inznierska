@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { timeInterval, TimeInterval } from 'rxjs/internal/operators/timeInterval';
-import { Lesson, Result } from 'src/app/models/writing-model';
+import { Lesson, WritingResult } from 'src/app/models/writing-model';
 import { WritingService } from 'src/app/services/writing.service';
 import { SplitPipe } from '../../pipe/splitpipe';
 import { WritingResultDialogComponent } from './writing-result-dialog/writing-result-dialog.component';
@@ -13,6 +13,9 @@ import { WritingResultDialogComponent } from './writing-result-dialog/writing-re
   styleUrls: ['./writinglesson.component.css']
 })
 export class WritinglessonComponent implements OnInit {
+
+  @ViewChild("box") input!: ElementRef;
+
   id : number = 0
   typedTexts : string[] = []
   width: number = 100
@@ -26,27 +29,22 @@ export class WritinglessonComponent implements OnInit {
     generatedCharacters: "",
     text: []
   }
-  result : Result = {
-    idFastWritingCourse: 0,
-    startTime: 0,
-    score: 0,
-    typedLetters: 0
-  }
   startName : string = "Start"
   pauzeName: string ="Pauza" 
+  dateTime: string = ""
   interval : number = 0;
   hundredsOfSecond : number = 0
   seconds : number= 0 
   minutes : number = 0 
   buttonActionName : string = this.startName
   blockLesson : boolean = true
-  done: boolean = false
-  dateTime: string = ""
+  done : boolean = false
+  
 
   constructor(private router:Router,
     private route: ActivatedRoute,
     private writingService: WritingService,
-    public dialog: MatDialog ) { }
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getLessonTime()
@@ -57,6 +55,10 @@ export class WritinglessonComponent implements OnInit {
         this.getLessonById(this.id)
       }
     })
+  }
+
+  goBack(){
+    this.router.navigate(["/writing/course"])
   }
 
   getLessonTime() : void {
@@ -73,22 +75,27 @@ export class WritinglessonComponent implements OnInit {
 
  
   moveOn(i : number){
+    if(i >= this.lesson.text.length){
+      this.startOrPauze()
+    }else{
     let str : string = i.toString()
     document.getElementById(str)?.focus()
+    }
   }
 
   startOrPauze(){
     if(this.buttonActionName == this.startName){
       this.buttonActionName = this.pauzeName
       this.blockLesson = false
+      this.done = false
       this.startTimer()
       if(this.typedTexts.length > 0 ){
-        console.log("tutaj")
-        this.moveOn(this.typedTexts.length-1)
+        this.input.nativeElement.focus();
       }else{
-        this.moveOn(0)
+        this.input.nativeElement.focus();
       }
     }else{
+      this.done = true
       this.buttonActionName = this.startName
       this.stopTimer()
       this.blockLesson = true
@@ -143,14 +150,17 @@ export class WritinglessonComponent implements OnInit {
     window.location.reload()
   }
 
-  openDialog(score: number, typedLetters : number
+  openDialog( typedLetters : number
   ):void {
-    console.log(score)
     this.dialog.open(WritingResultDialogComponent, {
-      width: '1000px',
-      height: '1000px'
-  }).afterClosed().subscribe(() =>{
-    this.router.navigate(["/writing/course"])
+      width: '500px',
+      height: '500px',
+      data:{
+        typedLetters: typedLetters,
+        lesson: this.lesson,
+        time: this.timeElapsed,
+        date: this.dateTime
+      }
   })
   }
 
@@ -180,17 +190,16 @@ export class WritinglessonComponent implements OnInit {
         for( let j = 0 ; j<textPom.length ;j++){
               if(textPom.charAt(j) === texts[i].charAt(j)){
                 points +=1
-                typedLettes +=1
               }
+              typedLettes +=1
         }
         
     }
     this.calculateTime()
-    console.log(points)
-    console.log(this.timeElapsed)
     this.lesson.score=points
-    this.openDialog(points,typedLettes)
-    this.done = true
+    this.openDialog(typedLettes)
   }
+
+ 
 
 }

@@ -1,1 +1,30 @@
-<p>writingtexts works!</p>
+<div>
+    <nav class="bg-breadcrumb">
+        <div>
+          <div class="col s12">
+            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
+            
+          </div>
+        </div>
+    </nav>
+    <div class="row grid">
+        <div class="row home">
+            <h3><b>Wybierz poziom trudności</b></h3>
+        </div>
+        <form class="col s10" #chooselevelForm="ngForm">
+    
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="favoriteSeason" 
+            name="chosenLevel">
+            <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+              {{season}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div>Your favorite season is: {{favoriteSeason}}</div>
+                
+            
+        </form>
+    </div>
+</div>
