@@ -3,5 +3,6 @@ export interface User{
     email: string,
     is_email_confirmed: boolean,
     login: string,
-    password: string
+    password: string,
+    confirmPassword: string;
 }

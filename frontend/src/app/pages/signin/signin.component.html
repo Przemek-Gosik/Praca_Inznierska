@@ -10,15 +10,12 @@
     </nav>
 
     <div class="row grid">
-        <div class="row home">
-            <h3><b> {{title}}</b></h3>
-        </div>
-        <form 
-            class="col s10" 
-            #loginForm="ngForm" 
-            >
+        <form class="col s10" #loginForm="ngForm" >
                 <div class="row">
                     <div class="center">
+                        <div class="col s8 font-title">
+                            {{title}}
+                       </div>
                         <div class="input-field col s8 center">
                             <i class="material-icons prefix" (click)="clickedIcon">account_circle</i>
                             <input 

@@ -11,13 +11,14 @@
     </nav>
 
     <div class="row grid">
-        <div class="row home">
-            <h3><b>{{title}}</b></h3>
-        </div>
-        <form class="col s10" #registrationForm="ngForm">
+
+        <form class="col s10" #registrationForm="ngForm" [appMatchPassword]="['password', 'confirmPassword']">
             <!--w znaczniku form umieścić [appMatchPassword]="['password', 'confirmPassword']"-->
             <div class="row">
                 <div class="center">
+                    <div class=" col s8 font-title">
+                        {{title}}
+                    </div>
                     <div class="input-field col s8">
                         <i class="material-icons validate prefix">account_circle</i>
                         <input 
@@ -107,7 +108,7 @@
             </div>
             
             <!--input confirm password-->
-            <!-- <div class="row">
+            <div class="row">
                 <div class="center">
                     <div class="input-field col s8">
                         <i class="material-icons prefix validate" >vpn_key</i>
@@ -123,7 +124,7 @@
                             required
                             />
                         <label for="confirmPassword">Potwierdź hasło</label>
-                        <ng-container *ngIf="confirmPassword.invalid && confirmPassword.touched && confirmPassword.dirty">
+                        <ng-container *ngIf="confirmPassword.invalid && confirmPassword.touched">
                             <div class="invalid-data" *ngIf="confirmPassword.errors?.['matching']">
                                 Hasła nie są takie same!
                             </div>
@@ -140,7 +141,7 @@
                 <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
 
-            </div> -->       
+            </div>    
             <div class="btn-position">
                 <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="registrationForm.invalid" (click)="register()">Zarejestruj się</button>
                 <button class="waves-effect waves-ligth btn-small btn-2" type="reset" (click)="resetError()">Wyczyść</button>

@@ -11,7 +11,7 @@
 
     <div class="row grid">
         <div class="row home">
-            <h4><b>{{title}}</b></h4>
+            {{title}}
             <div class="row" *ngFor="let module of modules, let i = index">
                 <app-writingmodules class="column" [module]="module"></app-writingmodules>
               

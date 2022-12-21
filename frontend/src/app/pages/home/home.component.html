@@ -7,20 +7,21 @@
         </div>
       </nav>
              
-        <mat-card class="grid home">
-            <mat-card-content> 
-                <mat-card-title style="text-align: center"> <h3><b>{{title}}</b></h3></mat-card-title>
-                <mat-card>
+          <div class="grid home">
+            <div>
+                <div class=" col s8 font-title">
+                    {{title}}
+                </div>
+                <div class="text-space">
                     <a routerLink="/reading">{{title_reading}}</a> {{text_reading}}
-                </mat-card>
-                <mat-card>
+                </div>
+                <div class="text-space">
                     <a routerLink="/writing">{{title_writing}}</a> {{text_writing}}
-                </mat-card>
-                <mat-card>
+                </div>
+                <div class="text-space">
                     <a routerLink="/memorizing">{{title_memorizing}}</a> {{text_memorizing}}
-                </mat-card>
-            </mat-card-content>
-        </mat-card>
+                </div>
+          </div>
 
         <button class="waves-effect waves-ligth btn-large btn-2" ><a routerLink="/">{{button_text}}</a></button>
 </div>
