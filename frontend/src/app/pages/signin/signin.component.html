@@ -26,6 +26,7 @@
                                 type="text" 
                                 [(ngModel)]="user.login"
                                 name="login"
+                                minlength="5"
                                 class="validate"
                                 #login="ngModel"
                                 required
@@ -34,6 +35,9 @@
                             <ng-container *ngIf="login.invalid && login.touched">
                                 <div class="invalid-data" *ngIf="login.errors?.['required']">
                                     Login jest wymagany!
+                                </div>
+                                <div class="invalid-data" *ngIf="login.errors?.['minlength']">
+                                    Login musi mieć przynajmniej 5 znaków!
                                 </div>
                             </ng-container>
                             <label for="login">Login</label>
