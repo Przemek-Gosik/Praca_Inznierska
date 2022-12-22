@@ -85,7 +85,7 @@ public class UserService implements UserDetailsService{
      *
      * @param username is String
      * @return is User
-     * @throws UsernameNotFoundException
+     * @throws UsernameNotFoundException is
      */
     private User findUser(String username)throws UsernameNotFoundException{
         return userRepository.findUserByLogin(username).orElseThrow(()->new UsernameNotFoundException("Nie znaleziono użytkownika dla: "+username));
@@ -141,6 +141,9 @@ public class UserService implements UserDetailsService{
         }
         if(checkIfEmailIsAlreadyTaken(registerRequest.getEmail())){
             throw new IllegalArgumentException("Adres email zajęty dla: "+ registerRequest.getEmail());
+        }
+        if(!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())){
+            throw new IllegalArgumentException("Hasła muszą być identyczne dla: "+registerRequest.getLogin());
         }
         registerRequest.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         User newUser=UserMapper.INSTANCE.fromDto(registerRequest);

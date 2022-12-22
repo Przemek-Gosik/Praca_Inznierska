@@ -1,1 +1,24 @@
-<p>writingtexts works!</p>
+<div>
+    <nav class="bg-breadcrumb">
+        <div>
+          <div class="col s12">
+            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
+            
+          </div>
+        </div>
+    </nav>
+    <div class="row grid">
+        <div class="row home">
+            <h3><b>Wybierz poziom trudności</b></h3>
+        </div>
+        <form class="col s10" #chooselevelForm="ngForm">
+    
+                <mat-radio-group  class="radio-group" [(ngModel)]="chosenLevelName" name="chosenLevel">
+                    <mat-radio-button class="radio-button"*ngFor="let level of levels" [value]="level.value">{{level.name}}</mat-radio-button>
+                </mat-radio-group>
+                
+            
+        </form>
+        
+    </div>
+</div>

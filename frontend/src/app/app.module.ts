@@ -24,7 +24,9 @@ import { MatInputModule } from "@angular/material/input"
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule} from '@angular/material/radio'
+import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
@@ -76,7 +78,9 @@ import { EditAccountComponent } from './pages/account/edit-account/edit-account.
     FormsModule,
     HttpClientModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule,
+    MatRadioModule
   ],
   providers: [
     SplitPipe

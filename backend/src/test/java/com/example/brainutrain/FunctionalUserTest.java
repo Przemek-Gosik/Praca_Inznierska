@@ -89,7 +89,7 @@ public class FunctionalUserTest {
     @Test
     @Rollback
     public void registerUser_givenValidData_thenGetResponseWithToken() throws Exception{
-        RegisterRequest request = new RegisterRequest("login","login@email.com","password");
+        RegisterRequest request = new RegisterRequest("login","login@email.com","password","password");
 
         ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -110,7 +110,7 @@ public class FunctionalUserTest {
     public void logInUser_thenGetToken_thenChangeSetting() throws Exception {
         String login = "login1";
         String password = "password";
-        RegisterRequest registerRequest = new RegisterRequest(login,"login1@email.com",password);
+        RegisterRequest registerRequest = new RegisterRequest(login,"login1@email.com",password,password);
         userService.createUser(registerRequest,encoder);
         User user = userRepository.findUserByLogin(login).orElseThrow(
                 ()-> new UsernameNotFoundException("error")
@@ -139,7 +139,7 @@ public class FunctionalUserTest {
     public void logInUser_thenGetToken_thenDeleteAccount() throws Exception{
         String login = "login2";
         String password = "password";
-        RegisterRequest registerRequest = new RegisterRequest(login,"login2@email.com",password);
+        RegisterRequest registerRequest = new RegisterRequest(login,"login2@email.com",password,password);
         userService.createUser(registerRequest,encoder);
         User user = userRepository.findUserByLogin(login).orElseThrow(
                 ()-> new UsernameNotFoundException("error")
@@ -173,7 +173,7 @@ public class FunctionalUserTest {
         //before
         String login = "login2";
         String password = "password";
-        RegisterRequest registerRequest = new RegisterRequest(login,"login2@email.com",password);
+        RegisterRequest registerRequest = new RegisterRequest(login,"login2@email.com",password,password);
         userService.createUser(registerRequest,encoder);
         User user = userRepository.findUserByLogin(login).orElseThrow(
                 ()-> new UsernameNotFoundException("error")

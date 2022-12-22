@@ -11,15 +11,17 @@ export interface Lesson{
 
 export interface Module{
     idFastWritingModule?: number
-    name: "string"
+    name: string
     number: number
     lessons: Lesson[]
 
 }
 
-export interface Result{
+export interface WritingResult{
     idFastWritingCourse?: number
-    startTime: number
+    idFastWritingLesson: number
+    numberOfAttempts?: number
+    startTime: string
     score: number
     typedLetters: number
 }
