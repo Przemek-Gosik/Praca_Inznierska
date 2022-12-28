@@ -15,6 +15,8 @@ import { WritingcoursesComponent } from './pages/writing/writingcourses/writingc
 import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
 import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
+import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
+import { SchubertComponent } from './pages/reading/schubert/schubert.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -23,10 +25,12 @@ const routes: Routes = [
   { path: 'account/signin/signup', component: SignupComponent},
   { path: 'account/signin/signup/verification', component: VerificationCodeComponent},
   { path: 'reading', component: ReadingComponent},
+  { path: 'reading/schubert',component: SchubertComponent},
   { path: 'writing', component: WritingComponent},
   { path: 'writing/course', component: WritingcoursesComponent},
   { path: 'writing/course/lesson',component: WritinglessonComponent},
   { path: 'writing/text',component:WritingtextsComponent},
+  { path: 'writing/text/test',component:WritingTestComponent},
   { path: 'memorizing', component: MemorizingComponent},
   { path: 'account', component: AccountComponent},
   { path: 'account/editaccount', component: EditAccountComponent},

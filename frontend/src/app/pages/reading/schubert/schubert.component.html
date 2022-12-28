@@ -11,17 +11,22 @@
     <div class="row grid">
       <div class="row home">
         <div class="row home font-title">
-            {{title}}
+            Tablice Schuberta
         </div>
         <div>
-          <button class="waves-effect waves-ligth btn-2 btn-large" routerLink="/reading/schubert">
-            Tablice schuberta
-          </button>
+            <table>
+                
+                <tr *ngFor="let tableRow of tableRows, let i = index">
+                        <td *ngFor="let number of tableRow.column">
+                            <button mat-button (click)="checkPoints(number)">{{number}}</button>
+                        </td>
+                </tr>
+                
+            </table>
+        </div>
       </div>
       <div>
-          <button class="waves-effect waves-ligth btn-2 btn-large" routerLink="/writing/text" >
-            Znajdywanie liczb
-          </button>
+        Zdobyty punkty: {{points}}
       </div>
       </div>
     </div>

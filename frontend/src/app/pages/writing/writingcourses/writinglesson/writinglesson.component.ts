@@ -4,6 +4,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { timeInterval, TimeInterval } from 'rxjs/internal/operators/timeInterval';
 import { Lesson, WritingResult } from 'src/app/models/writing-model';
+import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
 import { SplitPipe } from '../../pipe/splitpipe';
 import { WritingResultDialogComponent } from './writing-result-dialog/writing-result-dialog.component';
@@ -44,7 +45,8 @@ export class WritinglessonComponent implements OnInit {
   constructor(private router:Router,
     private route: ActivatedRoute,
     private writingService: WritingService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public timerService: TimerService) { }
 
   ngOnInit(): void {
     this.getLessonTime()
@@ -88,7 +90,7 @@ export class WritinglessonComponent implements OnInit {
       this.buttonActionName = this.pauzeName
       this.blockLesson = false
       this.done = false
-      this.startTimer()
+      this.timerService.startTimer()
       if(this.typedTexts.length > 0 ){
         this.input.nativeElement.focus();
       }else{
@@ -97,53 +99,9 @@ export class WritinglessonComponent implements OnInit {
     }else{
       this.done = true
       this.buttonActionName = this.startName
-      this.stopTimer()
+      this.timerService.stopTimer()
       this.blockLesson = true
     }
-  }
-
-  startTimer(){
-    this.interval = window.setInterval(()=> {
-      this.hundredsOfSecond+=1
-      if(this.hundredsOfSecond == 100){
-        this.seconds +=1
-        this.hundredsOfSecond = 0
-      }
-      if(this.seconds == 60){
-        this.minutes +=1
-        this.seconds = 0
-      }
-    },10)
-  }
-
-  displayTime():string{
-    var timeDisplay = ""
-    timeDisplay += this.addUnits(this.minutes)
-    timeDisplay +=":"
-    timeDisplay += this.addUnits(this.seconds)
-    timeDisplay +=":"
-    timeDisplay +=this.addUnits(this.hundredsOfSecond)
-    return timeDisplay
-  }
-
-  addUnits(unit: number):string{
-    var time :string = ""
-    if(unit < 10){
-      time += "0"
-    }
-    time += unit.toString()
-    return time
-  }
-
-  stopTimer(){
-    clearInterval(this.interval)
-  }
-
-
-  calculateTime(){
-    this.timeElapsed = this.minutes *60
-    this.timeElapsed += this.seconds
-    this.timeElapsed += this.hundredsOfSecond/100
   }
 
   reset(){
@@ -195,7 +153,7 @@ export class WritinglessonComponent implements OnInit {
         }
         
     }
-    this.calculateTime()
+    this.timeElapsed=this.timerService.calculateTime()
     this.lesson.score=points
     this.openDialog(typedLettes)
   }

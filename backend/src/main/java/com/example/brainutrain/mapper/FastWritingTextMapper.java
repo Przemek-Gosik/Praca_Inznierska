@@ -13,7 +13,6 @@ public interface FastWritingTextMapper {
 
     FastWritingTextMapper INSTANCE = Mappers.getMapper(FastWritingTextMapper.class);
 
-    @Mapping(target = "text",ignore = true)
     FastWritingTextDto toDto(FastWritingText fastWritingText);
 
 

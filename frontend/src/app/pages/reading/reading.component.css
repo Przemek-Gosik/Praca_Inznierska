@@ -7,3 +7,35 @@
     font-size: 20px;
     color: rgb(3, 86, 137);
   }
+  
+  .btn-2 {
+    flex-flow: row wrap;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 400px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    background-color:rgba(3, 86, 137, 0.622);
+    color: black;
+    font-weight: bold;
+    margin-top: 50px;
+    border-radius: 10px;
+    }
+
+    .btn-position{
+      margin:auto;
+      width:70%;
+
+      }
+      .btn-visibility{
+      background-color: transparent;
+      padding-top:10px;
+
+      }
+      .btn-visibility:hover{
+      color:white;
+      }
+      .btn-2:hover{
+      color:white;
+      }

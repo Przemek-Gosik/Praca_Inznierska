@@ -17,6 +17,13 @@ export interface Module{
 
 }
 
+export interface WritingText{
+    idFastWritingText?: number
+    level: string
+    text: string
+    title: string 
+}
+
 export interface WritingResult{
     idFastWritingCourse?: number
     idFastWritingLesson: number

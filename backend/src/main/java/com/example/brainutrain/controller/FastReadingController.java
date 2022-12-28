@@ -76,4 +76,9 @@ public class FastReadingController {
     public ResponseEntity<FastReadingTextDto> drawTextByLevel(@PathVariable("level") String level){
         return ResponseEntity.ok(fastReadingService.drawTextByLevel(level));
     }
+
+    @GetMapping("/text/guest/numbers/{level}")
+    public ResponseEntity<List<Long>> getNumbers(@PathVariable("level") String level){
+        return ResponseEntity.ok(fastReadingService.getSchubertNumbers(level));
+    }
 }
