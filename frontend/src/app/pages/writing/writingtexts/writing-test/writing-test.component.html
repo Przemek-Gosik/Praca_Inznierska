@@ -14,7 +14,7 @@
         <div class="text">
             <div *ngFor="let word of writingText.text | splitWords, let i = index">
                
-                <input #box [style.width.px]='calculateInputWidth(word)' [(ngModel)]="typedWords[i]" [id]="i" (keyup.space)="moveOn(i+1,word)" maxlength="getMaxLength(word)" autocomplete="off" >
+                <input #box [style.width.px]='calculateInputWidth(word)' [(ngModel)]="typedWords[i]" [id]="i" (keyup.space)="moveOn(i+1,word)" maxlength="getMaxLength(word)" autocomplete="off" [disabled]="blockTyping">
                 <div class="word" #word>
                     <div *ngFor="let char of word | split, let j=index" [ngStyle]="{'color' : setTextColor(i,j)}">{{char}}</div>
                     &nbsp;&nbsp;
@@ -25,16 +25,16 @@
         <div class="btn-position">
             <h2>{{timerService.displayTime()}}</h2>
             <div>
-              <button class=" waves-ligth btn-small btn-2" >{{buttonActionName}}</button>
+              <button class=" waves-ligth btn-small btn-2" (click)="startOrPause()">{{buttonActionName}}</button>
             </div>
             <div>
-              <button class=" waves-light btn-small btn-2" >Zresetuj</button>
+              <button class=" waves-light btn-small btn-2" (click)="reset()">Zresetuj</button>
             </div>
             <div>
-              <button class=" waves-ligth btn-small btn-2" >Powrót</button>
+              <button class=" waves-ligth btn-small btn-2" (click)="goBack()">Powrót</button>
             </div>
             <div>
-              <button class=" waves-ligth btn-small btn-2" (click)="calculatePoints()" >Podsumowanie</button>
+              <button class=" waves-ligth btn-small btn-2" (click)="calculatePoints()" [disabled]="!done">Podsumowanie</button>
             </div>
           </div>
     </div>

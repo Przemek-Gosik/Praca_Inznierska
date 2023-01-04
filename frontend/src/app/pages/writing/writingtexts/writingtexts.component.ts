@@ -61,7 +61,7 @@ export class WritingtextsComponent implements OnInit {
   }
 
   startTest(i: number){
-    var textId : number = this.writingTexts[i].idFastWritingText!
+    var textId : number = this.writingTexts[i].idWritingText!
     var isDrawed: boolean = false
     this.router.navigate(["/writing/text/test", {id :
       textId,

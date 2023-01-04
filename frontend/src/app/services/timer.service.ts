@@ -60,4 +60,8 @@ addUnits(unit: number):string{
     return timeDisplay
   }
 
+  getCurrentDate():string{
+    return new Date().toISOString()
+  }
+
 }

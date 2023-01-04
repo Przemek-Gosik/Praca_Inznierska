@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { WritingTestResult, WritingText } from 'src/app/models/writing-model';
+import { WritingTextResult, WritingText } from 'src/app/models/writing-model';
 import { GameService } from 'src/app/services/game.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
+import { WritingTextResultDialogComponent } from './writing-text-result-dialog/writing-text-result-dialog.component';
 
 @Component({
   selector: 'app-writing-test',
@@ -16,8 +18,10 @@ export class WritingTestComponent implements OnInit,GameService {
   isDrawed: boolean = false
   done: boolean = false
   timeElapsed: number = 0
+  dateTime: string = ""
+  blockTyping: boolean = true
   writingText: WritingText = {
-    idFastWritingText: 0,
+    idWritingText: 0,
     text: "",
     title: "",
     level: ""
@@ -29,15 +33,24 @@ export class WritingTestComponent implements OnInit,GameService {
 
   text :string[] = []
   typedWords: string[] = []
+
   constructor(private route: ActivatedRoute,
     private writingService: WritingService,
     public timerService: TimerService,
-    private router: Router) { }
+    private router: Router,
+    private dialog: MatDialog) { }
 
   startOrPause():void {
     if(this.buttonActionName == this.startName){
       this.buttonActionName = this.pauzeName
       this.timerService.startTimer()
+      this.blockTyping = false
+      this.done = false
+    }else{
+      this.done = true
+      this.buttonActionName = this.startName
+      this.timerService.stopTimer()
+      this.blockTyping = true
     }
   }
 
@@ -57,7 +70,24 @@ export class WritingTestComponent implements OnInit,GameService {
         points += 1
       }
     }
+    var result: WritingTextResult = {
+      idText: this.writingText.idWritingText,
+      typedText: textPom,
+      score: points,
+      startTime: this.dateTime,
+      time: this.timerService.calculateTime()
+    }
+    this.openDialog(result)
+  }
 
+  openDialog(result: WritingTextResult):void{
+    this.dialog.open(WritingTextResultDialogComponent,{
+      width: '500px',
+      height: '500px',
+      data:{
+        result: result
+      }
+    })
   }
 
   goBack(): void {
@@ -65,6 +95,7 @@ export class WritingTestComponent implements OnInit,GameService {
   }
 
   ngOnInit(): void {
+    this.dateTime = this.timerService.getCurrentDate()
     this.route.paramMap.subscribe(param=>{
       let idPom = param.get('id')
       let isDrawedPom = param.get('isDrawed')

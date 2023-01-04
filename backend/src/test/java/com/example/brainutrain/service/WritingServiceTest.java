@@ -236,7 +236,7 @@ public class WritingServiceTest {
         when(lessonRepository.findById(lessonResultDto1.getIdWritingLesson())).thenReturn(Optional.of(lesson1));
         when(lessonResultRepository.existsByUserAndWritingLesson(user,lesson1)).thenReturn(false);
 
-        writingService.saveNewCourse(lessonResultDto1);
+        writingService.saveNewLessonResult(lessonResultDto1);
 
         //Then
         verify(lessonResultRepository,times(1)).save(any(WritingLessonResult.class));
@@ -253,7 +253,7 @@ public class WritingServiceTest {
         when(lessonRepository.findById(lessonResultDto1.getIdWritingLesson())).thenReturn(Optional.of(lesson1));
         when(lessonResultRepository.existsByUserAndWritingLesson(user,lesson1)).thenReturn(true);
 
-        assertThrows(AlreadyExistsException.class,()-> writingService.saveNewCourse(lessonResultDto1));
+        assertThrows(AlreadyExistsException.class,()-> writingService.saveNewLessonResult(lessonResultDto1));
     }
 
     @Test
@@ -265,7 +265,7 @@ public class WritingServiceTest {
         when(lessonResultRepository.findByIdWritingLessonResult(lessonResultDto1.getIdWritingLesson())).thenReturn(Optional.of(lessonResult1));
 
 
-        writingService.updateNewCourse(lessonResultDto1);
+        writingService.updateLessonResult(lessonResultDto1);
 
         assertEquals(numberOfAttempts+1, lessonResult1.getNumberOfAttempts());
         assertEquals(lessonResultDto1.getScore(), lessonResult1.getScore());
@@ -281,7 +281,7 @@ public class WritingServiceTest {
         when(lessonResultRepository.findByIdWritingLessonResult(lessonResultDto1.getIdWritingLesson())).thenReturn(Optional.of(lessonResult1));
 
         assertThrows(AccessDeniedException.class,
-                ()-> writingService.updateNewCourse(lessonResultDto1));
+                ()-> writingService.updateLessonResult(lessonResultDto1));
     }
 
     @Test
@@ -301,7 +301,7 @@ public class WritingServiceTest {
         when(utils.getUserFromAuthentication()).thenReturn(user);
         when(lessonResultRepository.findByIdWritingLessonResult(lessonResultDto1.getIdWritingLesson())).thenReturn(Optional.ofNullable(null));
 
-        assertThrows(ResourceNotFoundException.class,()-> writingService.updateNewCourse(lessonResultDto1));
+        assertThrows(ResourceNotFoundException.class,()-> writingService.updateLessonResult(lessonResultDto1));
     }
 
     @Test

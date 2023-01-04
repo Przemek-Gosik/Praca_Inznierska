@@ -55,13 +55,13 @@ public class WritingController {
 
     @PostMapping("/lesson/result")
     public ResponseEntity<Void> saveWritingLessonResult(@Valid @RequestBody WritingLessonResultDto writingLessonResultDto){
-        writingService.saveNewCourse(writingLessonResultDto);
+        writingService.saveNewLessonResult(writingLessonResultDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/lesson/result")
     public ResponseEntity<Void> updateWritingLessonResult(@Valid @RequestBody WritingLessonResultDto writingLessonResultDto){
-        writingService.updateNewCourse(writingLessonResultDto);
+        writingService.updateLessonResult(writingLessonResultDto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

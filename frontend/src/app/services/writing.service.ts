@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { TokenService } from "./token.service";
-import { Lesson, Module, WritingCourseResult, WritingText } from "../models/writing-model";
+import { Lesson, Module, WritingLessonResult, WritingText, WritingTextResult } from "../models/writing-model";
 
 @Injectable({
     providedIn: 'root'
@@ -22,16 +22,16 @@ import { Lesson, Module, WritingCourseResult, WritingText } from "../models/writ
       return this.http.get<Lesson>(`${this.apiUrl}guest/lesson/${lessonId}`);
     }
 
-    getCourseById(courseId: number) : Observable<WritingCourseResult>{
-      return this.http.get<WritingCourseResult>(`${this.apiUrl}course/${courseId}`,{headers: this.tokenService.getHeaderWithToken()});
+    getLessonResultById(resultId: number) : Observable<WritingLessonResult>{
+      return this.http.get<WritingLessonResult>(`${this.apiUrl}lesson/result/${resultId}`,{headers: this.tokenService.getHeaderWithToken()});
     }
 
-    updateCourse(course: WritingCourseResult){
-      return this.http.put(`${this.apiUrl}course`,course,{headers: this.tokenService.getHeaderWithToken()});
+    updateLessonResult(result: WritingLessonResult){
+      return this.http.put(`${this.apiUrl}lesson/result`,result,{headers: this.tokenService.getHeaderWithToken()});
     }
 
-    saveCourse(course: WritingCourseResult){
-      return this.http.post(`${this.apiUrl}course`,course,{headers: this.tokenService.getHeaderWithToken()});
+    saveLessonResult(result: WritingLessonResult){
+      return this.http.post(`${this.apiUrl}lesson/result`,result,{headers: this.tokenService.getHeaderWithToken()});
     }
 
     getAllTexts():Observable<WritingText[]>{
@@ -52,6 +52,10 @@ import { Lesson, Module, WritingCourseResult, WritingText } from "../models/writ
 
     drawTextByLevel(level: String):Observable<WritingText>{
       return this.http.get<WritingText>(`${this.apiUrl}guest/draw/${level}`);
+    }
+
+    saveTextResult(result:WritingTextResult){
+      return this.http.post(`${this.apiUrl}text/result`,result,{headers: this.tokenService.getHeaderWithToken()});
     }
 
   }

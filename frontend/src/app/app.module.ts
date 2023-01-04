@@ -36,10 +36,11 @@ import { WritingmodulesComponent } from './pages/writing/writingcourses/writingm
 import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
 import { SplitPipe } from './pages/writing/pipe/splitpipe';
 import { SplitWordsPipe } from './pages/writing/pipe/split-words-pipe';
-import { WritingResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-result-dialog/writing-result-dialog.component';
+import { WritingLessonResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-lesson-result-dialog/writing-lesson-result-dialog.component';
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
 import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
 import { SchubertComponent } from './pages/reading/schubert/schubert.component';
+import { WritingTextResultDialogComponent } from './pages/writing/writingtexts/writing-test/writing-text-result-dialog/writing-text-result-dialog.component';
 
 
 @NgModule({
@@ -66,9 +67,10 @@ import { SchubertComponent } from './pages/reading/schubert/schubert.component';
     WritinglessonComponent,
     SplitPipe,
     SplitWordsPipe,
-    WritingResultDialogComponent,
+    WritingLessonResultDialogComponent,
     WritingTestComponent,
-    SchubertComponent
+    SchubertComponent,
+    WritingTextResultDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,

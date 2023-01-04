@@ -141,7 +141,7 @@ public class WritingService {
      *
      * @param lessonResultDto is WritingLessonResultDto
      */
-    public void saveNewCourse(WritingLessonResultDto lessonResultDto){
+    public void saveNewLessonResult(WritingLessonResultDto lessonResultDto){
         User user = authenticationUtils.getUserFromAuthentication();
         WritingLesson lesson = lessonRepository.findById(lessonResultDto.getIdWritingLesson()).
                 orElseThrow(()->new ResourceNotFoundException("Nie odnaleziono lekcji szybkiego pisania dla id:"
@@ -161,20 +161,21 @@ public class WritingService {
      *
      * @param lessonResultDto is FastWritingCourseDto
      */
-    public void updateNewCourse(WritingLessonResultDto lessonResultDto){
+    public void updateLessonResult(WritingLessonResultDto lessonResultDto){
         User user = authenticationUtils.getUserFromAuthentication();
-        WritingLessonResult course = lessonResultRepository.findByIdWritingLessonResult(lessonResultDto.getIdWritingLessonResult())
+        WritingLessonResult lessonResult = lessonResultRepository.findByIdWritingLessonResult(lessonResultDto.getIdWritingLessonResult())
                 .orElseThrow(()->new ResourceNotFoundException("Nie odnaleziono wyniku kursu dla id: "
                         +lessonResultDto.getIdWritingLessonResult()));
-        if(!course.getUser().equals(user)){
+        if(!lessonResult.getUser().equals(user)){
             throw new AccessDeniedException("Brak uprawnień do zmiany wyniku lekcji szybkiego pisania dla id : "
-                    +course.getIdWritingLessonResult());
+                    +lessonResult.getIdWritingLessonResult());
         }
-        course.setScore(lessonResultDto.getScore());
-        course.setTime(lessonResultDto.getTime());
-        course.setStartTime(WritingLessonResultMapper.INSTANCE.fromLocalDateTime(lessonResultDto.getStartTime()));
-        incrementNumberOfAttempts(course);
-        lessonResultRepository.save(course);
+        lessonResult.setScore(lessonResultDto.getScore());
+        lessonResult.setTime(lessonResultDto.getTime());
+        lessonResult.setNumberOfTypedLetters(lessonResultDto.getNumberOfTypedLetters());
+        lessonResult.setStartTime(WritingLessonResultMapper.INSTANCE.fromLocalDateTime(lessonResultDto.getStartTime()));
+        incrementNumberOfAttempts(lessonResult);
+        lessonResultRepository.save(lessonResult);
     }
 
     /**

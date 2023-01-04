@@ -3,12 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { timeInterval, TimeInterval } from 'rxjs/internal/operators/timeInterval';
-import { Lesson, WritingCourseResult } from 'src/app/models/writing-model';
+import { Lesson, WritingLessonResult } from 'src/app/models/writing-model';
 import { GameService } from 'src/app/services/game.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
 import { SplitPipe } from '../../pipe/splitpipe';
-import { WritingResultDialogComponent } from './writing-result-dialog/writing-result-dialog.component';
+import { WritingLessonResultDialogComponent } from './writing-lesson-result-dialog/writing-lesson-result-dialog.component';
 @Component({
   selector: 'app-writinglesson',
   templateUrl: './writinglesson.component.html',
@@ -22,9 +22,10 @@ export class WritinglessonComponent implements OnInit,GameService {
   typedTexts : string[] = []
   width: number = 100
   timeElapsed: number = 0
+  numberOfTypedLetters: number = 0
   lesson : Lesson = {
-    idFastWritingLesson: 0,
-    idFastWritingCourse: 0,
+    idWritingLesson: 0,
+    idWritingLessonResult: 0,
     name: "",
     score: 0,
     number: 0,
@@ -46,7 +47,7 @@ export class WritinglessonComponent implements OnInit,GameService {
     public timerService: TimerService) { }
 
   ngOnInit(): void {
-    this.getLessonTime()
+    this.dateTime = this.timerService.getCurrentDate()
     this.route.paramMap.subscribe(param=>{
       let idPom = param.get('id')
       if(idPom){
@@ -60,9 +61,10 @@ export class WritinglessonComponent implements OnInit,GameService {
     this.router.navigate(["/writing/course"])
   }
 
-  getLessonTime() : void {
-    var date = new Date()
-    this.dateTime = date.toISOString()
+  
+
+  getResultById(id:number){
+    this.writingService.getLessonResultById(id)
   }
 
   getLessonById(id: number) {
@@ -74,7 +76,7 @@ export class WritinglessonComponent implements OnInit,GameService {
 
  
   moveOn(i : number){
-    if(i >= this.lesson.text.length){
+    if(i >= this.lesson.text!.length){
       this.startOrPause()
     }else{
     let str : string = i.toString()
@@ -108,14 +110,16 @@ export class WritinglessonComponent implements OnInit,GameService {
     this.timeElapsed = 0
   }
 
-  openDialog( typedLetters : number
+  openDialog( 
   ):void {
-    this.dialog.open(WritingResultDialogComponent, {
+    this.dialog.open(WritingLessonResultDialogComponent, {
       width: '500px',
       height: '500px',
       data:{
-        typedLetters: typedLetters,
-        lesson: this.lesson,
+        numberOfTypedLetters: this.numberOfTypedLetters,
+        idResult: this.lesson.idWritingLessonResult,
+        idLesson: this.lesson.idWritingLesson,
+        score: this.lesson.score,
         time: this.timeElapsed,
         date: this.dateTime
       }
@@ -130,7 +134,7 @@ export class WritinglessonComponent implements OnInit,GameService {
         return "black"
     }else{
       var char : string = this.typedTexts[i].charAt(j)
-      if(char == this.lesson.text[i].charAt(j)){
+      if(char == this.lesson.text![i].charAt(j)){
         return "green"
       }else{
         return "red"
@@ -141,21 +145,22 @@ export class WritinglessonComponent implements OnInit,GameService {
 
   calculatePoints(){
     let points : number = 0
-    let typedLettes : number = 0
-    let texts : string[] = this.lesson.text
+    let typedLetters : number = 0
+    let texts : string[] = this.lesson.text!
     for(let i = 0 ;i<this.typedTexts.length ; i++){
       let textPom :string = this.typedTexts[i]
         for( let j = 0 ; j<textPom.length ;j++){
               if(textPom.charAt(j) === texts[i].charAt(j)){
                 points +=1
               }
-              typedLettes +=1
+              typedLetters +=1
         }
         
     }
     this.timeElapsed=this.timerService.calculateTime()
     this.lesson.score=points
-    this.openDialog(typedLettes)
+    this.numberOfTypedLetters = typedLetters
+    this.openDialog()
   }
 
  
