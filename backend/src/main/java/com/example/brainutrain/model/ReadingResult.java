@@ -1,16 +1,14 @@
 package com.example.brainutrain.model;
 
-import com.example.brainutrain.constants.FontSize;
-import com.example.brainutrain.constants.Purpose;
+import com.example.brainutrain.constants.Level;
+import com.example.brainutrain.constants.TypeReading;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,44 +16,45 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @Entity
-@Table(name="validation_codes")
-public class ValidationCode {
+@Table(name = "reading_results")
+public class ReadingResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idValidationCode;
-
-    @NotBlank
-    private String code;
+    private Long idReadingResult;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Purpose purpose;
+    @NotNull
+    private TypeReading type;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Level level;
 
     @NotNull
-    private boolean wasUsed;
+    private Double score;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    private Timestamp startTime;
+
+    @NotNull
+    private float time;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    private ReadingText text;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
-
-    public ValidationCode (Purpose purpose,User user){
-        this.purpose = purpose;
-        this.user = user;
-        this.wasUsed = false;
-    }
 }

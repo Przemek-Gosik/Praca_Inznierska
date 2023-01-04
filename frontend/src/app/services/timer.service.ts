@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 
 @Injectable({
     providedIn: 'root'
   })
-export class TimerService{
+export class TimerService {
 interval: number = 0
 hundredsOfSecond : number = 0
 seconds : number= 0 
@@ -25,6 +25,13 @@ startTimer(){
 
 stopTimer(){
     clearInterval(this.interval)
+}
+
+clearTimer(){
+  this.stopTimer()
+  this.minutes = 0
+  this.seconds = 0
+  this.hundredsOfSecond = 0
 }
 
 addUnits(unit: number):string{

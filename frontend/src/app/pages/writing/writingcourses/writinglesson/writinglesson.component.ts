@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { timeInterval, TimeInterval } from 'rxjs/internal/operators/timeInterval';
-import { Lesson, WritingResult } from 'src/app/models/writing-model';
+import { Lesson, WritingCourseResult } from 'src/app/models/writing-model';
+import { GameService } from 'src/app/services/game.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
 import { SplitPipe } from '../../pipe/splitpipe';
@@ -13,7 +14,7 @@ import { WritingResultDialogComponent } from './writing-result-dialog/writing-re
   templateUrl: './writinglesson.component.html',
   styleUrls: ['./writinglesson.component.css']
 })
-export class WritinglessonComponent implements OnInit {
+export class WritinglessonComponent implements OnInit,GameService {
 
   @ViewChild("box") input!: ElementRef;
 
@@ -33,10 +34,6 @@ export class WritinglessonComponent implements OnInit {
   startName : string = "Start"
   pauzeName: string ="Pauza" 
   dateTime: string = ""
-  interval : number = 0;
-  hundredsOfSecond : number = 0
-  seconds : number= 0 
-  minutes : number = 0 
   buttonActionName : string = this.startName
   blockLesson : boolean = true
   done : boolean = false
@@ -78,14 +75,14 @@ export class WritinglessonComponent implements OnInit {
  
   moveOn(i : number){
     if(i >= this.lesson.text.length){
-      this.startOrPauze()
+      this.startOrPause()
     }else{
     let str : string = i.toString()
     document.getElementById(str)?.focus()
     }
   }
 
-  startOrPauze(){
+  startOrPause(){
     if(this.buttonActionName == this.startName){
       this.buttonActionName = this.pauzeName
       this.blockLesson = false
@@ -105,7 +102,10 @@ export class WritinglessonComponent implements OnInit {
   }
 
   reset(){
-    window.location.reload()
+    this.timerService.clearTimer()
+    this.typedTexts = []
+    this.done = false
+    this.timeElapsed = 0
   }
 
   openDialog( typedLetters : number

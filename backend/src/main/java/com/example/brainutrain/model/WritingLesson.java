@@ -1,7 +1,5 @@
 package com.example.brainutrain.model;
 
-import com.example.brainutrain.constants.FontSize;
-import com.example.brainutrain.constants.Purpose;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,18 +10,14 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,31 +25,25 @@ import javax.validation.constraints.NotNull;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name="validation_codes")
-public class ValidationCode {
+@Table(name = "writing_lessons")
+public class WritingLesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idValidationCode;
+    private Long idWritingLesson;
 
-    @NotBlank
-    private String code;
+    @Column(nullable = false,unique = true)
+    private int number;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Purpose purpose;
-
-    @NotNull
-    private boolean wasUsed;
+    @Column(nullable = false,unique = true)
+    private String name;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Size(max = 10)
+    @Column(unique = true)
+    private String generatedCharacters;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
-
-    public ValidationCode (Purpose purpose,User user){
-        this.purpose = purpose;
-        this.user = user;
-        this.wasUsed = false;
-    }
+    private WritingModule module;
 }

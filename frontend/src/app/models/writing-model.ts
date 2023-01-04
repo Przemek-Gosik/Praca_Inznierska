@@ -24,11 +24,21 @@ export interface WritingText{
     title: string 
 }
 
-export interface WritingResult{
+export interface WritingCourseResult{
     idFastWritingCourse?: number
     idFastWritingLesson: number
+    time: number
     numberOfAttempts?: number
     startTime: string
     score: number
-    typedLetters: number
+    numberOfTypedLetters: number
+}
+
+export interface WritingTestResult{
+    idFastWritingTest?: number
+    typedText: string
+    score: number
+    startTime: string
+    time: number
+    idText?: number
 }

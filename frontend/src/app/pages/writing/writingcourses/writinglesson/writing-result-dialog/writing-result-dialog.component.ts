@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Lesson, WritingResult } from 'src/app/models/writing-model';
+import { Lesson, WritingCourseResult } from 'src/app/models/writing-model';
 import { TokenService } from 'src/app/services/token.service';
 import { WritingService } from 'src/app/services/writing.service';
 
@@ -14,13 +14,14 @@ export class WritingResultDialogComponent implements OnInit {
   typedLetters!: number;
   time!: number;
   dateTime!: string
-  result: WritingResult = {
+  result: WritingCourseResult = {
     idFastWritingCourse: 0,
     idFastWritingLesson: 0,
-    numberOfAttempts: 0, 
+    numberOfAttempts: 0,
     startTime: "",
     score: 0,
-    typedLetters: 0
+    numberOfTypedLetters: 0,
+    time: 0
   }
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,private httpWriting: WritingService) { }
   
@@ -30,7 +31,7 @@ export class WritingResultDialogComponent implements OnInit {
     this.time = this.data.time
     this.dateTime = this.data.date
     if(this.lesson.idFastWritingCourse){
-      this.httpWriting.getCourseById(this.lesson.idFastWritingCourse).subscribe((res:WritingResult)=>{
+      this.httpWriting.getCourseById(this.lesson.idFastWritingCourse).subscribe((res:WritingCourseResult)=>{
         this.result = res
       })
     }
@@ -50,11 +51,12 @@ export class WritingResultDialogComponent implements OnInit {
   }
 
   saveResult(){
-    this.result = {
+    var result: WritingCourseResult = {
       idFastWritingLesson: this.lesson.idFastWritingLesson!,
       startTime: this.dateTime,
       score: this.lesson.score!,
-      typedLetters: this.typedLetters
+      time: 0,
+      numberOfTypedLetters: this.typedLetters
     }
     console.log(this.result)
     }

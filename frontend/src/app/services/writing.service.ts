@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { TokenService } from "./token.service";
-import { Lesson, Module, WritingResult, WritingText } from "../models/writing-model";
+import { Lesson, Module, WritingCourseResult, WritingText } from "../models/writing-model";
 
 @Injectable({
     providedIn: 'root'
@@ -22,15 +22,15 @@ import { Lesson, Module, WritingResult, WritingText } from "../models/writing-mo
       return this.http.get<Lesson>(`${this.apiUrl}guest/lesson/${lessonId}`);
     }
 
-    getCourseById(courseId: number) : Observable<WritingResult>{
-      return this.http.get<WritingResult>(`${this.apiUrl}course/${courseId}`,{headers: this.tokenService.getHeaderWithToken()});
+    getCourseById(courseId: number) : Observable<WritingCourseResult>{
+      return this.http.get<WritingCourseResult>(`${this.apiUrl}course/${courseId}`,{headers: this.tokenService.getHeaderWithToken()});
     }
 
-    updateCourse(course: WritingResult){
+    updateCourse(course: WritingCourseResult){
       return this.http.put(`${this.apiUrl}course`,course,{headers: this.tokenService.getHeaderWithToken()});
     }
 
-    saveCourse(course: WritingResult){
+    saveCourse(course: WritingCourseResult){
       return this.http.post(`${this.apiUrl}course`,course,{headers: this.tokenService.getHeaderWithToken()});
     }
 

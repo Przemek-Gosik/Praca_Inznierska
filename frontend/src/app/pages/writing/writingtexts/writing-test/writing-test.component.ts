@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { WritingText } from 'src/app/models/writing-model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { WritingTestResult, WritingText } from 'src/app/models/writing-model';
+import { GameService } from 'src/app/services/game.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
 
@@ -9,16 +10,19 @@ import { WritingService } from 'src/app/services/writing.service';
   templateUrl: './writing-test.component.html',
   styleUrls: ['./writing-test.component.css']
 })
-export class WritingTestComponent implements OnInit {
+export class WritingTestComponent implements OnInit,GameService {
 
   id: number = 0
   isDrawed: boolean = false
+  done: boolean = false
+  timeElapsed: number = 0
   writingText: WritingText = {
     idFastWritingText: 0,
     text: "",
     title: "",
     level: ""
   }
+  
   buttonActionName :string = "Start";
   startName : string = "Start"
   pauzeName: string ="Pauza" 
@@ -27,7 +31,38 @@ export class WritingTestComponent implements OnInit {
   typedWords: string[] = []
   constructor(private route: ActivatedRoute,
     private writingService: WritingService,
-    public timerService: TimerService) { }
+    public timerService: TimerService,
+    private router: Router) { }
+
+  startOrPause():void {
+    if(this.buttonActionName == this.startName){
+      this.buttonActionName = this.pauzeName
+      this.timerService.startTimer()
+    }
+  }
+
+  reset(): void { 
+    this.timerService.clearTimer()
+    this.typedWords = []
+    this.done = false
+    this.timeElapsed = 0
+  }
+
+  calculatePoints(): void {
+    var points : number = 0
+    var text : string = this.writingText.text
+    let textPom: string = this.typedWords.join("")
+    for(let i = 0;i<textPom.length;i++){
+      if(textPom.charAt(i) === text.charAt(i)){
+        points += 1
+      }
+    }
+
+  }
+
+  goBack(): void {
+    this.router.navigate(["/writing/text"])
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(param=>{
@@ -57,11 +92,10 @@ export class WritingTestComponent implements OnInit {
 
       }
     })
+    this.timerService.clearTimer()
   }
 
-  startOrPause(){
-
-  }
+  
 
   calculateInputWidth(word :string){
     return 9*word.length
@@ -104,7 +138,4 @@ export class WritingTestComponent implements OnInit {
       return false
     }
   }
-
-  
-
 }
