@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { LocalstorageService } from 'src/app/services/localstorage.service';
+// import {themeBtn, themeToggle, themeSelect} from "theme-change"
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,16 @@ export class HomeComponent implements OnInit {
   title_memorizing: string = "Ćwiczenie swojego mózgu";
   text_memorizing: string = " wpłynie na Twoje samopoczucie i pewność siebie oraz pozwoli Ci osiągać nowe, coraz ambitniejsze cele!";
   button_text: string = "Wybierz kurs, zacznij już dziś!"
-  constructor(
-   
-  ) { }
+  storedTheme: any 
+
+  setting: any;
+  theme: any;
+  themeString: string = ""
+  
+  constructor( private localStorageService: LocalstorageService ) { }
 
   ngOnInit(): void {
-  
+ 
   }
 
 }

@@ -1,4 +1,4 @@
-/* label color */
+label color
 .input-field label {
   color: rgb(3, 86, 137)
 }
@@ -80,6 +80,10 @@
   color: rgb(3, 86, 137);
 }
 
+.input-field{
+  margin-left:auto;
+} 
+
 
 .breadcrumb{
 font-size: 20px;
@@ -106,9 +110,14 @@ border-radius: 10px;
 }
 
 .center {
-margin:auto;
-width: 70%;
-/* padding-left:100px; */
+  margin:auto;
+  width: 70%;
+ /* padding-left:100px;  */
+}
+
+.center2 {
+  /* width: 60%; */
+ /* padding-left:300px;  */
 }
 
 .btn-position{
@@ -153,12 +162,10 @@ border-bottom: 10px solid red;
     background-color: transparent;
     color:red;
     font-size: 14px;
-    text-decoration: italic;
-    float:left;
     /* margin-left:45px; */
-    width:90%;
     border-color:red;
     text-align: center;
+   
 }
 
 .hidePasswordIcon{

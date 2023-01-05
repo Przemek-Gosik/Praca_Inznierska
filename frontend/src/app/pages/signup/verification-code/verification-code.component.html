@@ -17,16 +17,17 @@
             <p style="text-align:justify; font-size:20px">{{instruction}} </p>
         </div>
         <div class="col s12">
-            <form  #verificationCodeForm="ngForm" class="center" (ngSubmit)=verify() >
+            <form  #verificationCodeForm="ngForm" class="" style="padding-left:35%" (ngSubmit)=verify() >
                 <div class="row">
-                    <div class="center">
-                        <div class="input-field col s12">
+                    <div class="">
+                        <div class="input-field " style="width: 35%">
                             <i class="material-icons prefix validate" >vpn_key</i>
                             <input 
                                 id="code" 
                                 type="text" 
                                 name="code"
                                 class="validate"
+                                
                                 [(ngModel)]="verificationCode.code"
                                 class="validate"
                                 minlength="5"

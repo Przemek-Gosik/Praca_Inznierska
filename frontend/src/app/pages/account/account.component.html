@@ -1,24 +1,67 @@
-<div>
-    <nav class="bg-breadcrumb">
+<div class="bg-color">
+    <nav class="breadcrumb-background">
         <div class="">
           <div class="col s10">
-            <a href="/" class="breadcrumb " style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/account" class="breadcrumb " style="padding-top:500px"><b>Moje konto</b></a>
+            <a href="/" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/account" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Moje konto</b></a>
           </div>
         </div>
     </nav>
-        <div class="row grid">
-            <div class="row link">
-              <div class="font-title">
-                Moje konto
-            </div>
-              <ul>
-                <li> <a routerLink="/account/signin" class="link" *ngIf="!loggedInUser()" > Zaloguj się</a> </li>
-                <li> <a routerLink="/account/signin/signup" class="link" *ngIf="!loggedInUser()"> Zarejestruj się </a> </li>
-                <li> <a routerLink="/" class="link" *ngIf="loggedInUser()"> Moje wyniki </a></li>
-                <li> <a routerLink="/account/editaccount" class="link" *ngIf="loggedInUser()"> Edytuj dane </a> </li>
-                <li> <a routerLink="/" class="link" *ngIf="loggedInUser()" (click)="deleteUser()"> Usuń konto </a> </li>   
-                <li> <a routerLink="/" class="link" *ngIf="loggedInUser()" (click)="logoutUser()"> Wyloguj się </a> </li>   
-              </ul>
-            </div>
-        </div>
+    <div class="row context-box">
+      <div class="row link">
+        <div class="font-title">
+            Moje konto
+          </div>
+          <div class="col s12 center">
+              <button mat-fab extended routerLink="/account/signin" class="btn-my-account btn-large" *ngIf="!loggedInUser()" > 
+                <span class="btn-hover">
+                  <mat-icon class="icon">login</mat-icon>
+                  <br>
+                  Zaloguj się 
+              </span> 
+                
+              </button>
+
+              <button mat-fab extended routerLink="/account/signin/signup" class="btn-my-account btn-large" *ngIf="!loggedInUser()"> 
+                <span class="btn-hover">
+                  <mat-icon class="icon">app_registration</mat-icon>
+                  <br>
+                  Zarejestruj się 
+                </span>
+              </button>
+              
+              <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
+                <span class="btn-hover">
+                  <mat-icon>fitness_center</mat-icon>
+                  <!-- grade lub golf_course lub workspace_premium -->
+                  <br>
+                  Moje wyniki
+                </span> 
+              </button>
+              
+              <button mat-fab extended routerLink="/account/editaccount" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
+                <span class="btn-hover">
+                  <mat-icon class="icon">edit</mat-icon>
+                  <br>
+                  Edytuj dane  
+                </span>
+              </button>
+              
+              <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="deleteUser()"> 
+                <span class="btn-hover">
+                  <mat-icon class="icon">delete_outline</mat-icon>
+                  <br>
+                  Usuń konto 
+                </span> 
+              </button>   
+              
+              <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="logoutUser()"> 
+                <span class="btn-hover">
+                  <mat-icon class="icon">logout</mat-icon>
+                  <!-- <mat-icon class="icon">forward</mat-icon> -->
+                  <br>
+                  Wyloguj się 
+                </span> 
+              </button> 
+
+          </div>
