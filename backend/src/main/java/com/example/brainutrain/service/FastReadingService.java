@@ -22,8 +22,13 @@ import com.example.brainutrain.repository.FastReadingTextRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Service for fast reading module
@@ -182,5 +187,27 @@ public class FastReadingService {
         Random random = new Random();
         FastReadingText fastReadingText = textPool.get(random.nextInt(textPool.size()));
         return FastReadingTextMapper.INSTANCE.toDto(fastReadingText);
+    }
+
+    /**
+     * Method to create list of random numbers for Schubert Table
+     *
+     * @param level1 is String within Enum Level range
+     * @return is List of Long
+     */
+    public List<Long> getSchubertNumbers(String level1){
+        Level level = LevelMapper.getLevelFromString(level1);
+        int numberLimit;
+        switch (level){
+            case EASY -> numberLimit = 16;
+            case MEDIUM -> numberLimit = 36;
+            case ADVANCED -> numberLimit = 100;
+            default -> numberLimit = 2;
+        }
+         return new Random().longs(1,numberLimit+1)
+                .distinct()
+                .limit(numberLimit)
+                .boxed()
+                 .collect(Collectors.toList());
     }
 }

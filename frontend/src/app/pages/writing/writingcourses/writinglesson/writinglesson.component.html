@@ -9,7 +9,9 @@
     </nav>
     <div class="row grid">
         <div class="row home">
-            <h4><b>Lekcja {{lesson.number}}</b></h4>
+          <div class="row home font-title">
+            Lekcja {{lesson.number}}
+          </div>
               <div *ngFor="let text of lesson.text, let i =index">
                 <input #box [style.width.px]='width' [(ngModel)]="typedTexts[i]" [disabled]="blockLesson" maxlength="10" [id]="i" (keyup.enter)="moveOn(i+1)" autocomplete="off">
                 <br/>
@@ -19,17 +21,22 @@
                   </div>
                 </div>
               </div>
-        </div>
-            <div class="btn-position">
-              <h2>{{displayTime()}}</h2>
-              <div>
-                <button class="waves-effect waves-ligth btn-small btn-2" (click)="startOrPauze()">{{buttonActionName}}</button>
-                <button class="waves-effect waves-light btn-small btn-2" (click)="reset()">Zresetuj</button>
-                <button class="waves-effect waves-ligth btn-small btn-2" (click)="calculatePoints()" >Zakończ</button>
-              </div>
-              <ng-container *ngIf="done" class="result">
-                  Twój wynik to : {{lesson.score}}
-              </ng-container>
             </div>
+            <div class="btn-position">
+              <h2>{{timerService.displayTime()}}</h2>
+              <div>
+                <button class=" waves-ligth btn-small btn-2" (click)="startOrPauze()">{{buttonActionName}}</button>
+              </div>
+              <div>
+                <button class=" waves-light btn-small btn-2" (click)="reset()">Zresetuj</button>
+              </div>
+              <div>
+                <button class=" waves-ligth btn-small btn-2" (click)="goBack()">Powrót</button>
+              </div>
+              <div>
+                <button class=" waves-ligth btn-small btn-2" (click)="calculatePoints()" [disabled]="!done">Podsumowanie</button>
+              </div>
+            </div>
+            
     </div>
 </div>

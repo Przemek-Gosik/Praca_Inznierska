@@ -1,1 +1,56 @@
-<p>writingtexts works!</p>
+<div>
+    <nav class="bg-breadcrumb">
+        <div>
+          <div class="col s12">
+            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
+            
+          </div>
+        </div>
+    </nav>
+    <div class="row grid">
+        <div *ngIf="!chooseText">
+        <div class="row home">
+            <h3><b>Wybierz poziom trudności</b></h3>
+        </div>
+        <div class="col s10" >
+    
+                <mat-radio-group  class="radio-group" [(ngModel)]="chosenLevelName" name="chosenLevel">
+                    <mat-radio-button class="radio-button"*ngFor="let level of levels" [value]="level.value">{{level.name}}</mat-radio-button>
+                </mat-radio-group>
+                <div class="btn-position">
+                    <div>
+                <button class="waves-effect waves-ligth btn-2 btn-large" (click)="startDrawedTest()">
+                    Wylosuj tekst
+                  </button>
+                    </div>
+                  <div>
+                    <button class="waves-effect waves-ligth btn-2 btn-large" (click)="showTexts()">
+                     Wybierz tekst
+                    </button>
+                  </div>
+        </div>
+
+    </div>
+        
+    </div>
+    <div *ngIf="chooseText" #texts>
+        <div class="row home">
+            <h3><b>Dostępne teksty</b></h3>
+        </div>
+        <table>
+            <tr>
+                <th>Nr</th>
+                <th>Tytuł tekstu</th>
+                <th>Poziom trudności</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let text of writingTexts, let i = index">
+                <td>{{i+1}}</td>
+                <td>{{text.title}}</td>
+                <td>{{getLevelName(i)}}</td>
+                <td><button mat-raised-button (click)="startTest(i)">Rozpocznij test</button></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+</div>

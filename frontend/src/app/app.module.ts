@@ -24,7 +24,9 @@ import { MatInputModule } from "@angular/material/input"
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule} from '@angular/material/radio'
+import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
@@ -33,8 +35,11 @@ import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts
 import { WritingmodulesComponent } from './pages/writing/writingcourses/writingmodules/writingmodules.component';
 import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
 import { SplitPipe } from './pages/writing/pipe/splitpipe';
+import { SplitWordsPipe } from './pages/writing/pipe/split-words-pipe';
 import { WritingResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-result-dialog/writing-result-dialog.component';
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
+import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
+import { SchubertComponent } from './pages/reading/schubert/schubert.component';
 
 
 @NgModule({
@@ -60,7 +65,10 @@ import { EditAccountComponent } from './pages/account/edit-account/edit-account.
     EditAccountComponent,
     WritinglessonComponent,
     SplitPipe,
-    WritingResultDialogComponent
+    SplitWordsPipe,
+    WritingResultDialogComponent,
+    WritingTestComponent,
+    SchubertComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -76,10 +84,13 @@ import { EditAccountComponent } from './pages/account/edit-account/edit-account.
     FormsModule,
     HttpClientModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule,
+    MatRadioModule
   ],
   providers: [
-    SplitPipe
+    SplitPipe,
+    SplitWordsPipe
   ],
   bootstrap: [AppComponent]
 })

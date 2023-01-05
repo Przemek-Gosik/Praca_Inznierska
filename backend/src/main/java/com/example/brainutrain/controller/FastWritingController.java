@@ -71,6 +71,11 @@ public class FastWritingController {
         return ResponseEntity.ok(fastWritingService.getAllTexts());
     }
 
+    @GetMapping("guest/text/level/{level}")
+    public ResponseEntity<List<FastWritingTextDto>> getAllFastWritingTextsByLevel(@PathVariable("level") String level){
+        return ResponseEntity.ok(fastWritingService.getAllTextsByLevel(level));
+    }
+
     @GetMapping("/guest/text/{id}")
     public ResponseEntity <FastWritingTextDto> getFastWritingTextById(@PathVariable("id") Long id ){
         return ResponseEntity.ok(fastWritingService.getTextById(id));

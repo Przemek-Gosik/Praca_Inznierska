@@ -15,6 +15,7 @@ import com.example.brainutrain.mapper.FastWritingLessonMapper;
 import com.example.brainutrain.mapper.FastWritingModuleMapper;
 import com.example.brainutrain.mapper.FastWritingTestMapper;
 import com.example.brainutrain.mapper.FastWritingTextMapper;
+import com.example.brainutrain.mapper.enum_mapper.LevelMapper;
 import com.example.brainutrain.model.FastWritingCourse;
 import com.example.brainutrain.model.FastWritingLesson;
 import com.example.brainutrain.model.FastWritingModule;
@@ -195,6 +196,17 @@ public class FastWritingService {
      */
     public List<FastWritingTextDto> getAllTexts(){
         List<FastWritingText> texts = textRepository.findAll();
+        return FastWritingTextMapper.INSTANCE.toDto(texts);
+    }
+
+    /**
+     *
+     * @param level1 is String
+     * @return is List of FastWritingTextDto
+     */
+    public List<FastWritingTextDto> getAllTextsByLevel(String level1){
+        Level level = LevelMapper.getLevelFromString(level1);
+        List <FastWritingText> texts = textRepository.findAllByLevel(level);
         return FastWritingTextMapper.INSTANCE.toDto(texts);
     }
 

@@ -28,4 +28,9 @@ public class RegisterRequest {
     @Size(min = 5,message = "Hasło nie może być krótsze niż 5 znaków")
     @Size(max = 45,message = "Hasło nie może być dłuższe niż 45 znaków")
     private String password;
+
+    @NotBlank(message = "Hasło nie może być puste")
+    @Size(min = 5,message = "Hasło nie może być krótsze niż 5 znaków")
+    @Size(max = 45,message = "Hasło nie może być dłuższe niż 45 znaków")
+    private String confirmPassword;
 }
