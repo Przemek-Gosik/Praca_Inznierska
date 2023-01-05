@@ -1,21 +1,24 @@
 .page-not-found{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    color: black;
-    flex-direction: column;
-    font-family: Arial, Helvetica;
+    /* margin-top: 500px; */
 }
 
 h1{
-    font-size: 60px;
-    padding-bottom: 10px;
-    padding-top: 150px;
-    font-weight: bolder;
+    font-size: 100px;
+    padding-bottom: 30px;
+    padding-top: 100px;
+    font-weight:bolder;
+    color: var(--color-a-active-breadcrumbs);
 }
 
 h2{
-    font-size: 30px;
-    font-weight: lighter;
+    font-size: 40px;
+    font-weight: normal;
+    color: var(--color);
+    text-decoration: italic;
+    padding-bottom:100px;
+
+}
+
+.context-box{
+    /* margin-top:100px; */
 }

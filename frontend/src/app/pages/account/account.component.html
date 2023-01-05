@@ -15,7 +15,7 @@
           <div class="col s12 center">
               <button mat-fab extended routerLink="/account/signin" class="btn-my-account btn-large" *ngIf="!loggedInUser()" > 
                 <span class="btn-hover">
-                  <mat-icon class="icon">login</mat-icon>
+                  <mat-icon>login</mat-icon>
                   <br>
                   Zaloguj się 
               </span> 
@@ -24,7 +24,7 @@
 
               <button mat-fab extended routerLink="/account/signin/signup" class="btn-my-account btn-large" *ngIf="!loggedInUser()"> 
                 <span class="btn-hover">
-                  <mat-icon class="icon">app_registration</mat-icon>
+                  <mat-icon>app_registration</mat-icon>
                   <br>
                   Zarejestruj się 
                 </span>
@@ -41,7 +41,7 @@
               
               <button mat-fab extended routerLink="/account/editaccount" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
                 <span class="btn-hover">
-                  <mat-icon class="icon">edit</mat-icon>
+                  <mat-icon>edit</mat-icon>
                   <br>
                   Edytuj dane  
                 </span>
@@ -49,7 +49,7 @@
               
               <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="deleteUser()"> 
                 <span class="btn-hover">
-                  <mat-icon class="icon">delete_outline</mat-icon>
+                  <mat-icon>delete_outline</mat-icon>
                   <br>
                   Usuń konto 
                 </span> 
@@ -57,7 +57,7 @@
               
               <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="logoutUser()"> 
                 <span class="btn-hover">
-                  <mat-icon class="icon">logout</mat-icon>
+                  <mat-icon>logout</mat-icon>
                   <!-- <mat-icon class="icon">forward</mat-icon> -->
                   <br>
                   Wyloguj się 
