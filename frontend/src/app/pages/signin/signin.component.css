@@ -1,89 +1,27 @@
-/* mat-card {
-    max-width: 600px;
-    margin: 2em auto;
-    text-align: center;
-    max-height: 600px;
-  }
-  
-  .header{
-    text-align: center;
-  
-  }
-  .full-width {
-    width: 80%;
-  }
-  
-  .button-row {
-    padding-top: 5px;
-  }
-  
-  .button-row a {
-    margin-right: 8px;
-    text-align: center;
-  }
-  
-  .forget-password{
-    padding-left: 0px;
-  }
-  
-  .emailInput{
-    padding-top: 10px;
-  }
-  
-  .contentBody {
-    padding: 60px 1rem;
-    background :#1b6ca8;
-    display: block;
-  }
-  
-  .aLink{
-    float: right;
-    padding-right: 60px;
-    text-decoration: none;
-  } */
-
-
-
-/* .example-container mat-form-field + mat-form-field {
-    margin-left: 8px;
-  }
-  
-  .example-right-align {
-    text-align: right;
-  }
-  
-  input.example-right-align::-webkit-outer-spin-button,
-  input.example-right-align::-webkit-inner-spin-button {
-    display: none;
-  }
-  
-  input.example-right-align {
-    -moz-appearance: textfield;
-  } */
     /* label color */
     .input-field label {
-      color: rgb(3, 86, 137)
-    }
+      color: var(--color-a-active-breadcrumbs);
+    } 
+
     /* label focus color */
     .input-field input[type=text]:focus + label {
-      color:  rgb(3, 86, 137);
+      color:  var(--color-a-active-breadcrumbs);
     }
 
     .input-field input[type=password]:focus + label {
-      color:  rgb(3, 86, 137);
+      color:  var(--color-a-active-breadcrumbs);
     }
 
     /* label underline focus color */
     .input-field input[type=text]:focus {
-      border-bottom: 1px solid  rgb(3, 86, 137);
-      box-shadow: 0 1px 0 0 rgb(3, 86, 137);
+      border-bottom: 1px solid var(--color-a-active-breadcrumbs);
+      box-shadow: 0 1px 0 0 var(--color-a-active-breadcrumbs);
     }
 
     .input-field input[type=password]:focus {
-      border-bottom: 1px solid  rgb(3, 86, 137);
-      box-shadow: 0 1px 0 0 rgb(3, 86, 137);
+      border-bottom: 1px solid var(--color-a-active-breadcrumbs);
+      box-shadow: 0 1px 0 0 var(--color-a-active-breadcrumbs);
     }
-
 
     /* valid color*/
     .input-field input[type=text].valid {
@@ -96,8 +34,7 @@
       box-shadow: 0 1px 0 0 rgb(13, 173, 56);
     }
     
-
-        /* valid color */
+    /* valid color */
     .input-field input[type=text].valid:focus ~label {
       color: rgb(13, 173, 56);
     }
@@ -105,7 +42,6 @@
     .input-field input[type=password].valid:focus ~label {
       color: rgb(13, 173, 56);
     }
-
 
     /* invalid color */
     .input-field input[type=text].invalid {
@@ -124,19 +60,9 @@
 
     /* icon prefix focus color */
     .input-field .prefix.active{
-      color: rgb(3, 86, 137);
+      color: var(--color-a-active-breadcrumbs);
     }
 
-
-.breadcrumb{
-    font-size: 20px;
-    color: black;
-}
-
-nav a:hover{
-    font-size: 20px;
-    color: rgb(3, 86, 137);
-}
 .btn-2 {
     flex-flow: row wrap;
     justify-content: center;
@@ -152,11 +78,11 @@ nav a:hover{
     border-radius: 10px;
 }
 
-.center {
+/* .center {
     margin:auto;
     width: 70%;
     /* padding-left:100px; */
-  }
+ /* } */
 
 .btn-position{
     margin:auto;

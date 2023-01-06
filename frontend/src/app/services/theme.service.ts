@@ -15,15 +15,18 @@ export class ThemeService {
   themeString: string = ""
 
   setTheme(theme: any){
-
     if(!this.localStorageService.getItemFromStorage("setting")){
-      this.storedTheme="NIGHT";
+      this.setTheme2(theme);
     }
     else{
       this.storedTheme = this.localStorageService.getItemFromStorage("setting");
       this.storedTheme.theme=theme;
       this.localStorageService.setItemToStorage('setting',this.storedTheme);
     }
+  }
+
+  setTheme2(theme:any){
+    return theme;
   }
 
   getTheme(){

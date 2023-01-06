@@ -16,8 +16,14 @@
     color: var(--color-a-hover);
 } 
 
-/* .tabs.tabs-transparent .indicator:active {
-    background-color: var(--color);
+.indicator{
+    /* background-color: var(--color); */
+    display: none;
+}
+
+/* nav .tabs .tab li a .indicator{
+    color:red;
+    display: none;
 } */
 
 nav{
@@ -57,9 +63,3 @@ i.material-icons:hover{
 .logo-bg a:hover{
     background-color: transparent;
 }
-
-/* .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-} */

@@ -1,22 +1,22 @@
-<div>
-    <nav class="bg-breadcrumb">
+<div class="bg-color">
+    <nav class="breadcrumb-background">
         <div>
           <div class="col s12">
-            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/account" class="breadcrumb " style="padding-top:500pxl"><b>Moje konto</b></a>
-            <a href="/account/signin" class="breadcrumb " style="padding-top:500px"><b>Logowanie</b></a>
+            <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/account" class="breadcrumb breadcrumb-text" style="padding-top:500pxl"><b>Moje konto</b></a>
+            <a href="/account/signin" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Logowanie</b></a>
           </div>
         </div>
     </nav>
 
-    <div class="row grid">
+    <div class="row context-box">
         <form class="col s10" #loginForm="ngForm" >
                 <div class="row">
-                    <div class="center">
+                    <div class="">
                         <div class="col s8 font-title">
                             {{title}}
                        </div>
-                        <div class="input-field col s8 center">
+                        <div class="input-field col s8">
                             <i class="material-icons prefix" (click)="clickedIcon">account_circle</i>
                             <input 
                                 id="login" 
