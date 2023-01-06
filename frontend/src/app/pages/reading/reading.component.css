@@ -1,41 +1,31 @@
-.breadcrumb{
-    font-size: 20px;
-    color: black;
-  }
-  
-  nav a:hover{
-    font-size: 20px;
-    color: rgb(3, 86, 137);
-  }
-  
-  .btn-2 {
-    flex-flow: row wrap;
-    justify-content: center;
-    max-width: 400px;
-    margin: 0 auto;
-    margin-top: 50px;
-    width: 400px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);
-    background-color:rgba(3, 86, 137, 0.622);
-    color: black;
-    font-weight: bold;
-    margin-top: 50px;
-    border-radius: 10px;
-    }
+.btn-reading {
+  max-width: 250px;
+  margin: 0 auto;
+  width:230px; 
+  height:230px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+  background-color: var(--btn-pick-course-background-color);
+  color: var(--color);
+  font-weight: bold;
+  margin-top: 50px;
+  border-radius: 10px;
+  font-size:18px;
+  letter-spacing: 1px;
+  margin-right: 12px;
+}
 
-    .btn-position{
-      margin:auto;
-      width:70%;
+.btn-hover:hover, .mat-icon:hover{
+  color: var(--color-a-hover);
+}
 
-      }
-      .btn-visibility{
-      background-color: transparent;
-      padding-top:10px;
+.btn-reading:hover{
+  background-color: var(--btn-pick-course-background-color-hover);
+  color: var(--color-a-hover);
+}
 
-      }
-      .btn-visibility:hover{
-      color:white;
-      }
-      .btn-2:hover{
-      color:white;
-      }
+.mat-icon{
+  transform: scale(3);
+  color: var(--color); 
+  padding-bottom: 42px;
+  padding-top:15px;
+}  

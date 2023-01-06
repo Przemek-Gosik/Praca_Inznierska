@@ -1,27 +1,25 @@
-<div>
-    <nav class="bg-breadcrumb">
-        <div>
-          <div class="col s12">
-            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/reading" class="breadcrumb " style="padding-top:500pxl"><b>Czytanie</b></a>
-          </div>
-        </div>
-    </nav>
-
-    <div class="row grid">
-      <div class="row home">
-        <div class="row home font-title">
-            {{title}}
-        </div>
-        <div>
-          <button class="waves-effect waves-ligth btn-2 btn-large" routerLink="/reading/schubert">
-            Tablice schuberta
-          </button>
-      </div>
-      <div>
-          <button class="waves-effect waves-ligth btn-2 btn-large" routerLink="/writing/text" >
-            Znajdywanie liczb
-          </button>
-      </div>
+<div class="bg-color">
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s10">
+        <a href="/" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+        <a href="/reading" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Czytanie</b></a>
       </div>
     </div>
+  </nav>
+
+  <div class="row context-box center">
+    <div class="row font-title">
+        {{title}}
+    </div>
+
+    <button mat-fab extended class="btn-reading btn-large" routerLink="/reading/schubert">
+      <span class="btn-hover">
+        <mat-icon>calendar_view_month</mat-icon>
+        <br>
+        {{tabSchultz}}
+      </span>
+    </button>
+
+  </div>
+</div>

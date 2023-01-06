@@ -12,4 +12,6 @@ export class ReadingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  tabSchultz: string = "Tablice Schulza"
+
 }

@@ -1,32 +1,31 @@
-<div>
-    <nav class="bg-breadcrumb">
-        <div>
-          <div class="col s12">
-            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/reading" class="breadcrumb " style="padding-top:500pxl"><b>Czytanie</b></a>
-          </div>
-        </div>
-    </nav>
+<div class="bg-color">
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s10">
+        <a href="/" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+        <a href="/reading" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Czytanie</b></a>
+        <a href="/schubert" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Tablice Schulza</b></a>
+      </div>
+    </div>
+  </nav>
 
-    <div class="row grid">
-      <div class="row home">
-        <div class="row home font-title">
-            Tablice Schuberta
+    <div class="row context-box center">
+
+        <div class="font-title">
+            Tablice Schulza
         </div>
         <div>
-            <table>
-                
+            <table> 
                 <tr *ngFor="let tableRow of tableRows, let i = index">
                         <td *ngFor="let number of tableRow.column">
-                            <button mat-button (click)="checkPoints(number)">{{number}}</button>
+                            <button mat-button class="btn-large" (click)="checkPoints(number)">{{number}}</button>
                         </td>
                 </tr>
                 
             </table>
         </div>
-      </div>
-      <div>
-        Zdobyty punkty: {{points}}
+      <div class="points">
+        Zdobyte punkty: {{points}}
       </div>
       </div>
     </div>

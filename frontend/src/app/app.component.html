@@ -1,8 +1,16 @@
+<body [ngClass]="themeService.getTheme()">
 <app-menu> </app-menu>
-<div class="backgroundcolor">
-  <!-- <mat-icon> grade </mat-icon> -->
-  <!-- <mat-icon> home </mat-icon> -->
+
+<div style="float:right"> <b>Zmiana motywu</b>
+  <br>
+    <!-- {{storedTheme.theme}} -->
+    <!-- {{getTheme()}} -->
+  <br>
+  <button (click)="themeService.setTheme('DAY')">Jasny</button>
+  <button (click)="themeService.setTheme('NIGHT')">Ciemny</button>
 </div>
+
 <router-outlet></router-outlet>
 
 <app-footer></app-footer>
+</body>

@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-.active {
+/* .active {
     color:white;
 }
 .grid {
     padding: 50px;
-    display: flex;
+    flex-direction: column-reverse;
     flex-flow: row wrap;
     max-width: 1100px;
     margin: 0 auto;
@@ -37,8 +37,6 @@ a.breadcrumb:before {
     background-color: transparent;
     color:red;
     font-size: 14px;
-    text-decoration: italic;
-    float:left;
     margin-left:45px;
     border-color:red;
     text-align: center;
@@ -56,13 +54,14 @@ a.breadcrumb:before {
     font-size:20px;
     text-align: left;
     margin-bottom:30px;
+    margin-left: 50px;
   }
 
 .center {
     margin:auto;
-    width: 70%;
-    /* padding-left:100px; */
-  }
+    width: 70%; 
+    padding-left:15%;
+  } */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -70,3 +69,153 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-typography{
     font: Roboto, "Helvetica Neue", sans-serif;
 }
+
+:root{
+    --background-color: white;
+    --background-color-context-box:rgba(92, 170, 215, 0.517);
+    --btn-pick-course-background-color:rgba(3, 86, 137, 0.622);
+    --color: black;
+    --color-a: black;
+    --color-a-hover: white;
+    --color-a-active-breadcrumbs: rgb(3, 86, 137);
+    --color-menu: rgba(64, 150, 204, 0.539);
+    --color-footer: rgba(64, 150, 204, 0.539);
+    --btn-pick-course-background-color-hover:rgba(58, 125, 167, 0.622);
+    --color-pressed-button:rgba(59, 141, 192, 0.582);
+
+}
+
+.NIGHT{
+    --background-color: rgb(53, 53, 53);
+    --background-color-context-box:#134e7052;
+    --btn-pick-course-background-color:#74858f9f;
+    --color: rgba(255, 255, 255, 0.706);
+    --color-a: rgba(255, 255, 255, 0.705);
+    --color-a-hover: rgb(105, 206, 255);
+    --color-a-active-breadcrumbs: rgb(1, 157, 253);
+    --color-menu: rgba(7, 38, 63, 0.835);
+    --color-footer: rgba(7, 39, 64, 0.522);
+    --btn-pick-course-background-color-hover:rgba(83, 95, 102, 0.624);
+    --color-pressed-button:rgba(62, 71, 77, 0.624);
+}
+
+/* */
+/* css dla homepage */
+/* */ 
+
+.font-title{
+    font-weight: bold;
+    font-size:40px;
+    text-align: center;
+    margin-bottom:30px;
+}
+
+.context-box {
+    padding: 50px;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: var(--background-color-context-box);
+    color: var(--color);
+    border-radius: 10px;
+    font-size:20px;
+}
+
+.btn-pick-course {
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 1100px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: var(--btn-pick-course-background-color);
+    color: var(--color);
+    font-weight: bold;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+/* .btn, .btn-large, .btn-small{
+    background-color: rgba(3, 86, 137, 0.622) ;
+} */
+
+.btn-pick-course a{
+    color: var(--color-a);
+}
+.btn-pick-course a:hover{
+    color: var(--color-a-hover);
+}
+
+/*breadcrumbs*/
+
+nav .breadcrumb-text{
+    font-size: 20px;
+    color: var(--color-a);
+   
+}
+
+.breadcrumb-background{
+    background-color: transparent;
+    box-shadow: 0 0px 0px 0 rgb(0 0 0 / 14%), 0 0px 0px 0px rgb(0 0 0 / 12%), 0 0px 0px 0 rgb(0 0 0 / 20%);
+    padding-left: 50px;
+    font-style: italic;
+    color: var(--color);
+
+}
+
+/* nav a:hover{
+    font-size: 20px;
+    color: var(--color-a-active-breadcrumbs);
+} */
+
+nav .breadcrumb:before{
+    color: var(--color);
+}
+
+nav .breadcrumb:last-child {
+    color: var(--color-a-active-breadcrumbs);
+}
+
+/* .breadcrumb{
+    font-size: 20px;
+    color: black;
+    text-decoration: italic;
+} */
+
+nav .breadcrumb-text:hover{
+    font-size: 20px;
+    color: var(--color-a-active-breadcrumbs);
+}
+
+/* nav a:hover{
+    font-size: 20px;
+    color: rgb(3, 86, 137);
+    text-decoration: italic;
+} */
+
+/*end-breadcrumbs*/
+
+.home-text a{
+    font-weight: bold;
+    color: var(--color-a);
+}
+
+.home-text a:hover{
+    color: var(--color-a-hover);
+    text-decoration: underline;
+}
+
+.text-space{
+    padding-top:20px
+}
+
+.bg-color{
+    height: 100%;
+    background-color: var(--background-color);
+}
+
+/*
+css dla menu
+*/
+
+

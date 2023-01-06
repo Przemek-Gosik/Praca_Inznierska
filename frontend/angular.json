@@ -25,6 +25,7 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css",
+              "src/app/app.component.css",
               "./node_modules/materialize-css/dist/css/materialize.css"
             ],
             "scripts": [

@@ -1,25 +1,23 @@
-<div>
-    <nav class="bg-breadcrumb">
-        <div>
-          <div class="col s12">
-            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/writing" class="breadcrumb " style="padding-top:500pxl"><b>Pisanie</b></a>
-          </div>
-        </div>
-    </nav>
+<div class="bg-color">
+  <nav class="breadcrumb-background">
+      <div class="col s10">
+        <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+        <a href="/writing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Pisanie</b></a>
+      </div>
+  </nav>
 
-    <div class="row grid">
-        <div class="row home">
-            <div class="font-title">{{title}}</div>
-            <div>
-                <button class="waves-effect waves-ligth btn-2 btn-large" routerLink="/writing/course">
-                  {{course}}
-                </button>
-            </div>
-            <div>
-                <button class="waves-effect waves-ligth btn-2 btn-large" routerLink="/writing/text" >
-                  {{text}}
-                </button>
-            </div>
-        </div>
+  <div class="row context-box center">
+    <div class="row font-title">
+        {{title}}
     </div>
+
+      <button class="btn-writing btn-large" routerLink="/writing/course">
+        {{course}}
+      </button>
+
+      <button class="btn-writing btn-large" routerLink="/writing/text" >
+        {{text}}
+      </button>
+
+  </div>
+</div>
