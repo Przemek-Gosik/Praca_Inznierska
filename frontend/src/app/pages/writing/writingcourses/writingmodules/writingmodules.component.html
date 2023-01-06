@@ -9,5 +9,8 @@
     </mat-expansion-panel-header>
     
     <div *ngFor="let lesson of lessons,let i = index" >
-      <button mat-button (click)="getLinkToLesson(i)"><mat-icon>forward</mat-icon>{{lessonName}}{{lesson.number}} - {{lesson.name}}</button>
+      <button mat-button (click)="getLinkToLesson(i)"><mat-icon>forward</mat-icon>{{lessonName}}{{lesson.number}} - {{lesson.name}}
+        <mat-progress-bar *ngIf="loggedInUser()" [value]=calculateLastScore(lesson.score!) ></mat-progress-bar>
+      </button>
+
     </div>

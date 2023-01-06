@@ -157,10 +157,10 @@ public class WritingServiceTest {
         WritingModuleUserResponse response = responses.get(0);
         //Then
         assertAll(
-                ()->assertEquals(lessons.size(),response.getWritingLessons().size()),
-                ()->assertEquals(lessons.get(0).getGeneratedCharacters(),response.getWritingLessons().get(0).getGeneratedCharacters()),
-                ()->assertEquals(lessonResult1.getScore(),response.getWritingLessons().get(0).getScore()),
-                ()->assertEquals(0.0,response.getWritingLessons().get(1).getScore())
+                ()->assertEquals(lessons.size(),response.getLessons().size()),
+                ()->assertEquals(lessons.get(0).getGeneratedCharacters(),response.getLessons().get(0).getGeneratedCharacters()),
+                ()->assertEquals(lessonResult1.getScore(),response.getLessons().get(0).getScore()),
+                ()->assertEquals(0.0,response.getLessons().get(1).getScore())
         );
     }
 

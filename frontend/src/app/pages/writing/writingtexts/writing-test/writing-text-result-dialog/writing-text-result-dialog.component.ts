@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WritingTextResult } from 'src/app/models/writing-model';
+import { LoginService } from 'src/app/services/login.service';
 import { WritingService } from 'src/app/services/writing.service';
 
 @Component({
@@ -18,11 +19,15 @@ export class WritingTextResultDialogComponent implements OnInit {
     time: 0,
     idText: 0
   }
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private httpWriting: WritingService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private writingService: WritingService,private loginService: LoginService) { }
 
   ngOnInit(): void {
     this.result = this.data.result
     console.log(this.result)
+  }
+
+  loggedIn():boolean{
+    return this.loginService.loggedInUser()
   }
 
   calculatePrecision():string{
@@ -37,6 +42,9 @@ export class WritingTextResultDialogComponent implements OnInit {
   }
 
   saveResult(){
-    this.httpWriting.saveTextResult(this.result);
+    this.writingService.saveTextResult(this.result).subscribe((res:any)=>{
+      console.log(res)
+    });
+    this.saved = true
   }
 }

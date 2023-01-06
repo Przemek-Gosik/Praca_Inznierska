@@ -23,5 +23,5 @@ public class WritingModuleUserResponse {
     @NotNull
     private String name;
 
-    private List<WritingLessonUserResponse> writingLessons;
+    private List<WritingLessonUserResponse> lessons;
 }

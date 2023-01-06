@@ -7,6 +7,6 @@
     <p>Prędkość wpisywania: {{calculateSpeed()}} znaków na minutę</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button class=" waves-ligth btn-2 btn-large" disabled="saved" (click)="saveResult()">Zapisz</button>
+    <button class=" waves-ligth btn-2 btn-large" [disabled]=saved (click)="saveResult()" *ngIf=loggedIn()>Zapisz</button>
     <button mat-dialog-close class=" waves-ligth btn-2 btn-large">Zamknij</button>
 </mat-dialog-actions>

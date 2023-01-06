@@ -9,53 +9,57 @@ import { Lesson, Module, WritingLessonResult, WritingText, WritingTextResult } f
   })
 
   export class WritingService{
-    apiUrl = 'http://localhost:8080/api/fast_writing/';
+    apiUrl = 'http://localhost:8080/api/fast_writing';
 
     constructor(private http: HttpClient,private tokenService : TokenService) {
     }
 
     getAllModules():Observable<Module[]>{
-        return this.http.get<Module[]>(`${this.apiUrl}guest`);
+        return this.http.get<Module[]>(`${this.apiUrl}/guest`);
+    }
+
+    getAllUserModules():Observable<Module[]>{
+      return this.http.get<Module[]>(`${this.apiUrl}`,{headers:this.tokenService.getHeaderWithToken()});
     }
 
     getLessonById(lessonId: number) : Observable<Lesson>{
-      return this.http.get<Lesson>(`${this.apiUrl}guest/lesson/${lessonId}`);
+      return this.http.get<Lesson>(`${this.apiUrl}/guest/lesson/${lessonId}`);
     }
 
     getLessonResultById(resultId: number) : Observable<WritingLessonResult>{
-      return this.http.get<WritingLessonResult>(`${this.apiUrl}lesson/result/${resultId}`,{headers: this.tokenService.getHeaderWithToken()});
+      return this.http.get<WritingLessonResult>(`${this.apiUrl}/lesson/result/${resultId}`,{headers: this.tokenService.getHeaderWithToken()});
     }
 
     updateLessonResult(result: WritingLessonResult){
-      return this.http.put(`${this.apiUrl}lesson/result`,result,{headers: this.tokenService.getHeaderWithToken()});
+      return this.http.put(`${this.apiUrl}/lesson/result`,result,{headers: this.tokenService.getHeaderWithToken()});
     }
 
     saveLessonResult(result: WritingLessonResult){
-      return this.http.post(`${this.apiUrl}lesson/result`,result,{headers: this.tokenService.getHeaderWithToken()});
+      return this.http.post(`${this.apiUrl}/lesson/result`,result,{headers: this.tokenService.getHeaderWithToken()});
     }
 
     getAllTexts():Observable<WritingText[]>{
-      return this.http.get<WritingText[]>(`${this.apiUrl}guest/text`);
+      return this.http.get<WritingText[]>(`${this.apiUrl}/guest/text`);
     }
 
     getAllTextsByLevel(level: string):Observable<WritingText[]>{
-      return this.http.get<WritingText[]>(`${this.apiUrl}guest/text/level/${level}`);
+      return this.http.get<WritingText[]>(`${this.apiUrl}/guest/text/level/${level}`);
     }
 
     getTextById(textId: number):Observable<WritingText>{
-      return this.http.get<WritingText>(`${this.apiUrl}guest/text/${textId}`);
+      return this.http.get<WritingText>(`${this.apiUrl}/guest/text/${textId}`);
     }
 
     drawText():Observable<WritingText>{
-      return this.http.get<WritingText>(`${this.apiUrl}guest/draw`);
+      return this.http.get<WritingText>(`${this.apiUrl}/guest/draw`);
     }
 
     drawTextByLevel(level: String):Observable<WritingText>{
-      return this.http.get<WritingText>(`${this.apiUrl}guest/draw/${level}`);
+      return this.http.get<WritingText>(`${this.apiUrl}/guest/draw/${level}`);
     }
 
     saveTextResult(result:WritingTextResult){
-      return this.http.post(`${this.apiUrl}text/result`,result,{headers: this.tokenService.getHeaderWithToken()});
+      return this.http.post(`${this.apiUrl}/text/result`,result,{headers: this.tokenService.getHeaderWithToken()});
     }
 
   }

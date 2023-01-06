@@ -99,7 +99,7 @@ public class WritingService {
                                 lessonUserResponse.setScore(course.getScore());
                                 return lessonUserResponse;
                             }).toList();
-            moduleUserResponse.setWritingLessons(lessonUserResponseList);
+            moduleUserResponse.setLessons(lessonUserResponseList);
         }
         return moduleUserResponseList;
     }
@@ -127,13 +127,13 @@ public class WritingService {
      */
     public WritingLessonResultDto getLessonResultById(Long id){
         User user = authenticationUtils.getUserFromAuthentication();
-        WritingLessonResult course = lessonResultRepository.findByIdWritingLessonResult(id).orElseThrow(
+        WritingLessonResult lessonResult = lessonResultRepository.findByIdWritingLessonResult(id).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono wyniku lekcji szybkiego pisania dla id: "+id)
         );
-        if(!course.getUser().equals(user)){
+        if(!lessonResult.getUser().getIdUser().equals(user.getIdUser())){
             throw new AccessDeniedException("Brak dostepu do kursu o id: "+id);
         }
-        return WritingLessonResultMapper.INSTANCE.toDto(course);
+        return WritingLessonResultMapper.INSTANCE.toDto(lessonResult);
     }
 
     /**
@@ -166,7 +166,7 @@ public class WritingService {
         WritingLessonResult lessonResult = lessonResultRepository.findByIdWritingLessonResult(lessonResultDto.getIdWritingLessonResult())
                 .orElseThrow(()->new ResourceNotFoundException("Nie odnaleziono wyniku kursu dla id: "
                         +lessonResultDto.getIdWritingLessonResult()));
-        if(!lessonResult.getUser().equals(user)){
+        if(!lessonResult.getUser().getIdUser().equals(user.getIdUser())){
             throw new AccessDeniedException("Brak uprawnień do zmiany wyniku lekcji szybkiego pisania dla id : "
                     +lessonResult.getIdWritingLessonResult());
         }

@@ -17,6 +17,8 @@
                 <li> <a routerLink="/account/signin/signup" class="link" *ngIf="!loggedInUser()"> Zarejestruj się </a> </li>
                 <li> <a routerLink="/" class="link" *ngIf="loggedInUser()"> Moje wyniki </a></li>
                 <li> <a routerLink="/account/editaccount" class="link" *ngIf="loggedInUser()"> Edytuj dane </a> </li>
+                <li> <a routerLink="/account/admin/users" class="link" *ngIf="isUserAdmin()"> Zarządzaj użytkownikami  </a> </li>
+                <li>  <a routerLink="/account/admin/reports"class="link" *ngIf="isUserAdmin()"> Zarządzaj zgłoszeniami </a></li>
                 <li> <a routerLink="/" class="link" *ngIf="loggedInUser()" (click)="deleteUser()"> Usuń konto </a> </li>   
                 <li> <a routerLink="/" class="link" *ngIf="loggedInUser()" (click)="logoutUser()"> Wyloguj się </a> </li>   
               </ul>

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Lesson, WritingLessonResult } from 'src/app/models/writing-model';
+import { LoginService } from 'src/app/services/login.service';
 import { WritingService } from 'src/app/services/writing.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { WritingService } from 'src/app/services/writing.service';
 })
 export class WritingLessonResultDialogComponent implements OnInit {
   typedLetters: number = 0;
+  LESSON_MAX_POINTS: number = 50;
   time: number = 0;
   dateTime: string = "";
   score : number = 0;
@@ -24,7 +26,7 @@ export class WritingLessonResultDialogComponent implements OnInit {
     time: 0
   }
   saved: boolean = false
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private httpWriting: WritingService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private writingService: WritingService,private loginService:LoginService) { }
   
   ngOnInit(): void {
     this.score = this.data.score
@@ -32,13 +34,20 @@ export class WritingLessonResultDialogComponent implements OnInit {
     this.typedLetters = this.data.numberOfTypedLetters
     this.time = this.data.time
     this.dateTime = this.data.date
+    console.log(this.data.idResult)
     if(this.data.idResult){
-      this.httpWriting.getLessonResultById(this.data.idResult).subscribe((res:WritingLessonResult)=>{
+      this.writingService.getLessonResultById(this.data.idResult).subscribe((res:WritingLessonResult)=>{
         this.lastResult = res
+        console.log(this.lastResult)
       })
     }
   
   }
+
+  loggedIn():boolean{
+    return this.loginService.loggedInUser()
+  }
+
   
   calculatePrecision():string{
     var precision : number = 0;
@@ -55,20 +64,23 @@ export class WritingLessonResultDialogComponent implements OnInit {
     var result: WritingLessonResult = {
       idWritingLesson: this.idLesson,
       startTime: this.dateTime,
-      score: this.score,
-      time: 0,
+      score: this.score/this.LESSON_MAX_POINTS,
+      time: this.time,
       numberOfTypedLetters: this.typedLetters
     }
-    this.httpWriting.saveLessonResult(result)
-    }
+    this.writingService.saveLessonResult(result).subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
 
     updateResult(){
-      this.lastResult.score = this.score
+      this.lastResult.score = this.score/this.LESSON_MAX_POINTS
       this.lastResult.startTime = this.dateTime
       this.lastResult.numberOfTypedLetters = this.typedLetters
       this.lastResult.time = this.time
-      this.httpWriting.updateLessonResult(this.lastResult)
-
+      this.writingService.updateLessonResult(this.lastResult).subscribe((res:any)=>{
+        console.log(res)
+      })
     }
 
     saveOrUpdate(){

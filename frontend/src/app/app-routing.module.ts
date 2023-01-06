@@ -17,6 +17,10 @@ import { WritinglessonComponent } from './pages/writing/writingcourses/writingle
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
 import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
 import { SchubertComponent } from './pages/reading/schubert/schubert.component';
+import { AuthGuard } from './helpers/auth.guard';
+import { RoleConsts } from './consts/role-consts';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { ReportsComponent } from './pages/admin/reports/reports.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -33,7 +37,9 @@ const routes: Routes = [
   { path: 'writing/text/test',component:WritingTestComponent},
   { path: 'memorizing', component: MemorizingComponent},
   { path: 'account', component: AccountComponent},
-  { path: 'account/editaccount', component: EditAccountComponent},
+  { path: 'account/editaccount', component: EditAccountComponent,canActivate: [AuthGuard],data: {roles: [RoleConsts.USER]}},
+  { path: 'account/admin/users', component: UsersComponent, canActivate: [AuthGuard],data: {roles: [RoleConsts.ADMIN]}},
+  { path: 'account/admin/reports', component: ReportsComponent, canActivate: [AuthGuard],data: {roles: [RoleConsts.ADMIN]}},
   { path: 'settings', component: SettingsComponent},
   { path: 'contact', component: ContactComponent}, 
   { path: '**', component: PageNotFoundComponent}

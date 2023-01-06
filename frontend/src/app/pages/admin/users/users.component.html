@@ -1,0 +1,60 @@
+<div>
+  <nav class="bg-breadcrumb">
+    <div class="">
+      <div class="col s10">
+        <a href="/" class="breadcrumb" style="padding-top: 500px"
+          ><b>Strona główna</b></a
+        >
+        <a href="/account" class="breadcrumb" style="padding-top: 500px"
+          ><b>Moje konto</b></a
+        >
+      </div>
+    </div>
+  </nav>
+  <div class="row grid">
+    <div class="row link">
+      <div class="font-title">Lista użytkowników</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Login</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <th scope="row">1</th>
+            <td>{{ user.login }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="isUserAdmin(i)"
+                (click)="takeAdminRole(i)"
+              >
+                Odbierz uprawnienia
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="!isUserAdmin(i)"
+                (click)="giveAdminRole(i)"
+              >
+                Mianuj administratorem
+              </button>
+            </td>
+            <td>
+              <button mat-raised-button color="warn" (click)="deleteUser(i)">
+                Usuń użytkownika
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

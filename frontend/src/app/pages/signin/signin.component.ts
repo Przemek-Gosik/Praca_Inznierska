@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserLogin } from 'src/app/models/userLogin';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -23,7 +24,8 @@ export class SigninComponent implements OnInit {
  constructor(
   private httpLogin: LoginService,
   private route: Router,
-  private localStorageService: LocalstorageService
+  private localStorageService: LocalstorageService,
+  private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class SigninComponent implements OnInit {
         this.localStorageService.setItemToStorage('setting',res.settingDto);
         this.localStorageService.setItemToStorage("token",res.token);
         this.localStorageService.setItemToStorage('user',res.userDto);
+        this.authenticationService.logInUser()
        this.route.navigate(['/']);
     },err =>{
         this.signinFailed=true

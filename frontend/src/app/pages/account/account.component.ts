@@ -2,6 +2,7 @@ import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service'
 import { LoginService } from 'src/app/services/login.service';
 
@@ -19,7 +20,8 @@ export class AccountComponent implements OnInit {
   constructor(
     private localStorageService: LocalstorageService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private authenticationService: AuthenticationService
     ) 
     { }
 
@@ -33,6 +35,10 @@ export class AccountComponent implements OnInit {
 
   loggedInUser(){
     return this.loginService.loggedInUser();
+  }
+
+  isUserAdmin(){
+    return this.authenticationService.isUserAdmin()
   }
 
   deleteUser(){

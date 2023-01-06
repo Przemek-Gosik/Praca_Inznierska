@@ -3,6 +3,7 @@ package com.example.brainutrain.mapper;
 import com.example.brainutrain.dto.WritingLessonResultDto;
 import com.example.brainutrain.model.WritingLessonResult;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.sql.Timestamp;
@@ -14,7 +15,7 @@ import java.util.List;
 public interface WritingLessonResultMapper {
 
     WritingLessonResultMapper INSTANCE = Mappers.getMapper(WritingLessonResultMapper.class);
-
+    @Mapping(target = "idWritingLesson",source = "writingLesson.idWritingLesson")
     WritingLessonResultDto toDto(WritingLessonResult writingLessonResult);
 
     List<WritingLessonResultDto> toDto(Collection<WritingLessonResult> writingLessonResults);

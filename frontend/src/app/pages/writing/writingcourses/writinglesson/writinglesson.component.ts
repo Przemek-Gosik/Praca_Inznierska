@@ -48,12 +48,19 @@ export class WritinglessonComponent implements OnInit,GameService {
 
   ngOnInit(): void {
     this.dateTime = this.timerService.getCurrentDate()
+    this.timerService.clearTimer()
     this.route.paramMap.subscribe(param=>{
       let idPom = param.get('id')
+      let idLastResult = param.get('lastResultId')
       if(idPom){
         this.id=parseInt(idPom)
-        this.getLessonById(this.id)
-      }
+        this.writingService.getLessonById(this.id).subscribe((res)=>{
+        this.lesson = res
+        if(idLastResult){
+          this.lesson.idWritingLessonResult = parseInt(idLastResult)
+        }
+    })
+      }  
     })
   }
 
@@ -61,11 +68,6 @@ export class WritinglessonComponent implements OnInit,GameService {
     this.router.navigate(["/writing/course"])
   }
 
-  
-
-  getResultById(id:number){
-    this.writingService.getLessonResultById(id)
-  }
 
   getLessonById(id: number) {
     this.writingService.getLessonById(id).subscribe((res)=>{
