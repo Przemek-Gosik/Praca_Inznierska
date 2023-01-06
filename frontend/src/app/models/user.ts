@@ -1,8 +1,10 @@
 export interface User{
-    id_user?: number,
+    idUser: number,
     email: string,
-    is_email_confirmed: boolean,
     login: string,
-    password: string,
-    confirmPassword: string;
+    roles: Role[];
+}
+
+export interface Role{
+    roleName: string
 }

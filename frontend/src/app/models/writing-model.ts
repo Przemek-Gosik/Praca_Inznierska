@@ -1,16 +1,16 @@
 export interface Lesson{
-    idFastWritingLesson?: number
-    idFastWritingCourse?: number
+    idWritingLesson?: number
+    idWritingLessonResult?: number
     name: string
     score?: number
     number: number
     generatedCharacters: string
-    text: string[]
+    text?: string[]
 }
 
 
 export interface Module{
-    idFastWritingModule?: number
+    idWritingModule?: number
     name: string
     number: number
     lessons: Lesson[]
@@ -18,17 +18,27 @@ export interface Module{
 }
 
 export interface WritingText{
-    idFastWritingText?: number
+    idWritingText?: number
     level: string
     text: string
     title: string 
 }
 
-export interface WritingResult{
-    idFastWritingCourse?: number
-    idFastWritingLesson: number
+export interface WritingLessonResult{
+    idWritingLessonResult?: number
+    idWritingLesson: number
+    time: number
     numberOfAttempts?: number
     startTime: string
     score: number
-    typedLetters: number
+    numberOfTypedLetters: number
+}
+
+export interface WritingTextResult{
+    idWritingTextResult?: number
+    typedText: string
+    score: number
+    startTime: string
+    time: number
+    idText?: number
 }

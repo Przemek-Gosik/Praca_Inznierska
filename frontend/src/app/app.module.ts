@@ -26,6 +26,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule} from '@angular/material/radio'
+import { MatProgressBarModule} from '@angular/material/progress-bar'
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
@@ -36,10 +37,14 @@ import { WritingmodulesComponent } from './pages/writing/writingcourses/writingm
 import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
 import { SplitPipe } from './pages/writing/pipe/splitpipe';
 import { SplitWordsPipe } from './pages/writing/pipe/split-words-pipe';
-import { WritingResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-result-dialog/writing-result-dialog.component';
+import { WritingLessonResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-lesson-result-dialog/writing-lesson-result-dialog.component';
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
 import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
 import { SchubertComponent } from './pages/reading/schubert/schubert.component';
+import { WritingTextResultDialogComponent } from './pages/writing/writingtexts/writing-test/writing-text-result-dialog/writing-text-result-dialog.component';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { ReportsComponent } from './pages/admin/reports/reports.component';
+import { ReportDetailsDialogComponent } from './pages/admin/reports/report-details-dialog/report-details-dialog.component';
 
 
 @NgModule({
@@ -66,9 +71,13 @@ import { SchubertComponent } from './pages/reading/schubert/schubert.component';
     WritinglessonComponent,
     SplitPipe,
     SplitWordsPipe,
-    WritingResultDialogComponent,
+    WritingLessonResultDialogComponent,
     WritingTestComponent,
-    SchubertComponent
+    SchubertComponent,
+    WritingTextResultDialogComponent,
+    UsersComponent,
+    ReportsComponent,
+    ReportDetailsDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -86,7 +95,8 @@ import { SchubertComponent } from './pages/reading/schubert/schubert.component';
     MatExpansionModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressBarModule
   ],
   providers: [
     SplitPipe,

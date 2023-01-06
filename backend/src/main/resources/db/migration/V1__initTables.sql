@@ -1,110 +1,6 @@
-CREATE TABLE `fast_reading_questions` (
-                                          `id_fast_reading_question` bigint(20) NOT NULL,
-                                          `answer` bit(1) NOT NULL,
-                                          `question` longtext NOT NULL,
-                                          `fast_reading_text_id_fast_reading_text` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
 --
--- Struktura tabeli dla tabeli `fast_reading_results`
+-- Baza danych: `brainutrain`
 --
-
-CREATE TABLE `fast_reading_results` (
-                                        `id_fast_reading_result` bigint(20) NOT NULL,
-                                        `level` varchar(255) NOT NULL,
-                                        `score` double NOT NULL,
-                                        `start_time` datetime NOT NULL,
-                                        `time` float NOT NULL,
-                                        `type` varchar(255) NOT NULL,
-                                        `text_id_fast_reading_text` bigint(20) DEFAULT NULL,
-                                        `user_id_user` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `fast_reading_texts`
---
-
-CREATE TABLE `fast_reading_texts` (
-                                      `id_fast_reading_text` bigint(20) NOT NULL,
-                                      `level` varchar(255) NOT NULL,
-                                      `text` longtext NOT NULL,
-                                      `title` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `fast_writing_courses`
---
-
-CREATE TABLE `fast_writing_courses` (
-                                        `id_fast_writing_course` bigint(20) NOT NULL,
-                                        `number_of_attempts` int(11) NOT NULL,
-                                        `score` double NOT NULL,
-                                        `start_time` datetime NOT NULL,
-                                        `time` float NOT NULL,
-                                        `fast_writing_lesson_id_fast_writing_lesson` bigint(20) DEFAULT NULL,
-                                        `user_id_user` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `fast_writing_lessons`
---
-
-CREATE TABLE `fast_writing_lessons` (
-                                        `id_fast_writing_lesson` bigint(20) NOT NULL,
-                                        `generated_characters` varchar(10) NOT NULL,
-                                        `name` varchar(255) NOT NULL,
-                                        `number` int(11) NOT NULL,
-                                        `module_id_fast_writing_module` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `fast_writing_modules`
---
-
-CREATE TABLE `fast_writing_modules` (
-                                        `id_fast_writing_module` bigint(20) NOT NULL,
-                                        `name` varchar(255) NOT NULL,
-                                        `number` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `fast_writing_tests`
---
-
-CREATE TABLE `fast_writing_tests` (
-                                      `id_fast_writing_test` bigint(20) NOT NULL,
-                                      `score` double NOT NULL,
-                                      `start_time` datetime NOT NULL,
-                                      `time` float NOT NULL,
-                                      `typed_text` longtext NOT NULL,
-                                      `text_id_fast_writing_text` bigint(20) DEFAULT NULL,
-                                      `user_id_user` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `fast_writing_texts`
---
-
-CREATE TABLE `fast_writing_texts` (
-                                      `id_fast_writing_text` bigint(20) NOT NULL,
-                                      `level` varchar(255) NOT NULL,
-                                      `text` longtext NOT NULL,
-                                      `title` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -119,6 +15,49 @@ CREATE TABLE `memorizings` (
                                `start_time` datetime NOT NULL,
                                `type` varchar(255) NOT NULL,
                                `user_id_user` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `reading_questions`
+--
+
+CREATE TABLE `reading_questions` (
+                                     `id_reading_question` bigint(20) NOT NULL,
+                                     `answer` bit(1) NOT NULL,
+                                     `question` longtext NOT NULL,
+                                     `reading_text_id_reading_text` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `reading_results`
+--
+
+CREATE TABLE `reading_results` (
+                                   `id_reading_result` bigint(20) NOT NULL,
+                                   `level` varchar(255) NOT NULL,
+                                   `score` double NOT NULL,
+                                   `start_time` datetime NOT NULL,
+                                   `time` float NOT NULL,
+                                   `type` varchar(255) NOT NULL,
+                                   `text_id_reading_text` bigint(20) DEFAULT NULL,
+                                   `user_id_user` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `reading_texts`
+--
+
+CREATE TABLE `reading_texts` (
+                                 `id_reading_text` bigint(20) NOT NULL,
+                                 `level` varchar(255) NOT NULL,
+                                 `text` longtext NOT NULL,
+                                 `title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -190,15 +129,87 @@ CREATE TABLE `user_roles` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `validation_code`
+-- Struktura tabeli dla tabeli `validation_codes`
 --
 
-CREATE TABLE `validation_code` (
-                                   `id_validation_code` bigint(20) NOT NULL,
-                                   `code` varchar(255) DEFAULT NULL,
-                                   `purpose` varchar(255) NOT NULL,
-                                   `was_used` bit(1) NOT NULL,
-                                   `user_id_user` bigint(20) NOT NULL
+CREATE TABLE `validation_codes` (
+                                    `id_validation_code` bigint(20) NOT NULL,
+                                    `code` varchar(255) DEFAULT NULL,
+                                    `purpose` varchar(255) NOT NULL,
+                                    `was_used` bit(1) NOT NULL,
+                                    `user_id_user` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `writing_lessons`
+--
+
+CREATE TABLE `writing_lessons` (
+                                   `id_writing_lesson` bigint(20) NOT NULL,
+                                   `generated_characters` varchar(10) NOT NULL,
+                                   `name` varchar(255) NOT NULL,
+                                   `number` int(11) NOT NULL,
+                                   `module_id_writing_module` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `writing_lesson_results`
+--
+
+CREATE TABLE `writing_lesson_results` (
+                                          `id_writing_lesson_result` bigint(20) NOT NULL,
+                                          `number_of_attempts` int(11) NOT NULL,
+                                          `number_of_typed_letters` int(11) NOT NULL,
+                                          `score` double NOT NULL,
+                                          `start_time` datetime NOT NULL,
+                                          `time` float NOT NULL,
+                                          `user_id_user` bigint(20) DEFAULT NULL,
+                                          `writing_lesson_id_writing_lesson` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `writing_modules`
+--
+
+CREATE TABLE `writing_modules` (
+                                   `id_writing_module` bigint(20) NOT NULL,
+                                   `name` varchar(255) NOT NULL,
+                                   `number` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `writing_texts`
+--
+
+CREATE TABLE `writing_texts` (
+                                 `id_writing_text` bigint(20) NOT NULL,
+                                 `level` varchar(255) NOT NULL,
+                                 `text` longtext NOT NULL,
+                                 `title` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `writing_text_results`
+--
+
+CREATE TABLE `writing_text_results` (
+                                        `id_writing_text_result` bigint(20) NOT NULL,
+                                        `score` double NOT NULL,
+                                        `start_time` datetime NOT NULL,
+                                        `time` float NOT NULL,
+                                        `typed_text` longtext NOT NULL,
+                                        `text_id_writing_text` bigint(20) DEFAULT NULL,
+                                        `user_id_user` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -206,70 +217,32 @@ CREATE TABLE `validation_code` (
 --
 
 --
--- Indeksy dla tabeli `fast_reading_questions`
---
-ALTER TABLE `fast_reading_questions`
-    ADD PRIMARY KEY (`id_fast_reading_question`),
-  ADD KEY `FK56y7qrbtbvcyxsnyejxrvms53` (`fast_reading_text_id_fast_reading_text`);
-
---
--- Indeksy dla tabeli `fast_reading_results`
---
-ALTER TABLE `fast_reading_results`
-    ADD PRIMARY KEY (`id_fast_reading_result`),
-  ADD KEY `FKlsdqhp6qx1u8ok8s4pn8xrraf` (`text_id_fast_reading_text`),
-  ADD KEY `FKatfbtbp9qrytpy74f8disqnsm` (`user_id_user`);
-
---
--- Indeksy dla tabeli `fast_reading_texts`
---
-ALTER TABLE `fast_reading_texts`
-    ADD PRIMARY KEY (`id_fast_reading_text`);
-
---
--- Indeksy dla tabeli `fast_writing_courses`
---
-ALTER TABLE `fast_writing_courses`
-    ADD PRIMARY KEY (`id_fast_writing_course`),
-  ADD KEY `FKarg8j9ud4rua7ogxk48rg5sr3` (`fast_writing_lesson_id_fast_writing_lesson`),
-  ADD KEY `FKj60xosqif7cxxo5w3c3wrlpxy` (`user_id_user`);
-
---
--- Indeksy dla tabeli `fast_writing_lessons`
---
-ALTER TABLE `fast_writing_lessons`
-    ADD PRIMARY KEY (`id_fast_writing_lesson`),
-  ADD UNIQUE KEY `UK_e9i1sukjxbilyod8qcnqnnfas` (`generated_characters`),
-  ADD UNIQUE KEY `UK_jvsknkl0pv38gqb8asxw7a1td` (`name`),
-  ADD UNIQUE KEY `UK_spvhw1oovsv2mjws77yuuwtrr` (`number`),
-  ADD KEY `FKbhupboe6wnwadm77ii8d8ywv1` (`module_id_fast_writing_module`);
-
---
--- Indeksy dla tabeli `fast_writing_modules`
---
-ALTER TABLE `fast_writing_modules`
-    ADD PRIMARY KEY (`id_fast_writing_module`);
-
---
--- Indeksy dla tabeli `fast_writing_tests`
---
-ALTER TABLE `fast_writing_tests`
-    ADD PRIMARY KEY (`id_fast_writing_test`),
-  ADD KEY `FKdlfm2ug5h08o20q6barhro130` (`text_id_fast_writing_text`),
-  ADD KEY `FKm89jf0pj29uuxx9fabxso24mu` (`user_id_user`);
-
---
--- Indeksy dla tabeli `fast_writing_texts`
---
-ALTER TABLE `fast_writing_texts`
-    ADD PRIMARY KEY (`id_fast_writing_text`);
-
---
 -- Indeksy dla tabeli `memorizings`
 --
 ALTER TABLE `memorizings`
     ADD PRIMARY KEY (`id_memorizing`),
   ADD KEY `FKja9h6aeruo9cuiv91p65txkvn` (`user_id_user`);
+
+--
+-- Indeksy dla tabeli `reading_questions`
+--
+ALTER TABLE `reading_questions`
+    ADD PRIMARY KEY (`id_reading_question`),
+  ADD KEY `FKcf0cfux397yj1gv7ow1bq8uxk` (`reading_text_id_reading_text`);
+
+--
+-- Indeksy dla tabeli `reading_results`
+--
+ALTER TABLE `reading_results`
+    ADD PRIMARY KEY (`id_reading_result`),
+  ADD KEY `FK4s3k4rew922c4ighkpybu61rw` (`text_id_reading_text`),
+  ADD KEY `FK7obvde87o5roxisq5f4ftpbdi` (`user_id_user`);
+
+--
+-- Indeksy dla tabeli `reading_texts`
+--
+ALTER TABLE `reading_texts`
+    ADD PRIMARY KEY (`id_reading_text`);
 
 --
 -- Indeksy dla tabeli `reports`
@@ -307,69 +280,77 @@ ALTER TABLE `user_roles`
   ADD KEY `FK44ncdoscjlvedib8598o0qx8u` (`role_id_role`);
 
 --
--- Indeksy dla tabeli `validation_code`
+-- Indeksy dla tabeli `validation_codes`
 --
-ALTER TABLE `validation_code`
+ALTER TABLE `validation_codes`
     ADD PRIMARY KEY (`id_validation_code`),
-  ADD KEY `FK1jqygbhrtisf174wb1flriepj` (`user_id_user`);
+  ADD KEY `FKn3qn2t9lce2mu3p3e6ifhxt6c` (`user_id_user`);
+
+--
+-- Indeksy dla tabeli `writing_lessons`
+--
+ALTER TABLE `writing_lessons`
+    ADD PRIMARY KEY (`id_writing_lesson`),
+  ADD UNIQUE KEY `UK_3rwgbgk0g1tnbglj8sf5hu3x` (`generated_characters`),
+  ADD UNIQUE KEY `UK_nm7tghg0lmvmybc3b6e8wi8sb` (`name`),
+  ADD UNIQUE KEY `UK_bmrtbhng3snhti91hx84potp1` (`number`),
+  ADD KEY `FKah0bcubj0lo9314okq4hmexep` (`module_id_writing_module`);
+
+--
+-- Indeksy dla tabeli `writing_lesson_results`
+--
+ALTER TABLE `writing_lesson_results`
+    ADD PRIMARY KEY (`id_writing_lesson_result`),
+  ADD KEY `FKl5v7feoc8nae2oah27s2cs2st` (`user_id_user`),
+  ADD KEY `FKe9pb7b8chw1ab1owuns9e1ypx` (`writing_lesson_id_writing_lesson`);
+
+--
+-- Indeksy dla tabeli `writing_modules`
+--
+ALTER TABLE `writing_modules`
+    ADD PRIMARY KEY (`id_writing_module`);
+
+--
+-- Indeksy dla tabeli `writing_texts`
+--
+ALTER TABLE `writing_texts`
+    ADD PRIMARY KEY (`id_writing_text`);
+
+--
+-- Indeksy dla tabeli `writing_text_results`
+--
+ALTER TABLE `writing_text_results`
+    ADD PRIMARY KEY (`id_writing_text_result`),
+  ADD KEY `FKa5qt2at6gqwx3v059qeqm2qja` (`text_id_writing_text`),
+  ADD KEY `FKpi3yxf515me9yvlb6mohhcmq2` (`user_id_user`);
 
 --
 -- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
--- AUTO_INCREMENT dla tabeli `fast_reading_questions`
---
-ALTER TABLE `fast_reading_questions`
-    MODIFY `id_fast_reading_question` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `fast_reading_results`
---
-ALTER TABLE `fast_reading_results`
-    MODIFY `id_fast_reading_result` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `fast_reading_texts`
---
-ALTER TABLE `fast_reading_texts`
-    MODIFY `id_fast_reading_text` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `fast_writing_courses`
---
-ALTER TABLE `fast_writing_courses`
-    MODIFY `id_fast_writing_course` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `fast_writing_lessons`
---
-ALTER TABLE `fast_writing_lessons`
-    MODIFY `id_fast_writing_lesson` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `fast_writing_modules`
---
-ALTER TABLE `fast_writing_modules`
-    MODIFY `id_fast_writing_module` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `fast_writing_tests`
---
-ALTER TABLE `fast_writing_tests`
-    MODIFY `id_fast_writing_test` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `fast_writing_texts`
---
-ALTER TABLE `fast_writing_texts`
-    MODIFY `id_fast_writing_text` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT dla tabeli `memorizings`
 --
 ALTER TABLE `memorizings`
     MODIFY `id_memorizing` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `reading_questions`
+--
+ALTER TABLE `reading_questions`
+    MODIFY `id_reading_question` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `reading_results`
+--
+ALTER TABLE `reading_results`
+    MODIFY `id_reading_result` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `reading_texts`
+--
+ALTER TABLE `reading_texts`
+    MODIFY `id_reading_text` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `reports`
@@ -396,53 +377,63 @@ ALTER TABLE `users`
     MODIFY `id_user` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `validation_code`
+-- AUTO_INCREMENT dla tabeli `validation_codes`
 --
-ALTER TABLE `validation_code`
+ALTER TABLE `validation_codes`
     MODIFY `id_validation_code` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `writing_lessons`
+--
+ALTER TABLE `writing_lessons`
+    MODIFY `id_writing_lesson` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `writing_lesson_results`
+--
+ALTER TABLE `writing_lesson_results`
+    MODIFY `id_writing_lesson_result` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `writing_modules`
+--
+ALTER TABLE `writing_modules`
+    MODIFY `id_writing_module` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `writing_texts`
+--
+ALTER TABLE `writing_texts`
+    MODIFY `id_writing_text` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `writing_text_results`
+--
+ALTER TABLE `writing_text_results`
+    MODIFY `id_writing_text_result` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ograniczenia dla zrzutów tabel
 --
 
 --
--- Ograniczenia dla tabeli `fast_reading_questions`
---
-ALTER TABLE `fast_reading_questions`
-    ADD CONSTRAINT `FK56y7qrbtbvcyxsnyejxrvms53` FOREIGN KEY (`fast_reading_text_id_fast_reading_text`) REFERENCES `fast_reading_texts` (`id_fast_reading_text`) ON DELETE CASCADE;
-
---
--- Ograniczenia dla tabeli `fast_reading_results`
---
-ALTER TABLE `fast_reading_results`
-    ADD CONSTRAINT `FKatfbtbp9qrytpy74f8disqnsm` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FKlsdqhp6qx1u8ok8s4pn8xrraf` FOREIGN KEY (`text_id_fast_reading_text`) REFERENCES `fast_reading_texts` (`id_fast_reading_text`);
-
---
--- Ograniczenia dla tabeli `fast_writing_courses`
---
-ALTER TABLE `fast_writing_courses`
-    ADD CONSTRAINT `FKarg8j9ud4rua7ogxk48rg5sr3` FOREIGN KEY (`fast_writing_lesson_id_fast_writing_lesson`) REFERENCES `fast_writing_lessons` (`id_fast_writing_lesson`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FKj60xosqif7cxxo5w3c3wrlpxy` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
-
---
--- Ograniczenia dla tabeli `fast_writing_lessons`
---
-ALTER TABLE `fast_writing_lessons`
-    ADD CONSTRAINT `FKbhupboe6wnwadm77ii8d8ywv1` FOREIGN KEY (`module_id_fast_writing_module`) REFERENCES `fast_writing_modules` (`id_fast_writing_module`) ON DELETE CASCADE;
-
---
--- Ograniczenia dla tabeli `fast_writing_tests`
---
-ALTER TABLE `fast_writing_tests`
-    ADD CONSTRAINT `FKdlfm2ug5h08o20q6barhro130` FOREIGN KEY (`text_id_fast_writing_text`) REFERENCES `fast_writing_texts` (`id_fast_writing_text`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FKm89jf0pj29uuxx9fabxso24mu` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
-
---
 -- Ograniczenia dla tabeli `memorizings`
 --
 ALTER TABLE `memorizings`
     ADD CONSTRAINT `FKja9h6aeruo9cuiv91p65txkvn` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
+
+--
+-- Ograniczenia dla tabeli `reading_questions`
+--
+ALTER TABLE `reading_questions`
+    ADD CONSTRAINT `FKcf0cfux397yj1gv7ow1bq8uxk` FOREIGN KEY (`reading_text_id_reading_text`) REFERENCES `reading_texts` (`id_reading_text`) ON DELETE CASCADE;
+
+--
+-- Ograniczenia dla tabeli `reading_results`
+--
+ALTER TABLE `reading_results`
+    ADD CONSTRAINT `FK4s3k4rew922c4ighkpybu61rw` FOREIGN KEY (`text_id_reading_text`) REFERENCES `reading_texts` (`id_reading_text`),
+  ADD CONSTRAINT `FK7obvde87o5roxisq5f4ftpbdi` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `reports`
@@ -464,7 +455,27 @@ ALTER TABLE `user_roles`
   ADD CONSTRAINT `FKmyufnukpwujoa3s35tvisg94q` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`);
 
 --
--- Ograniczenia dla tabeli `validation_code`
+-- Ograniczenia dla tabeli `validation_codes`
 --
-ALTER TABLE `validation_code`
-    ADD CONSTRAINT `FK1jqygbhrtisf174wb1flriepj` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
+ALTER TABLE `validation_codes`
+    ADD CONSTRAINT `FKn3qn2t9lce2mu3p3e6ifhxt6c` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
+
+--
+-- Ograniczenia dla tabeli `writing_lessons`
+--
+ALTER TABLE `writing_lessons`
+    ADD CONSTRAINT `FKah0bcubj0lo9314okq4hmexep` FOREIGN KEY (`module_id_writing_module`) REFERENCES `writing_modules` (`id_writing_module`) ON DELETE CASCADE;
+
+--
+-- Ograniczenia dla tabeli `writing_lesson_results`
+--
+ALTER TABLE `writing_lesson_results`
+    ADD CONSTRAINT `FKe9pb7b8chw1ab1owuns9e1ypx` FOREIGN KEY (`writing_lesson_id_writing_lesson`) REFERENCES `writing_lessons` (`id_writing_lesson`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKl5v7feoc8nae2oah27s2cs2st` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
+
+--
+-- Ograniczenia dla tabeli `writing_text_results`
+--
+ALTER TABLE `writing_text_results`
+    ADD CONSTRAINT `FKa5qt2at6gqwx3v059qeqm2qja` FOREIGN KEY (`text_id_writing_text`) REFERENCES `writing_texts` (`id_writing_text`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKpi3yxf515me9yvlb6mohhcmq2` FOREIGN KEY (`user_id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;

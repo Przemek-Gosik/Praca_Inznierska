@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Lesson, Module } from 'src/app/models/writing-model';
 import {Router} from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-writingmodules',
@@ -13,7 +14,8 @@ export class WritingmodulesComponent implements OnInit {
   lessonName: String = "Lekcja nr"
   lessons: Lesson[]=[]
   
-  constructor(private router: Router) { }
+  constructor(private router: Router,private loginService: LoginService) { }
+
   @Input() module?: Module
 
   ngOnInit(): void {
@@ -25,10 +27,19 @@ export class WritingmodulesComponent implements OnInit {
     
   }
 
+  loggedInUser(){
+    return this.loginService.loggedInUser()
+  }
+
+  calculateLastScore(score:number):number{
+    return score*100
+  }
+
   getLinkToLesson(id: number){
-      let lessonId : number | undefined = this.lessons[id].idFastWritingLesson
+      let lessonId : number | undefined = this.lessons[id].idWritingLesson
       this.router.navigate(["/writing/course/lesson", {id :
-        lessonId }
+        lessonId,
+        lastResultId: this.lessons[id].idWritingLessonResult }
       ])
     }
 

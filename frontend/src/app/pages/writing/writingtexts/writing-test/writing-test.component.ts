@@ -1,35 +1,101 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { WritingText } from 'src/app/models/writing-model';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { WritingTextResult, WritingText } from 'src/app/models/writing-model';
+import { GameService } from 'src/app/services/game.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
+import { WritingTextResultDialogComponent } from './writing-text-result-dialog/writing-text-result-dialog.component';
 
 @Component({
   selector: 'app-writing-test',
   templateUrl: './writing-test.component.html',
   styleUrls: ['./writing-test.component.css']
 })
-export class WritingTestComponent implements OnInit {
+export class WritingTestComponent implements OnInit,GameService {
 
   id: number = 0
   isDrawed: boolean = false
+  done: boolean = false
+  timeElapsed: number = 0
+  dateTime: string = ""
+  blockTyping: boolean = true
   writingText: WritingText = {
-    idFastWritingText: 0,
+    idWritingText: 0,
     text: "",
     title: "",
     level: ""
   }
+  
   buttonActionName :string = "Start";
   startName : string = "Start"
   pauzeName: string ="Pauza" 
 
   text :string[] = []
   typedWords: string[] = []
+
   constructor(private route: ActivatedRoute,
     private writingService: WritingService,
-    public timerService: TimerService) { }
+    public timerService: TimerService,
+    private router: Router,
+    private dialog: MatDialog) { }
+
+  startOrPause():void {
+    if(this.buttonActionName == this.startName){
+      this.buttonActionName = this.pauzeName
+      this.timerService.startTimer()
+      this.blockTyping = false
+      this.done = false
+    }else{
+      this.done = true
+      this.buttonActionName = this.startName
+      this.timerService.stopTimer()
+      this.blockTyping = true
+    }
+  }
+
+  reset(): void { 
+    this.timerService.clearTimer()
+    this.typedWords = []
+    this.done = false
+    this.timeElapsed = 0
+  }
+
+  calculatePoints(): void {
+    var points : number = 0
+    var text : string = this.writingText.text
+    let textPom: string = this.typedWords.join("")
+    for(let i = 0;i<textPom.length;i++){
+      if(textPom.charAt(i) === text.charAt(i)){
+        points += 1
+      }
+    }
+    var result: WritingTextResult = {
+      idText: this.writingText.idWritingText,
+      typedText: textPom,
+      score: points,
+      startTime: this.dateTime,
+      time: this.timerService.calculateTime()
+    }
+    this.openDialog(result)
+  }
+
+  openDialog(result: WritingTextResult):void{
+    this.dialog.open(WritingTextResultDialogComponent,{
+      width: '500px',
+      height: '500px',
+      data:{
+        result: result
+      }
+    })
+  }
+
+  goBack(): void {
+    this.router.navigate(["/writing/text"])
+  }
 
   ngOnInit(): void {
+    this.dateTime = this.timerService.getCurrentDate()
     this.route.paramMap.subscribe(param=>{
       let idPom = param.get('id')
       let isDrawedPom = param.get('isDrawed')
@@ -57,11 +123,10 @@ export class WritingTestComponent implements OnInit {
 
       }
     })
+    this.timerService.clearTimer()
   }
 
-  startOrPause(){
-
-  }
+  
 
   calculateInputWidth(word :string){
     return 9*word.length
@@ -104,7 +169,4 @@ export class WritingTestComponent implements OnInit {
       return false
     }
   }
-
-  
-
 }

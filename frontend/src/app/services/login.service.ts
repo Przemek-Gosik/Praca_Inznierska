@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { UserLogin } from '../models/userLogin';
+import { AuthenticationService } from './authentication.service';
 import { LocalstorageService } from './localstorage.service';
 import { TokenService } from './token.service';
 
@@ -17,7 +18,8 @@ export class LoginService {
   constructor(
     private http: HttpClient,    
     private localstorage: LocalstorageService,
-    private tokenService : TokenService) { }
+    private tokenService : TokenService,
+    private authenticationService: AuthenticationService) { }
 
   loginUser(user: UserLogin):Observable<Object>{
     return this.http.post(`${this.apiUrl}login`,user);
@@ -27,6 +29,7 @@ export class LoginService {
     this.localstorage.removeItemFromStorage('token')
     this.localstorage.removeItemFromStorage('user')
     this.localstorage.removeItemFromStorage('setting')
+    this.authenticationService.logOutUser()
   }
 
   public loggedInUser(){

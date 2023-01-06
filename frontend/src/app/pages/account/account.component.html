@@ -38,6 +38,22 @@
                   Moje wyniki
                 </span> 
               </button>
+
+              <button mat-fab extended routerLink="/account/admin/users" class="btn-my-account btn-large" *ngIf="isUserAdmin()"> 
+                <span class="btn-hover">
+                  <mat-icon>format_list_bulleted</mat-icon>
+                  <br>
+                  Użytkownicy 
+                </span>
+              </button>
+
+              <button mat-fab extended routerLink="/account/admin/reports" class="btn-my-account btn-large" *ngIf="isUserAdmin()"> 
+                <span class="btn-hover">
+                  <mat-icon>contact_mail</mat-icon>
+                  <br>
+                  Zgłoszenia  
+                </span>
+              </button>
               
               <button mat-fab extended routerLink="/account/editaccount" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
                 <span class="btn-hover">

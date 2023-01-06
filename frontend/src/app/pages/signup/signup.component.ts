@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserRegistration } from 'src/app/models/userRegistration';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { RegistrationService } from 'src/app/services/registration.service';
 
@@ -29,7 +30,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private registrationService: RegistrationService,
     private router: Router,
-    private localStorageService: LocalstorageService) { }
+    private localStorageService: LocalstorageService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
@@ -40,6 +42,7 @@ export class SignupComponent implements OnInit {
           this.localStorageService.setItemToStorage('token',res.token);
           this.localStorageService.setItemToStorage('user',res.userDto);
           this.localStorageService.setItemToStorage('setting',res.settingDto);
+          this.authenticationService.logInUser()
         this.router.navigate(['/account/signin/signup/verification']);
       },err =>{
         this.registrationFailed = true
