@@ -15,7 +15,13 @@
           ><b>Czytanie</b></a
         >
         <a
-          href="/schubert"
+          href="/reading/level"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Wybór poziomu</b></a
+        >
+        <a
+          href="/reading/level/schultz"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
           ><b>Tablice Schulza</b></a
@@ -30,13 +36,21 @@
       <table>
         <tr *ngFor="let tableRow of tableRows; let i = index">
           <td *ngFor="let number of tableRow.column">
-            <button mat-button class="btn-large" (click)="checkPoints(number)">
+            <button mat-button class="btn-large" (click)="checkPoints(number)" *ngIf=!hidden>
               {{ number }}
             </button>
+            <button mat-button class="btn-large" *ngIf=hidden></button>
           </td>
         </tr>
       </table>
     </div>
     <div class="points">Zdobyte punkty: {{ points }}</div>
+    <div class="timer">{{timerService.displayTime()}}</div>
+    <div class="btn-position">
+      <button class="waves-effect waves-ligth btn-small btn-2" (click)=startOrPause()>{{buttonActionName}}</button>
+      <button class="waves-effect waves-ligth btn-small btn-2" (click)=reset()>Zresetuj</button>
+      <button class="waves-effect waves-ligth btn-small btn-2" (click)=goBack()>Powrót</button>
+      <button class="waves-effect waves-ligth btn-small btn-2" *ngIf=loggedIn() [disabled]=!done>Zapisz wynik</button>
+    </div>
   </div>
 </div>

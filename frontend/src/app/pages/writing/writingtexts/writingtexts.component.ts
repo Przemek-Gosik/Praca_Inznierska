@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class WritingtextsComponent implements OnInit {
 
-  levels : LevelSelect[] = LevelConsts.LEVEL_SELECT 
+  levels : LevelSelect[] = LevelConsts.LEVEL_SELECT1 
   chosenLevelName: string = ""
   chooseText: boolean = false
   writingTexts : WritingText[] = []

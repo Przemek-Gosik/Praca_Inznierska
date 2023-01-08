@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { timeInterval, TimeInterval } from 'rxjs/internal/operators/timeInterval';
+import { ButtonNames } from 'src/app/consts/button-names-consts';
 import { Lesson, WritingLessonResult } from 'src/app/models/writing-model';
 import { GameService } from 'src/app/services/game.service';
 import { TimerService } from 'src/app/services/timer.service';
@@ -35,7 +36,7 @@ export class WritinglessonComponent implements OnInit,GameService {
   startName : string = "Start"
   pauzeName: string ="Pauza" 
   dateTime: string = ""
-  buttonActionName : string = this.startName
+  buttonActionName : string = ButtonNames.START_NAME
   blockLesson : boolean = true
   done : boolean = false
   
@@ -65,6 +66,7 @@ export class WritinglessonComponent implements OnInit,GameService {
   }
 
   goBack(){
+    this.timerService.stopTimer()
     this.router.navigate(["/writing/course"])
   }
 
@@ -87,8 +89,8 @@ export class WritinglessonComponent implements OnInit,GameService {
   }
 
   startOrPause(){
-    if(this.buttonActionName == this.startName){
-      this.buttonActionName = this.pauzeName
+    if(this.buttonActionName == ButtonNames.START_NAME){
+      this.buttonActionName = ButtonNames.PAUSE_NAME
       this.blockLesson = false
       this.done = false
       this.timerService.startTimer()
@@ -99,7 +101,7 @@ export class WritinglessonComponent implements OnInit,GameService {
       }
     }else{
       this.done = true
-      this.buttonActionName = this.startName
+      this.buttonActionName = ButtonNames.START_NAME
       this.timerService.stopTimer()
       this.blockLesson = true
     }
@@ -107,6 +109,7 @@ export class WritinglessonComponent implements OnInit,GameService {
 
   reset(){
     this.timerService.clearTimer()
+    this.buttonActionName = ButtonNames.START_NAME
     this.typedTexts = []
     this.done = false
     this.timeElapsed = 0

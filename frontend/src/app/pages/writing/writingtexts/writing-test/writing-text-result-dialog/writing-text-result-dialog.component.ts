@@ -38,7 +38,7 @@ export class WritingTextResultDialogComponent implements OnInit {
 
   calculateSpeed():string{
     var speed :number = this.result.typedText.length*1.0/this.result.time
-    return speed.toFixed(2)
+    return (speed*60).toFixed(2)
   }
 
   saveResult(){

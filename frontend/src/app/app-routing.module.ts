@@ -21,6 +21,9 @@ import { AuthGuard } from './helpers/auth.guard';
 import { RoleConsts } from './consts/role-consts';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { ReportsComponent } from './pages/admin/reports/reports.component';
+import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
+import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-memorizing/choose-level-memorizing.component';
+import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -29,13 +32,16 @@ const routes: Routes = [
   { path: 'account/signin/signup', component: SignupComponent},
   { path: 'account/signin/signup/verification', component: VerificationCodeComponent},
   { path: 'reading', component: ReadingComponent},
-  { path: 'reading/schubert',component: SchubertComponent},
+  { path: 'reading/level',component:ChooseLevelReadingComponent},
+  { path: 'reading/level/schultz',component: SchubertComponent},
   { path: 'writing', component: WritingComponent},
   { path: 'writing/course', component: WritingcoursesComponent},
   { path: 'writing/course/lesson',component: WritinglessonComponent},
   { path: 'writing/text',component:WritingtextsComponent},
   { path: 'writing/text/test',component:WritingTestComponent},
   { path: 'memorizing', component: MemorizingComponent},
+  { path: 'memorizing/level', component: ChooseLevelMemorizingComponent},
+  { path: 'memorizing/level/mnemonics', component: MemorizngMnemonicsComponent},
   { path: 'account', component: AccountComponent},
   { path: 'account/editaccount', component: EditAccountComponent,canActivate: [AuthGuard],data: {roles: [RoleConsts.USER]}},
   { path: 'account/admin/users', component: UsersComponent, canActivate: [AuthGuard],data: {roles: [RoleConsts.ADMIN]}},

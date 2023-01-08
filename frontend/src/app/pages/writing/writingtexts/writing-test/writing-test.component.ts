@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonNames } from 'src/app/consts/button-names-consts';
 import { WritingTextResult, WritingText } from 'src/app/models/writing-model';
 import { GameService } from 'src/app/services/game.service';
 import { TimerService } from 'src/app/services/timer.service';
@@ -27,10 +28,7 @@ export class WritingTestComponent implements OnInit,GameService {
     level: ""
   }
   
-  buttonActionName :string = "Start";
-  startName : string = "Start"
-  pauzeName: string ="Pauza" 
-
+  buttonActionName :string = ButtonNames.START_NAME;
   text :string[] = []
   typedWords: string[] = []
 
@@ -41,14 +39,14 @@ export class WritingTestComponent implements OnInit,GameService {
     private dialog: MatDialog) { }
 
   startOrPause():void {
-    if(this.buttonActionName == this.startName){
-      this.buttonActionName = this.pauzeName
+    if(this.buttonActionName == ButtonNames.START_NAME){
+      this.buttonActionName = ButtonNames.PAUSE_NAME
       this.timerService.startTimer()
       this.blockTyping = false
       this.done = false
     }else{
       this.done = true
-      this.buttonActionName = this.startName
+      this.buttonActionName = ButtonNames.START_NAME
       this.timerService.stopTimer()
       this.blockTyping = true
     }
@@ -56,6 +54,7 @@ export class WritingTestComponent implements OnInit,GameService {
 
   reset(): void { 
     this.timerService.clearTimer()
+    this.buttonActionName = ButtonNames.START_NAME
     this.typedWords = []
     this.done = false
     this.timeElapsed = 0
@@ -63,16 +62,17 @@ export class WritingTestComponent implements OnInit,GameService {
 
   calculatePoints(): void {
     var points : number = 0
-    var text : string = this.writingText.text
-    let textPom: string = this.typedWords.join("")
-    for(let i = 0;i<textPom.length;i++){
-      if(textPom.charAt(i) === text.charAt(i)){
-        points += 1
+    let texts : string[] = this.writingText.text.split(" ")
+    for(let i=0;i< this.typedWords.length;i++){
+      for(let j = 0;j<this.typedWords[i].length;j++){
+        if(this.typedWords[j].charAt(i) === texts[j].charAt(i)){
+          points += 1
+        }
       }
     }
     var result: WritingTextResult = {
       idText: this.writingText.idWritingText,
-      typedText: textPom,
+      typedText: this.typedWords.join(""),
       score: points,
       startTime: this.dateTime,
       time: this.timerService.calculateTime()
@@ -91,6 +91,7 @@ export class WritingTestComponent implements OnInit,GameService {
   }
 
   goBack(): void {
+    this.timerService.stopTimer()
     this.router.navigate(["/writing/text"])
   }
 
@@ -158,7 +159,6 @@ export class WritingTestComponent implements OnInit,GameService {
   }
 
   getMaxLength(word :string):number{
-    console.log(word.length)
     return word.length
   }
 
