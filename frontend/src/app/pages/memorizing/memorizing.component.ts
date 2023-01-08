@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TypeMemory } from 'src/app/consts/type-consts';
 
 @Component({
   selector: 'app-memorizing',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemorizingComponent implements OnInit {
   title: string = "Szybkie zapamiętywanie";
-  constructor() { }
+  memoryGame: string = "Gra typu memory";
+  mnemonicsGame: string = "Gra na zapamiętywanie";
+  memory: string = TypeMemory.MEMORY;
+  mnemonics: string = TypeMemory.MNEMONICS;
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  linkToLevelChoice(type:string):void{
+    this.router.navigate(['memorizing/level',
+    {
+      type: type
+    }])
   }
 
 }

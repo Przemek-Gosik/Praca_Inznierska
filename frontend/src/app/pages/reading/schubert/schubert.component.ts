@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ButtonNames } from "src/app/consts/button-names-consts";
 import { LevelConsts } from "src/app/consts/level-consts";
 import { TypeReading } from "src/app/consts/type-consts";
 import { ReadingResult, Table } from "src/app/models/reading-model";
@@ -15,7 +16,7 @@ import { WritingService } from "src/app/services/writing.service";
   styleUrls: ["./schubert.component.css"],
 })
 export class SchubertComponent implements OnInit, GameService {
-  level: string  = "EASY"
+  level: string  = LevelConsts.LEVEL_SELECT[0].value
   numbers: number[] = [];
   tableRows: Table[] = [];
   currentNumber: number = 1;
@@ -26,7 +27,7 @@ export class SchubertComponent implements OnInit, GameService {
   hidden: boolean = true
   saved: boolean = false
   done: boolean = false
-  buttonActionName: string = "Start"
+  buttonActionName: string = ButtonNames.START_NAME
 
   constructor(
     private readingService: ReadingService,
@@ -39,18 +40,19 @@ export class SchubertComponent implements OnInit, GameService {
   reset(): void {
     this.points = 0
     this.timerService.clearTimer()
+    this.buttonActionName = ButtonNames.START_NAME
     this.currentNumber = 1
     this.hidden = true
   }
 
   startOrPause(): void {
-    if(this.buttonActionName == "Start"){
+    if(this.buttonActionName == ButtonNames.START_NAME){
       this.hidden = false
       this.done = false
       this.timerService.startTimer()
-      this.buttonActionName = "Pauza"
+      this.buttonActionName =  ButtonNames.PAUSE_NAME
     }else{
-      this.buttonActionName = "Start"
+      this.buttonActionName = ButtonNames.START_NAME
       this.hidden = true
       this.timerService.stopTimer()
       this.done = true
@@ -63,6 +65,7 @@ export class SchubertComponent implements OnInit, GameService {
   }
   
   goBack(): void {
+    this.timerService.stopTimer()
     this.router.navigate(["/reading"])
   }
 
