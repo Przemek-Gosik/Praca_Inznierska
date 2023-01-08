@@ -1,124 +1,135 @@
+    .input-text{
+      color: var(--color);
+    }
     /* label color */
     .input-field label {
-      color: var(--color-a-active-breadcrumbs);
+      color: var(--color-a-hover);
     } 
 
     /* label focus color */
     .input-field input[type=text]:focus + label {
-      color:  var(--color-a-active-breadcrumbs);
+      color:  var(--color-a-hover);
     }
 
     .input-field input[type=password]:focus + label {
-      color:  var(--color-a-active-breadcrumbs);
+      color:  var(--color-a-hover);
     }
 
     /* label underline focus color */
     .input-field input[type=text]:focus {
-      border-bottom: 1px solid var(--color-a-active-breadcrumbs);
-      box-shadow: 0 1px 0 0 var(--color-a-active-breadcrumbs);
+      border-bottom: 1px solid var(--color-a-hover);
+      box-shadow: 0 1px 0 0 var(--color-a-hover);
     }
 
     .input-field input[type=password]:focus {
-      border-bottom: 1px solid var(--color-a-active-breadcrumbs);
-      box-shadow: 0 1px 0 0 var(--color-a-active-breadcrumbs);
+      border-bottom: 1px solid var(--color-a-hover);
+      box-shadow: 0 1px 0 0 var(--color-a-hover);
     }
 
     /* valid color*/
     .input-field input[type=text].valid {
-      border-bottom: 1px solid rgb(13, 173, 56);
-      box-shadow: 0 1px 0 0 rgb(13, 173, 56);
+      border-bottom: 1px solid var(--color-valid);
+      box-shadow: 0 1px 0 0 var(--color-valid);
     }
 
     .input-field input[type=password].valid {
-      border-bottom: 1px solid rgb(13, 173, 56);
-      box-shadow: 0 1px 0 0 rgb(13, 173, 56);
+      border-bottom: 1px solid var(--color-valid);
+      box-shadow: 0 1px 0 0 var(--color-valid);
     }
     
     /* valid color */
     .input-field input[type=text].valid:focus ~label {
-      color: rgb(13, 173, 56);
+      color: var(--color-valid);
     }
 
     .input-field input[type=password].valid:focus ~label {
-      color: rgb(13, 173, 56);
+      color: var(--color-valid);
     }
 
+    .input-field input[type=text].valid:active ~label {
+      color: var(--color-valid);
+    }
+
+    .input-field input[type=password].valid:active ~label {
+      color: var(--color-valid);
+    }
+
+
     /* invalid color */
+
     .input-field input[type=text].invalid {
-      border-bottom: 1px solid red;
-      box-shadow: 0 1px 0 0 red;
+      border-bottom: 1px solid var(--color-invalid);
+      box-shadow: 0 1px 0 0 var(--color-invalid);
     }
 
     .input-field input[type=password].invalid {
-      border-bottom: 1px solid red;
-      box-shadow: 0 1px 0 0 red;
+      border-bottom: 1px solid var(--color-invalid);
+      box-shadow: 0 1px 0 0 var(--color-invalid);
+    }
+
+    .input-field input[type=text].invalid:focus ~label {
+      color: var(--color-invalid);
     }
 
     .input-field input[type=password].invalid:focus ~label {
-      color: red;
+      color: var(--color-invalid);
     }
+
 
     /* icon prefix focus color */
     .input-field .prefix.active{
-      color: var(--color-a-active-breadcrumbs);
+      color: var(--color-a-hover);
     }
 
-.btn-2 {
-    flex-flow: row wrap;
-    justify-content: center;
-    max-width: 200px;
-    margin: 0 auto;
-    margin-top: 50px;
-    width: 200px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
-    background-color:rgba(3, 86, 137, 0.622);
-    color: black;
-    font-weight: bold;
-    margin-top: 50px;
-    border-radius: 10px;
+    .input-field .prefix.invalid.focus{
+      color: var(--color-invalid);
+    }
+
+.btn-form {
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-left: 20px;
+  width: 200px;
+  height: 50px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+  background-color: var(--btn-pick-course-background-color);
+  color: var(--color);
+  font-weight: bold;
+  margin-top: 50px;
+  border-radius: 5px;
+  font-size:15px;
+}
+  
+.btn-form:hover{
+  color: var(--color-a-hover);
+  background-color: var(--btn-pick-course-background-color-hover);
 }
 
-/* .center {
-    margin:auto;
-    width: 70%;
-    /* padding-left:100px; */
- /* } */
-
-.btn-position{
-    margin:auto;
-    width:70%;
-
-}
 .btn-visibility{
     background-color: transparent;
-    padding-top:10px;
+    padding-top:2%;
 
 }
 .btn-visibility:hover{
-    color:white;
-}
-.btn-2:hover{
-    color:white;
+    color:var(--color-a-hover);
 }
 
-.font-forgot-password{
-    color:rgb(3, 86, 137);
+.font-link{
+    color:var(--color);
     font-size: 15px;
+    margin-left:11.5%;
 }
 
-.font-forgot-password:hover{
-    color:white;
+.font-link:hover{
+    color:var(--color-a-hover);
 }
 
-.font-signup{
-    color:rgb(3, 86, 137);
-    font-size: 15px;
-    margin-left:40px;
+.font-forgot-pass{
+    margin-right: 9.5%;
 }
-.font-signup:hover{
-    color:white;
+
+.row-pass{
+  margin-bottom: 0;
 }
-.active_valid{
-  color: rgb(13, 173, 56);
-}
+
 

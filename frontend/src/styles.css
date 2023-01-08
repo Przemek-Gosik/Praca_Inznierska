@@ -29,19 +29,12 @@ a.breadcrumb:before {
     color: black;
 }
 
-.ng-invalid.ng-touched:not(form){
-    border-bottom: 3px solid red;
-}
+*/
+/* .ng-invalid.ng-touched:not(form){
+    border-bottom: 3px solid var(--color-invalid);
+} */
 
-.invalid-data{
-    background-color: transparent;
-    color:red;
-    font-size: 14px;
-    margin-left:45px;
-    border-color:red;
-    text-align: center;
-}
-
+/*
 .font-title{
     font-weight: bold;
     font-size:40px;
@@ -82,6 +75,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-footer: rgba(64, 150, 204, 0.539);
     --btn-pick-course-background-color-hover:rgba(58, 125, 167, 0.622);
     --color-pressed-button:rgba(59, 141, 192, 0.582);
+    --color-invalid: red;
+    --color-valid: rgb(13, 173, 56);
 
 }
 
@@ -97,6 +92,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-footer: rgba(7, 39, 64, 0.522);
     --btn-pick-course-background-color-hover:rgba(83, 95, 102, 0.624);
     --color-pressed-button:rgba(62, 71, 77, 0.624);
+    --color-invalid: rgb(185, 30, 38);
+    --color-valid: rgb(7, 105, 33);
+}
+
+
+.invalid-data{
+    background-color: transparent;
+    color: var(--color-invalid);
+    font-size: 14px;
+    margin-left:45px;
+    border-color: var(--color-invalid);
+    text-align: center;
 }
 
 /* */
@@ -217,5 +224,4 @@ nav .breadcrumb-text:hover{
 /*
 css dla formularzy
 */
-
 
