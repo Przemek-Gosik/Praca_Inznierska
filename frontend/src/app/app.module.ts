@@ -45,6 +45,7 @@ import { WritingTextResultDialogComponent } from './pages/writing/writingtexts/w
 import { UsersComponent } from './pages/admin/users/users.component';
 import { ReportsComponent } from './pages/admin/reports/reports.component';
 import { ReportDetailsDialogComponent } from './pages/admin/reports/report-details-dialog/report-details-dialog.component';
+import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { ReportDetailsDialogComponent } from './pages/admin/reports/report-detai
     WritingTextResultDialogComponent,
     UsersComponent,
     ReportsComponent,
-    ReportDetailsDialogComponent
+    ReportDetailsDialogComponent,
+    ChooseLevelReadingComponent
   ],
   imports: [
     BrowserAnimationsModule,

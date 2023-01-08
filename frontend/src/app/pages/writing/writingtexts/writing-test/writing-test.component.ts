@@ -63,16 +63,17 @@ export class WritingTestComponent implements OnInit,GameService {
 
   calculatePoints(): void {
     var points : number = 0
-    var text : string = this.writingText.text
-    let textPom: string = this.typedWords.join("")
-    for(let i = 0;i<textPom.length;i++){
-      if(textPom.charAt(i) === text.charAt(i)){
-        points += 1
+    let texts : string[] = this.writingText.text.split(" ")
+    for(let i=0;i< this.typedWords.length;i++){
+      for(let j = 0;j<this.typedWords[i].length;j++){
+        if(this.typedWords[j].charAt(i) === texts[j].charAt(i)){
+          points += 1
+        }
       }
     }
     var result: WritingTextResult = {
       idText: this.writingText.idWritingText,
-      typedText: textPom,
+      typedText: this.typedWords.join(""),
       score: points,
       startTime: this.dateTime,
       time: this.timerService.calculateTime()
@@ -158,7 +159,6 @@ export class WritingTestComponent implements OnInit,GameService {
   }
 
   getMaxLength(word :string):number{
-    console.log(word.length)
     return word.length
   }
 

@@ -21,6 +21,7 @@ import { AuthGuard } from './helpers/auth.guard';
 import { RoleConsts } from './consts/role-consts';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { ReportsComponent } from './pages/admin/reports/reports.component';
+import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: 'account/signin/signup', component: SignupComponent},
   { path: 'account/signin/signup/verification', component: VerificationCodeComponent},
   { path: 'reading', component: ReadingComponent},
-  { path: 'reading/schubert',component: SchubertComponent},
+  { path: 'reading/level',component:ChooseLevelReadingComponent},
+  { path: 'reading/level/schultz',component: SchubertComponent},
   { path: 'writing', component: WritingComponent},
   { path: 'writing/course', component: WritingcoursesComponent},
   { path: 'writing/course/lesson',component: WritinglessonComponent},
