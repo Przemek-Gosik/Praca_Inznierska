@@ -51,11 +51,11 @@ import { Lesson, Module, WritingLessonResult, WritingText, WritingTextResult } f
     }
 
     drawText():Observable<WritingText>{
-      return this.http.get<WritingText>(`${this.apiUrl}/guest/draw`);
+      return this.http.get<WritingText>(`${this.apiUrl}/guest/text/draw`);
     }
 
     drawTextByLevel(level: String):Observable<WritingText>{
-      return this.http.get<WritingText>(`${this.apiUrl}/guest/draw/${level}`);
+      return this.http.get<WritingText>(`${this.apiUrl}/guest/text/draw/${level}`);
     }
 
     saveTextResult(result:WritingTextResult){
