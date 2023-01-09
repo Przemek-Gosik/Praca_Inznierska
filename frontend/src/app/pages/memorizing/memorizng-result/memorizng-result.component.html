@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Rezultat zadania</h1>
+<mat-dialog-content>
+    <p>Zdobyte punkty: {{result.score}} / {{maxPoints}}</p>
+</mat-dialog-content>
+<mat-dialog-actions class="btn-position">
+    <button class=" waves-ligth btn-2 btn-large" [disabled]=saved (click)="saveResult()" *ngIf=loggedIn()>Zapisz</button>
+    <button mat-dialog-close class=" waves-ligth btn-2 btn-large">Zakończ</button>
+</mat-dialog-actions>

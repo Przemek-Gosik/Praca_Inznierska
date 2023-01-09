@@ -1,5 +1,3 @@
-import { LevelConsts } from "../consts/level-consts"
-
 export interface Table{
     column : number[]
 }

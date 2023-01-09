@@ -1,1 +1,68 @@
-<p>memorizng-mnemonics works!</p>
+<div class="bg-color">
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s10">
+        <a
+          href="/"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Strona główna</b></a
+        >
+        <a
+          href="/reading"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Zapamiętywanie</b></a
+        >
+        <a
+          href="/reading/level"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Wybór poziomu</b></a
+        >
+        <a
+          href="/reading/level/schultz"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Gra na zapamiętywanie</b></a
+        >
+      </div>
+    </div>
+  </nav>
+
+  <div class="row context-box center">
+    <div class="font-title">Gra na zapamiętywanie</div>
+    <div *ngIf="isPresented">
+      <p>{{ showNumber() }}</p>
+      <button
+        class="waves-effect waves-ligth btn-small btn-2"
+        (click)="incrementIndex()"
+      >
+        Następne
+      </button>
+    </div>
+    <div *ngIf="!isPresented">
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div
+          class="example-box"
+          *ngFor="let number of numbers.shuffledRandomNumbers"
+          cdkDrag
+        >
+          {{ number }}
+        </div>
+      </div>
+      <div class="btn-position">
+        <button
+          class="waves-effect waves-ligth btn-small btn-2"
+          (click)="calculatePoints()"
+        >
+          Podsumowanie
+        </button>
+      </div>
+    </div>
+    <div class="btn-position">
+      <button class="waves-effect waves-ligth btn-small btn-2">Resetuj</button>
+      <button class="waves-effect waves-ligth btn-small btn-2">Powrót</button>
+    </div>
+  </div>
+</div>
