@@ -1,6 +1,7 @@
 <body [ngClass]="themeService.getTheme()">
 <app-menu> </app-menu>
 
+<main>
 <div style="float:right"> <b>Zmiana motywu</b>
   <br>
     <!-- {{storedTheme.theme}} -->
@@ -11,6 +12,7 @@
 </div>
 
 <router-outlet></router-outlet>
-
+</main>
 <app-footer></app-footer>
+
 </body>

@@ -107,9 +107,9 @@
 
 .btn-visibility{
     background-color: transparent;
-    padding-top:2%;
-
+    margin-top:2%;
 }
+
 .btn-visibility:hover{
     color:var(--color-a-hover);
 }
@@ -131,5 +131,6 @@
 .row-pass{
   margin-bottom: 0;
 }
+
 
 

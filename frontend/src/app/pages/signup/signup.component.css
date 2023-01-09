@@ -133,7 +133,7 @@ background-color: var(--btn-pick-course-background-color-hover);
 
 .btn-visibility{
   background-color: transparent;
-  padding-top:2%
+  margin-top:2%
 }
 
 .btn-visibility:hover{

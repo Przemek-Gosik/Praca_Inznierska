@@ -1,177 +1,320 @@
 <div>
-    <nav class="bg-breadcrumb">
-        <div class="">
-          <div class="col s10">
-            <a href="/" class="breadcrumb " style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/account" class="breadcrumb " style="padding-top:500px"><b>Moje konto</b></a>
-            <a href="/account/editaccount" class="breadcrumb " style="padding-top:500px"><b> Edycja danych</b></a>
+    <nav class="breadcrumb-background">
+          <div class="col s12">
+            <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/account" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Moje konto</b></a>
+            <a href="/account/editaccount" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b> Edycja danych</b></a>
           </div>
-        </div>
     </nav>
-    <div class="row grid ">
-        <div class="row link">
-            <div class="row home">
-                <div class="font-title"> {{title}}</div>
+    <div class="row context-box">
+        <div class="row">
+            <div class="col s12 font-title">
+                {{title}}
             </div>
             <div class="col s12">
-                <div class="font-title-2">Zmień login</div>
+
+            <mat-tab-group dynamicHeight>
+                <mat-tab label="Login" class=""> 
                     <form #changeLoginForm="ngForm">
-                        <div class="row">
-                            <div class="center">
-                                <div class="input-field col s8">
-                                    <i class="material-icons prefix validate">account_circle</i>
-                                    <input 
-                                        id="login" 
-                                        type="text" 
-                                        [(ngModel)]="newLogin.newLogin"
-                                        name="login"
-                                        class="validate"
-                                        #login="ngModel"
-                                        minlength="5"
-                                        maxlength="15"
-                                        required
-                                        />
-                                    <ng-container *ngIf="login.invalid && login.touched ">
-                                        <div class="invalid-data" *ngIf="login.errors?.['required']">
-                                            Login jest wymagany!
-                                        </div>
-                                        <div class="invalid-data" *ngIf="login.errors?.['minlength']">
-                                            Login musi mieć przynajmniej 5 znaków!
-                                        </div>
-                                        <div class="invalid-data" *ngIf="login.errors?.['maxlength']">
-                                           Login nie może mieć więcej niż 15 znaków!
-                                        </div>
-                                    </ng-container>
-                                    <label for="login">Nowy login</label>
-                                    <div class="invalid-data" *ngIf="editLoginFailed" >
-                                        {{errorLoginResponse}}
+                        <div class="row" style="padding-top:3%">
+                            <div class="input-field col s5" style="margin-left:28%">
+                                <i class="material-icons prefix validate">account_circle</i>
+                                <input 
+                                    id="login" 
+                                    type="text" 
+                                    [(ngModel)]="newLogin.newLogin"
+                                    name="login"
+                                    class="validate input-text"
+                                    #login="ngModel"
+                                    minlength="5"
+                                    maxlength="15"
+                                    required
+                                />
+                                <label for="login">Nowy login</label>
+                                <ng-container *ngIf="login.invalid && login.touched ">
+                                    <div class="invalid-data" *ngIf="login.errors?.['required']">
+                                        Login jest wymagany!
                                     </div>
-                                    <div style="width: 120%">
-                                        <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="changeLoginForm.invalid" (click)="editLogin()">Zmień login</button>
-                                        <button class="waves-effect waves-ligth btn-small btn-2" type="reset" (click)="resetLoginError()">Wyczyść</button>
+                                    <div class="invalid-data" *ngIf="login.errors?.['minlength']">
+                                        Login musi mieć przynajmniej 5 znaków!
                                     </div>
+                                    <div class="invalid-data" *ngIf="login.errors?.['maxlength']">
+                                        Login nie może mieć więcej niż 15 znaków!
+                                    </div>
+                                </ng-container>   
+                                <div class="invalid-data" *ngIf="editLoginFailed" >
+                                    {{errorLoginResponse}}
+                                </div>
+                                <div style="">
+                                    <button class="btn-small btn-form" type="submit" [disabled]="changeLoginForm.invalid" (click)="editLogin()">Zmień login</button>
+                                    <button class="btn-small btn-form" type="reset" (click)="resetLoginError()">Wyczyść</button>
                                 </div>
                             </div>
                         </div>
                     </form>
-            </div>
-            <div>
-                <div class="font-title-2">Zmień e-mail</div>
+
+                </mat-tab>
+                <mat-tab label="Adres e-mail"> 
                     <form #changeEmailForm="ngForm">
-                        <div class="row">
-                            <div class="center">
-                                <div class="input-field col s8">
-                                    <i class="material-icons prefix validate">email</i>
-                                    <input 
-                                        id="newEmail" 
-                                        type="email" 
-                                        [(ngModel)]="newEmail.email"
-                                        name="newEmail"
-                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
-                                        class="validate"
-                                        #email="ngModel"
-                                        required
-                                        
-                                        />
-                                    <ng-container *ngIf="email.invalid && email.touched">
-                                        <div class="invalid-data" *ngIf="email.errors?.['required']">
-                                            Adres e-mail jest wymagany!
-                                        </div>
-                                        <div class="invalid-data" *ngIf="email.errors?.['pattern']">
-                                            Adres e-mail jest niepoprawny!
-                                        </div>
-                                    </ng-container>
-                                    <label for="newEmail">Nowy adres e-mail</label>
-                                    
-                                    <div class="invalid-data" *ngIf="editEmailFailed" >
-                                        {{errorEmailResponse}}
+                        <div class="row" style="padding-top:3%">
+                            <div class="input-field col s5" style="margin-left:28%">
+                                <i class="material-icons prefix validate">email</i>
+                                <input 
+                                    id="newEmail" 
+                                    type="email" 
+                                    [(ngModel)]="newEmail.email"
+                                    name="newEmail"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+                                    class="validate input-text"
+                                    #email="ngModel"
+                                    required                  
+                                />
+                                <label for="newEmail">Nowy adres e-mail</label>
+                                <ng-container *ngIf="email.invalid && email.touched">
+                                    <div class="invalid-data" *ngIf="email.errors?.['required']">
+                                        Adres e-mail jest wymagany!
                                     </div>
-                                    <div style="width: 120%">
-                                        <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="changeEmailForm.invalid" (click)="editEmail()">Zmień e-mail</button>
-                                        <button class="waves-effect waves-ligth btn-small btn-2" type="reset" (click)="resetEmailError()">Wyczyść</button>
+                                    <div class="invalid-data" *ngIf="email.errors?.['pattern']">
+                                        Adres e-mail jest niepoprawny!
                                     </div>
+                                </ng-container>  
+                                <div class="invalid-data" *ngIf="editEmailFailed" >
+                                    {{errorEmailResponse}}
                                 </div>
-                            </div>
+                                <div class="center">
+                                    <button class="btn-small btn-form" type="submit" [disabled]="changeEmailForm.invalid" (click)="editEmail()">Zmień e-mail</button>
+                                    <button class="btn-small btn-form" type="reset" (click)="resetEmailError()">Wyczyść</button>
+                                </div>
+                            </div>    
                         </div>
                     </form>
-                </div>
-                <div>
-                    <div class="font-title-2">Zmień hasło</div>
+                    
+                </mat-tab>
+                <mat-tab label="Hasło"> 
+
                     <form #changePasswordForm="ngForm">
-                        <div class="row">
-                            <div class="center">
-                                <div class="input-field col s8" >   
-                                    <i class="material-icons prefix validate">vpn_key</i>
-                                    <input 
-                                        id="oldpassword" 
-                                        type="password" 
-                                        name="oldpassword"
-                                        [(ngModel)]="newPassword.oldPassword"
-                                        class="validate"
-                                        [type]="hideOld ? 'password' : 'text'"
-                                        minlength="5"
-                                        #oldpassword="ngModel"
-                                        required
-                                        />
-                                    <label for="oldpassword">Stare hasło</label>                                        
-                                    <ng-container *ngIf="oldpassword.invalid && oldpassword.touched">
-                                        <div class="invalid-data" *ngIf="oldpassword.errors?.['required']">
-                                            Stare hasło jest wymagane!
-                                        </div>
-                                        <div class="invalid-data" *ngIf="oldpassword.errors?.['minlength']">
-                                            Stare hasło musi mieć przynajmniej 5 znaków!
-                                        </div>
-                                    </ng-container> 
-                                </div>
+                        <div class="row" style="padding-top:3%">
+                            <div class="input-field col s5" style="margin-left:28%;">  
+                                <i class="material-icons prefix validate">vpn_key</i>
+                                <input 
+                                    id="oldpassword" 
+                                    type="password" 
+                                    name="oldpassword"
+                                    [(ngModel)]="newPassword.oldPassword"
+                                    class="validate input-text"
+                                    [type]="hideOld ? 'password' : 'text'"
+                                    minlength="5"
+                                    #oldpassword="ngModel"
+                                    required
+                                />
+                                <label for="oldpassword">Stare hasło</label>                                        
+                                <ng-container *ngIf="oldpassword.invalid && oldpassword.touched">
+                                    <div class="invalid-data" *ngIf="oldpassword.errors?.['required']">
+                                        Stare hasło jest wymagane!
+                                    </div>
+                                    <div class="invalid-data" *ngIf="oldpassword.errors?.['minlength']">
+                                        Stare hasło musi mieć przynajmniej 5 znaków!
+                                    </div>
+                                </ng-container> 
                             </div>
-                            <button class="btn-visibility" mat-icon-button matSuffix (click)="hideOld = !hideOld" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
+                            <button class="btn-visibility" style=" margin-top:2%" mat-icon-button matSuffix (click)="hideOld = !hideOld" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
                                 <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>       
-                        </div>
-                        <div class="row">
-                            <div class="center">
-                                <div class="input-field col s8" > 
-                                    <i class="material-icons validate prefix">vpn_key</i>
-                                    <input 
-                                        id="newpassword" 
-                                        type="newpassword" 
-                                        name="newpassword"
-                                        [(ngModel)]="newPassword.newPassword"
-                                        class="validate"
-                                        [type]="hideNew ? 'password' : 'text'"
-                                        minlength="5"
-                                        #newpassword="ngModel"
-                                        required
-                                        />
-                                    <label for="newpassword">Nowe hasło</label>
-                                    <ng-container *ngIf="newpassword.invalid && newpassword.touched">
-                                        <div class="invalid-data" *ngIf="newpassword.errors?.['required']">
-                                            Nowe hasło jest wymagane!
-                                        </div>
-                                        <div class="invalid-data" *ngIf="newpassword.errors?.['minlength']">
-                                            Nowe hasło musi mieć przynajmniej 5 znaków!
-                                        </div>
-                                    </ng-container> 
-                                </div>
+                        </div>             
+                        <div class="row">     
+                            <div class="input-field col s5" style="margin-left:28%;">  
+                                <i class="material-icons validate prefix">vpn_key</i>
+                                <input 
+                                    id="newpassword" 
+                                    type="newpassword" 
+                                    name="newpassword"
+                                    [(ngModel)]="newPassword.newPassword"
+                                    class="validate input-text"
+                                    [type]="hideNew ? 'password' : 'text'"
+                                    minlength="5"
+                                    #newpassword="ngModel"
+                                    required
+                                />
+                                <label for="newpassword">Nowe hasło</label>
+                                <ng-container *ngIf="newpassword.invalid && newpassword.touched">
+                                    <div class="invalid-data" *ngIf="newpassword.errors?.['required']">
+                                        Nowe hasło jest wymagane!
+                                    </div>
+                                    <div class="invalid-data" *ngIf="newpassword.errors?.['minlength']">
+                                        Nowe hasło musi mieć przynajmniej 5 znaków!
+                                    </div>
+                                </ng-container> 
                             </div>
-                            <button class="btn-visibility " mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
+                            <button class="btn-visibility" style=" margin-top:2%" mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
                                 <mat-icon>{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                                
                             <div class="invalid-data" *ngIf="editPasswordFailed" >
                                 {{errorPasswordResponse}}
                             </div>
-                            <div class="row">
-                                <div class="center col s12">
-                                    <div  style="width: 100%">
-                                        <button class="waves-effect waves-ligth btn-small btn-2" type="submit" [disabled]="changePasswordForm.invalid" (click)="editPassword()">Zmień hasło</button>
-                                        <button class="waves-effect waves-ligth btn-small btn-2" type="reset" (click)="resetPasswordError()">Wyczyść</button>
-                                    </div>
-                                </div>
+                            <div class="">
+                                <button class="btn-small btn-form" type="submit" [disabled]="changePasswordForm.invalid" (click)="editPassword()">Zmień hasło</button>
+                                <button class="btn-small btn-form" type="reset" (click)="resetPasswordError()">Wyczyść</button>
                             </div>
                         </div> 
                     </form>
-                </div>
+                </mat-tab>
+            </mat-tab-group>
             </div>
-    </div>
+            </div>
 </div>
+
+
+
+<!-- <div>
+            <div class="col s10 offset-s2 font-title-2">
+                Zmień login
+            </div>
+            <form #changeLoginForm="ngForm">
+                <div class="row">
+                    <div class="input-field col s5" style="margin-left:28%">
+                        <i class="material-icons prefix validate">account_circle</i>
+                        <input 
+                            id="login" 
+                            type="text" 
+                            [(ngModel)]="newLogin.newLogin"
+                            name="login"
+                            class="validate input-text"
+                            #login="ngModel"
+                            minlength="5"
+                            maxlength="15"
+                            required
+                        />
+                        <label for="login">Nowy login</label>
+                        <ng-container *ngIf="login.invalid && login.touched ">
+                            <div class="invalid-data" *ngIf="login.errors?.['required']">
+                                Login jest wymagany!
+                            </div>
+                            <div class="invalid-data" *ngIf="login.errors?.['minlength']">
+                                Login musi mieć przynajmniej 5 znaków!
+                            </div>
+                            <div class="invalid-data" *ngIf="login.errors?.['maxlength']">
+                                Login nie może mieć więcej niż 15 znaków!
+                            </div>
+                        </ng-container>   
+                        <div class="invalid-data" *ngIf="editLoginFailed" >
+                            {{errorLoginResponse}}
+                        </div>
+                        <div style="">
+                            <button class="btn-small btn-form" type="submit" [disabled]="changeLoginForm.invalid" (click)="editLogin()">Zmień login</button>
+                            <button class="btn-small btn-form" type="reset" (click)="resetLoginError()">Wyczyść</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col s10 offset-s2 font-title-2">
+                Zmień e-mail
+            </div>
+            <form #changeEmailForm="ngForm">
+                <div class="row">
+                    <div class="input-field col s5" style="margin-left:28%">
+                        <i class="material-icons prefix validate">email</i>
+                        <input 
+                            id="newEmail" 
+                            type="email" 
+                            [(ngModel)]="newEmail.email"
+                            name="newEmail"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+                            class="validate input-text"
+                            #email="ngModel"
+                            required                  
+                        />
+                        <label for="newEmail">Nowy adres e-mail</label>
+                        <ng-container *ngIf="email.invalid && email.touched">
+                            <div class="invalid-data" *ngIf="email.errors?.['required']">
+                                Adres e-mail jest wymagany!
+                            </div>
+                            <div class="invalid-data" *ngIf="email.errors?.['pattern']">
+                                Adres e-mail jest niepoprawny!
+                            </div>
+                        </ng-container>  
+                        <div class="invalid-data" *ngIf="editEmailFailed" >
+                            {{errorEmailResponse}}
+                        </div>
+                        <div class="center">
+                            <button class="btn-small btn-form" type="submit" [disabled]="changeEmailForm.invalid" (click)="editEmail()">Zmień e-mail</button>
+                            <button class="btn-small btn-form" type="reset" (click)="resetEmailError()">Wyczyść</button>
+                        </div>
+                    </div>    
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col s10 offset-s2 font-title-2">
+                Zmień hasło
+            </div>
+            <form #changePasswordForm="ngForm">
+                <div class="row">
+                    <div class="input-field col s5" style="margin-left:28%">  
+                        <i class="material-icons prefix validate">vpn_key</i>
+                        <input 
+                            id="oldpassword" 
+                            type="password" 
+                            name="oldpassword"
+                            [(ngModel)]="newPassword.oldPassword"
+                            class="validate input-text"
+                            [type]="hideOld ? 'password' : 'text'"
+                            minlength="5"
+                            #oldpassword="ngModel"
+                            required
+                        />
+                        <label for="oldpassword">Stare hasło</label>                                        
+                        <ng-container *ngIf="oldpassword.invalid && oldpassword.touched">
+                            <div class="invalid-data" *ngIf="oldpassword.errors?.['required']">
+                                Stare hasło jest wymagane!
+                            </div>
+                            <div class="invalid-data" *ngIf="oldpassword.errors?.['minlength']">
+                                Stare hasło musi mieć przynajmniej 5 znaków!
+                            </div>
+                        </ng-container> 
+                    </div>
+                    <button class="btn-visibility" mat-icon-button matSuffix (click)="hideOld = !hideOld" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
+                        <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>       
+                </div>             
+                <div class="row">      
+                    <div class="input-field col s5" style="margin-left:28%">  
+                        <i class="material-icons validate prefix">vpn_key</i>
+                        <input 
+                            id="newpassword" 
+                            type="newpassword" 
+                            name="newpassword"
+                            [(ngModel)]="newPassword.newPassword"
+                            class="validate input-text"
+                            [type]="hideNew ? 'password' : 'text'"
+                            minlength="5"
+                            #newpassword="ngModel"
+                            required
+                        />
+                        <label for="newpassword">Nowe hasło</label>
+                        <ng-container *ngIf="newpassword.invalid && newpassword.touched">
+                            <div class="invalid-data" *ngIf="newpassword.errors?.['required']">
+                                Nowe hasło jest wymagane!
+                            </div>
+                            <div class="invalid-data" *ngIf="newpassword.errors?.['minlength']">
+                                Nowe hasło musi mieć przynajmniej 5 znaków!
+                            </div>
+                        </ng-container> 
+                    </div>
+                    <button class="btn-visibility " mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
+                        <mat-icon>{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <div class="invalid-data" *ngIf="editPasswordFailed" >
+                        {{errorPasswordResponse}}
+                    </div>
+                    <div class="center">
+                        <button class="btn-small btn-form" type="submit" [disabled]="changePasswordForm.invalid" (click)="editPassword()">Zmień hasło</button>
+                        <button class="btn-small btn-form" type="reset" (click)="resetPasswordError()">Wyczyść</button>
+                    </div>
+                    
+                </div> 
+            </form>
+        </div>
+    </div>
+</div> -->

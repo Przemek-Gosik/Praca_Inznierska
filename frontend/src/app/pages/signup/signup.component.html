@@ -1,15 +1,12 @@
 <div class="bg-color">
     <nav class="breadcrumb-background">
-        <div>
           <div class="col s12">
             <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
             <a href="/account" class="breadcrumb breadcrumb-text" style="padding-top:500pxl"><b>Moje konto</b></a>
             <a href="/account/signin" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Logowanie</b></a>
             <a href="/account/signin/signup" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Rejestracja</b></a>
           </div>
-        </div>
     </nav>
-
     <div class="row context-box ">
         <form class="col s12" #registrationForm="ngForm" [appMatchPassword]="['password', 'confirmPassword']">
             <div class="row"> 

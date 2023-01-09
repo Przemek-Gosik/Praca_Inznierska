@@ -28,6 +28,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule} from '@angular/material/radio'
 import { MatProgressBarModule} from '@angular/material/progress-bar'
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
@@ -40,7 +41,7 @@ import { SplitWordsPipe } from './pages/writing/pipe/split-words-pipe';
 import { WritingLessonResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-lesson-result-dialog/writing-lesson-result-dialog.component';
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
 import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
-import { SchubertComponent } from './pages/reading/schubert/schubert.component';
+import { SchulzComponent } from './pages/reading/schulz/schulz.component';
 import { WritingTextResultDialogComponent } from './pages/writing/writingtexts/writing-test/writing-text-result-dialog/writing-text-result-dialog.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { ReportsComponent } from './pages/admin/reports/reports.component';
@@ -48,7 +49,6 @@ import { ReportDetailsDialogComponent } from './pages/admin/reports/report-detai
 import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
 import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-memorizing/choose-level-memorizing.component';
 import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
-
 
 @NgModule({
   declarations: [
@@ -76,7 +76,7 @@ import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemon
     SplitWordsPipe,
     WritingLessonResultDialogComponent,
     WritingTestComponent,
-    SchubertComponent,
+    SchulzComponent,
     WritingTextResultDialogComponent,
     UsersComponent,
     ReportsComponent,
@@ -96,6 +96,7 @@ import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemon
     MatCardModule,
     MatButtonModule,
     MatInputModule,
+    MatTabsModule,
     FormsModule,
     HttpClientModule,
     MatExpansionModule,

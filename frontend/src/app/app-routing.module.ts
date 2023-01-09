@@ -16,7 +16,7 @@ import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts
 import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
 import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
-import { SchubertComponent } from './pages/reading/schubert/schubert.component';
+import { SchulzComponent } from './pages/reading/schulz/schulz.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { RoleConsts } from './consts/role-consts';
 import { UsersComponent } from './pages/admin/users/users.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'account/signin/signup/verification', component: VerificationCodeComponent},
   { path: 'reading', component: ReadingComponent},
   { path: 'reading/level',component:ChooseLevelReadingComponent},
-  { path: 'reading/level/schultz',component: SchubertComponent},
+  { path: 'reading/level/schultz',component: SchulzComponent},
   { path: 'writing', component: WritingComponent},
   { path: 'writing/course', component: WritingcoursesComponent},
   { path: 'writing/course/lesson',component: WritinglessonComponent},
