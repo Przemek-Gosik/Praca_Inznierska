@@ -95,7 +95,7 @@ export class MemorizngMnemonicsComponent implements OnInit{
   openDialog(result:MemorizngResult,maxPoints:number):void{
     this.dialog.open(MemorizngResultComponent,{
       width: '500px',
-      height: '500px',
+      height: '00px',
       data:{
         result: result,
         maxPoints: maxPoints

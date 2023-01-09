@@ -32,14 +32,18 @@
 
   <div class="row context-box center">
     <div class="font-title">Gra na zapamiętywanie</div>
-    <div *ngIf="isPresented">
-      <p>{{ showNumber() }}</p>
+    <div *ngIf="isPresented" class="number-presentation">
+      <div class="number">
+      <h2>{{ showNumber() }}</h2>
+      </div>
+      <div>
       <button
         class="waves-effect waves-ligth btn-small btn-2"
         (click)="incrementIndex()"
       >
         Następne
       </button>
+      </div>
     </div>
     <div *ngIf="!isPresented">
       <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">

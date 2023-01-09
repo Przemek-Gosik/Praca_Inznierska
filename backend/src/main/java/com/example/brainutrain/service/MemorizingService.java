@@ -98,12 +98,12 @@ public class MemorizingService {
         Level level1 = LevelMapper.getLevelFromString(level);
         int numberLimit;
         switch (level1){
-            case EASY -> numberLimit=5;
-            case MEDIUM -> numberLimit=10;
-            case ADVANCED -> numberLimit=15;
+            case EASY -> numberLimit=4;
+            case MEDIUM -> numberLimit=8;
+            case ADVANCED -> numberLimit=12;
             default -> numberLimit=1;
         }
-        List<Integer> randomNumbers = new Random().ints(1, 16)
+        List<Integer> randomNumbers = new Random().ints(1, 13)
                 .distinct()
                 .limit(numberLimit)
                 .boxed().collect(Collectors.toList());
@@ -111,4 +111,5 @@ public class MemorizingService {
         Collections.shuffle(randomNumbersShuffled);
         return new ResponseWithNumbers(randomNumbers,randomNumbersShuffled);
     }
+
 }

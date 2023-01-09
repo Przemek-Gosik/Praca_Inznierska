@@ -50,6 +50,8 @@ import { ChooseLevelReadingComponent } from './pages/reading/choose-level-readin
 import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-memorizing/choose-level-memorizing.component';
 import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
 import { MemorizngResultComponent } from './pages/memorizing/memorizng-result/memorizng-result.component';
+import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
+import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/memorizing-card/memorizing-card.component';
 
 
 @NgModule({
@@ -86,7 +88,9 @@ import { MemorizngResultComponent } from './pages/memorizing/memorizng-result/me
     ChooseLevelReadingComponent,
     ChooseLevelMemorizingComponent,
     MemorizngMnemonicsComponent,
-    MemorizngResultComponent
+    MemorizngResultComponent,
+    MemorizngMemoryComponent,
+    MemorizingCardComponent
   ],
   imports: [
     BrowserAnimationsModule,

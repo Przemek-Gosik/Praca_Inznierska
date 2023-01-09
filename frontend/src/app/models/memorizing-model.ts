@@ -10,3 +10,8 @@ export interface MemorizingNumbers{
     randomNumbers: number[]
     shuffledRandomNumbers: number[]
 }
+
+export interface CardDetails{
+    imageName: string
+    state: 'none' | 'chosen' | 'matched'
+}

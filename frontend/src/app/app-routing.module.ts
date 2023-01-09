@@ -24,6 +24,7 @@ import { ReportsComponent } from './pages/admin/reports/reports.component';
 import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
 import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-memorizing/choose-level-memorizing.component';
 import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
+import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'memorizing', component: MemorizingComponent},
   { path: 'memorizing/level', component: ChooseLevelMemorizingComponent},
   { path: 'memorizing/level/mnemonics', component: MemorizngMnemonicsComponent},
+  { path: 'memorizing/level/memory', component: MemorizngMemoryComponent},
   { path: 'account', component: AccountComponent},
   { path: 'account/editaccount', component: EditAccountComponent,canActivate: [AuthGuard],data: {roles: [RoleConsts.USER]}},
   { path: 'account/admin/users', component: UsersComponent, canActivate: [AuthGuard],data: {roles: [RoleConsts.ADMIN]}},

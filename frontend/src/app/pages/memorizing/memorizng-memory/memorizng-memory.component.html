@@ -1,0 +1,57 @@
+<div class="bg-color">
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s10">
+        <a
+          href="/"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Strona główna</b></a
+        >
+        <a
+          href="/memorizing"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Zapamiętywanie</b></a
+        >
+        <a
+          href="/memorizing/level"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Wybór poziomu</b></a
+        >
+        <a
+          href="/memorizing/level/memory"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Gra memory</b></a
+        >
+      </div>
+    </div>
+  </nav>
+  <div class="row context-box center">
+    <div class="font-title">Gra typu memory</div>
+    <div class="cards">
+      <app-memorizing-card
+        *ngFor="let card of cards; let i = index"
+        [data]="card"
+        (cardClicked)="cardClicked(i)"
+      ></app-memorizing-card>
+    </div>
+    <div class="points">
+      <h3>Zdobyte punkty: {{points}}</h3>
+    </div>
+    <div class="btn-position">
+      <button class="waves-effect waves-ligth btn-small btn-2" (click)="reset()" >Resetuj</button>
+      <button class="waves-effect waves-ligth btn-small btn-2" (click)="goBack()">Powrót</button>
+      <button
+        class="waves-effect waves-ligth btn-small btn-2"
+        *ngIf="loggedIn()"
+        [disabled]=!finished
+        (click)="saveResult()"
+      >
+        Zapisz wynik
+      </button>
+    </div>
+  </div>
+</div>

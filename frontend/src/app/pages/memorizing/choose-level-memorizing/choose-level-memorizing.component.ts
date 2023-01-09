@@ -28,7 +28,9 @@ export class ChooseLevelMemorizingComponent implements OnInit {
   startTest(){
     switch(this.type){
       case TypeMemory.MEMORY:
-      
+        this.router.navigate(['memorizing/level/memory',{
+          level: this.chosenLevelName
+        }])
         break;
       case TypeMemory.MNEMONICS:
         this.router.navigate(['memorizing/level/mnemonics',{

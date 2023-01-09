@@ -1,0 +1,8 @@
+<div class="card" (click)="cardClicked.emit()" [@cardChosen]="data.state">
+    <div class="back" >
+        <img src="assets/logoDAY.png">
+    </div>
+    <div class="front" >
+        <img [src]="'assets/memorizing/'+data.imageName+'.jpg'">
+    </div>
+</div>
