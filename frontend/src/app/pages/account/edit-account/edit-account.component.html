@@ -14,7 +14,7 @@
             <div class="col s12">
 
             <mat-tab-group dynamicHeight>
-                <mat-tab label="Login" class=""> 
+                <mat-tab label="Login"> 
                     <form #changeLoginForm="ngForm">
                         <div class="row" style="padding-top:3%">
                             <div class="input-field col s5" style="margin-left:28%">
@@ -45,7 +45,9 @@
                                 <div class="invalid-data" *ngIf="editLoginFailed" >
                                     {{errorLoginResponse}}
                                 </div>
-                                <div style="">
+                            </div>
+                            <div class="row">
+                                <div class="col s12" style="margin-left:28%; margin-right:28%">
                                     <button class="btn-small btn-form" type="submit" [disabled]="changeLoginForm.invalid" (click)="editLogin()">Zmień login</button>
                                     <button class="btn-small btn-form" type="reset" (click)="resetLoginError()">Wyczyść</button>
                                 </div>
@@ -81,9 +83,11 @@
                                 <div class="invalid-data" *ngIf="editEmailFailed" >
                                     {{errorEmailResponse}}
                                 </div>
-                                <div class="center">
-                                    <button class="btn-small btn-form" type="submit" [disabled]="changeEmailForm.invalid" (click)="editEmail()">Zmień e-mail</button>
-                                    <button class="btn-small btn-form" type="reset" (click)="resetEmailError()">Wyczyść</button>
+                            </div>
+                            <div class="row">
+                                <div class="col s12" style="margin-left:28%; margin-right:28%">
+                                    <button class="btn-small btn-form" type="submit" [disabled]="changeLoginForm.invalid" (click)="editLogin()">Zmień login</button>
+                                    <button class="btn-small btn-form" type="reset" (click)="resetLoginError()">Wyczyść</button>
                                 </div>
                             </div>    
                         </div>
@@ -91,7 +95,6 @@
                     
                 </mat-tab>
                 <mat-tab label="Hasło"> 
-
                     <form #changePasswordForm="ngForm">
                         <div class="row" style="padding-top:3%">
                             <div class="input-field col s5" style="margin-left:28%;">  
@@ -117,7 +120,7 @@
                                     </div>
                                 </ng-container> 
                             </div>
-                            <button class="btn-visibility" style=" margin-top:2%" mat-icon-button matSuffix (click)="hideOld = !hideOld" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
+                            <button class="btn-visibility" style="margin-top:2%" mat-icon-button matSuffix (click)="hideOld = !hideOld" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
                                 <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>       
                         </div>             
@@ -145,22 +148,24 @@
                                     </div>
                                 </ng-container> 
                             </div>
-                            <button class="btn-visibility" style=" margin-top:2%" mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
+                            <button class="btn-visibility" style="margin-top:2%" mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
                                 <mat-icon>{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
                             <div class="invalid-data" *ngIf="editPasswordFailed" >
                                 {{errorPasswordResponse}}
                             </div>
-                            <div class="">
-                                <button class="btn-small btn-form" type="submit" [disabled]="changePasswordForm.invalid" (click)="editPassword()">Zmień hasło</button>
-                                <button class="btn-small btn-form" type="reset" (click)="resetPasswordError()">Wyczyść</button>
-                            </div>
                         </div> 
+                        <div class="row">
+                            <div class="col s12" style="margin-left:29%; margin-right:29%">
+                                <button class="btn-small btn-form" type="submit" [disabled]="changeLoginForm.invalid" (click)="editLogin()">Zmień hasło</button>
+                                <button class="btn-small btn-form" type="reset" (click)="resetLoginError()">Wyczyść</button>
+                            </div>
+                        </div>
                     </form>
                 </mat-tab>
             </mat-tab-group>
-            </div>
-            </div>
+        </div>
+    </div>
 </div>
 
 

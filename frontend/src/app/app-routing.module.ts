@@ -10,7 +10,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { WritingComponent } from './pages/writing/writing.component';
-import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
+import { VerificationCodeComponent } from './pages/verification-code/verification-code.component';
 import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
 import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
 import { WritinglessonComponent } from './pages/writing/writingcourses/writinglesson/writinglesson.component';
@@ -24,13 +24,15 @@ import { ReportsComponent } from './pages/admin/reports/reports.component';
 import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
 import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-memorizing/choose-level-memorizing.component';
 import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
+import { PickCourseComponent } from './pages/pick-course/pick-course.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
+  { path: 'course', component: PickCourseComponent},
   { path: 'account/signin', component: SigninComponent},
   { path: 'account/signin/signup', component: SignupComponent},
-  { path: 'account/signin/signup/verification', component: VerificationCodeComponent},
+  { path: 'account/verification', component: VerificationCodeComponent},
   { path: 'reading', component: ReadingComponent},
   { path: 'reading/level',component:ChooseLevelReadingComponent},
   { path: 'reading/level/schultz',component: SchulzComponent},

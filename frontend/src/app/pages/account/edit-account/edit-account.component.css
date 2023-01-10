@@ -117,6 +117,7 @@
   color: var(--color-input);
 }
 
+
 .btn-form {
   margin: 0 auto;
   margin-right:20px;
@@ -126,7 +127,7 @@
   background-color: var(--btn-pick-course-background-color);
   color: var(--color);
   font-weight: bold;
-  margin-top: 8%;
+  margin-top: 2%;
   border-radius: 5px;
   font-size:15px;
 }

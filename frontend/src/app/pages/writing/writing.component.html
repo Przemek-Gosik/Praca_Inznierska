@@ -11,13 +11,22 @@
         {{title}}
     </div>
 
-      <button class="btn-writing btn-large" routerLink="/writing/course">
-        {{course}}
-      </button>
+      <button mat-fab extended routerLink="/writing/text" class="btn-writing btn-large" > 
+        <span class="btn-hover">
+            <!-- <mat-icon>spellcheck</mat-icon> -->
+            <mat-icon>type_specimen</mat-icon>
+            <br>
+            Kurs
+        </span> 
+    </button>
 
-      <button class="btn-writing btn-large" routerLink="/writing/text" >
-        {{text}}
-      </button>
+    <button mat-fab extended routerLink="/writing/text" class="btn-writing btn-large" > 
+      <span class="btn-hover">
+          <mat-icon>notes</mat-icon>
+          <br>
+          Teksty
+      </span> 
+  </button>
 
   </div>
 </div>

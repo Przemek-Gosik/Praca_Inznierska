@@ -1,0 +1,22 @@
+.btn-schulz{
+    margin: 0 auto;
+    margin-left:20px;
+    width: 200px;
+    height: 50px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: var(--btn-pick-course-background-color);
+    color: var(--color);
+    font-weight: bold;
+    margin-top: 2%;
+    border-radius: 5px;
+    font-size:15px;
+}
+
+.btn-schulz:hover{
+    color: var(--color-a-hover);
+    background-color: var(--btn-pick-course-background-color-hover);
+}
+
+mat-radio-button{
+    color: var(--color);
+}

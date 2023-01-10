@@ -181,6 +181,7 @@ nav .breadcrumb-text:hover{
 .home-text a{
     font-weight: bold;
     color: var(--color-a);
+    letter-spacing: 0.5px;
 }
 
 .home-text a:hover{
@@ -189,7 +190,8 @@ nav .breadcrumb-text:hover{
 }
 
 .text-space{
-    padding-top:20px
+    padding-top:20px;
+    text-align: justify;
 }
 
 html{

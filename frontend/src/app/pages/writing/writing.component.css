@@ -1,8 +1,8 @@
 .btn-writing {
   margin: 0 auto;
   margin-top: 50px;
-  width:400px; 
-  height:200px;
+  width:230px; 
+  height:230px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
   background-color: var(--btn-pick-course-background-color);
   color: var(--color);
@@ -14,18 +14,18 @@
   margin-right: 12px;
 }
 
-/* .btn-hover:hover, .mat-icon:hover{
+.btn-hover:hover, .mat-icon:hover{
   color: var(--color-a-hover);
-} */
+}
 
 .btn-writing:hover{
   background-color: var(--btn-pick-course-background-color-hover);
   color: var(--color-a-hover);
 }
 
-/* .mat-icon{
+.mat-icon{
   transform: scale(3);
   color: var(--color); 
   padding-bottom: 42px;
   padding-top:15px;
-}   */
+}  
