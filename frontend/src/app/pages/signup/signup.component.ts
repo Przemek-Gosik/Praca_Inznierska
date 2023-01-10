@@ -19,8 +19,6 @@ export class SignupComponent implements OnInit {
   hide: boolean = true;
   hide2: boolean = true;
   registrationFailed : boolean = false;
-  
-
 
   clickedicon="";
   clickedlabel='';

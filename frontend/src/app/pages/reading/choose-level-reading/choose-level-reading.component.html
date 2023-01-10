@@ -1,4 +1,4 @@
-<div class="bg-color">
+<div>
     <nav class="breadcrumb-background">
         <div class="col s12">
           <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
@@ -8,7 +8,6 @@
         </div>
     </nav>
 
-
     <div class="row context-box">
         <div class="col s12">
             <div class="row">
@@ -16,28 +15,28 @@
                     Wybierz poziom trudności
                 </div>
                 <div class="row">
-                    <div class="input-field col s5" style="margin-left:28%">
-                        <mat-radio-group class="radio-group" [(ngModel)]="chosenLevelName" name="chosenLevel">
-                            <mat-radio-button class="radio-button" style=" margin-left: 10%;" *ngFor="let level of levels" [value]="level.value">
-                                {{level.name}}
-                            </mat-radio-button>
-                        </mat-radio-group>
+                    <div class="col s12">
+                        <div class="input-field col s6 offset-s4" > 
+                            <form name="chosenLevel" #chosenLevelForm="ngForm" ngDefaultControl>
+                                <p *ngFor="let level of levels"style= "display:inline">
+                                    <label style="margin-right:30px;"> 
+                                        <input [(ngModel)]="chosenLevelName" name="choselevel" class="with-gap" type="radio" [value]="level.value"/>
+                                        <span> {{level.name}} </span>
+                                    </label>
+                                </p>
+                                <div class="col s6 offset-s1">
+                                    <button class="btn-chose-level btn-large" (click)="startTest()" [disabled]="chosenLevelForm.invalid">
+                                        Wybierz poziom
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div style="margin-left:35%">
-                    <button class="btn-schulz btn-large" (click)="startTest()">
-                        Wybierz poziom
-                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">Option 1</mat-radio-button>
-        <mat-radio-button value="2">Option 2</mat-radio-button>
-      </mat-radio-group> -->
-
+</div>
 <!-- 
 <div class="context-box row">
     <span class="font-title col s12">\</span>
