@@ -2,6 +2,7 @@ package com.example.brainutrain.service;
 
 import com.example.brainutrain.dto.ReadingQuestionDto;
 import com.example.brainutrain.dto.ReadingTextDto;
+import com.example.brainutrain.dto.response.FindingNumbersResponse;
 import com.example.brainutrain.mapper.ReadingQuestionMapper;
 import com.example.brainutrain.mapper.ReadingResultMapper;
 import com.example.brainutrain.mapper.ReadingTextMapper;
@@ -192,19 +193,47 @@ public class ReadingService {
      * @param level1 is String within Enum Level range
      * @return is List of Long
      */
-    public List<Long> getSchultzNumbers(String level1){
+    public List<Long> createSchultzTable(String level1){
         Level level = LevelMapper.getLevelFromString(level1);
-        int numberLimit;
-        switch (level){
-            case EASY -> numberLimit = 16;
-            case MEDIUM -> numberLimit = 36;
-            case ADVANCED -> numberLimit = 100;
-            default -> numberLimit = 2;
+        int numberLimit=getNumberLimit(level);
+         return getSchultzNumbers(numberLimit);
+    }
+
+    public FindingNumbersResponse createFindingNumbersGame(String level1){
+        int AMOUNT_OF_NUMBERS = 10;
+        Level level = LevelMapper.getLevelFromString(level1);
+        int numberLimit = getNumberLimit(level);
+        FindingNumbersResponse numbersResponse = new FindingNumbersResponse();
+        Random random = new Random();
+        for(int i = 0; i<AMOUNT_OF_NUMBERS; i++){
+            numbersResponse.getNumbersToFind().add(random.nextInt(numberLimit)+1);
+            numbersResponse.getSchultzTables().add(getSchultzNumbers(numberLimit));
         }
-         return new Random().longs(1,numberLimit+1)
+        return numbersResponse;
+    }
+
+    private List<Long> getSchultzNumbers(int numberLimit){
+        return new Random().longs(1,numberLimit+1)
                 .distinct()
                 .limit(numberLimit)
                 .boxed()
-                 .collect(Collectors.toList());
+                .collect(Collectors.toList());
+    }
+
+    private int getNumberLimit(Level level){
+        switch (level){
+            case EASY -> {
+                return 9;
+            }
+            case MEDIUM -> {
+                return 16;
+            }
+            case ADVANCED -> {
+                return 36;
+            }
+            default -> {
+                return 0;
+            }
+        }
     }
 }

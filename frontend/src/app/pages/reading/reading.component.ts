@@ -10,12 +10,14 @@ import { TypeReading } from 'src/app/consts/type-consts';
 export class ReadingComponent implements OnInit {
   title: string = "Szybkie czytanie";
   SCHULTZ: string = TypeReading.SCHULTZ
+  FINDING_NUMBERS: string = TypeReading.FINDING_NUMBERS
   constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
   tabSchultz: string = "Tablice Schulza"
+  findNumbers: string = "Znajdowanie liczb"
 
   linkToLevelChoice(type:string){
     this.router.navigate(["/courses/reading/level",

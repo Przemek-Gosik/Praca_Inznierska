@@ -4,6 +4,7 @@ import com.example.brainutrain.constants.Level;
 import com.example.brainutrain.constants.TypeReading;
 import com.example.brainutrain.dto.ReadingResultDto;
 import com.example.brainutrain.dto.ReadingTextDto;
+import com.example.brainutrain.dto.response.FindingNumbersResponse;
 import com.example.brainutrain.service.ReadingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -78,6 +79,11 @@ public class ReadingController {
 
     @GetMapping("/text/guest/numbers/{level}")
     public ResponseEntity<List<Long>> getNumbers(@PathVariable("level") String level){
-        return ResponseEntity.ok(readingService.getSchultzNumbers(level));
+        return ResponseEntity.ok(readingService.createSchultzTable(level));
+    }
+
+    @GetMapping("/text/guest/finding_numbers/{level}")
+    public ResponseEntity<FindingNumbersResponse> getNumbersForGame(@PathVariable("level") String level){
+        return ResponseEntity.ok(readingService.createFindingNumbersGame(level));
     }
 }

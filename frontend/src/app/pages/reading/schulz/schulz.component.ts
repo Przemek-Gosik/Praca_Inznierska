@@ -56,11 +56,7 @@ export class SchulzComponent implements OnInit, GameService {
   }
 
   reset(): void {
-    this.points = 0
-    this.timerService.clearTimer()
-    this.buttonActionName = ButtonNames.START_NAME
-    this.currentNumber = 1
-    this.hidden = true
+    window.location.reload()
   }
 
   startOrPause(): void {
@@ -83,7 +79,7 @@ export class SchulzComponent implements OnInit, GameService {
   }
   
   goBack(): void {
-    this.timerService.stopTimer()
+    this.timerService.clearTimer()
     this.router.navigate(["/courses/reading/level",{
       type: TypeReading.SCHULTZ
     }])
@@ -128,11 +124,12 @@ export class SchulzComponent implements OnInit, GameService {
   saveResult():void{
     this.saved = true
     let result:ReadingResult = {
-      level: "",
+      level: this.level,
       score: this.points,
       startTime: this.dateTime,
-      time: 0,
+      time: this.elapsedTime,
       type: TypeReading.SCHULTZ
     }
+    this.readingService.saveResult(result)
   }
 }

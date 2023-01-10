@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LevelConsts } from 'src/app/consts/level-consts';
-import { TypeReading } from 'src/app/consts/type-consts';
+import { TypeMemory, TypeReading } from 'src/app/consts/type-consts';
 import { LevelSelect } from 'src/app/models/level-model';
 
 @Component({
@@ -33,9 +33,21 @@ export class ChooseLevelReadingComponent implements OnInit {
   }
 
   startTest():void{
-    this.router.navigate(["/courses/reading/level/schultz",{
-      level: this.chosenLevelName
-    }])
+    switch(this.type){
+      case TypeReading.FINDING_NUMBERS:{
+        this.router.navigate(["/courses/reading/level/finding_numbers",{
+          level: this.chosenLevelName
+        }])
+        break;
+      }
+      case TypeReading.SCHULTZ:{
+        this.router.navigate(["/courses/reading/level/schultz",{
+          level: this.chosenLevelName
+        }])
+        break;
+      }
+    }
+    
   }
 
 }
