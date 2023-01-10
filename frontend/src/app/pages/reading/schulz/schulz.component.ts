@@ -84,7 +84,7 @@ export class SchulzComponent implements OnInit, GameService {
   
   goBack(): void {
     this.timerService.stopTimer()
-    this.router.navigate(["/reading/level",{
+    this.router.navigate(["/courses/reading/level",{
       type: TypeReading.SCHULTZ
     }])
   }

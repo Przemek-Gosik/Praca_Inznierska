@@ -97,7 +97,7 @@ export class WritingTestComponent implements OnInit,GameService {
 
   goBack(): void {
     this.timerService.stopTimer()
-    this.router.navigate(["courses/writing/text"])
+    this.router.navigate(["/courses/writing/text"])
   }
 
   ngOnInit(): void {
