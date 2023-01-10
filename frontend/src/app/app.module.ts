@@ -54,6 +54,7 @@ import { PickCourseComponent } from './pages/pick-course/pick-course.component';
 import { MemorizngResultComponent } from './pages/memorizing/memorizng-result/memorizng-result.component';
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/memorizing-card/memorizing-card.component';
+import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding-numbers.component';
 
 
 @NgModule({
@@ -94,7 +95,8 @@ import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/mem
     MemorizngMnemonicsComponent,
     MemorizngResultComponent,
     MemorizngMemoryComponent,
-    MemorizingCardComponent
+    MemorizingCardComponent,
+    FindingNumbersComponent
   ],
   imports: [
     BrowserAnimationsModule,
