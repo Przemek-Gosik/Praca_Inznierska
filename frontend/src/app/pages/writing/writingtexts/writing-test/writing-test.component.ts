@@ -63,13 +63,13 @@ export class WritingTestComponent implements OnInit,GameService {
   calculatePoints(): void {
     var points : number = 0
     let texts : string[] = this.writingText.text.split(" ")
-    
+
     for(let i=0;i< this.typedWords.length;i++){
       console.log(texts[i])
       console.log(this.typedWords[i])
-      
+
       for(let j = 0;j<this.typedWords[i].length;j++){
-        if(this.typedWords[i].charAt(j) == texts[i].charAt(j)){
+        if(this.typedWords[i].charAt(j) === texts[i].charAt(j)){
           points += 1
         }
       }

@@ -1,27 +1,27 @@
-<div class="bg-color">
-    <nav class="breadcrumb-background">
-        <div class="">
-          <div class="col s10">
-            <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
-          </div>
-        </div>
-      </nav>
-          
-          <div  class="context-box home-text">
-            <div>
-                <div class=" col s8 font-title">
-                    {{title}}
-                </div>
-                <div class="text-space">
-                    <a routerLink="/reading">{{title_reading}}</a> {{text_reading}}
-                </div>
-                <div class="text-space">
-                    <a routerLink="/writing">{{title_writing}}</a> {{text_writing}}
-                </div>
-                <div class="text-space">
-                    <a routerLink="/memorizing">{{title_memorizing}}</a> {{text_memorizing}}
-                </div>
-          </div>
-        <br> 
-        <button class="btn-pick-course btn-large" ><a routerLink="/">{{button_text}}</a></button>
+<div>
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s12">
+        <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+      </div>
+    </div>
+  </nav>
+  <div class="context-box ">
+    <div class="home-text">
+      <div class="col s12 font-title">
+        {{title}}
+      </div>
+      <div class="text-space">
+        <a routerLink="/reading">{{title_reading}}</a> {{text_reading}}
+      </div>
+      <div class="text-space">
+        <a routerLink="/writing">{{title_writing}}</a> {{text_writing}}
+      </div>
+      <div class="text-space">
+        <a routerLink="/memorizing">{{title_memorizing}}</a> {{text_memorizing}}
+      </div>
+    </div>
+    <br> 
+    <button class="btn-pick-up-course btn-large" routerLink="/courses">{{button_text}}</button>     
+  </div>
 </div>

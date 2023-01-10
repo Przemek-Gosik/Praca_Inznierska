@@ -1,78 +1,17 @@
-.btn-large{
-    background-color:rgba(3, 86, 137, 0.622);
-}
-/* You can add global styles to this file, and also import other style files */
-/* .active {
-    color:white;
-}
-.grid {
-    padding: 50px;
-    flex-direction: column-reverse;
-    flex-flow: row wrap;
-    max-width: 1100px;
-    margin: 0 auto;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
-    background-color: rgba(92, 170, 215, 0.517);
-    color: black;
-    border-radius: 10px;
-    font-size:20px;
-}
-a.breadcrumb:before {
-    color: rgb(0, 0, 0);
-}
-
-.bg-breadcrumb{
-    background-color: transparent;
-    box-shadow: 0 0px 0px 0 rgb(0 0 0 / 14%), 0 0px 0px 0px rgb(0 0 0 / 12%), 0 0px 0px 0 rgb(0 0 0 / 20%);
-    padding-left: 50px;
-    font-style: italic;
-}
-.breadcrumb{
-    font-size: 20px;
-    color: black;
-}
-
-.ng-invalid.ng-touched:not(form){
-    border-bottom: 3px solid red;
-}
-
-.invalid-data{
-    background-color: transparent;
-    color:red;
-    font-size: 14px;
-    margin-left:45px;
-    border-color:red;
-    text-align: center;
-}
-
-.font-title{
+.btn-pick-up-course{
+    background-color:var(--btn-pick-course-background-color);
+    margin-left:12.5%;
+    width:75%;
+    height: auto;
+    color:var(--color);
+    margin-top:3%;
+    border-radius: 5px;
+    font-size:18px;
     font-weight: bold;
-    font-size:40px;
-    text-align: center;
-    margin-bottom:30px;
+    letter-spacing: 1.5px;
 }
 
-.font-title-2{
-    font-weight: bold;
-    font-size:20px;
-    text-align: left;
-    margin-bottom:30px;
-    margin-left: 50px;
-  }
-
-.center {
-    margin:auto;
-    width: 70%; 
-    padding-left:15%;
-  } */
-
-  html, body { height: 100%; }
-  body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-  
-  .mat-typography{
-      font: Roboto, "Helvetica Neue", sans-serif;
-  }
-  
-  /* */
-  /* css dla homepage */
-  /* */ 
+.btn-pick-up-course:hover{
+    background-color:var(--btn-pick-course-background-color-hover);
+    color: var(--color-a-hover);
+}

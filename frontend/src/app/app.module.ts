@@ -28,9 +28,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule} from '@angular/material/radio'
 import { MatProgressBarModule} from '@angular/material/progress-bar'
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
-import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
+import { VerificationCodeComponent } from './pages/verification-code/verification-code.component';
 import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
 import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
 import { WritingmodulesComponent } from './pages/writing/writingcourses/writingmodules/writingmodules.component';
@@ -40,7 +41,7 @@ import { SplitWordsPipe } from './pages/writing/pipe/split-words-pipe';
 import { WritingLessonResultDialogComponent } from './pages/writing/writingcourses/writinglesson/writing-lesson-result-dialog/writing-lesson-result-dialog.component';
 import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
 import { WritingTestComponent } from './pages/writing/writingtexts/writing-test/writing-test.component';
-import { SchubertComponent } from './pages/reading/schubert/schubert.component';
+import { SchulzComponent } from './pages/reading/schulz/schulz.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { WritingTextResultDialogComponent } from './pages/writing/writingtexts/writing-test/writing-text-result-dialog/writing-text-result-dialog.component';
 import { UsersComponent } from './pages/admin/users/users.component';
@@ -49,6 +50,7 @@ import { ReportDetailsDialogComponent } from './pages/admin/reports/report-detai
 import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
 import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-memorizing/choose-level-memorizing.component';
 import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
+import { PickCourseComponent } from './pages/pick-course/pick-course.component';
 import { MemorizngResultComponent } from './pages/memorizing/memorizng-result/memorizng-result.component';
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/memorizing-card/memorizing-card.component';
@@ -80,13 +82,15 @@ import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/mem
     SplitWordsPipe,
     WritingLessonResultDialogComponent,
     WritingTestComponent,
-    SchubertComponent,
+    SchulzComponent,
     WritingTextResultDialogComponent,
     UsersComponent,
     ReportsComponent,
     ReportDetailsDialogComponent,
     ChooseLevelReadingComponent,
     ChooseLevelMemorizingComponent,
+    MemorizngMnemonicsComponent,
+    PickCourseComponent
     MemorizngMnemonicsComponent,
     MemorizngResultComponent,
     MemorizngMemoryComponent,
@@ -103,6 +107,7 @@ import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/mem
     MatCardModule,
     MatButtonModule,
     MatInputModule,
+    MatTabsModule,
     FormsModule,
     HttpClientModule,
     MatExpansionModule,

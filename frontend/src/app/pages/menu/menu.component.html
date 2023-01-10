@@ -11,12 +11,35 @@
                         </ng-container>
                     </a>
             </li>
-            <li class="tab"><a routerLink="/reading" routerLnkActive="active"> Czytanie</a></li>
-            <li class="tab"><a routerLink="/writing" routerLinkActive="active">Pisanie</a></li>
-            <li class="tab"><a routerLink="/memorizing" routerLinkActive="active">Zapamiętywanie</a></li>
+            <li class="tab"><a routerLink="/courses/reading" routerLnkActive="active"> Czytanie</a></li>
+            <li class="tab"><a routerLink="/courses/writing" routerLinkActive="active">Pisanie</a></li>
+            <li class="tab"><a routerLink="/courses/memorizing" routerLinkActive="active">Zapamiętywanie</a></li>
             <li class="tab right"><a routerLink="/account" routerLinkActive="active"><i class="material-icons">account_circle</i></a></li>
             <li class="tab right"><a routerLink="/settings" routerLinkActive="active"><i class="material-icons">settings</i></a></li>
             <li class="tab right"><a routerLink="/contact" routerLinkActive="active"><i class="material-icons">call</i></a></li>
         </ul>
     </div>
 </nav>
+
+<!-- <nav class="nav-extended font nav-wrapper">
+    <div class="nav-content">
+        <ul class="menu nav-mobile" style="padding-top:0px">
+            <li class="logo-bg">
+                    <a routerLink="/">
+                        <ng-container *ngIf="themeService.getTheme()=='DAY'">
+                            <img src="assets/logoDAY.png" class="logo"/> 
+                        </ng-container>
+                        <ng-container *ngIf="themeService.getTheme()=='NIGHT'">
+                            <img src="assets/logoNIGHT.png" class="logo"/> 
+                        </ng-container>
+                    </a>
+            </li>
+            <li class="menu-item"><a routerLink="/reading" routerLnkActive="active"> Czytanie</a></li>
+            <li class="menu-item"><a routerLink="/writing" routerLinkActive="active">Pisanie</a></li>
+            <li class="menu-item"><a routerLink="/memorizing" routerLinkActive="active">Zapamiętywanie</a></li>
+            <li class="menu-item right"><a routerLink="/account" routerLinkActive="active"><i class="material-icons">account_circle</i></a></li>
+            <li class="menu-item right"><a routerLink="/settings" routerLinkActive="active"><i class="material-icons">settings</i></a></li>
+            <li class="menu-item right"><a routerLink="/contact" routerLinkActive="active"><i class="material-icons">call</i></a></li>
+        </ul>
+    </div>
+</nav> -->

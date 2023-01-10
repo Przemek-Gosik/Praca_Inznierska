@@ -9,8 +9,8 @@ import { TypeMemory } from 'src/app/consts/type-consts';
 })
 export class MemorizingComponent implements OnInit {
   title: string = "Szybkie zapamiętywanie";
-  memoryGame: string = "Gra typu memory";
-  mnemonicsGame: string = "Gra na zapamiętywanie";
+  memoryGame: string = "Cyferki";
+  mnemonicsGame: string = "Mnemotechnika";
   memory: string = TypeMemory.MEMORY;
   mnemonics: string = TypeMemory.MNEMONICS;
   constructor(private router: Router) { }
@@ -19,7 +19,7 @@ export class MemorizingComponent implements OnInit {
   }
 
   linkToLevelChoice(type:string):void{
-    this.router.navigate(['memorizing/level',
+    this.router.navigate(['/courses/memorizing/level',
     {
       type: type
     }])

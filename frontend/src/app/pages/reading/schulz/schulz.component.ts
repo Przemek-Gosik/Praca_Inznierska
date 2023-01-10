@@ -11,11 +11,11 @@ import { TimerService } from "src/app/services/timer.service";
 import { WritingService } from "src/app/services/writing.service";
 
 @Component({
-  selector: "app-schubert",
-  templateUrl: "./schubert.component.html",
-  styleUrls: ["./schubert.component.css"],
+  selector: "app-schulz",
+  templateUrl: "./schulz.component.html",
+  styleUrls: ["./schulz.component.css"],
 })
-export class SchubertComponent implements OnInit, GameService {
+export class SchulzComponent implements OnInit, GameService {
   level: string  = LevelConsts.LEVEL_SELECT[0].value
   numbers: number[] = [];
   tableRows: Table[] = [];

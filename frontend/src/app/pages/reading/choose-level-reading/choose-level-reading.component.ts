@@ -7,7 +7,8 @@ import { LevelSelect } from 'src/app/models/level-model';
 @Component({
   selector: 'app-choose-level-reading',
   templateUrl: './choose-level-reading.component.html',
-  styleUrls: ['./choose-level-reading.component.css']
+  styleUrls: ['./choose-level-reading.component.css',
+]
 })
 export class ChooseLevelReadingComponent implements OnInit {
 
@@ -32,7 +33,7 @@ export class ChooseLevelReadingComponent implements OnInit {
   }
 
   startTest():void{
-    this.router.navigate(["/reading/level/schultz",{
+    this.router.navigate(["/courses/reading/level/schultz",{
       level: this.chosenLevelName
     }])
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NewEmail } from 'src/app/models/newEmail';
 import { NewLogin } from 'src/app/models/newLogin';
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit-account',
   templateUrl: './edit-account.component.html',
-  styleUrls: ['./edit-account.component.css']
+  styleUrls: ['./edit-account.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class EditAccountComponent implements OnInit {
 

@@ -1,26 +1,60 @@
 <div class="bg-color">
     <nav class="breadcrumb-background">
-        <div class="col s10">
+        <div class="col s12">
           <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
-          <a href="/reading" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Czytanie</b></a>
-          <a (click)="reset()" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Wybór poziomu</b></a>
+          <a href="/courses/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+          <a href="/courses/reading" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Czytanie</b></a>
+          <a href="/courses/reading/level" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Poziom trudności</b></a>
         </div>
     </nav>
-<div class="row home">
-    <h3><b>Wybierz poziom trudności</b></h3>
-</div>
-<div class="col s10" >
 
-        <mat-radio-group  class="radio-group" [(ngModel)]="chosenLevelName" name="chosenLevel">
-            <mat-radio-button class="radio-button"*ngFor="let level of levels" [value]="level.value">{{level.name}}</mat-radio-button>
-        </mat-radio-group>
-        <div class="btn-position">
-            <div>
-        <button class="waves-effect waves-ligth btn-2 btn-large" (click)="startTest()">
-            Wybierz poziom
-          </button>
+
+    <div class="row context-box">
+        <div class="col s12">
+            <div class="row">
+                <div class="font-title col s12">
+                    Wybierz poziom trudności
+                </div>
+                <div class="row">
+                    <div class="input-field col s5" style="margin-left:28%">
+                        <mat-radio-group class="radio-group" [(ngModel)]="chosenLevelName" name="chosenLevel">
+                            <mat-radio-button class="radio-button" style=" margin-left: 10%;" *ngFor="let level of levels" [value]="level.value">
+                                {{level.name}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div style="margin-left:35%">
+                    <button class="btn-schulz btn-large" (click)="startTest()">
+                        Wybierz poziom
+                    </button>
+                </div>
             </div>
-          </div>
-</div>
+        </div>
+    </div>
+
+    <!-- <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="1">Option 1</mat-radio-button>
+        <mat-radio-button value="2">Option 2</mat-radio-button>
+      </mat-radio-group> -->
+
+<!-- 
+<div class="context-box row">
+    <span class="font-title col s12">\</span>
+    <div class="row">
+        <div class="input-field col s5" style="margin-left:28%">
+
+            <mat-radio-group  class="radio-group" [(ngModel)]="chosenLevelName" name="chosenLevel">
+                <mat-radio-button class="radio-button"*ngFor="let level of levels" [value]="level.value">{{level.name}}</mat-radio-button>
+            </mat-radio-group>
+
+            <div>
+                <button class="btn-schulz btn-large" (click)="startTest()">
+                    Wybierz poziom
+                </button>
+            </div>
+        </div>
+    </div>    
+</div> -->
 
 

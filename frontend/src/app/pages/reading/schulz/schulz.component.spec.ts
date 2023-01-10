@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SchubertComponent } from './schubert.component';
+import { SchulzComponent } from './schulz.component';
 
 describe('SchubertComponent', () => {
-  let component: SchubertComponent;
-  let fixture: ComponentFixture<SchubertComponent>;
+  let component: SchulzComponent;
+  let fixture: ComponentFixture<SchulzComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SchubertComponent ]
+      declarations: [ SchulzComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SchubertComponent);
+    fixture = TestBed.createComponent(SchulzComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

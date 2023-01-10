@@ -16,8 +16,37 @@
     color: var(--color-a-hover);
 } 
 
-/* .tabs.tabs-transparent .indicator:active {
-    background-color: var(--color);
+
+.menu{
+    height: 100px;
+    background-color: transparent;
+    text-transform: uppercase;
+}
+
+.menu .menu-item{
+    height: auto;
+    padding-top: 30px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.menu .menu-item a{
+    color: var(--color);
+    font-size: 20px;  
+} 
+.menu .menu-item a:hover{
+    color: var(--color-a-hover);
+} 
+
+
+.indicator{
+    /* background-color: var(--color); */
+    display: none;
+}
+
+/* nav .tabs .tab li a .indicator{
+    color:red;
+    display: none;
 } */
 
 nav{
@@ -57,9 +86,3 @@ i.material-icons:hover{
 .logo-bg a:hover{
     background-color: transparent;
 }
-
-/* .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-} */
