@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./finding-numbers.component.css']
 })
 export class FindingNumbersComponent implements OnInit {
-
+  level: string =""
   constructor() { }
 
   ngOnInit(): void {
