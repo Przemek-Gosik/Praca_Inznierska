@@ -31,7 +31,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from "@angular/forms";
 import { MatchPasswordDirective } from './directives/match-password.directive';
-import { VerificationCodeComponent } from './pages/signup/verification-code/verification-code.component';
+import { VerificationCodeComponent } from './pages/verification-code/verification-code.component';
 import { WritingcoursesComponent } from './pages/writing/writingcourses/writingcourses.component';
 import { WritingtextsComponent } from './pages/writing/writingtexts/writingtexts.component';
 import { WritingmodulesComponent } from './pages/writing/writingcourses/writingmodules/writingmodules.component';
@@ -49,6 +49,7 @@ import { ReportDetailsDialogComponent } from './pages/admin/reports/report-detai
 import { ChooseLevelReadingComponent } from './pages/reading/choose-level-reading/choose-level-reading.component';
 import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-memorizing/choose-level-memorizing.component';
 import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
+import { PickCourseComponent } from './pages/pick-course/pick-course.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemon
     ReportDetailsDialogComponent,
     ChooseLevelReadingComponent,
     ChooseLevelMemorizingComponent,
-    MemorizngMnemonicsComponent
+    MemorizngMnemonicsComponent,
+    PickCourseComponent
   ],
   imports: [
     BrowserAnimationsModule,
