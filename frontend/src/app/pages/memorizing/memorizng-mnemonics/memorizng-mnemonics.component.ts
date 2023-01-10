@@ -95,7 +95,7 @@ export class MemorizngMnemonicsComponent implements OnInit{
   openDialog(result:MemorizngResult,maxPoints:number):void{
     this.dialog.open(MemorizngResultComponent,{
       width: '500px',
-      height: '00px',
+      height: '500px',
       data:{
         result: result,
         maxPoints: maxPoints
@@ -107,7 +107,7 @@ export class MemorizngMnemonicsComponent implements OnInit{
 
   goBack(): void {
     this.reset()
-    this.router.navigate(["/memorizing/level",{
+    this.router.navigate(["/courses/memorizing/level",{
       type: TypeMemory.MNEMONICS
     }]);
   }

@@ -37,7 +37,7 @@ export class WritingmodulesComponent implements OnInit {
 
   getLinkToLesson(id: number){
       let lessonId : number | undefined = this.lessons[id].idWritingLesson
-      this.router.navigate(["/writing/course/lesson", {id :
+      this.router.navigate(["courses/writing/course/lesson", {id :
         lessonId,
         lastResultId: this.lessons[id].idWritingLessonResult }
       ])

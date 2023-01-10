@@ -67,7 +67,7 @@ export class WritinglessonComponent implements OnInit,GameService {
 
   goBack(){
     this.timerService.stopTimer()
-    this.router.navigate(["/writing/course"])
+    this.router.navigate(["courses/writing/course"])
   }
 
 

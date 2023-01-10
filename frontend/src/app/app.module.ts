@@ -90,7 +90,7 @@ import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/mem
     ChooseLevelReadingComponent,
     ChooseLevelMemorizingComponent,
     MemorizngMnemonicsComponent,
-    PickCourseComponent
+    PickCourseComponent,
     MemorizngMnemonicsComponent,
     MemorizngResultComponent,
     MemorizngMemoryComponent,

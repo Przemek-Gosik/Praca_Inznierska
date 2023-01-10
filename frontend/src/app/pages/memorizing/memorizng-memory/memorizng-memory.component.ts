@@ -126,7 +126,7 @@ export class MemorizngMemoryComponent implements OnInit {
 
   goBack():void{
     this.reset()
-    this.router.navigate(['/memorizing/level',{
+    this.router.navigate(['/courses/memorizing/level',{
       type: TypeMemory.MEMORY
     }])
   }

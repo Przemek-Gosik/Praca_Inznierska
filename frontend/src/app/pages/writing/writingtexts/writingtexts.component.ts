@@ -54,7 +54,7 @@ export class WritingtextsComponent implements OnInit {
   }
 
   startDrawedTest(){
-    this.router.navigate(["/writing/text/test", {id :
+    this.router.navigate(["courses/writing/text/test", {id :
       0,
       isDrawed: true }
     ])
@@ -63,7 +63,7 @@ export class WritingtextsComponent implements OnInit {
   startTest(i: number){
     var textId : number = this.writingTexts[i].idWritingText!
     var isDrawed: boolean = false
-    this.router.navigate(["/writing/text/test", {id :
+    this.router.navigate(["courses/writing/text/test", {id :
       textId,
       isDrawed: isDrawed }
     ])

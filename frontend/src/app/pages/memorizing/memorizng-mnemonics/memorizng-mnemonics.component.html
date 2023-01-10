@@ -9,7 +9,13 @@
           ><b>Strona główna</b></a
         >
         <a
-          href="/memorizing"
+          href="/courses"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Kursy</b></a
+        >
+        <a
+          href="/courses/memorizing"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
           ><b>Zapamiętywanie</b></a
@@ -34,15 +40,15 @@
     <div class="font-title">Gra na zapamiętywanie</div>
     <div *ngIf="isPresented" class="number-presentation">
       <div class="number">
-      <h2>{{ showNumber() }}</h2>
+        <h2>{{ showNumber() }}</h2>
       </div>
       <div>
-      <button
-        class="waves-effect waves-ligth btn-small btn-2"
-        (click)="incrementIndex()"
-      >
-        Następne
-      </button>
+        <button
+          class="waves-effect waves-ligth btn-small btn-2"
+          (click)="incrementIndex()"
+        >
+          Następne
+        </button>
       </div>
     </div>
     <div *ngIf="!isPresented">
@@ -65,8 +71,18 @@
       </div>
     </div>
     <div class="btn-position">
-      <button class="waves-effect waves-ligth btn-small btn-2">Resetuj</button>
-      <button class="waves-effect waves-ligth btn-small btn-2">Powrót</button>
+      <button
+        class="waves-effect waves-ligth btn-small btn-2"
+        (click)="reset()"
+      >
+        Resetuj
+      </button>
+      <button
+        class="waves-effect waves-ligth btn-small btn-2"
+        (click)="goBack()"
+      >
+        Powrót
+      </button>
     </div>
   </div>
 </div>

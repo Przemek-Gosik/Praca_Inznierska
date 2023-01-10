@@ -45,7 +45,7 @@ const routes: Routes = [
   { path: 'courses/memorizing', component: MemorizingComponent},
   { path: 'courses/memorizing/level', component: ChooseLevelMemorizingComponent},
   { path: 'courses/memorizing/level/mnemonics', component: MemorizngMnemonicsComponent},
-  { path: 'courses/memorzing/level/memory', component: MemorizngMemoryComponent},
+  { path: 'courses/memorizing/level/memory', component: MemorizngMemoryComponent},
   { path: 'account', component: AccountComponent},
   { path: 'account/editaccount', component: EditAccountComponent,canActivate: [AuthGuard],data: {roles: [RoleConsts.USER]}},
   { path: 'account/admin/users', component: UsersComponent, canActivate: [AuthGuard],data: {roles: [RoleConsts.ADMIN]}},

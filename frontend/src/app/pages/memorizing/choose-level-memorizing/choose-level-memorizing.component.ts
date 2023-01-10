@@ -25,10 +25,14 @@ export class ChooseLevelMemorizingComponent implements OnInit {
     })
   }
 
+  reset():void{
+    this.chosenLevelName = LevelConsts.LEVEL_SELECT[0].value
+  }
+
   startTest(){
     switch(this.type){
       case TypeMemory.MEMORY:
-        this.router.navigate(['memorizing/level/memory',{
+        this.router.navigate(['/courses/memorizing/level/memory',{
           level: this.chosenLevelName
         }])
         break;
