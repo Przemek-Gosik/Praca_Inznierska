@@ -12,7 +12,7 @@ import { LevelSelect } from 'src/app/models/level-model';
 export class ChooseLevelReadingComponent implements OnInit {
 
   levels : LevelSelect[] = LevelConsts.LEVEL_SELECT 
-  chosenLevelName: string = ""
+  chosenLevelName: string = "EASY"
   type: string = TypeReading.FINDING_NUMBERS
   
   constructor(private router:Router,
@@ -25,6 +25,10 @@ export class ChooseLevelReadingComponent implements OnInit {
         this.type = typePom
       }
     })
+  }
+
+  reset():void{
+    this.chosenLevelName = "EASY"
   }
 
   startTest():void{

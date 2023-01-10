@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ImageConsts } from "src/app/consts/image.consts";
+import { TypeMemory } from "src/app/consts/type-consts";
 import { CardDetails, MemorizngResult } from "src/app/models/memorizing-model";
 import { LoginService } from "src/app/services/login.service";
 import { MemorizingService } from "src/app/services/memorizing.service";
@@ -118,11 +119,16 @@ export class MemorizngMemoryComponent implements OnInit {
   reset(): void {
     this.points = 0;
     this.chosenCards = [];
+    this.cards = []
+    this.getCards()
+    this.showCards()
   }
 
   goBack():void{
     this.reset()
-    this.router.navigate(['/memorizing'])
+    this.router.navigate(['/memorizing/level',{
+      type: TypeMemory.MEMORY
+    }])
   }
 
   saveResult(): void {

@@ -37,6 +37,24 @@ export class SchubertComponent implements OnInit, GameService {
     private route: ActivatedRoute
   ) {}
 
+  ngOnInit(): void {
+    this.timerService.getCurrentDate()
+    this.route.paramMap.subscribe(param=>{
+      var levelPom = param.get('level')
+      if(levelPom){
+        this.level = levelPom
+      }
+      this.readingService
+        .getNumbersForSchubertTable(this.level)
+        .subscribe((res: number[]) => {
+        this.numbers = res;
+        this.size = this.numbers.length;
+        this.createTable();
+      });
+    
+  })
+  }
+
   reset(): void {
     this.points = 0
     this.timerService.clearTimer()
@@ -66,24 +84,9 @@ export class SchubertComponent implements OnInit, GameService {
   
   goBack(): void {
     this.timerService.stopTimer()
-    this.router.navigate(["/reading"])
-  }
-
-  ngOnInit(): void {
-    this.timerService.getCurrentDate()
-    this.route.paramMap.subscribe(param=>{
-      var levelPom = param.get('level')
-      if(levelPom){
-        this.level = levelPom
-      this.readingService
-        .getNumbersForSchubertTable(this.level)
-        .subscribe((res: number[]) => {
-        this.numbers = res;
-        this.size = this.numbers.length;
-        this.createTable();
-      });
-    }
-  })
+    this.router.navigate(["/reading/level",{
+      type: TypeReading.SCHULTZ
+    }])
   }
 
   createTable() :void{

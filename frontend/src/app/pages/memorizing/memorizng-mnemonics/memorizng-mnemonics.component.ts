@@ -107,7 +107,9 @@ export class MemorizngMnemonicsComponent implements OnInit{
 
   goBack(): void {
     this.reset()
-    this.router.navigate(["/memorizing"]);
+    this.router.navigate(["/memorizing/level",{
+      type: TypeMemory.MNEMONICS
+    }]);
   }
 
   loggedIn():boolean{
