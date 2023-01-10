@@ -29,7 +29,7 @@ export class ChooseLevelReadingComponent implements OnInit {
   }
 
   startTest():void{
-    this.router.navigate(["/reading/level/schultz",{
+    this.router.navigate(["/courses/reading/level/schultz",{
       level: this.chosenLevelName
     }])
   }

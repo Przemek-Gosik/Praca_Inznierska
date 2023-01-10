@@ -2,13 +2,14 @@
     <nav class="breadcrumb-background">
         <div class="col s10">
           <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
-          <a href="/memorzing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Zapamiętywanie</b></a>
+          <a href="/courses" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+          <a href="/courses/memorizing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Zapamiętywanie</b></a>
         </div>
     </nav>
 <div class="row home">
     <h3><b>Wybierz poziom trudności</b></h3>
 </div>
-<div class="col s10" >
+<div class="col s12" >
 
         <mat-radio-group  class="radio-group" [(ngModel)]="chosenLevelName" name="chosenLevel">
             <mat-radio-button class="radio-button"*ngFor="let level of levels" [value]="level.value">{{level.name}}</mat-radio-button>

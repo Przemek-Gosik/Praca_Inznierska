@@ -18,7 +18,7 @@ export class ReadingComponent implements OnInit {
   tabSchultz: string = "Tablice Schulza"
 
   linkToLevelChoice(type:string){
-    this.router.navigate(["/reading/level",
+    this.router.navigate(["/courses/reading/level",
     {
       type: type
     }])

@@ -19,7 +19,7 @@ export class MemorizingComponent implements OnInit {
   }
 
   linkToLevelChoice(type:string):void{
-    this.router.navigate(['memorizing/level',
+    this.router.navigate(['/courses/memorizing/level',
     {
       type: type
     }])
