@@ -15,7 +15,14 @@
 .tabs .tab a:hover{
     color: var(--color-a-hover);
 } 
-
+/* .tabs.tabs-transparent .indicator {
+    background-color: rgb(0, 0, 0);
+  } */
+  
+/* .tab a.active{
+    color: red !important;
+    background-color: aliceblue !important;
+} */
 
 .menu{
     height: 100px;
@@ -37,17 +44,6 @@
 .menu .menu-item a:hover{
     color: var(--color-a-hover);
 } 
-
-
-.indicator{
-    /* background-color: var(--color); */
-    display: none;
-}
-
-/* nav .tabs .tab li a .indicator{
-    color:red;
-    display: none;
-} */
 
 nav{
     background-color: transparent;
@@ -86,3 +82,26 @@ i.material-icons:hover{
 .logo-bg a:hover{
     background-color: transparent;
 }
+  
+ /* nav.nav-extended.nav-content.tabs.tabs-transparent .indicator {
+
+    background-color: blue;
+    color:blue;
+    border-bottom: 1px solid blue;
+   } */
+   /* li.indicator{
+    background-color :  blue !important;
+   } */
+
+   /* .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: var(--color-input);                     
+  } */
+  
+  /* .tabs .indicator{
+    background-color: blue !important;
+    bottom: 10;
+  }
+
+.tabs .tab li.indicator{
+    background-color: blue !important;
+  } */

@@ -1,89 +1,67 @@
-    .input-text{
-      color: var(--color);
-    }
-    /* label color */
-    .input-field label {
-      color: var(--color-a-hover);
-    } 
+.input-text{
+  color: var(--color);
+}
 
-    /* label focus color */
-    .input-field input[type=text]:focus + label {
-      color:  var(--color-a-hover);
-    }
+/* label color */
+/* .input-field label {
+  color: var(--color-a-hover);
+}  */
 
-    .input-field input[type=password]:focus + label {
-      color:  var(--color-a-hover);
-    }
+/* label color */
+.input-field input[type=text] ~label,
+.input-field input[type=password] ~label {
+  color: var(--color-a-active-breadcrumbs);
+} 
 
-    /* label underline focus color */
-    .input-field input[type=text]:focus {
-      border-bottom: 1px solid var(--color-a-hover);
-      box-shadow: 0 1px 0 0 var(--color-a-hover);
-    }
+/* label focus color */
+.input-field input[type=text]:focus + label,
+.input-field input[type=password]:focus + label {
+  color:  var(--color-input);
+}
 
-    .input-field input[type=password]:focus {
-      border-bottom: 1px solid var(--color-a-hover);
-      box-shadow: 0 1px 0 0 var(--color-a-hover);
-    }
+/* label underline focus color */
+.input-field input[type=text]:focus,
+.input-field input[type=password]:focus {
+  border-bottom: 1px solid var(--color-input);
+  box-shadow: 0 1px 0 0 var(--color-input);
+}
 
-    /* valid color*/
-    .input-field input[type=text].valid {
-      border-bottom: 1px solid var(--color-valid);
-      box-shadow: 0 1px 0 0 var(--color-valid);
-    }
-
-    .input-field input[type=password].valid {
-      border-bottom: 1px solid var(--color-valid);
-      box-shadow: 0 1px 0 0 var(--color-valid);
-    }
+/* valid color*/
+.input-field input[type=text].valid,
+.input-field input[type=password].valid {
+  border-bottom: 1px solid var(--color-valid);
+  box-shadow: 0 1px 0 0 var(--color-valid);
+}
     
-    /* valid color */
-    .input-field input[type=text].valid:focus ~label {
-      color: var(--color-valid);
-    }
+/* valid color */
+.input-field input[type=text].valid:focus ~label,
+.input-field input[type=password].valid:focus ~label,
+.input-field input[type=text].valid:active ~label,
+.input-field input[type=password].valid:active ~label {
+  color: var(--color-valid);
+}
 
-    .input-field input[type=password].valid:focus ~label {
-      color: var(--color-valid);
-    }
+/* invalid color */
 
-    .input-field input[type=text].valid:active ~label {
-      color: var(--color-valid);
-    }
+.input-field input[type=text].invalid,
+.input-field input[type=password].invalid {
+  border-bottom: 1px solid var(--color-invalid);
+  box-shadow: 0 1px 0 0 var(--color-invalid);
+}
 
-    .input-field input[type=password].valid:active ~label {
-      color: var(--color-valid);
-    }
+.input-field input[type=text].invalid:focus ~label,
+.input-field input[type=password].invalid:focus ~label {
+  color: var(--color-invalid);
+}
 
+/* icon prefix focus color */
+.input-field .prefix.active{
+  color: var(--color-input);
+}
 
-    /* invalid color */
-
-    .input-field input[type=text].invalid {
-      border-bottom: 1px solid var(--color-invalid);
-      box-shadow: 0 1px 0 0 var(--color-invalid);
-    }
-
-    .input-field input[type=password].invalid {
-      border-bottom: 1px solid var(--color-invalid);
-      box-shadow: 0 1px 0 0 var(--color-invalid);
-    }
-
-    .input-field input[type=text].invalid:focus ~label {
-      color: var(--color-invalid);
-    }
-
-    .input-field input[type=password].invalid:focus ~label {
-      color: var(--color-invalid);
-    }
-
-
-    /* icon prefix focus color */
-    .input-field .prefix.active{
-      color: var(--color-a-hover);
-    }
-
-    .input-field .prefix.invalid.focus{
-      color: var(--color-invalid);
-    }
+.input-field .prefix.invalid.focus{
+  color: var(--color-invalid);
+}
 
 .btn-form {
   margin: 0 auto;
@@ -110,7 +88,7 @@
 }
 
 .btn-visibility:hover{
-    color:var(--color-a-hover);
+    color:var(--color-input);
 }
 
 .font-link{
@@ -120,7 +98,7 @@
 }
 
 .font-link:hover{
-    color:var(--color-a-hover);
+    color:var(--color-input);
 }
 
 .font-forgot-pass{

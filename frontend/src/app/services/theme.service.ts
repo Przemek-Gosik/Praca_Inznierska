@@ -17,6 +17,7 @@ export class ThemeService {
   setTheme(theme: any){
     if(!this.localStorageService.getItemFromStorage("setting")){
       this.setTheme2(theme);
+      console.log(theme);
     }
     else{
       this.storedTheme = this.localStorageService.getItemFromStorage("setting");
@@ -31,6 +32,7 @@ export class ThemeService {
 
   getTheme(){
     if(!this.localStorageService.getItemFromStorage("setting")){
+      //tu zamiast stałej zwrócić funkcję, która będzie pobierać z niewiadomokąd info o motywie (jak niezalogowany będzie zmieniać motyw)
       return this.storedTheme="NIGHT";
     }
     else{

@@ -26,13 +26,15 @@ import { ChooseLevelMemorizingComponent } from './pages/memorizing/choose-level-
 import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemonics/memorizng-mnemonics.component';
 import { PickCourseComponent } from './pages/pick-course/pick-course.component';
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
   { path: 'courses', component: PickCourseComponent},
   { path: 'account/signin', component: SigninComponent},
-  { path: 'account/signin/signup', component: SignupComponent},
+  { path: 'account/signin/signup', component: SignupComponent},  
+  { path: 'account/signin/forgotpassword',component: ForgotPasswordComponent},
   { path: 'account/verification', component: VerificationCodeComponent},
   { path: 'courses/reading', component: ReadingComponent},
   { path: 'courses/reading/level',component:ChooseLevelReadingComponent},

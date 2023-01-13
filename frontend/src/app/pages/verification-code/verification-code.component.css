@@ -31,6 +31,7 @@
   color: var(--color-valid);
 }
 
+/*invalid color */
 .input-field input[type=text].invalid {
   border-bottom: 1px solid var(--color-invalid);
   box-shadow: 0 1px 0 0 var(--color-invalid);

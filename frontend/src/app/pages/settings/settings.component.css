@@ -1,0 +1,62 @@
+label{
+    color: var(--color);
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+label:hover{
+    color:var(--color-a-hover);
+}
+
+[type=radio]:checked + span::after,
+[type="radio"].with-gap.checked + span::after{
+    background-color: var(--color-input);
+}
+
+[type="radio"]:not(:checked) + span:before, [type="radio"]:not(:checked) + span:after {
+    border: 2px solid var(--color);
+}
+
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+    border: 2px solid var(--color-input);
+}
+
+  /* buttony  */
+.btn-settings {
+    max-width: 250px;
+    margin: 0 auto;
+    margin-top: 50px;
+    width:230px; 
+    height:230px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: var(--btn-pick-course-background-color);
+    color: var(--color);
+    font-weight: bold;
+    border-radius: 10px;
+    font-size:18px;
+    letter-spacing: 1px;
+    margin-right: 12px;
+}  
+  .btn-hover:hover, .mat-icon:hover{
+    color: var(--color-a-hover);
+}
+
+.btn-settings:hover{
+    background-color: var(--btn-pick-course-background-color-hover);
+}
+
+.mat-icon{
+    transform: scale(3);
+    color: var(--color); 
+    padding-bottom: 42px;
+    padding-top:15px;   
+}
+
+.font-small{
+    transform: scale(2);
+}
+
+.font-big{
+    transform: scale(5);
+}
+

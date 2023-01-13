@@ -1,3 +1,57 @@
-<div class="bg-color">
-
+<div>
+    <div>
+        <nav class="breadcrumb-background">
+              <div class="col s12">
+                <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+                <a href="/settings" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Ustawienia</b></a>
+              </div>
+        </nav>
+        <div class="row context-box">
+            <div class="row">
+                <div class="col s12 font-title">
+                    {{title}}
+                </div>
+                <div class="col s12">
+                    <mat-tab-group dynamicHeight>
+                        <mat-tab label="Motyw"> 
+                            <div style="margin-left:13%">
+                                <ng-container *ngFor="let theme of themes" style="display:inline">
+                                    <button mat-fab extended (click)="this.themeService.setTheme(theme.value)" class="btn-settings btn-large"> 
+                                        <span class="btn-hover" >
+                                            <mat-icon>{{theme.icon}}</mat-icon>
+                                            <br>
+                                            {{theme.name}} 
+                                        </span> 
+                                    </button>  
+                                </ng-container>
+                            </div>
+                        </mat-tab>
+                        
+                        <mat-tab label="Rozmiar czcionki"> 
+                            <div style="margin-left:13%">
+                                <ng-container *ngFor="let font of fonts" style="display:inline">
+                                    <button mat-fab extended class="btn-settings btn-large"> 
+                                        
+                                        <span class="btn-hover">
+                                            <ng-container *ngIf="font.value=='SMALL'">
+                                                <mat-icon class="font-small">{{font.icon}}</mat-icon>
+                                            </ng-container>
+                                            <ng-container *ngIf="font.value=='MEDIUM'">
+                                                <mat-icon>{{font.icon}}</mat-icon>
+                                            </ng-container>
+                                            <ng-container *ngIf="font.value=='BIG'">
+                                                <mat-icon class="font-big">{{font.icon}}</mat-icon>
+                                            </ng-container>
+                                            <br>
+                                            {{font.name}} 
+                                        </span> 
+                                    </button>  
+                                </ng-container>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

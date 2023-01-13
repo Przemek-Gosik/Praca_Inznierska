@@ -55,7 +55,9 @@ import { MemorizngResultComponent } from './pages/memorizing/memorizng-result/me
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/memorizing-card/memorizing-card.component';
 import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding-numbers.component';
-
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,8 @@ import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding
     MemorizngResultComponent,
     MemorizngMemoryComponent,
     MemorizingCardComponent,
-    FindingNumbersComponent
+    FindingNumbersComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -117,7 +120,9 @@ import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding
     MatCheckboxModule,
     MatRadioModule,
     MatProgressBarModule,
-    DragDropModule
+    DragDropModule,
+    MatStepperModule,
+    ReactiveFormsModule
   ],
   providers: [
     SplitPipe,
