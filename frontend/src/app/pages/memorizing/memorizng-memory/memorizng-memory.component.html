@@ -24,13 +24,13 @@
           (click)="reset()"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
-          ><b>Gra memory</b></a
+          ><b>Dopasuj obrazki</b></a
         >
       </div>
     </div>
   </nav>
   <div class="row context-box center">
-    <div class="font-title">Gra typu memory</div>
+    <div class="font-title">Dopasuj obrazki</div>
     <div class="cards">
       <app-memorizing-card
         *ngFor="let card of cards; let i = index"
@@ -38,14 +38,14 @@
         (cardClicked)="cardClicked(i)"
       ></app-memorizing-card>
     </div>
-    <div class="points">
-      <h3>Zdobyte punkty: {{points}}</h3>
+    <div class="">
+      <span class="points">Zdobyte punkty: {{points}}</span>
     </div>
     <div class="btn-position">
-      <button class="waves-effect waves-ligth btn-small btn-2" (click)="reset()" >Resetuj</button>
-      <button class="waves-effect waves-ligth btn-small btn-2" (click)="goBack()">Powrót</button>
+      <button class="btn-small btn-form" (click)="reset()" >Resetuj</button>
+      <button class="btn-small btn-form" (click)="goBack()">Powrót</button>
       <button
-        class="waves-effect waves-ligth btn-small btn-2"
+        class="btn-small btn-form"
         *ngIf="loggedIn()"
         [disabled]=!finished
         (click)="saveResult()"

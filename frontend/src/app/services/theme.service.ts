@@ -1,10 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Settings } from '../models/settings';
 import { LocalstorageService } from './localstorage.service';
 import { LoginService } from './login.service';
 import { SettingsService } from './settings.service';
-import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +11,6 @@ export class ThemeService {
   constructor( 
     private localStorageService: LocalstorageService, 
     protected loginService: LoginService,
-    private http: HttpClient,
-    private tokenService : TokenService,
     private settingsService: SettingsService) { }
   
   storedTheme: any;

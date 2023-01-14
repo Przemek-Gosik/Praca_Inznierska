@@ -30,25 +30,17 @@
           (click)="reset()"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
-          ><b>Gra na zapamiętywanie</b></a
+          ><b>Cyferki</b></a
         >
       </div>
     </div>
   </nav>
 
   <div class="row context-box center">
-    <div class="font-title">Gra na zapamiętywanie</div>
+    <div class="font-title">Cyferki</div>
     <div *ngIf="isPresented" class="number-presentation">
       <div class="number">
         <h2>{{ showNumber() }}</h2>
-      </div>
-      <div>
-        <button
-          class="waves-effect waves-ligth btn-small btn-2"
-          (click)="incrementIndex()"
-        >
-          Następne
-        </button>
       </div>
     </div>
     <div *ngIf="!isPresented">
@@ -61,9 +53,10 @@
           {{ number }}
         </div>
       </div>
+      
       <div class="btn-position">
         <button
-          class="waves-effect waves-ligth btn-small btn-2"
+          class=" btn-small btn-form"
           (click)="calculatePoints()"
         >
           Podsumowanie
@@ -71,14 +64,20 @@
       </div>
     </div>
     <div class="btn-position">
+        <button
+          class="btn-small btn-form"
+          (click)="incrementIndex()"
+        >
+          Następne
+        </button>
       <button
-        class="waves-effect waves-ligth btn-small btn-2"
+        class="btn-small btn-form"
         (click)="reset()"
       >
         Resetuj
       </button>
       <button
-        class="waves-effect waves-ligth btn-small btn-2"
+        class="btn-small btn-form"
         (click)="goBack()"
       >
         Powrót

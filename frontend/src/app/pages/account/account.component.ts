@@ -46,6 +46,7 @@ export class AccountComponent implements OnInit {
        this.localStorageService.removeItemFromStorage('token');
        this.localStorageService.removeItemFromStorage('user');
        this.localStorageService.removeItemFromStorage('setting');
+       this.logoutUser();
        alert("Twoje konto zostało usunięte.")
     }, err => {
       this.deteleUserFailed = true

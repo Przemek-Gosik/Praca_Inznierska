@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
           this.localStorageService.setItemToStorage('user',res.userDto);
           this.localStorageService.setItemToStorage('setting',res.settingDto);
           this.authenticationService.logInUser()
-        this.router.navigate(['/account/signin/signup/verification']);
+        this.router.navigate(['/account/verification']);
       },err =>{
         this.registrationFailed = true
         this.errorResponse = err.error.message

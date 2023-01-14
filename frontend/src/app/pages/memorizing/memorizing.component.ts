@@ -9,8 +9,8 @@ import { TypeMemory } from 'src/app/consts/type-consts';
 })
 export class MemorizingComponent implements OnInit {
   title: string = "Szybkie zapamiętywanie";
-  memoryGame: string = "Cyferki";
-  mnemonicsGame: string = "Mnemotechnika";
+  memoryGame: string = "Dopasuj obrazki";
+  mnemonicsGame: string = "Cyferki";
   memory: string = TypeMemory.MEMORY;
   mnemonics: string = TypeMemory.MNEMONICS;
   constructor(private router: Router) { }
