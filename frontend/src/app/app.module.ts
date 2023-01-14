@@ -55,6 +55,9 @@ import { MemorizngResultComponent } from './pages/memorizing/memorizng-result/me
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/memorizing-card/memorizing-card.component';
 import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding-numbers.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.component';
 
 
@@ -98,6 +101,8 @@ import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.c
     MemorizngMemoryComponent,
     MemorizingCardComponent,
     FindingNumbersComponent,
+    ForgotPasswordComponent
+    FindingNumbersComponent,
     EyesWarmUpComponent
   ],
   imports: [
@@ -119,7 +124,9 @@ import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.c
     MatCheckboxModule,
     MatRadioModule,
     MatProgressBarModule,
-    DragDropModule
+    DragDropModule,
+    MatStepperModule,
+    ReactiveFormsModule
   ],
   providers: [
     SplitPipe,

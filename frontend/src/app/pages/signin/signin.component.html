@@ -54,7 +54,7 @@
                             <div class="invalid-data" *ngIf="password.errors?.['required']">
                                 Hasło jest wymagane!
                             </div>
-                            <div class="invalid-data" *ngIf="password.errors?.['minlength']">
+                            <div class="invalid-data col s5" *ngIf="password.errors?.['minlength']">
                                 Hasło musi mieć przynajmniej 5 znaków!
                             </div>
                         </ng-container>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="center row">   
                     <a routerLink="/account/signin/signup" class="font-link">Nie masz konta?</a>
-                    <a routerLink="/" class="font-link font-forgot-pass">Zapomniałeś hasła?</a>    
+                    <a routerLink="/account/signin/forgotpassword" class="font-link font-forgot-pass">Zapomniałeś hasła?</a>    
                 </div>
                 <div class="center">
                     <button class="btn-small btn-form" type="submit" [disabled]="loginForm.invalid" (click)="userLogin()">Zaloguj się</button>

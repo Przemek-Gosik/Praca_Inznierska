@@ -1,6 +1,8 @@
 <nav class="nav-extended font ">
     <div class="nav-content">
+        <!-- <div class="indicator" style="z-index:1"> -->
         <ul class="tabs tabs-transparent active" style="padding-top:0px">
+            <!-- <div class="indicator transparent" > -->
             <li class="logo-bg">
                     <a routerLink="/">
                         <ng-container *ngIf="themeService.getTheme()=='DAY'">
@@ -9,17 +11,53 @@
                         <ng-container *ngIf="themeService.getTheme()=='NIGHT'">
                             <img src="assets/logoNIGHT.png" class="logo"/> 
                         </ng-container>
+                        <ng-container *ngIf="themeService.getTheme()=='CONTRAST'">
+                            <img src="assets/logoDAY.png" class="logo"/> 
+                        </ng-container>
                     </a>
             </li>
             <li class="tab"><a routerLink="/courses/reading" routerLnkActive="active"> Czytanie</a></li>
             <li class="tab"><a routerLink="/courses/writing" routerLinkActive="active">Pisanie</a></li>
-            <li class="tab"><a routerLink="/courses/memorizing" routerLinkActive="active">Zapamiętywanie</a></li>
+            <li class="tab"><a routerLink="/courses/memorizing" routerLinkActive="active">Zapamiętywanie</a></li> 
             <li class="tab right"><a routerLink="/account" routerLinkActive="active"><i class="material-icons">account_circle</i></a></li>
             <li class="tab right"><a routerLink="/settings" routerLinkActive="active"><i class="material-icons">settings</i></a></li>
             <li class="tab right"><a routerLink="/contact" routerLinkActive="active"><i class="material-icons">call</i></a></li>
+        <!-- </div> -->
         </ul>
+    <!-- </div> -->
     </div>
+
+    <!-- <ul class="tabs transparent" materialize="tabs">
+        <li class="tab col s3">
+          <a href="#test1" class="teal-text">Test 1</a>
+        </li>
+        <li class="tab col s3">
+          <a href="#test2" class="teal-text">Test 2</a>
+        </li>
+        <div class="indicator teal" style="z-index:1"></div>
+      </ul> -->
+
+
+
 </nav>
+
+
+
+<!-- <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a mat-tab-link *ngFor="let link of links"
+       (click)="activeLink = link"
+       [active]="activeLink == link"> {{link}} </a>
+    <a mat-tab-link disabled>Disabled Link</a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+  
+  <button mat-raised-button class="example-action-button">
+    Toggle background
+  </button>
+  <button mat-raised-button class="example-action-button" (click)="addLink()">
+    Add link
+  </button> -->
+
 
 <!-- <nav class="nav-extended font nav-wrapper">
     <div class="nav-content">

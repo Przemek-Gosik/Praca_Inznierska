@@ -4,111 +4,59 @@
 
 .input-field input{
   border-bottom: 1px solid var(--color);
-  /* box-shadow: 0 1px 0 0 var(--color); */
+  box-shadow: 0 1px 0 0 var(--color);
 }
 
 /* label color */
-.input-field label {
+.input-field input[type=text] ~label,
+.input-field input[type=email] ~label,
+.input-field input[type=password] ~label {
   color: var(--color-a-active-breadcrumbs);
 } 
 
 /* label focus color */
-.input-field input[type=text]:focus + label {
-  color:  var(--color-input);
+
+.input-field input[type=text]:not(.browser-default):focus + label,
+.input-field input[type=email]:not(.browser-default):focus + label,
+.input-field input[type=password]:not(.browser-default):focus + label {
+  color: var(--color-input);
 }
 
-.input-field input[type=email]:focus + label {
-  color:  var(--color-input);
-}
-
-.input-field input[type=password]:focus + label {
-  color:  var(--color-input);
-}
-
-/* label underline focus color */
-.input-field input[type=text]:focus {
+/*indicator focus color */
+.input-field input[type=text]:not(.browser-default):focus,
+.input-field input[type=password]:not(.browser-default):focus,
+.input-field input[type=email]:not(.browser-default):focus{
   border-bottom: 1px solid var(--color-input);
   box-shadow: 0 1px 0 0 var(--color-input);
-}
-
-.input-field input[type=email]:focus {
-  border-bottom: 1px solid var(--color-input);
-  box-shadow: 0 1px 0 0 var(--color-input);
-}
-
-.input-field input[type=password]:focus {
-  border-bottom: 1px solid var(--color-a-active-breadcrumbs);
-  box-shadow: 0 1px 0 0 var(--color-a-active-breadcrumbs);
-}
-
-/* valid color*/
-.input-field input[type=text].valid {
-  border-bottom: 1px solid var(--color-valid);
-  box-shadow: 0 1px 0 0 var(--color-valid);
-}
-
-.input-field input[type=email].valid {
-  border-bottom: 1px solid var(--color-valid);
-  box-shadow: 0 1px 0 0 var(--color-valid);
-}
-
-.input-field input[type=password].valid {
-  border-bottom: 1px solid var(--color-valid);
-  box-shadow: 0 1px 0 0 var(--color-valid);
 }
 
 /* valid color */
 
-.input-field input[type=text].valid:focus ~label {
-  color: var(--color-valid);
-}
-
-.input-field input[type=email].valid:focus ~label {
-  color: var(--color-valid);
-}
-
+.input-field input[type=text].valid:focus ~label,
+.input-field input[type=email].valid:focus ~label,
 .input-field input[type=password].valid:focus ~label {
   color: var(--color-valid);
 }
 
-.input-field input[type=text].valid:active ~label {
-  color: var(--color-valid);
-}
-
-.input-field input[type=email].valid:active ~label {
-  color: var(--color-valid);
-}
-
-.input-field input[type=password].valid:active ~label {
-  color: var(--color-valid);
+.input-field input[type=text].valid, .input-field input[type=text].valid:focus, 
+.input-field input[type=email].valid, .input-field input[type=email].valid:focus,
+.input-field input[type=password].valid, .input-field input[type=password].valid:focus {
+  border-bottom: 1px solid var(--color-valid);
+  box-shadow: 0 1px 0 0 var(--color-valid);
 }
 
 /* invalid color */
 
-.input-field input[type=text].invalid {
+.input-field input[type=text].invalid, .input-field input[type=text].invalid:focus, 
+.input-field input[type=email].invalid, .input-field input[type=email].invalid:focus,
+.input-field input[type=password].invalid, .input-field input[type=password].invalid:focus {
   border-bottom: 1px solid var(--color-invalid);
   box-shadow: 0 1px 0 0 var(--color-invalid);
 }
 
-.input-field input[type=email].invalid {
-  border-bottom: 1px solid var(--color-invalid);
-  box-shadow: 0 1px 0 0 var(--color-invalid);
-}
-
-.input-field input[type=password].invalid {
-  border-bottom: 1px solid var(--color-invalid);
-  box-shadow: 0 1px 0 0 var(--color-invalid);
-}
-
-.input-field input[type=text].invalid:focus ~label {
-  color: var(--color-invalid);
-}
-
-.input-field input[type=email].invalid:focus ~label {
-  color: var(--color-invalid);
-}
-
-.input-field input[type=password].invalid:focus ~label {
+.input-field input[type=text].invalid:focus ~label,
+.input-field input[type=email].invalid:focus ~label,
+.input-field input[type=password].invalid:focus ~label  {
   color: var(--color-invalid);
 }
 
@@ -116,7 +64,6 @@
 .input-field .prefix.active{
   color: var(--color-input);
 }
-
 
 .btn-form {
   margin: 0 auto;
@@ -132,6 +79,7 @@
   font-size:15px;
 }
 
+/*buttony */
 .btn-form:hover{
   color: var(--color-a-hover);
   background-color: var(--btn-pick-course-background-color-hover);
@@ -152,9 +100,4 @@
 
 button:focus{
   background-color: transparent;
-}
-
-.tab-label{
-  color: var(--color);
-  background-color: aliceblue;
 }

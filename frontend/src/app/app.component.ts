@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { Dropdown, Tabs } from 'materialize-css';
 import { LocalstorageService } from './services/localstorage.service';
 import { ThemeService } from './services/theme.service';
@@ -6,7 +7,11 @@ import { ThemeService } from './services/theme.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [{
+    provide: MAT_RADIO_DEFAULT_OPTIONS,
+    useValue: {color: 'warn'}
+  }]
 })
 export class AppComponent {
   
