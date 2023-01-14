@@ -54,7 +54,7 @@
                             <div class="invalid-data" *ngIf="password.errors?.['required']">
                                 Hasło jest wymagane!
                             </div>
-                            <div class="invalid-data" *ngIf="password.errors?.['minlength']">
+                            <div class="invalid-data col s5" *ngIf="password.errors?.['minlength']">
                                 Hasło musi mieć przynajmniej 5 znaków!
                             </div>
                         </ng-container>

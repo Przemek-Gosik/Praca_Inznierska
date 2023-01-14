@@ -312,4 +312,5 @@ main{
 
 .mat-step-header .mat-step-label, .mat-step-header .mat-step-optional {
     color: var(--color);
+    text-transform: uppercase;
 }
