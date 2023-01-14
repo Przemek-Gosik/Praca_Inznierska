@@ -55,6 +55,7 @@ import { MemorizngResultComponent } from './pages/memorizing/memorizng-result/me
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 import { MemorizingCardComponent } from './pages/memorizing/memorizng-memory/memorizing-card/memorizing-card.component';
 import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding-numbers.component';
+import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.component';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding
     MemorizngResultComponent,
     MemorizngMemoryComponent,
     MemorizingCardComponent,
-    FindingNumbersComponent
+    FindingNumbersComponent,
+    EyesWarmUpComponent
   ],
   imports: [
     BrowserAnimationsModule,

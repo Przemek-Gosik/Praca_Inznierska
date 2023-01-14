@@ -11,6 +11,8 @@ export class ReadingComponent implements OnInit {
   title: string = "Szybkie czytanie";
   SCHULTZ: string = TypeReading.SCHULTZ
   FINDING_NUMBERS: string = TypeReading.FINDING_NUMBERS
+  QUIZ :string = TypeReading.READING_WITH_QUIZ
+
   constructor(private router:Router) { }
 
   ngOnInit(): void {
@@ -18,6 +20,8 @@ export class ReadingComponent implements OnInit {
 
   tabSchultz: string = "Tablice Schulza"
   findNumbers: string = "Znajdowanie liczb"
+  eyeTraining: string = "Rozgrzewka oczu"
+  quiz: string = "Czytanie ze zrozumieniem"
 
   linkToLevelChoice(type:string){
     this.router.navigate(["/courses/reading/level",

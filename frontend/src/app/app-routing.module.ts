@@ -27,6 +27,7 @@ import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemon
 import { PickCourseComponent } from './pages/pick-course/pick-course.component';
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding-numbers.component';
+import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'courses/reading/level',component:ChooseLevelReadingComponent},
   { path: 'courses/reading/level/schultz',component: SchulzComponent},
   { path: 'courses/reading/level/finding_numbers',component: FindingNumbersComponent},
+  { path: 'courses/reading/eye_warm_up',component: EyesWarmUpComponent},
   { path: 'courses/writing', component: WritingComponent},
   { path: 'courses/writing/course', component: WritingcoursesComponent},
   { path: 'courses/writing/course/lesson',component: WritinglessonComponent},
