@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Settings } from '../models/settings';
 import { LocalstorageService } from './localstorage.service';
 import { LoginService } from './login.service';
+import { SettingsService } from './settings.service';
 import { TokenService } from './token.service';
 
 @Injectable({
@@ -14,53 +15,29 @@ export class ThemeService {
     private localStorageService: LocalstorageService, 
     protected loginService: LoginService,
     private http: HttpClient,
-    private tokenService : TokenService ) { }
+    private tokenService : TokenService,
+    private settingsService: SettingsService) { }
   
-  apiUrl = "http://localhost:8080/api/auth/";
   storedTheme: any;
   setting: any;
   theme: any;
-  themeFromLocalStorage: any;
-  themeString: string = "";
 
   setTheme(theme: any){
-    if(!this.localStorageService.getItemFromStorage("setting")){
-      this.setTheme2(theme);
-      // console.log(theme);
-    }
-    else{
       this.storedTheme = this.localStorageService.getItemFromStorage("setting");
       this.storedTheme.theme=theme;
       this.localStorageService.setItemToStorage('setting',this.storedTheme);
-      // console.log(this.storedTheme);
-      // this.themeFromLocalStorage = this.localStorageService.getItemFromStorage('setting');
-      //this.saveSettings(this.storedTheme);
-      //console.log(this.themeFromLocalStorage);
-      this.saveSettings();
-    }
-  }
-
-  setTheme2(theme:any){
-    return theme;
+      if(this.loginService.loggedInUser()) 
+        this.settingsService.saveSettings();
   }
 
   getTheme(){
     if(!this.localStorageService.getItemFromStorage("setting")){
-      //tu zamiast stałej zwrócić funkcję, która będzie pobierać z niewiadomokąd info o motywie (jak niezalogowany będzie zmieniać motyw)
-      return this.storedTheme="NIGHT";
+      this.settingsService.setBasicSettingsLocalStorage('MEDIUM','DAY');
+      return this.settingsService.settingJSON.theme;
     }
     else{
       this.setting = this.localStorageService.getItemFromStorage("setting");
       return this.setting.theme;
     }
   }
-
-  saveSettings(){
-    //console.log(settings);
-    this.themeFromLocalStorage = this.localStorageService.getItemFromStorage('setting');
-    console.log(this.themeFromLocalStorage);
-    this.themeString = JSON.stringify(this.themeFromLocalStorage);
-    return this.http.patch(`${this.apiUrl}changeSetting`,this.themeString,{headers: this.tokenService.getHeaderWithToken()});
-  }
-
 }

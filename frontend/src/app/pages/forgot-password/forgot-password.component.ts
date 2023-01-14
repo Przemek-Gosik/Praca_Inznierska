@@ -14,8 +14,9 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPassword: Partial<forgotPassword> = {};
   verificationCode: Partial<VerificationCode> = {};
   title = "Przypomnienie hasła";
-
-  
+  errorResponse: string = "";
+  verificationFailed: boolean = false;
+  forgotPasswordFailed: boolean = false;
 
   ngOnInit() {
   }

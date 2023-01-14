@@ -15,9 +15,9 @@
 .tabs .tab a:hover{
     color: var(--color-a-hover);
 } 
-/* .tabs.tabs-transparent .indicator {
+.tabs.tabs-transparent .indicator {
     background-color: rgb(0, 0, 0);
-  } */
+  }
   
 /* .tab a.active{
     color: red !important;

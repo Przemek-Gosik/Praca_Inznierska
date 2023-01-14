@@ -3,11 +3,6 @@
 }
 
 /* label color */
-/* .input-field label {
-  color: var(--color-a-hover);
-}  */
-
-/* label color */
 .input-field input[type=text] ~label,
 .input-field input[type=password] ~label {
   color: var(--color-a-active-breadcrumbs);

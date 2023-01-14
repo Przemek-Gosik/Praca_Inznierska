@@ -314,3 +314,23 @@ main{
     color: var(--color);
     text-transform: uppercase;
 }
+
+.mat-stepper-horizontal-line, 
+.mat-stepper-label-position-bottom
+/* .mat-horizontal-stepper-header:not(:last-child)::after, */
+/* .mat-horizontal-stepper-header:not(:last-child)::before, */
+/* .mat-horizontal-stepper-header::before{ */ {
+    border-top-color: var(--color);
+    /* opacity: 0.5; */
+}
+
+.mat-horizontal-stepper-header:not(:last-child)::before,
+.mat-horizontal-stepper-header:not(:last-child)::after,
+.mat-horizontal-stepper-header::before{
+    border-top-color:transparent;
+}
+
+.mat-step-icon,
+.mat-step-header{
+    background-color: transparent;
+}

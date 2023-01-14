@@ -10,10 +10,10 @@ import { RegistrationService } from 'src/app/services/registration.service';
 })
 export class VerificationCodeComponent implements OnInit {
 
-  title: string = "Weryfikacja konta"
-  instruction: string = "Aby aktywować konto należy wpisać w poniższe pole kod weryfikacyjny otrzymany na adres e-mail."
-  errorResponse: string=""
-  verificationFailed: boolean = false
+  title: string = "Weryfikacja konta";
+  instruction: string = "Aby aktywować konto należy wpisać w poniższe pole kod weryfikacyjny otrzymany na adres e-mail.";
+  errorResponse: string="";
+  verificationFailed: boolean = false;
   verificationCode: Partial<VerificationCode> = {};  
   
   constructor(private registrationService: RegistrationService,
