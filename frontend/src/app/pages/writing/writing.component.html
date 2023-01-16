@@ -1,4 +1,4 @@
-<div class="bg-color">
+<div>
   <nav class="breadcrumb-background">
       <div class="col s10">
         <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
@@ -11,23 +11,23 @@
     <div class="row font-title">
         {{title}}
     </div>
-
+    <div>
       <button mat-fab extended routerLink="/courses/writing/course" class="btn-writing btn-large" > 
+          <span class="btn-hover">
+              <!-- <mat-icon>spellcheck</mat-icon> -->
+              <mat-icon>type_specimen</mat-icon>
+              <br>
+              Kurs
+          </span> 
+      </button>
+
+      <button mat-fab extended routerLink="/courses/writing/text" class="btn-writing btn-large" > 
         <span class="btn-hover">
-            <!-- <mat-icon>spellcheck</mat-icon> -->
-            <mat-icon>type_specimen</mat-icon>
+            <mat-icon>notes</mat-icon>
             <br>
-            Kurs
+            Teksty
         </span> 
-    </button>
-
-    <button mat-fab extended routerLink="/courses/writing/text" class="btn-writing btn-large" > 
-      <span class="btn-hover">
-          <mat-icon>notes</mat-icon>
-          <br>
-          Teksty
-      </span> 
-  </button>
-
+      </button>
+    </div>
   </div>
 </div>

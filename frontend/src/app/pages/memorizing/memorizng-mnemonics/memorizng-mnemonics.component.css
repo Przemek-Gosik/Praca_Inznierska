@@ -3,12 +3,17 @@
     height: 100px;
     color: var(--color);
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
-    background-color: var(--color-number);
+    background-color: var(--bg-mat-dialog);
+    color: var(--color-number);
     border-radius: 8px;
     /* font-size: 25px; */
-    padding-top:3.5%;
+    /* padding-top:3.5%; */
+    text-align: center;
   }
-
+.context-box{
+  font-size: 30px;
+  font-weight: bolder;
+}
   .number-presentation{
     display: flex;
     justify-content: center;
@@ -52,22 +57,17 @@
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
                 0 8px 10px 1px rgba(0, 0, 0, 0.14),
                 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-    background-color: var(--btn-pick-course-background-color-hover);
-    color: var(--color);
+    background-color: var(--bg-mat-dialog);
+    color: var(--color-a-hover);
   }
   
   .cdk-drag-placeholder {
     opacity: 0;
   }
   
-  .cdk-drag-placeholder {
-    background-color: blueviolet;
-  }
-  
-  
   .cdk-drag-animating {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-    background-color: var(--btn-pick-course-background-color-hover);
+    background-color: var(--bg-mat-dialog);
     color: var(--color-a-hover);
   }
   

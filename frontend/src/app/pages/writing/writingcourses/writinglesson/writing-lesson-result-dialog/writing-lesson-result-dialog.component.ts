@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Lesson, WritingLessonResult } from 'src/app/models/writing-model';
 import { LoginService } from 'src/app/services/login.service';
+import { ThemeService } from 'src/app/services/theme.service';
 import { WritingService } from 'src/app/services/writing.service';
 
 @Component({
@@ -26,7 +27,10 @@ export class WritingLessonResultDialogComponent implements OnInit {
     time: 0
   }
   saved: boolean = false
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private writingService: WritingService,private loginService:LoginService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  private writingService: WritingService,
+  private loginService:LoginService,
+  protected themeService: ThemeService) { }
   
   ngOnInit(): void {
     this.score = this.data.score
@@ -41,14 +45,12 @@ export class WritingLessonResultDialogComponent implements OnInit {
         console.log(this.lastResult)
       })
     }
-  
   }
 
   loggedIn():boolean{
     return this.loginService.loggedInUser()
   }
 
-  
   calculatePrecision():string{
     var precision : number = 0;
     precision = (this.score*1.0/this.typedLetters)*100

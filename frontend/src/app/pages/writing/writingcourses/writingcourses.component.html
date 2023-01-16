@@ -1,19 +1,19 @@
 <div>
-    <nav class="bg-breadcrumb">
-        <div>
-          <div class="col s12">
-            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/courses" class="breadcrumb" style="padding-top:500px"><b>Kursy</b></a>
-            <a href="/writing" class="breadcrumb " style="padding-top:500pxl"><b>Pisanie</b></a>
-            <a href="/writing/course" class="breadcrumb " style="padding-top:500pxl"><b>Kurs</b></a>
-          </div>
-        </div>
-    </nav>
-
-    <div class="row grid">
-        <div class="row home">
-            {{title}}
-            <div class="row" *ngFor="let module of modules, let i = index">
-                <app-writingmodules class="column" [module]="module"></app-writingmodules>
-            </div>
+  <nav class="breadcrumb-background">
+    <div class="col s10">
+      <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+      <a href="/courses" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+      <a href="/courses/writing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Pisanie</b></a>
+      <a href="/courses/writing/course" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kurs</b></a>
     </div>
+  </nav>
+
+  <div class="row context-box">
+      <div class="row font-title">
+          {{title}}
+      </div>
+      <div class="row" *ngFor="let module of modules, let i = index">
+        <app-writingmodules class="column" [module]="module"></app-writingmodules>
+      </div>
+  </div>
+</div>

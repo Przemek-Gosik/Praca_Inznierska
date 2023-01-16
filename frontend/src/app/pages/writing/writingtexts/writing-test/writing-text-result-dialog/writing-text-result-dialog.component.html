@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Rezultat zadania</h1>
+<p mat-dialog-title>Rezultat zadania</p>
 <mat-dialog-content>
     <p>Zdobyte punkty: {{result.score}}</p>
     <p>Ilość wpisanych znaków:{{result.typedText.length}}</p>
@@ -7,6 +7,6 @@
     <p>Prędkość wpisywania: {{calculateSpeed()}} znaków na minutę</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button class=" waves-ligth btn-2 btn-large" [disabled]=saved (click)="saveResult()" *ngIf=loggedIn()>Zapisz</button>
-    <button mat-dialog-close class=" waves-ligth btn-2 btn-large">Zamknij</button>
+    <button [ngClass]="this.themeService.getTheme()" class="btn-form btn-large" [disabled]=saved (click)="saveResult()" *ngIf=loggedIn()>Zapisz</button>
+    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large">Zamknij</button>
 </mat-dialog-actions>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TypeMemory } from 'src/app/consts/type-consts';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-memorizing',
@@ -13,7 +14,7 @@ export class MemorizingComponent implements OnInit {
   mnemonicsGame: string = "Cyferki";
   memory: string = TypeMemory.MEMORY;
   mnemonics: string = TypeMemory.MNEMONICS;
-  constructor(private router: Router) { }
+  constructor(private router: Router, protected themeService: ThemeService) { }
 
   ngOnInit(): void {
   }

@@ -6,6 +6,7 @@ import { timeInterval, TimeInterval } from 'rxjs/internal/operators/timeInterval
 import { ButtonNames } from 'src/app/consts/button-names-consts';
 import { Lesson, WritingLessonResult } from 'src/app/models/writing-model';
 import { GameService } from 'src/app/services/game.service';
+import { ThemeService } from 'src/app/services/theme.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
 import { SplitPipe } from '../../pipe/splitpipe';
@@ -21,7 +22,7 @@ export class WritinglessonComponent implements OnInit,GameService {
 
   id : number = 0
   typedTexts : string[] = []
-  width: number = 100
+  width: number = 170
   timeElapsed: number = 0
   numberOfTypedLetters: number = 0
   lesson : Lesson = {
@@ -39,13 +40,17 @@ export class WritinglessonComponent implements OnInit,GameService {
   buttonActionName : string = ButtonNames.START_NAME
   blockLesson : boolean = true
   done : boolean = false
-  
+  colorDay: string = "";
+  colorNIGHT: string = "";
+
+  theme: string = "";
 
   constructor(private router:Router,
     private route: ActivatedRoute,
     private writingService: WritingService,
-    public dialog: MatDialog,
-    public timerService: TimerService) { }
+    protected dialog: MatDialog,
+    protected timerService: TimerService,
+    private themeService: ThemeService) { }
 
   ngOnInit(): void {
     this.dateTime = this.timerService.getCurrentDate()
@@ -70,7 +75,6 @@ export class WritinglessonComponent implements OnInit,GameService {
     this.router.navigate(["/courses/writing/course"])
   }
 
-
   getLessonById(id: number) {
     this.writingService.getLessonById(id).subscribe((res)=>{
       this.lesson = res
@@ -78,7 +82,6 @@ export class WritinglessonComponent implements OnInit,GameService {
     })
   }
 
- 
   moveOn(i : number){
     if(i >= this.lesson.text!.length){
       this.startOrPause()
@@ -119,7 +122,7 @@ export class WritinglessonComponent implements OnInit,GameService {
   ):void {
     this.dialog.open(WritingLessonResultDialogComponent, {
       width: '500px',
-      height: '500px',
+      // height: '500px',
       data:{
         numberOfTypedLetters: this.numberOfTypedLetters,
         idResult: this.lesson.idWritingLessonResult,
@@ -131,21 +134,57 @@ export class WritinglessonComponent implements OnInit,GameService {
   })
   }
 
-  setTextColor(i:number,j:number):string{
-    if(this.typedTexts.length < i+1){
+  getLetterColor(){
+    this.theme=this.themeService.getTheme();
+    if(this.theme=="NIGHT"){
+      return "#ffffffb4"
+    }
+    else{
       return "black"
-    }else{
-    if(j+1>this.typedTexts[i].length){
-        return "black"
-    }else{
-      var char : string = this.typedTexts[i].charAt(j)
-      if(char == this.lesson.text![i].charAt(j)){
-        return "green"
-      }else{
-        return "red"
-      }
     }
   }
+
+  getLetterInvalidColor(){
+    this.theme=this.themeService.getTheme();
+    if(this.theme=="NIGHT"){
+      return "#b91e26"
+    }
+    else if (this.theme=="CONTRAST"){
+      return "#070707"
+    }
+    else{
+      return "red"
+    }
+  }
+
+  getLetterValidColor(){
+    this.theme=this.themeService.getTheme();
+    if(this.theme=="NIGHT"){
+      return "#076921"
+    }
+    else if (this.theme=="CONTRAST"){
+      return "#070707"
+    }
+    else{
+      return "green"
+    }
+  }
+
+  setTextColor(i:number,j:number):string{
+    if(this.typedTexts.length < i+1){
+      return this.getLetterColor()
+    }else{
+      if(j+1>this.typedTexts[i].length){
+        return this.getLetterColor()
+      }else{
+        var char : string = this.typedTexts[i].charAt(j)
+        if(char == this.lesson.text![i].charAt(j)){
+          return this.getLetterValidColor();
+        }else{
+          return this.getLetterInvalidColor();
+        }
+      }
+    }
   }
 
   calculatePoints(){
@@ -159,8 +198,7 @@ export class WritinglessonComponent implements OnInit,GameService {
                 points +=1
               }
               typedLetters +=1
-        }
-        
+        } 
     }
     this.timeElapsed=this.timerService.calculateTime()
     this.lesson.score=points
@@ -168,6 +206,7 @@ export class WritinglessonComponent implements OnInit,GameService {
     this.openDialog()
   }
 
- 
-
+  // calculateInputWidth(word :string){
+  //   return 11*word.length
+  // }
 }

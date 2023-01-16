@@ -1,66 +1,65 @@
 <div>
-  <nav class="bg-breadcrumb">
-    <div>
+  <nav class="breadcrumb-background">
       <div class="col s12">
-        <a href="/" class="breadcrumb" style="padding-top: 500px"
-          ><b>Strona główna</b></a
-        >
-        <a href="/writing" class="breadcrumb" style="padding-top: 500pxl"
-          ><b>Pisanie</b></a
-        >
+        <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+        <a href="/courses/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+        <a href="/courses/writing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Pisanie</b></a>
+        <a href="/courses/writing/text" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Poziom trudności</b></a>
+        <a href="/courses/writing/text" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Wybierz tekst</b></a>
+        <a class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>{{writingText.title}}</b></a>
       </div>
-    </div>
   </nav>
-  <div class="row grid">
-    <div class="row home">
-      <h4>
-        <b>{{ writingText.title }}</b>
-      </h4>
-
-      <div class="text">
+  <div class="context-box">
+    <div class="col s12" >
+      <div class="row">
+        <div class="font-title col s12">
+          {{writingText.title}}
+        </div>
+      </div>
+      <div class="text" style="margin-left:5%; margin-right:2%">
         <div *ngFor="let word of writingText.text | splitWords; let i = index">
-          <input
-            #box
-            [style.width.px]="calculateInputWidth(word)"
-            [(ngModel)]="typedWords[i]"
-            [id]="i"
-            (keyup.space)="moveOn(i + 1, word)"
-            [maxlength]=getMaxLength(word)
-            autocomplete="off"
-            [disabled]="blockTyping"
-          />
-          <div class="word" #word>
-            <div
-              *ngFor="let char of word | split; let j = index"
-              [ngStyle]="{ color: setTextColor(i, j) }"
-            >
-              {{ char }}
+          <div style="display: inline-block;margin-right:2%;">
+            <div>
+              <input
+                #box
+                [style.width.px]="calculateInputWidth(word)"
+                [(ngModel)]="typedWords[i]"
+                [id]="i"
+                (keyup.space)="moveOn(i + 1, word)"
+                [maxlength]=getMaxLength(word)
+                autocomplete="off"
+                [disabled]="blockTyping"
+              />
             </div>
-            &nbsp;&nbsp;
+            <div class="word" #word>
+              <div
+                *ngFor="let char of word | split; let j = index"
+                [ngStyle]="{ color: setTextColor(i, j) }"
+              >
+                {{ char }}
+              </div>
+              &nbsp;&nbsp;
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="btn-position">
-      <h2>{{ timerService.displayTime() }}</h2>
-      <div>
-        <button class="waves-ligth btn-small btn-2" (click)="startOrPause()">
+    <div class="">
+      <div class="row">
+        <p class="points center" style="margin-top:2%">Czas: {{ timerService.displayTime() }}</p>
+      </div>
+      <div class="row center">
+        <button class="btn-small btn-writing" (click)="startOrPause()">
           {{ buttonActionName }}
         </button>
-      </div>
-      <div>
-        <button class="waves-light btn-small btn-2" (click)="reset()">
+        <button class="btn-small btn-writing" (click)="reset()">
           Zresetuj
         </button>
-      </div>
-      <div>
-        <button class="waves-ligth btn-small btn-2" (click)="goBack()">
+        <button class="btn-small btn-writing" (click)="goBack()">
           Powrót
         </button>
-      </div>
-      <div>
         <button
-          class="waves-ligth btn-small btn-2"
+          class="btn-small btn-writing"
           (click)="calculatePoints()"
           [disabled]="!done"
         >

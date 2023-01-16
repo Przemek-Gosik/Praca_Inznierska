@@ -5,6 +5,7 @@ import { TypeMemory } from "src/app/consts/type-consts";
 import { CardDetails, MemorizngResult } from "src/app/models/memorizing-model";
 import { LoginService } from "src/app/services/login.service";
 import { MemorizingService } from "src/app/services/memorizing.service";
+import { SettingsService } from "src/app/services/settings.service";
 import { TimerService } from "src/app/services/timer.service";
 
 @Component({
@@ -26,7 +27,8 @@ export class MemorizngMemoryComponent implements OnInit {
     private timerService: TimerService,
     private memorizingService: MemorizingService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected settingService: SettingsService
   ) {}
 
   ngOnInit(): void {
@@ -126,7 +128,7 @@ export class MemorizngMemoryComponent implements OnInit {
 
   goBack():void{
     this.reset()
-    this.router.navigate(['/courses/memorizing/level',{
+    this.router.navigate(['/courses/memorizing/',{
       type: TypeMemory.MEMORY
     }])
   }

@@ -1,4 +1,4 @@
-<div class="bg-color">
+<div>
   <nav class="breadcrumb-background">
     <div class="">
       <div class="col s10">
@@ -21,7 +21,7 @@
           ><b>Zapamiętywanie</b></a
         >
         <a
-          (click)="goBack()"
+          href="/courses/memorizing/level"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
           ><b>Wybór poziomu</b></a
@@ -40,7 +40,9 @@
     <div class="font-title">Cyferki</div>
     <div *ngIf="isPresented" class="number-presentation">
       <div class="number">
-        <h2>{{ showNumber() }}</h2>
+        <br>
+        <br>
+        <p>{{ showNumber() }}</p>
       </div>
     </div>
     <div *ngIf="!isPresented">
