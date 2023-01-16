@@ -50,6 +50,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-number: rgb(0, 93, 151);
     --bg-mat-dialog: rgba(255, 255, 255, 0.966);
     --dotted-line-color: rgba(0, 0, 0, 0.5);
+    --btn-delete-bg-color: red;
     
 }
 
@@ -74,6 +75,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-number: rgb(105, 206, 255);
     --bg-mat-dialog: rgba(53, 53, 53, 0.856);
     --dotted-line-color:#ffffff83;
+    --btn-delete-bg-color: #b91e26;
 }
 
 .CONTRAST{
@@ -97,6 +99,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-number: rgba(10, 10, 10, 0.884);
     --bg-mat-dialog: rgba(255, 255, 255, 0.986);
     --dotted-line-color: rgba(0, 0, 0, 0.5);
+    --btn-delete-bg-color: rgba(255, 255, 255, 0.986);
 
 }
 
