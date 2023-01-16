@@ -1,10 +1,13 @@
 import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service'
 import { LoginService } from 'src/app/services/login.service';
+import { WritingTextResultDialogComponent } from '../writing/writingtexts/writing-test/writing-text-result-dialog/writing-text-result-dialog.component';
+import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
 
 @Component({
   selector: 'app-account',
@@ -16,12 +19,17 @@ export class AccountComponent implements OnInit {
   userDelete: Partial<User> = {}; 
   errorResponse: string = "";
   deteleUserFailed : boolean = false;
+  // result: string ="";
+
+  animal: string="";
+  name: string="";
 
   constructor(
     private localStorageService: LocalstorageService,
     private router: Router,
     private loginService: LoginService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    public dialog: MatDialog,
     ) 
     { }
 
@@ -41,17 +49,14 @@ export class AccountComponent implements OnInit {
     return this.authenticationService.isUserAdmin()
   }
 
-  deleteUser(){
-    this.loginService.deleteUser().subscribe((res:any)=>{
-       this.localStorageService.removeItemFromStorage('token');
-       this.localStorageService.removeItemFromStorage('user');
-       this.localStorageService.removeItemFromStorage('setting');
-       this.logoutUser();
-       alert("Twoje konto zostało usunięte.")
-    }, err => {
-      this.deteleUserFailed = true
-      this.errorResponse = err.error.message
-    })
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      width:'400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

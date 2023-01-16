@@ -58,6 +58,7 @@ import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DeleteUserDialogComponent } from './pages/account/delete-user-dialog/delete-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MemorizngMemoryComponent,
     MemorizingCardComponent,
     FindingNumbersComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    DeleteUserDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,

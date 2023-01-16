@@ -192,7 +192,6 @@ export class WritingTestComponent implements OnInit,GameService {
     }
   }
 
-
   moveOn(i: number, word: string){
     if(word.length <= this.typedWords[i-1].length){
       let idStr : string = i.toString()
