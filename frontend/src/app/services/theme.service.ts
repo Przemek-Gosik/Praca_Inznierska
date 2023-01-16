@@ -59,8 +59,9 @@ export class ThemeService {
     //console.log(settings);
     this.themeFromLocalStorage = this.localStorageService.getItemFromStorage('setting');
     console.log(this.themeFromLocalStorage);
-    this.themeString = JSON.stringify(this.themeFromLocalStorage);
-    return this.http.patch(`${this.apiUrl}changeSetting`,this.themeString,{headers: this.tokenService.getHeaderWithToken()});
+    return this.http.patch(`${this.apiUrl}changeSetting`,this.themeFromLocalStorage,{headers: this.tokenService.getHeaderWithToken()}).subscribe((res)=>{
+      console.log(res)
+    });
   }
 
 }

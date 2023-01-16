@@ -101,7 +101,7 @@ import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.c
     MemorizngMemoryComponent,
     MemorizingCardComponent,
     FindingNumbersComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
     FindingNumbersComponent,
     EyesWarmUpComponent
   ],
