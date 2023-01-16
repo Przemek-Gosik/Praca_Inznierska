@@ -1,3 +1,75 @@
-<div class="bg-color">
+<div>
+    <nav class="breadcrumb-background">
+        <div class="">
+          <div class="col s12">
+            <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/contact" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kontakt</b></a>
+          </div>
+        </div>
+    </nav>
+    <div class="row context-box">
+        <div class="row link">
+          <div class="font-title">
+              Formularz kontaktowy
+            </div>
+            <form class="col s12" #registrationForm="ngForm" [appMatchPassword]="['password', 'confirmPassword']">
+                    <div class="row">
+                        <div class="input-field col s5" style="margin-left:28%">
+                            <i class="material-icons validate prefix"  style="margin-right:1%" >account_circle</i>
+                            <input 
+                                type="email"
+                                class="validate"
+                            >
+                            <label for="email">Adres e-mail</label>
+                            <!-- <ng-container *ngIf="login.invalid && login.touched ">
+                                <div class="invalid-data" *ngIf="login.errors?.['required']">
+                                    Login jest wymagany!
+                                </div>
+                                <div class="invalid-data" *ngIf="login.errors?.['minlength']">
+                                    Login musi mieć przynajmniej 5 znaków!
+                                </div>
+                                <div class="invalid-data" *ngIf="login.errors?.['maxlength']">
+                                   Login nie może mieć więcej niż 15 znaków!
+                                </div>
+                            </ng-container> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5" style="margin-left:28%">
+                            <i class="material-icons validate prefix"  style="margin-right:1%" >title</i>
+                            <input 
+                                type="text"
+                                class="validate"
+                            />
+                            <label for="title">Tytuł</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5" style="margin-left:28%">
+                            <i class="material-icons validate prefix"  style="margin-right:1%" >message</i>
+                            <textarea 
+                                id="textarea1" 
+                                class="materialize-textarea"
+                                  
+                            >
+                            </textarea>
+
+                            <label for="message">Wiadomość</label>
+                        </div>
+                    </div>
+                    
+                    <div class="center">
+                        <button class="btn-small btn-form" type="submit" [disabled]="registrationForm.invalid" >Wyślij</button>
+                        <button class="btn-small btn-form" type="reset"> Wyczyść</button>
+                    </div>
+                    <br>
+                    <!-- <div *ngIf="registrationFailed" class="invalid-data" >
+                        {{errorResponse}}
+                    </div> -->
+            </form>
+        </div>
+    </div>
 </div>
+
+
 
