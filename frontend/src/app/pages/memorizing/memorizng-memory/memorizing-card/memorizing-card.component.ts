@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardDetails } from 'src/app/models/memorizing-model';
+import { ThemeService } from 'src/app/services/theme.service';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class MemorizingCardComponent implements OnInit {
 
   @Output() cardClicked = new EventEmitter();
 
-  constructor() { }
+  constructor(protected themeService: ThemeService) { }
 
   ngOnInit(): void {
   }

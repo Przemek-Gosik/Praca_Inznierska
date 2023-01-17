@@ -1,4 +1,4 @@
-<div class="bg-color">
+<div>
   <nav class="breadcrumb-background">
     <div class="">
       <div class="col s10">
@@ -9,13 +9,19 @@
           ><b>Strona główna</b></a
         >
         <a
-          href="/memorizing"
+        href="/courses"
+        class="breadcrumb breadcrumb-text"
+        style="padding-top: 500px"
+        ><b>Kursy</b></a
+      >
+        <a
+          href="/courses/memorizing"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
           ><b>Zapamiętywanie</b></a
         >
         <a
-          (click)="goBack()"
+          href="/courses/memorizing/level"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
           ><b>Wybór poziomu</b></a
@@ -24,28 +30,32 @@
           (click)="reset()"
           class="breadcrumb breadcrumb-text"
           style="padding-top: 500px"
-          ><b>Gra memory</b></a
+          ><b>Dopasuj obrazki</b></a
         >
       </div>
     </div>
   </nav>
   <div class="row context-box center">
-    <div class="font-title">Gra typu memory</div>
-    <div class="cards">
+    <div class="font-title">Dopasuj obrazki</div>
+    <div class="cards" style="margin-left: 2%; margin-right: 2%">
       <app-memorizing-card
         *ngFor="let card of cards; let i = index"
         [data]="card"
         (cardClicked)="cardClicked(i)"
+        style="padding: 0.5%"
       ></app-memorizing-card>
     </div>
-    <div class="points">
-      <h3>Zdobyte punkty: {{points}}</h3>
+    <div class="">
+      <br>
+      <span class="points">Zdobyte punkty: {{points}}</span>
+      <br>
     </div>
-    <div class="btn-position">
-      <button class="waves-effect waves-ligth btn-small btn-2" (click)="reset()" >Resetuj</button>
-      <button class="waves-effect waves-ligth btn-small btn-2" (click)="goBack()">Powrót</button>
+    <div>
+      <br>
+      <button class="btn-small btn-form" (click)="reset()" >Resetuj</button>
+      <button class="btn-small btn-form" (click)="goBack()">Powrót</button>
       <button
-        class="waves-effect waves-ligth btn-small btn-2"
+        class="btn-small btn-form"
         *ngIf="loggedIn()"
         [disabled]=!finished
         (click)="saveResult()"

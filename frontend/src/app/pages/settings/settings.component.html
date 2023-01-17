@@ -6,7 +6,7 @@
                 <a href="/settings" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Ustawienia</b></a>
               </div>
         </nav>
-        <div class="row context-box">
+        <div class="row context-box center">
             <div class="row">
                 <div class="col s12 font-title">
                     {{title}}
@@ -14,7 +14,7 @@
                 <div class="col s12">
                     <mat-tab-group dynamicHeight>
                         <mat-tab label="Motyw"> 
-                            <div style="margin-left:13%">
+                            <div>
                                 <ng-container *ngFor="let theme of themes" style="display:inline">
                                     <button mat-fab extended (click)="this.themeService.setTheme(theme.value)" class="btn-settings btn-large"> 
                                         <span class="btn-hover" >
@@ -28,7 +28,7 @@
                         </mat-tab>
                         
                         <mat-tab label="Rozmiar czcionki"> 
-                            <div style="margin-left:13%">
+                            <div>
                                 <ng-container *ngFor="let font of fonts" style="display:inline">
                                     <button mat-fab extended class="btn-settings btn-large"> 
                                         

@@ -1,4 +1,4 @@
-<div class="bg-color">
+<div [ngClass]="this.themeService.getTheme()">
   <nav class="breadcrumb-background">
     <div class="">
       <div class="col s10">
@@ -28,29 +28,31 @@
     <div class="row font-title">
       {{ title }}
     </div>
-    <button mat-fab extended class="btn-memory btn-large mat-size-4" (click)=linkToLevelChoice(memory)>
-      <span class="btn-hover">
-        <mat-icon>123</mat-icon>
-        <br />
-        {{ memoryGame }}
-      </span>
-    </button>
-    <button mat-fab extended class="btn-memory btn-large mat-size-3" (click)=linkToLevelChoice(mnemonics)>
-      <span class="btn-hover">
-        <!-- <mat-icon>collections</mat-icon> -->
-        <!-- <mat-icon>interests</mat-icon> -->
-        <!-- <mat-icon>move_up</mat-icon> -->
-        <!-- <mat-icon>schema</mat-icon> -->
-        <!-- <mat-icon>burst_mode</mat-icon> -->
-        <mat-icon>psychology</mat-icon>
-        <!-- <mat-icon>image</mat-icon> -->
-        <!-- <mat-icon>wrap_text</mat-icon> -->
-        <!-- <mat-icon>filter</mat-icon> -->
-        <!-- <mat-icon>auto_awesome_motion</mat-icon> -->
-        <!-- to do pola widzenia?--> <!-- <mat-icon>scatter_plot</mat-icon> -->
-        <br />
-        {{ mnemonicsGame }}
-      </span>
-    </button>
+    <div>
+      <button mat-fab extended class="btn-memory btn-large mat-size-4" (click)=linkToLevelChoice(memory)>
+        <span class="btn-hover">
+          <mat-icon>burst_mode</mat-icon>
+          <br />
+          {{ memoryGame }}
+        </span>
+      </button>
+      <button mat-fab extended class="btn-memory btn-large mat-size-3" (click)=linkToLevelChoice(mnemonics)>
+        <span class="btn-hover">
+          <!-- <mat-icon>collections</mat-icon> -->
+          <!-- <mat-icon>interests</mat-icon> -->
+          <!-- <mat-icon>move_up</mat-icon> -->
+          <!-- <mat-icon>schema</mat-icon> -->
+          <!-- <mat-icon>burst_mode</mat-icon> -->
+          <mat-icon class="font-big">123</mat-icon>
+          <!-- <mat-icon>image</mat-icon> -->
+          <!-- <mat-icon>wrap_text</mat-icon> -->
+          <!-- <mat-icon>filter</mat-icon> -->
+          <!-- <mat-icon>auto_awesome_motion</mat-icon> -->
+          <!-- to do pola widzenia?--> <!-- <mat-icon>scatter_plot</mat-icon> -->
+          <br />
+          {{ mnemonicsGame }}
+        </span>
+      </button>
+    </div>
   </div>
 </div>

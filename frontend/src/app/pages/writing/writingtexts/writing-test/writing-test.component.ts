@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonNames } from 'src/app/consts/button-names-consts';
 import { WritingTextResult, WritingText } from 'src/app/models/writing-model';
 import { GameService } from 'src/app/services/game.service';
+import { ThemeService } from 'src/app/services/theme.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { WritingService } from 'src/app/services/writing.service';
 import { WritingTextResultDialogComponent } from './writing-text-result-dialog/writing-text-result-dialog.component';
@@ -31,12 +32,14 @@ export class WritingTestComponent implements OnInit,GameService {
   buttonActionName :string = ButtonNames.START_NAME;
   text :string[] = []
   typedWords: string[] = []
+  theme: string = ""
 
   constructor(private route: ActivatedRoute,
     private writingService: WritingService,
     public timerService: TimerService,
     private router: Router,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private themeService: ThemeService) { }
 
   startOrPause():void {
     if(this.buttonActionName == ButtonNames.START_NAME){
@@ -88,7 +91,7 @@ export class WritingTestComponent implements OnInit,GameService {
   openDialog(result: WritingTextResult):void{
     this.dialog.open(WritingTextResultDialogComponent,{
       width: '500px',
-      height: '500px',
+      // height: '500px',
       data:{
         result: result
       }
@@ -132,29 +135,62 @@ export class WritingTestComponent implements OnInit,GameService {
     this.timerService.clearTimer()
   }
 
-  
-
   calculateInputWidth(word :string){
-    return 9*word.length
+    return 13.5*word.length
+  }
+
+  getLetterColor(){
+    this.theme=this.themeService.getTheme();
+    if(this.theme=="NIGHT"){
+      return "#ffffffb4"
+    }
+    else{
+      return "black"
+    }
+  }
+
+  getLetterInvalidColor(){
+    this.theme=this.themeService.getTheme();
+    if(this.theme=="NIGHT"){
+      return "#b91e26"
+    }
+    else if (this.theme=="CONTRAST"){
+      return "#070707"
+    }
+    else{
+      return "red"
+    }
+  }
+
+  getLetterValidColor(){
+    this.theme=this.themeService.getTheme();
+    if(this.theme=="NIGHT"){
+      return "#076921"
+    }
+    else if (this.theme=="CONTRAST"){
+      return "#070707"
+    }
+    else{
+      return "green"
+    }
   }
 
   setTextColor(i:number,j:number):string{
     if(this.typedWords.length < i+1){
-      return "black"
+      return this.getLetterColor();
     }else{
-    if(j+1>this.typedWords[i].length){
-        return "black"
-    }else{
-      var char : string = this.typedWords[i].charAt(j)
-      if(char == this.text[i].charAt(j)){
-        return "green"
+      if(j+1>this.typedWords[i].length){
+        return this.getLetterColor();
       }else{
-        return "red"
+        var char : string = this.typedWords[i].charAt(j)
+        if(char == this.text[i].charAt(j)){
+          return this.getLetterValidColor();
+        }else{
+          return this.getLetterInvalidColor();
+        }
       }
     }
   }
-  }
-
 
   moveOn(i: number, word: string){
     if(word.length <= this.typedWords[i-1].length){

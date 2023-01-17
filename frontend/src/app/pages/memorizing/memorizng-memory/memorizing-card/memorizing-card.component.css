@@ -16,6 +16,7 @@
     cursor: pointer;
     position: relative;
     transform-style: preserve-3d;
+    background-color: var(--background-color);
 }
 
 
@@ -25,6 +26,7 @@ img{
     object-fit: cover;
     border-radius: 8px;
 }
+
 .back,
 .front {
     position: absolute;
@@ -36,6 +38,9 @@ img{
 
 .back{
     transform: rotateY(0deg);
+    width:150px; 
+    height:100px;
+    max-height: 100%;
 }
 
 .front{

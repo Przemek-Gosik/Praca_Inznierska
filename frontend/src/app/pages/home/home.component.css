@@ -1,6 +1,5 @@
 .btn-pick-up-course{
     background-color:var(--btn-pick-course-background-color);
-    margin-left:12.5%;
     width:75%;
     height: auto;
     color:var(--color);

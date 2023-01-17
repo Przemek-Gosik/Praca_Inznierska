@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MemorizngResult } from 'src/app/models/memorizing-model';
 import { LoginService } from 'src/app/services/login.service';
 import { MemorizingService } from 'src/app/services/memorizing.service';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-memorizng-result',
@@ -19,7 +20,7 @@ export class MemorizngResultComponent implements OnInit {
     type: ''
   }
   saved : boolean = false
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private memorizingService : MemorizingService, private loginService : LoginService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private memorizingService : MemorizingService, private loginService : LoginService, protected themeService: ThemeService)  { }
 
   ngOnInit(): void {
     this.result = this.data.result

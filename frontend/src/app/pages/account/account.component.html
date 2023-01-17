@@ -12,8 +12,8 @@
         <div class="font-title">
             Moje konto
           </div>
-          <div class="col s12 center wrapper">
-
+          <div class="col s12 center">
+            <div style="margin-left:1%; margin-right:1%">
               <button mat-fab extended routerLink="/account/signin" class="btn-my-account btn-large" *ngIf="!loggedInUser()" > 
                 <span class="btn-hover">
                   <mat-icon>login</mat-icon>
@@ -51,7 +51,6 @@
               <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
                 <span class="btn-hover">
                   <mat-icon>fitness_center</mat-icon>
-                  <!-- grade lub golf_course lub workspace_premium -->
                   <br>
                   Moje wyniki
                 </span> 
@@ -73,7 +72,7 @@
                 </span>
               </button>
 
-              <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="deleteUser()"> 
+              <button mat-fab extended class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="openDialog()"> 
                 <span class="btn-hover">
                   <mat-icon>delete_outline</mat-icon>
                   <br>
@@ -84,10 +83,13 @@
               <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="logoutUser()"> 
                 <span class="btn-hover">
                   <mat-icon>logout</mat-icon>
-                  <!-- <mat-icon class="icon">forward</mat-icon> -->
                   <br>
                   Wyloguj się 
                 </span> 
               </button> 
-
+            </div>
           </div>
+      </div>
+    </div>
+  </div>
+          

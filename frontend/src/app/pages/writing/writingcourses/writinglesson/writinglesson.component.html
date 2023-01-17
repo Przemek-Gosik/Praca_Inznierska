@@ -1,19 +1,24 @@
 <div>
-    <nav class="bg-breadcrumb">
-        <div>
-          <div class="col s12">
-            <a href="/" class="breadcrumb" style="padding-top:500px"><b>Strona główna</b></a>
-            <a href="/courses/writing" class="breadcrumb " style="padding-top:500pxl"><b>Pisanie</b></a>
-          </div>
-        </div>
-    </nav>
-    <div class="row grid">
+  <nav class="breadcrumb-background">
+    <div class="col s10">
+      <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+      <a href="/courses" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+      <a href="/courses/writing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Pisanie</b></a>
+      <a href="/courses/writing/course" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kurs</b></a>
+      <a href="'/courses/writing/course/lesson;id='+'{{this.id}}'" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Lekcja {{lesson.number}}</b></a>
+    </div>
+  </nav>
+
+    <div class="row context-box">
         <div class="row home">
           <div class="row home font-title">
             Lekcja {{lesson.number}}
           </div>
-              <div *ngFor="let text of lesson.text, let i =index">
-                <input #box [style.width.px]='width' [(ngModel)]="typedTexts[i]" [disabled]="blockLesson" maxlength="10" [id]="i" (keyup.enter)="moveOn(i+1)" autocomplete="off">
+          <div class="center">
+            <div>
+              <ng-container *ngFor="let text of lesson.text, let i =index">
+                <div style=" display: inline-block;margin-right:2%;">
+                <input #box [style.width.px]="width" [(ngModel)]="typedTexts[i]" [disabled]="blockLesson" maxlength="10" [id]="i" (keyup.enter)="moveOn(i+1)" autocomplete="off">
                 <br/>
                 <div class="main-text">
                   <div  flex *ngFor="let char of text | split,let j=index" [ngStyle]="{'color' : setTextColor(i,j)}">
@@ -21,21 +26,18 @@
                   </div>
                 </div>
               </div>
+              </ng-container>
             </div>
-            <div class="btn-position">
-              <h2>{{timerService.displayTime()}}</h2>
-              <div>
-                <button class=" waves-ligth btn-small btn-2" (click)="startOrPause()">{{buttonActionName}}</button>
-              </div>
-              <div>
-                <button class=" waves-light btn-small btn-2" (click)="reset()">Zresetuj</button>
-              </div>
-              <div>
-                <button class=" waves-ligth btn-small btn-2" (click)="goBack()">Powrót</button>
-              </div>
-              <div>
-                <button class=" waves-ligth btn-small btn-2" (click)="calculatePoints()" [disabled]="!done">Podsumowanie</button>
-              </div>
+            </div>
+          </div>
+            <div class="row center">              
+              <p class="points"> Czas: {{timerService.displayTime()}}</p>
+            </div>
+            <div class="row center">
+                <button class="btn-small btn-writing" (click)="startOrPause()">{{buttonActionName}}</button>
+                <button class="btn-small btn-writing" (click)="reset()">Zresetuj</button>
+                <button class="btn-small btn-writing" (click)="goBack()">Powrót</button>
+                <button class="btn-small btn-writing" (click)="calculatePoints()" [disabled]="!done">Podsumowanie</button>
             </div>
             
     </div>

@@ -15,10 +15,6 @@ h2{
     font-weight: normal;
     color: var(--color);
     text-decoration: italic;
-    padding-bottom:100px;
+    /* padding-bottom:100px; */
 
-}
-
-.context-box{
-    /* margin-top:100px; */
 }

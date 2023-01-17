@@ -1,7 +1,7 @@
 .btn-my-account {
     max-width: 250px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 2%;
     width:230px; 
     height:230px;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
@@ -11,7 +11,7 @@
     border-radius: 10px;
     font-size:18px;
     letter-spacing: 1px;
-    margin-right: 12px;
+    margin-right: 2%;
 }
 
 .btn-hover:hover, .mat-icon:hover{

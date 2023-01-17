@@ -58,6 +58,7 @@ import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DeleteUserDialogComponent } from './pages/account/delete-user-dialog/delete-user-dialog.component';
 import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.component';
 
 
@@ -101,6 +102,8 @@ import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.c
     MemorizngMemoryComponent,
     MemorizingCardComponent,
     FindingNumbersComponent,
+    ForgotPasswordComponent,
+    DeleteUserDialogComponent
     ForgotPasswordComponent,
     FindingNumbersComponent,
     EyesWarmUpComponent

@@ -1,7 +1,11 @@
+p{
+    text-align: center;
+    margin-top:5%;
+}
 .btn-form {
   margin: 0 auto;
   margin-top:2%;
-  /* margin-right:20px; */
+  /* margin-bottom: 20px; */
   width: 90px;
   height: 50px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
@@ -10,14 +14,9 @@
   font-weight: bold;
   border-radius: 5px;
   font-size:12px;
-  margin-bottom: 20px;
 }
 
 .btn-form:hover{
   color: var(--color-a-hover);
   background-color: var(--btn-pick-course-background-color-hover);
-}
-
-p{
-  text-align: center;
 }

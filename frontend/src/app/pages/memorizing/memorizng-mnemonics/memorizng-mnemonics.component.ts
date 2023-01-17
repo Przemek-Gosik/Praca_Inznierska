@@ -11,6 +11,8 @@ import { TypeMemory } from "src/app/consts/type-consts";
 import { MatDialog } from "@angular/material/dialog";
 import { MemorizngResultComponent } from "../memorizng-result/memorizng-result.component";
 import { LevelConsts } from "src/app/consts/level-consts";
+import { SettingsService } from "src/app/services/settings.service";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
   selector: "app-memorizng-mnemonics",
@@ -34,7 +36,8 @@ export class MemorizngMnemonicsComponent implements OnInit{
     private loginService: LoginService,
     private timerService: TimerService,
     private memorizingService: MemorizingService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    protected themeService: ThemeService
     
   ) {}
 
@@ -95,7 +98,7 @@ export class MemorizngMnemonicsComponent implements OnInit{
   openDialog(result:MemorizngResult,maxPoints:number):void{
     this.dialog.open(MemorizngResultComponent,{
       width: '500px',
-      height: '500px',
+      // height: '500px',
       data:{
         result: result,
         maxPoints: maxPoints
@@ -107,7 +110,7 @@ export class MemorizngMnemonicsComponent implements OnInit{
 
   goBack(): void {
     this.reset()
-    this.router.navigate(["/courses/memorizing/level",{
+    this.router.navigate(["/courses/memorizing/",{
       type: TypeMemory.MNEMONICS
     }]);
   }

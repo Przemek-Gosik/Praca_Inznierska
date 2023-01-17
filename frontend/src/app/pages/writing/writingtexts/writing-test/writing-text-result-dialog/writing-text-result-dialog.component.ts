@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WritingTextResult } from 'src/app/models/writing-model';
 import { LoginService } from 'src/app/services/login.service';
+import { ThemeService } from 'src/app/services/theme.service';
 import { WritingService } from 'src/app/services/writing.service';
 
 @Component({
@@ -19,7 +20,10 @@ export class WritingTextResultDialogComponent implements OnInit {
     time: 0,
     idText: 0
   }
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private writingService: WritingService,private loginService: LoginService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  private writingService: WritingService,
+  private loginService: LoginService,
+  protected themeService: ThemeService) { }
 
   ngOnInit(): void {
     this.result = this.data.result
