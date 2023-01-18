@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, View
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { WritingTextResult } from 'src/app/models/writing-model';
+import { TextService } from 'src/app/services/text.service';
 
 @Component({
   selector: 'app-results-writing-table',
@@ -14,7 +15,7 @@ export class ResultsWritingTableComponent implements OnInit,OnChanges,AfterViewI
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   displayedColumns: string[] = ['title','score','time','startTime'];
   dataSource = new MatTableDataSource<WritingTextResult>();
-  constructor() { }
+  constructor(private textService: TextService) { }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator!
   }
@@ -30,8 +31,7 @@ export class ResultsWritingTableComponent implements OnInit,OnChanges,AfterViewI
   }
 
   showDate(date:string):string{
-    const dateTime = new Date(date);
-    return `${dateTime.toLocaleDateString()} ${dateTime.toLocaleTimeString()}`
+    return this.textService.showDate(date)
   }
 
 }

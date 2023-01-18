@@ -18,5 +18,10 @@ export class TextService{
       }
     }
   }
+
+  showDate(date:string):string{
+    const dateTime = new Date(date);
+    return `${dateTime.toLocaleDateString()} ${dateTime.toLocaleTimeString()}`
+  }
     
 }

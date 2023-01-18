@@ -42,8 +42,7 @@ export class ResultsMemorizingTableComponent implements OnInit, OnChanges, After
   }
 
   showDate(date:string):string{
-    const dateTime = new Date(date);
-    return `${dateTime.toLocaleDateString()} ${dateTime.toLocaleTimeString()}`
+    return this.textService.showDate(date)
   }
 
 }
