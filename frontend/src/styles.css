@@ -381,6 +381,16 @@ main{
     background-color: var(--background-color-context-box);
 }
 
+.mat-header-cell{
+    font-weight: bolder;
+    font-size: large;
+    
+}
+
+.mat-cell{
+    font-size: large;
+}
+
 .mat-paginator{
     background-color: var(--background-color-context-box);
 }
