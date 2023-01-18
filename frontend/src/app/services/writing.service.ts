@@ -62,4 +62,9 @@ import { Lesson, Module, WritingLessonResult, WritingText, WritingTextResult } f
       return this.http.post(`${this.apiUrl}/text/result`,result,{headers: this.tokenService.getHeaderWithToken()});
     }
 
+    getAllTextResults():Observable<WritingTextResult[]>{
+      return this.http.get<WritingTextResult[]>(`${this.apiUrl}/text/result`,{headers:this.tokenService.getHeaderWithToken()});
+    }
+
+
   }

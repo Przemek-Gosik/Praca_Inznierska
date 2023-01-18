@@ -1,0 +1,30 @@
+<mat-button-toggle-group
+  #group="matButtonToggleGroup"
+  name="fontStyle"
+  aria-label="Font Style"
+  [value]="selectedValue"
+  (change)="valueChange(group.value)"
+>
+  <mat-button-toggle value="MEMORY">Dopasowanie obrazków</mat-button-toggle>
+  <mat-button-toggle value="MNEMONICS">Cyferki</mat-button-toggle>
+</mat-button-toggle-group>
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="score">
+    <th mat-header-cell *matHeaderCellDef>Zdobyte punkty</th>
+    <td mat-cell *matCellDef="let element">{{ element.score }}</td>
+  </ng-container>
+  <ng-container matColumnDef="level">
+    <th mat-header-cell *matHeaderCellDef>Poziom trudności</th>
+    <td mat-cell *matCellDef="let element">{{ showLevel(element.level) }}</td>
+  </ng-container>
+  <ng-container matColumnDef="startTime">
+    <th mat-header-cell *matHeaderCellDef>Data</th>
+    <td mat-cell *matCellDef="let element">
+      {{ showDate(element.startTime) }}
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
+</mat-paginator>

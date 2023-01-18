@@ -348,3 +348,39 @@ main{
 .mat-expansion-indicator:hover::after{
     color: var(--color-a-hover);
 }
+
+.mat-button-toggle {
+    margin: 0 auto;
+    width:auto; 
+    height:50px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: var(--btn-pick-course-background-color);
+    color: var(--color);
+    font-weight: bold;
+    border-radius: 2px;
+    font-size:18px;
+
+}
+
+.mat-button-toggle:hover{
+    background-color: var(--btn-pick-course-background-color-hover);
+    color: var(--color-a-hover);
+}
+
+.mat-button-toggle:focus{
+    background-color: var(--color-pressed-button);
+    color: var(--color-a-hover);
+}
+
+.mat-button-toggle-checked{
+    background-color: var(--color-pressed-button);
+    color: var(--color-a-hover);
+}
+
+.mat-table{
+    background-color: var(--background-color-context-box);
+}
+
+.mat-paginator{
+    background-color: var(--background-color-context-box);
+}

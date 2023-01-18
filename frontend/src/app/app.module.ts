@@ -60,7 +60,13 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DeleteUserDialogComponent } from './pages/account/delete-user-dialog/delete-user-dialog.component';
 import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.component';
-
+import { MyResultsComponent } from './pages/account/my-results/my-results.component';
+import { MatTableModule } from '@angular/material/table';
+import { ResultsWritingTableComponent } from './pages/account/my-results/results-writing-table/results-writing-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ResultsMemorizingTableComponent } from './pages/account/my-results/results-memorizing-table/results-memorizing-table.component';
+import { ResultsReadingTableComponent } from './pages/account/my-results/results-reading-table/results-reading-table.component';
+import { MatButtonToggleModule} from '@angular/material/button-toggle'
 
 @NgModule({
   declarations: [
@@ -103,10 +109,14 @@ import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.c
     MemorizingCardComponent,
     FindingNumbersComponent,
     ForgotPasswordComponent,
-    DeleteUserDialogComponent
+    DeleteUserDialogComponent,
     ForgotPasswordComponent,
     FindingNumbersComponent,
-    EyesWarmUpComponent
+    EyesWarmUpComponent,
+    MyResultsComponent,
+    ResultsWritingTableComponent,
+    ResultsMemorizingTableComponent,
+    ResultsReadingTableComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -129,7 +139,10 @@ import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.c
     MatProgressBarModule,
     DragDropModule,
     MatStepperModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonToggleModule
   ],
   providers: [
     SplitPipe,

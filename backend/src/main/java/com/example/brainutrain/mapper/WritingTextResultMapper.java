@@ -3,6 +3,7 @@ package com.example.brainutrain.mapper;
 import com.example.brainutrain.dto.WritingTextResultDto;
 import com.example.brainutrain.model.WritingTextResult;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ public interface WritingTextResultMapper {
 
     WritingTextResultMapper INSTANCE = Mappers.getMapper(WritingTextResultMapper.class);
 
+    @Mapping(target = "title",source = "text.title")
     WritingTextResultDto toDto(WritingTextResult writingTextResult);
 
     List<WritingTextResultDto> toDto(Collection<WritingTextResult> writingTextResults);
