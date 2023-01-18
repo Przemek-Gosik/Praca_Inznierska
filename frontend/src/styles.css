@@ -372,6 +372,8 @@ main{
     color: var(--color-a-hover);
 }
 
+
+
 .mat-button-toggle-checked{
     background-color: var(--color-pressed-button);
     color: var(--color-a-hover);

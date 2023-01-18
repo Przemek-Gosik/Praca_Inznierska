@@ -1,12 +1,10 @@
 <mat-button-toggle-group
   #group="matButtonToggleGroup"
-  name="fontStyle"
-  aria-label="Font Style"
   [value]="selectedValue"
   (change)="valueChange(group.value)"
 >
-  <mat-button-toggle value="MEMORY">Dopasowanie obrazków</mat-button-toggle>
-  <mat-button-toggle value="MNEMONICS">Cyferki</mat-button-toggle>
+  <mat-button-toggle  value="MEMORY">Dopasowanie obrazków</mat-button-toggle>
+  <mat-button-toggle  value="MNEMONICS">Cyferki</mat-button-toggle>
 </mat-button-toggle-group>
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="score">

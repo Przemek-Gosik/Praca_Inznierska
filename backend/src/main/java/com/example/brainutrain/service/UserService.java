@@ -366,7 +366,7 @@ public class UserService implements UserDetailsService{
      */
     public List<UserDto> getAllUsers(){
         User user = authenticationUtils.getUserFromAuthentication();
-        List<User> users = userRepository.findUsersByLoginIsNotLike(user.getLogin());
+        List<User> users = userRepository.findUsersByLoginIsNotLikeAndAndIsActive(user.getLogin(),true);
         return UserMapper.INSTANCE.toDto(users);
     }
 

@@ -2,6 +2,7 @@ import { Component, Input, OnInit ,ViewChild,OnChanges,AfterViewInit} from '@ang
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReadingResult } from 'src/app/models/reading-model';
+import { TextService } from 'src/app/services/text.service';
 
 @Component({
   selector: 'app-results-reading-table',
@@ -15,7 +16,7 @@ export class ResultsReadingTableComponent implements OnInit,OnChanges,AfterViewI
   displayedColumns: string[] = ['score','time','startTime','level'];
   dataSource = new MatTableDataSource<ReadingResult>();
   selectedValue: string ="SCHULTZ"
-  constructor() { }
+  constructor(private textService: TextService) { }
 
   ngOnInit(): void {
     this.dataSource.filterPredicate=(data:ReadingResult,filter:string)=>data.type==filter;
@@ -31,17 +32,7 @@ export class ResultsReadingTableComponent implements OnInit,OnChanges,AfterViewI
   }
 
   showLevel(level:string):string{
-    switch(level){
-      case "EASY":{
-        return "Łatwy"
-      }
-      case "MEDIUM":{
-        return "Średni"
-      }
-      default:{
-        return "Trudny"
-      }
-    }
+    return this.textService.getLevelName(level)
   }
 
   valueChange(value:string){

@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Boolean existsByLogin(String login);
     Boolean existsByEmail(String email);
     List<User> findUsersByLoginIsNotLike(String login);
+
+    List<User> findUsersByLoginIsNotLikeAndAndIsActive(String login,Boolean active);
 }

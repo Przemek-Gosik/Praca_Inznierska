@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, View
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MemorizngResult } from 'src/app/models/memorizing-model';
+import { TextService } from 'src/app/services/text.service';
 
 @Component({
   selector: 'app-results-memorizing-table',
@@ -16,7 +17,7 @@ export class ResultsMemorizingTableComponent implements OnInit, OnChanges, After
   dataSource = new MatTableDataSource<MemorizngResult>();
   selectedValue:string = "MEMORY";
   
-  constructor() { }
+  constructor(private textService: TextService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.results){
@@ -32,17 +33,7 @@ export class ResultsMemorizingTableComponent implements OnInit, OnChanges, After
   }
 
   showLevel(level:string):string{
-    switch(level){
-      case "EASY":{
-        return "Łatwy"
-      }
-      case "MEDIUM":{
-        return "Średni"
-      }
-      default:{
-        return "Trudny"
-      }
-    }
+    return this.textService.getLevelName(level)
   }
 
   valueChange(value: string):void{
