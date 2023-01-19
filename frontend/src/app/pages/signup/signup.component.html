@@ -77,8 +77,8 @@
                             class="validate input-text"
                             [type]="hide ? 'password' : 'text'"
                             minlength="4"
-                            maxlength="120"
-                            pattern="(?=^.{4,120}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
+                            maxlength="12"
+                            pattern="(?=^.{4,12}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
                             #password="ngModel"
                             required
                         />
@@ -91,7 +91,7 @@
                                 Hasło musi mieć przynajmniej 4 znaki!
                             </div>
                             <div class="invalid-data" *ngIf="password.errors?.['maxlenght']">
-                                Hasło nie może mieć więcej niż 120 znaków!
+                                Hasło nie może mieć więcej niż 12 znaków!
                             </div>
                             <div class="invalid-data" *ngIf="password.errors?.['pattern']">
                                 Hasło musi mieć przynajmniej 1 znak, 1 cyfrę, 1 małą i 1 dużą literę!
@@ -115,8 +115,8 @@
                             [(ngModel)]="userRegistration.confirmPassword"
                             [type]="hide2 ? 'password' : 'text'"
                             minlength="4"
-                            maxlength="120"
-                            pattern="(?=^.{4,120}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
+                            maxlength="12"
+                            pattern="(?=^.{4,12}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
                             #confirmPassword="ngModel"
                             required
                         />
@@ -132,7 +132,7 @@
                                 Potwierdzenie hasła musi mieć przynajmniej 4 znaki!
                             </div>
                             <div class="invalid-data" *ngIf="confirmPassword.errors?.['maxlenght']">
-                                Potwierdzenie hasła nie może mieć więcej niż 120 znaków!
+                                Potwierdzenie hasła nie może mieć więcej niż 12 znaków!
                             </div>
                             <div class="invalid-data" *ngIf="confirmPassword.errors?.['pattern']">
                                 Potwierdzenie hasła musi mieć przynajmniej 1 znak, 1 cyfrę, 1 małą i 1 dużą literę!
