@@ -22,6 +22,7 @@ export class MemorizngMemoryComponent implements OnInit {
   saved: boolean = false;
   level: string = "EASY";
   finished : boolean = false;
+  time: number = 3000;
   constructor(
     private loginService: LoginService,
     private timerService: TimerService,
@@ -48,12 +49,15 @@ export class MemorizngMemoryComponent implements OnInit {
     switch(this.level){
       case("EASY"):
       amountOfCards = 3
+      this.time=3000;
       break;
       case("MEDIUM"):
       amountOfCards = 6
+      this.time=6000
       break;
       case("ADVANCED"):
       amountOfCards = 12
+      this.time=10000
       break;
     }
     let cardNames:string[] = ImageConsts.IMAGE_NAMES.slice(0,amountOfCards)
@@ -74,10 +78,11 @@ export class MemorizngMemoryComponent implements OnInit {
   }
 
   showCards():void{
+    
     this.cards.forEach((card)=>{
       setTimeout(()=>{
         card.state = 'none'
-      },4000)
+      },this.time)
     })
   }
 

@@ -38,7 +38,7 @@ export class SchulzComponent implements OnInit, GameService {
   ) {}
 
   ngOnInit(): void {
-    this.timerService.getCurrentDate()
+    this.dateTime=this.timerService.getCurrentDate()
     this.route.paramMap.subscribe(param=>{
       var levelPom = param.get('level')
       if(levelPom){
@@ -130,6 +130,9 @@ export class SchulzComponent implements OnInit, GameService {
       time: this.elapsedTime,
       type: TypeReading.SCHULTZ
     }
-    this.readingService.saveResult(result)
+    
+    this.readingService.saveResult(result).subscribe(()=>{
+      
+    })
   }
 }

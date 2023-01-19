@@ -1,7 +1,7 @@
 export interface Report{
     date: string,
-    email: string,
-    idReport: number,
+    email?: string,
+    idReport?: number,
     text: string,
     title: string;
 }

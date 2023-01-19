@@ -33,7 +33,7 @@ public class ReportService {
      *
      * @param reportDto is ReportDto
      */
-    public void createReport(ReportDto reportDto){
+    public void createUserReport(ReportDto reportDto){
         User user = authenticationUtils.getUserFromAuthentication();
         Report report = ReportMapper.INSTANCE.fromDto(reportDto);
         if(report.getEmail().equals("")){
@@ -43,6 +43,13 @@ public class ReportService {
         report.setActive(true);
         reportRepository.save(report);
         log.info("Nowy raport utworzony dla użytkownika o id: "+user.getIdUser());
+    }
+
+    public void createReport(ReportDto reportDto){
+        Report report = ReportMapper.INSTANCE.fromDto(reportDto);
+        report.setActive(true);
+        reportRepository.save(report);
+        log.info("Nowy raport utworzony");
     }
 
     /**

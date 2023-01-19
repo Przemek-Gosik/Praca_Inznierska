@@ -56,7 +56,7 @@
           <button class="btn-small btn-finding" (click)=startOrPause()>{{buttonActionName}}</button>
           <button class="btn-small btn-finding" (click)=reset()>Zresetuj</button>
           <button class="btn-small btn-finding" (click)=goBack()>Powrót</button>
-          <button class="btn-small btn-finding" (click)="saveResult()" *ngIf=loggedIn() [disabled]=!finished>Zapisz wynik</button>
+          <button class="btn-small btn-finding" (click)="saveResult()" *ngIf=loggedIn() [disabled]="!finished || saved" >Zapisz wynik</button>
         </div>
       </div>
     </div>

@@ -67,6 +67,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ResultsMemorizingTableComponent } from './pages/account/my-results/results-memorizing-table/results-memorizing-table.component';
 import { ResultsReadingTableComponent } from './pages/account/my-results/results-reading-table/results-reading-table.component';
 import { MatButtonToggleModule} from '@angular/material/button-toggle'
+import { NgOptimizedImage } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -142,7 +143,8 @@ import { MatButtonToggleModule} from '@angular/material/button-toggle'
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    NgOptimizedImage
   ],
   providers: [
     SplitPipe,

@@ -68,7 +68,7 @@
       <button class="btn-small btn-schulz" (click)=startOrPause()>{{buttonActionName}}</button>
       <button class="btn-small btn-schulz" (click)=reset()>Zresetuj</button>
       <button class="btn-small btn-schulz" (click)=goBack()>Powrót</button>
-      <button class="btn-small btn-schulz" *ngIf=loggedIn() [disabled]=!done>Zapisz wynik</button>
+      <button class="btn-small btn-schulz" *ngIf=loggedIn() [disabled]="!done || saved" (click)="saveResult()">Zapisz wynik</button>
     </div>
   </div>
 </div>

@@ -18,6 +18,14 @@ import { TokenService } from "./token.service";
         private tokenService : TokenService) { }
 
     
+    createUserReport(report:Report){
+        return this.http.post(`${this.apiUrl}`,report,{headers: this.tokenService.getHeaderWithToken()})
+    }
+
+    createReport(report:Report){
+        return this.http.post(`${this.apiUrl}/guest`,report)
+    }
+
     getAllReports():Observable<Report[]>{
         return this.http.get<Report[]>(`${this.apiUrl}`,{headers: this.tokenService.getHeaderWithToken()})
     }

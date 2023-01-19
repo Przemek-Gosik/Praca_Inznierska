@@ -36,7 +36,8 @@ public class SecurityConfig {
                 .authorizeRequests(auth->auth
                         .antMatchers("/api/auth/emailIsTaken/*","/api/auth/loginIsTaken/*",
                                 "/api/auth/login","/api/auth/register","/api/auth/passwordRecovery/**",
-                                "/api/fast_reading/text/guest/**","/api/fast_writing/guest/**","/api/memorizing/guest/**")
+                                "/api/fast_reading/text/guest/**","/api/fast_writing/guest/**",
+                                "/api/memorizing/guest/**", "/api/report/guest")
                         .permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(session->session
