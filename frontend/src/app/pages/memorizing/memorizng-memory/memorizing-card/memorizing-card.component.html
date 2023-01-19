@@ -1,16 +1,21 @@
 <div class="card" (click)="cardClicked.emit()" [@cardChosen]="data.state">
-    <div class="back" style="background-color: var(--background-color)">
-        <ng-container *ngIf="this.themeService.getTheme()=='DAY'"> 
-            <img src="assets/logoDAY.png">
-        </ng-container>
-        <ng-container *ngIf="this.themeService.getTheme()=='CONTRAST'"> 
-            <img src="assets/logoDAY.png">
-        </ng-container>
-        <ng-container *ngIf="this.themeService.getTheme()=='NIGHT'"> 
-            <img src="assets/logoNIGHT.png">
-        </ng-container>
-    </div>
-    <div class="front" >
-        <img [src]="'assets/memorizing/'+data.imageName+'.jpg'">
-    </div>
+  <div class="back" style="background-color: var(--background-color)">
+    <ng-container *ngIf="this.themeService.getTheme() == 'DAY'">
+      <img src="assets/logoDAY.png" />
+    </ng-container>
+    <ng-container *ngIf="this.themeService.getTheme() == 'CONTRAST'">
+      <img src="assets/logoDAY.png" />
+    </ng-container>
+    <ng-container *ngIf="this.themeService.getTheme() == 'NIGHT'">
+      <img src="assets/logoNIGHT.png" />
+    </ng-container>
+  </div>
+  <div class="front">
+    <img
+      [ngSrc]="'assets/memorizing/' + data.imageName + '.jpg'"
+      width="150"
+      height="150"
+      loading="eager"
+    />
+  </div>
 </div>

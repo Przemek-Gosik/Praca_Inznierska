@@ -27,6 +27,9 @@ import { MemorizngMnemonicsComponent } from './pages/memorizing/memorizng-mnemon
 import { PickCourseComponent } from './pages/pick-course/pick-course.component';
 import { MemorizngMemoryComponent } from './pages/memorizing/memorizng-memory/memorizng-memory.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { FindingNumbersComponent } from './pages/reading/finding-numbers/finding-numbers.component';
+import { EyesWarmUpComponent } from './pages/reading/eyes-warm-up/eyes-warm-up.component';
+import { MyResultsComponent } from './pages/account/my-results/my-results.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -39,6 +42,8 @@ const routes: Routes = [
   { path: 'courses/reading', component: ReadingComponent},
   { path: 'courses/reading/level',component:ChooseLevelReadingComponent},
   { path: 'courses/reading/level/schultz',component: SchulzComponent},
+  { path: 'courses/reading/level/finding_numbers',component: FindingNumbersComponent},
+  { path: 'courses/reading/eye_warm_up',component: EyesWarmUpComponent},
   { path: 'courses/writing', component: WritingComponent},
   { path: 'courses/writing/course', component: WritingcoursesComponent},
   { path: 'courses/writing/course/lesson',component: WritinglessonComponent},
@@ -50,6 +55,7 @@ const routes: Routes = [
   { path: 'courses/memorizing/level/memory', component: MemorizngMemoryComponent},
   { path: 'account', component: AccountComponent},
   { path: 'account/editaccount', component: EditAccountComponent,canActivate: [AuthGuard],data: {roles: [RoleConsts.USER]}},
+  { path: 'account/results', component: MyResultsComponent,canActivate: [AuthGuard],data: {roles: [RoleConsts.USER]}},
   { path: 'account/admin/users', component: UsersComponent, canActivate: [AuthGuard],data: {roles: [RoleConsts.ADMIN]}},
   { path: 'account/admin/reports', component: ReportsComponent, canActivate: [AuthGuard],data: {roles: [RoleConsts.ADMIN]}},
   { path: 'settings', component: SettingsComponent},

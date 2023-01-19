@@ -11,3 +11,8 @@ export interface ReadingResult{
     time: number,
     type: string
 }
+
+export interface FidningNumbers{
+    numbersToFind: number[]
+    schultzTables: number[][]
+}

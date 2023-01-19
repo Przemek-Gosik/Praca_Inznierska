@@ -57,7 +57,7 @@
       <button
         class="btn-small btn-form"
         *ngIf="loggedIn()"
-        [disabled]=!finished
+        [disabled]="!finished || saved"
         (click)="saveResult()"
       >
         Zapisz wynik

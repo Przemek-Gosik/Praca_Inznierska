@@ -25,7 +25,7 @@ import { ThemeService } from 'src/app/services/theme.service';
       transition('chosen => none',[
         animate('400ms')
       ]),
-      transition('*=>matched',[
+      transition('chosen => matched',[
         animate('400ms')
       ])
     ])
@@ -45,12 +45,6 @@ export class MemorizingCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkCardState():boolean{
-    if(this.data.state == 'none'){
-      return true
-    }else{
-      return false
-    }
-  }
+ 
 
 }

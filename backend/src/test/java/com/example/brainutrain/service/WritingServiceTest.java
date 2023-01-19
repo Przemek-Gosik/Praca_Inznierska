@@ -378,7 +378,7 @@ public class WritingServiceTest {
     void createNewTest_GivenValidData_ExistsInRepository(){
 
         WritingTextResultDto testDto1 = new WritingTextResultDto(null, textResult1.getTypedText(), textResult1.getScore(),
-                textResult1.getStartTime().toLocalDateTime(), textResult1.getTime(), textResult1.getIdWritingTextResult());
+                textResult1.getStartTime().toLocalDateTime(), textResult1.getTime(), textResult1.getIdWritingTextResult(),textResult1.getText().getTitle());
         WritingTextResult textResult = textResult1;
         textResult.setIdWritingTextResult(null);
 
@@ -396,7 +396,7 @@ public class WritingServiceTest {
     void createNewTest_GivenInValidTextId_ThrowResourceNotFound(){
 
         WritingTextResultDto testDto1 = new WritingTextResultDto(null, textResult1.getTypedText(), textResult1.getScore(),
-                textResult1.getStartTime().toLocalDateTime(), textResult1.getTime(),3L);
+                textResult1.getStartTime().toLocalDateTime(), textResult1.getTime(),3L,textResult1.getText().getTitle());
         WritingTextResult textResult = textResult1;
         textResult.setIdWritingTextResult(null);
 

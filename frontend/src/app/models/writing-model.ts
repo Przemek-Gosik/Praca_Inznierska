@@ -41,4 +41,5 @@ export interface WritingTextResult{
     startTime: string
     time: number
     idText?: number
+    title?: string
 }

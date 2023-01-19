@@ -310,6 +310,11 @@ public class UserService implements UserDetailsService{
         User user = userRepository.findUsersByEmail(emailRequest.getEmail()).orElseThrow(
                 ()->new ResourceNotFoundException("Nie znaleziono konta dla podanego maila: "+ emailRequest.getEmail())
         );
+        ValidationCode lastValidationCode = validationCodeRepository.findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user,Purpose.PASSWORD_REMINDER).orElse(
+                null
+        );
+        lastValidationCode.setWasUsed(true);
+        validationCodeRepository.save(lastValidationCode);
         ValidationCode validationCode = new ValidationCode(Purpose.PASSWORD_REMINDER,user);
         validationCode.setCode(stringGenerator.generateCode());
         emailSender.sendEmailWithCode(validationCode.getCode(),emailRequest.getEmail(),user.getLogin());
@@ -361,7 +366,7 @@ public class UserService implements UserDetailsService{
      */
     public List<UserDto> getAllUsers(){
         User user = authenticationUtils.getUserFromAuthentication();
-        List<User> users = userRepository.findUsersByLoginIsNotLike(user.getLogin());
+        List<User> users = userRepository.findUsersByLoginIsNotLikeAndAndIsActive(user.getLogin(),true);
         return UserMapper.INSTANCE.toDto(users);
     }
 

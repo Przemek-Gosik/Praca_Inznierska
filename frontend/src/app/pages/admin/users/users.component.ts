@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { RoleConsts } from 'src/app/consts/role-consts';
 import { Role, User } from 'src/app/models/user';
 import { UsersService } from 'src/app/services/users.service';
@@ -9,7 +11,13 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  users: User[] = []
+
+  users: User[] = [];
+  dataSource = new MatTableDataSource<User>();
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  displayedColumns: string[] = ['number','login','email','id','action1','action2'];
+
+
   constructor(
     private usersService: UsersService) { }
 
@@ -20,22 +28,28 @@ export class UsersComponent implements OnInit {
   getAllUsers(){
     this.usersService.getAllUsers().subscribe((res:User[])=>{
     this.users = res
+    this.dataSource.data = this.users
+    this.dataSource.paginator = this.paginator!
     })
   }
 
-  takeAdminRole(index: number){
-    let user:User = this.users[index]
-    this.usersService.takeAdminRole(user.idUser)
+  takeAdminRole(user: User){
+    this.usersService.takeAdminRole(user.idUser).subscribe((res:User)=>{
+      let index = this.users.findIndex(obj => obj.idUser == user.idUser)
+      this.users[index] = res
+      this.dataSource.data = this.users
+    })
   }
-  giveAdminRole(index:number){
-    let user:User = this.users[index]
-    this.usersService.giveAdminRole(user.idUser)
+  giveAdminRole(user: User){
+    this.usersService.giveAdminRole(user.idUser).subscribe((res:User)=>{
+      let index = this.users.findIndex(obj => obj.idUser == user.idUser)
+      this.users[index] = res
+      this.dataSource.data = this.users
+    })
   }
 
-  isUserAdmin(index:number):boolean{
-    let user:User = this.users[index]
+  isUserAdmin(user:User):boolean{
     let isAdmin: boolean = false
-    console.log(user.roles)
     for(var role of user.roles){
       if(role.roleName == RoleConsts.ADMIN){
         isAdmin = true
@@ -44,9 +58,12 @@ export class UsersComponent implements OnInit {
     return isAdmin
   }
 
-  deleteUser(index:number){
-    let user: User = this.users[index]
-    this.usersService.deleteUser(user.idUser)
+  deleteUser(user:User){
+    this.usersService.deleteUser(user.idUser).subscribe(()=>{
+      let index = this.users.findIndex(obj => obj.idUser == user.idUser)
+      this.users.splice(index,1)
+      this.dataSource.data=this.users
+    })
   }
 
 }

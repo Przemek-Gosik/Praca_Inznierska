@@ -34,4 +34,6 @@ public class WritingTextResultDto {
 
     @NotNull
     private Long idText;
+
+    private String title;
 }

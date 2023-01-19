@@ -72,7 +72,7 @@ public class ReportServiceTest {
         when(utils.getUserFromAuthentication()).thenReturn(user);
         when(reportRepository.save(argThat(report ->
         report.getIdReport() == 1L))).thenReturn(report1);
-        reportService.createReport(reportDto1);
+        reportService.createUserReport(reportDto1);
 
         verify(reportRepository,times(1)).save(argThat(report ->
                 report.getIdReport() == 1L));
