@@ -13,7 +13,7 @@
   .input-field input[type=email] ~label,
   .input-field textarea ~label {
     color: var(--color-a-active-breadcrumbs);
-    padding-left:10px;
+    /* padding-left:10px; */
   } 
   
   /* label focus color */
