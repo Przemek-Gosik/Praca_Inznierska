@@ -21,7 +21,7 @@ export class ReadingComponent implements OnInit {
   tabSchultz: string = "Tablice Schulza"
   findNumbers: string = "Znajdowanie liczb"
   eyeTraining: string = "Rozgrzewka oczu"
-  quiz: string = "Czytanie ze zrozumieniem"
+  quiz: string = "Quiz"
 
   linkToLevelChoice(type:string){
     this.router.navigate(["/courses/reading/level",

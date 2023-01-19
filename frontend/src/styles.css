@@ -372,21 +372,19 @@ main{
     color: var(--color-a-hover);
 }
 
-
-
-.mat-button-toggle-checked{
+.mat-button-toggle:checked{
     background-color: var(--color-pressed-button);
     color: var(--color-a-hover);
 }
 
 .mat-table{
     background-color: var(--background-color-context-box);
+    color: var(--color);
 }
 
 .mat-header-cell{
     font-weight: bolder;
     font-size: large;
-    
 }
 
 .mat-cell{
@@ -395,4 +393,23 @@ main{
 
 .mat-paginator{
     background-color: var(--background-color-context-box);
+    color: var(--color) !important;
+}
+
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: var(--color-a-hover);
+    background-color: var(--btn-pick-course-background-color-hover) !important;
+}
+
+.mat-header-cell, 
+.mat-paginator-container, 
+.mat-select-value, 
+.mat-paginator, .mat-paginator-page-size .mat-select-trigger,
+.mat-icon-button.mat-button-disabled.mat-button-disabled,
+.mat-select-arrow{
+    color: var(--color);
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline{
+    background-color: var(--color);
 }
