@@ -56,7 +56,6 @@ export class FindingNumbersComponent implements OnInit,GameService {
         this.createTable()
       })
     })
-
   }
 
   createTable() :void{
@@ -102,7 +101,6 @@ export class FindingNumbersComponent implements OnInit,GameService {
     return this.gameNumbers.numbersToFind[this.index]
   }
 
-  
 
   checkPoints(num: number):void{
     if(num == this.gameNumbers.numbersToFind[this.index]){
@@ -113,7 +111,6 @@ export class FindingNumbersComponent implements OnInit,GameService {
       }else{
         this.createTable()
       }
-      
     }else{
       this.points -= 1
     }
