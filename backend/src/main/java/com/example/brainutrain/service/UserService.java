@@ -313,8 +313,11 @@ public class UserService implements UserDetailsService{
         ValidationCode lastValidationCode = validationCodeRepository.findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user,Purpose.PASSWORD_REMINDER).orElse(
                 null
         );
-        lastValidationCode.setWasUsed(true);
-        validationCodeRepository.save(lastValidationCode);
+        if(lastValidationCode != null) {
+            lastValidationCode.setWasUsed(true);
+            validationCodeRepository.save(lastValidationCode);
+        }
+
         ValidationCode validationCode = new ValidationCode(Purpose.PASSWORD_REMINDER,user);
         validationCode.setCode(stringGenerator.generateCode());
         emailSender.sendEmailWithCode(validationCode.getCode(),emailRequest.getEmail(),user.getLogin());
@@ -342,6 +345,7 @@ public class UserService implements UserDetailsService{
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             validationCode.setWasUsed(true);
+            validationCodeRepository.save(validationCode);
             log.info("Ustawiono hasło dla użytkownika o id: "+user.getIdUser());
             return new ResponseWithPassword(newPassword);
         }else{

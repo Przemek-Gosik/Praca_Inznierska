@@ -28,7 +28,7 @@ export class FindingNumbersComponent implements OnInit,GameService {
   dateTime: string = ""
   size: number = 10
   tableSize: number = 9
-  columnSize: number = 3
+  rowSize: number = 3
   saved: boolean = false
   hidden: boolean = true
   buttonActionName: string = ButtonNames.START_NAME
@@ -52,7 +52,7 @@ export class FindingNumbersComponent implements OnInit,GameService {
         this.gameNumbers = res
         this.size = this.gameNumbers.numbersToFind.length
         this.tableSize = this.gameNumbers.schultzTables[0].length
-        this.columnSize = Math.sqrt(this.tableSize)
+        this.rowSize = Math.sqrt(this.tableSize)
         this.createTable()
       })
     })
@@ -60,12 +60,12 @@ export class FindingNumbersComponent implements OnInit,GameService {
 
   createTable() :void{
     this.table = []
-    for (let i = 0; i < this.tableSize; i += this.columnSize) {
-      let pom: number[] = this.gameNumbers.schultzTables[this.index].slice(i, this.columnSize + i);
-      let columnPom: Table = {
+    for (let i = 0; i < this.tableSize; i += this.rowSize) {
+      let pom: number[] = this.gameNumbers.schultzTables[this.index].slice(i, this.rowSize + i);
+      let rowPom: Table = {
         column: pom,
       };
-      this.table.push(columnPom);
+      this.table.push(rowPom);
     }
   }
 

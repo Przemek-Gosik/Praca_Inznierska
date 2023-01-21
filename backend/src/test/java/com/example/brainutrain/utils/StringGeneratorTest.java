@@ -1,6 +1,7 @@
 package com.example.brainutrain.utils;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith({MockitoExtension.class})
+@Slf4j
 public class StringGeneratorTest {
 
     @InjectMocks
@@ -32,7 +34,8 @@ public class StringGeneratorTest {
     @Repeat(value = 5)
     public void generatePassword_checkIfPassword_doNotContainsBlankSpaces(){
         String result = stringGenerator.generatePassword();
-        assertFalse(result.contains(" "));
+        log.info(result);
+        assertTrue(result.matches("(?=^.{4,12}$)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?&gt;.&lt;,])(?!.*\s).*$"));
     }
 
     @Test
