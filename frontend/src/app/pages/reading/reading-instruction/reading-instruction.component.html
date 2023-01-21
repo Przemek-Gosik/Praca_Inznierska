@@ -1,0 +1,23 @@
+
+<div mat-dialog-title class="center" style="font-size: 25px; text-transform:uppercase; margin-bottom:0.5%"> Znajdowanie liczb </div>
+<mat-dialog-content style="font-size: 16px">
+    <p>Na ekranie wyświetlą się przyciski z liczbami. Twoim zadaniem jest kliknięcie w ten z szukaną liczbą wyświetloną pod tablicą przycisków.
+        Po kliknięciu w ten z szukaną liczbą, rozmieszczenie elementów tablicy zmieni się i pojawi się kolejna liczba do znalezienia.
+        Twoim celem jest odszukanie 10 liczb. Każde poprawne kliknięcie to dodanie jednego punktu. Za każdy błąd punkt jest odejmowany!
+        Poziomy zaawansowania zadania różnią się rozmiarem wyświetlanej tablicy przycisków.
+    </p>
+    <p>
+        Aby rozpocząć ćwiczenie wciśnij przysisk "START".
+        Pamiętaj, że w każdej chwili możesz zatrzymać zadanie za pomocą przycisku "PAUZA",
+        wykonać je ponownie po kliknięciu "ZRESETUJ" oraz wrócić do wyboru ćwiczeń naciskając "POWRÓT".
+        Po ukończeniu ćwiczenia zapisz swój wynik (jeśli jesteś zalogowany)! 
+    </p>
+    <p style="text-align: center; margin-top:2%"class="center">
+        <b> POWODZENIA! </b>
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions style="margin-bottom:5px; font-size: 20px">
+    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large">Powrót</button>
+    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large" (click)="linkToLevelChoice(FINDING_NUMBERS)">Start</button>
+
+</mat-dialog-actions>

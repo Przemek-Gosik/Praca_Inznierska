@@ -68,6 +68,7 @@ import { ResultsMemorizingTableComponent } from './pages/account/my-results/resu
 import { ResultsReadingTableComponent } from './pages/account/my-results/results-reading-table/results-reading-table.component';
 import { MatButtonToggleModule} from '@angular/material/button-toggle'
 import { NgOptimizedImage } from '@angular/common';
+import { ReadingInstructionComponent } from './pages/reading/reading-instruction/reading-instruction.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { NgOptimizedImage } from '@angular/common';
     MyResultsComponent,
     ResultsWritingTableComponent,
     ResultsMemorizingTableComponent,
-    ResultsReadingTableComponent
+    ResultsReadingTableComponent,
+    ReadingInstructionComponent
   ],
   imports: [
     BrowserAnimationsModule,

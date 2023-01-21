@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit {
     this.theme = this.themeService.getTheme();
     if (this.theme==='NIGHT')
       this.logo = "logoNIGHT";
-    else if(this.theme==='DAY')
+    if(this.theme==='DAY' || this.theme==='CONTRAST')
       this.logo = "logoDAY";  
     return this.logo;  
   }
