@@ -24,12 +24,16 @@ public class StringGenerator {
         final int MIN_CHAR = 48;
         final int MAX_CHAR = 122;
         Random random = new Random();
-        return random.ints(MIN_CHAR,MAX_CHAR+1)
-                .filter(c->(c<=57 || c>=63) && (c<=90 || c>=97))
-                .limit(LENGTH_LIMIT)
-                .collect(StringBuilder::new,StringBuilder::appendCodePoint,
-                        StringBuilder::append)
-                .toString();
+        String result;
+        do {
+            result = random.ints(MIN_CHAR, MAX_CHAR + 1)
+                    .filter(c -> (c <= 57 || c >= 63) && (c <= 90 || c >= 97))
+                    .limit(LENGTH_LIMIT)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint,
+                            StringBuilder::append)
+                    .toString();
+        }while(!result.matches("(?=^.{4,12}$)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?&gt;.&lt;,])(?!.*\s).*$"));
+        return result;
     }
 
     public String[] generateTexts(String generatedCharacters) {

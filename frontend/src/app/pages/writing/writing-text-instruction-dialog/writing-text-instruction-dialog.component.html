@@ -1,0 +1,19 @@
+<div class="center">
+    <mat-dialog-content>
+        <h2 mat-dialog-title>PISANIE TEKSTÓW</h2>
+        <p>Twoim zadaniem jest przepisać podany tekst w jak najszybszym czasie. Masz do wyboru trzy poziomy tekstów, 
+        różniacych się od siebie długością i stopniem zaawansowania słownictwa. Możesz wylosować tekst lub wybrać konkretny z listy. </p>
+        <p> Aby rozpocząć pisanie naciśnij przycisk "START". Możesz w dowolnym momencie zatrzymać wpisywanie oraz przerwać zadanie. 
+        Jeśli będziesz chciał rozpocząć pisanie jeszcze raz naciśnij przycisk "ZRESETUJ".
+        </p>
+        <p>Dobrze wpisane znaki będą zaznaczane kolorem zielonym, błędnie czerwonym. Za każdą poprawną literę otrzymasz punkt.
+        Na samym końcu naciśnij przycisk "PODSUMOWANIE", aby przejrzeć swoje statystki 
+        i zapisać wynik (jeśli jesteś zalogowany).</p>
+        <p> Staraj się używać wszystkich palców oraz nie patrzeć na klawiaturę.</p>
+        <h4> POWODZENIA!</h4>
+    </mat-dialog-content>
+    <mat-dialog-actions style="margin-bottom: 5px;">
+        <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large" (click)="goBack()" >Powrót</button>
+        <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large" (click)="startTask()" >Start</button>
+    </mat-dialog-actions>
+</div>

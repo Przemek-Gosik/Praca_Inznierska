@@ -69,6 +69,7 @@ import { ResultsReadingTableComponent } from './pages/account/my-results/results
 import { MatButtonToggleModule} from '@angular/material/button-toggle'
 import { NgOptimizedImage } from '@angular/common';
 import { ReadingInstructionComponent } from './pages/reading/reading-instruction/reading-instruction.component';
+import { WritingTextInstructionDialogComponent } from './pages/writing/writing-text-instruction-dialog/writing-text-instruction-dialog.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { ReadingInstructionComponent } from './pages/reading/reading-instruction
     ResultsWritingTableComponent,
     ResultsMemorizingTableComponent,
     ResultsReadingTableComponent,
-    ReadingInstructionComponent
+    ReadingInstructionComponent,
+    WritingTextInstructionDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
