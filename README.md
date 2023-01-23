@@ -26,5 +26,6 @@ Uruchomienie części klienckiej aplikacji
 Należy uruchomić środowisko Visual Studio Code, a w nim otworzyć folder "frontend".
 Następnie uruchomić konsolę w aplikacji VS Code.
 Za pomocą polecenia "npm install" należy zainstalować wszystkie potrzebne zależności.
+Za pomocą polecenia "ng bulid" zbudować aplikację.
 Za pomocą polecenia "ng serve" uruchomić aplikację. 
 Aplikacja dostępna jest pod adresem http://localhost:4200.
