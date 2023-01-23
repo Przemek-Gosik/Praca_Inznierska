@@ -14,36 +14,32 @@
         {{title}}
     </div>
 
-    <button mat-fab extended class="btn-reading btn-large" (click)=linkToLevelChoice(SCHULTZ)>
+    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(SCHULTZ)>
       <span class="btn-hover">
-        <!-- <mat-icon>calendar_view_month</mat-icon> -->
         <mat-icon>window</mat-icon>
         <br>
         {{tabSchultz}}
       </span>
     </button>
 
-    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog()">
+    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(FINDING_NUMBERS)">
       <span class="btn-hover">
         <mat-icon class="icon-numbers">123</mat-icon>
-        <!-- <mat-icon>window</mat-icon> -->
         <br>
         {{findNumbers}}
       </span>
     </button>
 
-    <button mat-fab extended class="btn-reading btn-large" routerLink="/courses/reading/eye_warm_up">
+    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(EYE_WARM_UP)">
       <span class="btn-hover">
-        <!-- <mat-icon>calendar_view_month</mat-icon> -->
         <mat-icon>remove_red_eye</mat-icon>
         <br>
         {{eyeTraining}}
       </span>
     </button>
 
-    <button mat-fab extended class="btn-reading btn-large" (click)=linkToLevelChoice(QUIZ)>
+    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(QUIZ)>
       <span class="btn-hover">
-        <!-- <mat-icon>calendar_view_month</mat-icon> -->
         <mat-icon>quiz</mat-icon>
         <br>
           {{quiz}}

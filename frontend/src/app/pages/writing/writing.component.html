@@ -12,7 +12,7 @@
         {{title}}
     </div>
     <div>
-      <button mat-fab extended routerLink="/courses/writing/course" class="btn-writing btn-large" > 
+      <button mat-fab extended (click)="openInstructionForLessons()" class="btn-writing btn-large" > 
           <span class="btn-hover">
               <!-- <mat-icon>spellcheck</mat-icon> -->
               <mat-icon>type_specimen</mat-icon>

@@ -14,6 +14,7 @@ export class ReadingComponent implements OnInit {
   SCHULTZ: string = TypeReading.SCHULTZ
   FINDING_NUMBERS: string = TypeReading.FINDING_NUMBERS
   QUIZ :string = TypeReading.READING_WITH_QUIZ
+  EYE_WARM_UP:string = "EYE_WARM_UP"; 
 
   constructor(private router:Router,
     public dialog: MatDialog,) { }
@@ -33,9 +34,12 @@ export class ReadingComponent implements OnInit {
     }])
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ReadingInstructionComponent, {
-      width:'800px'
+  openDialog(type:string): void {
+    this.dialog.open(ReadingInstructionComponent, {
+      width:'800px',
+      data:{
+        type:type
+      }
     });
   }
 

@@ -71,6 +71,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { ReadingInstructionComponent } from './pages/reading/reading-instruction/reading-instruction.component';
 import { WritingTextInstructionDialogComponent } from './pages/writing/writing-text-instruction-dialog/writing-text-instruction-dialog.component';
 import { WritingLessonInstructionDialogComponent } from './pages/writing/writing-lesson-instruction-dialog/writing-lesson-instruction-dialog.component';
+import { MemorzingInstructionComponent } from './pages/memorizing/memorzing-instruction/memorzing-instruction.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { WritingLessonInstructionDialogComponent } from './pages/writing/writing
     ReadingInstructionComponent,
     WritingTextInstructionDialogComponent,
     WritingTextInstructionDialogComponent,
-    WritingLessonInstructionDialogComponent
+    WritingLessonInstructionDialogComponent,
+    MemorzingInstructionComponent
   ],
   imports: [
     BrowserAnimationsModule,
