@@ -20,11 +20,20 @@
                                 id="email"
                                 name="email"
                                 type="email"
-                                class="validate"
+                                class="validate input-text"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
                                 [(ngModel)]="report.email"
                                 #email="ngModel"
-                                
+                                required
                             >
+                            <ng-container *ngIf="email.invalid && email.touched">
+                                <div class="invalid-data" *ngIf="email.errors?.['required']">
+                                    Adres e-mail jest wymagany!
+                                </div>
+                                <div class="invalid-data" *ngIf="email.errors?.['pattern']">
+                                    Adres e-mail jest niepoprawny!
+                                </div>
+                            </ng-container>
                             <label for="email">Adres e-mail</label>
                         </div>
                     </div>
@@ -35,11 +44,16 @@
                                 id="title"
                                 type="text"
                                 name="title"
-                                class="validate"
+                                class="validate input-text"
                                 [(ngModel)]="report.title"
                                 #title="ngModel"
                                 required
                             />
+                            <ng-container *ngIf="title.invalid && title.touched">
+                                <div class="invalid-data" *ngIf="email.errors?.['required']">
+                                    Tytuł wiadomości jest wymagany!
+                                </div>
+                            </ng-container>
                             <label for="title">Tytuł</label>
                         </div>
                     </div>
@@ -49,14 +63,21 @@
                             <textarea 
                                 id="message" 
                                 name="text"
-                                class="materialize-textarea"
+                                class="materialize-textarea input-text validate"
                                 [(ngModel)]="report.text"
                                 #text="ngModel"
-                                minlength="5"
+                                minlength="20"
                                 required
                             >
                             </textarea>
-
+                            <ng-container *ngIf="text.invalid && text.touched">
+                                <div class="invalid-data" *ngIf="text.errors?.['required']">
+                                    Treść wiadomości jest wymagana!
+                                </div>
+                                <div class="invalid-data" *ngIf="text.errors?.['minlength']">
+                                    Treść wiadomości nie może być krótsza niż 20 znaków!
+                                </div>
+                            </ng-container>
                             <label for="message">Wiadomość</label>
                         </div>
                     </div>

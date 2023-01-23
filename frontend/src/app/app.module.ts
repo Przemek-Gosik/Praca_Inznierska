@@ -68,6 +68,7 @@ import { ResultsMemorizingTableComponent } from './pages/account/my-results/resu
 import { ResultsReadingTableComponent } from './pages/account/my-results/results-reading-table/results-reading-table.component';
 import { MatButtonToggleModule} from '@angular/material/button-toggle'
 import { NgOptimizedImage } from '@angular/common';
+import { ReadingInstructionComponent } from './pages/reading/reading-instruction/reading-instruction.component';
 import { WritingTextInstructionDialogComponent } from './pages/writing/writing-text-instruction-dialog/writing-text-instruction-dialog.component';
 import { WritingLessonInstructionDialogComponent } from './pages/writing/writing-lesson-instruction-dialog/writing-lesson-instruction-dialog.component';
 
@@ -120,6 +121,8 @@ import { WritingLessonInstructionDialogComponent } from './pages/writing/writing
     ResultsWritingTableComponent,
     ResultsMemorizingTableComponent,
     ResultsReadingTableComponent,
+    ReadingInstructionComponent,
+    WritingTextInstructionDialogComponent,
     WritingTextInstructionDialogComponent,
     WritingLessonInstructionDialogComponent
   ],

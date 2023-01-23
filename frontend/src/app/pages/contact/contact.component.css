@@ -19,7 +19,7 @@
   /* label focus color */
   .input-field input[type=text]:focus + label,
   .input-field input[type=email]:focus + label,
-  .input-field textarea :focus + label {
+  .input-field textarea:focus + label {
     color:  var(--color-input);
   }
   

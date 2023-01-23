@@ -45,7 +45,9 @@
                             [(ngModel)]="user.password"
                             class="validate input-text"
                             [type]="hide ? 'password' : 'text'"
-                            minlength="5"
+                            minlength="4"
+                            maxlength="12"
+                            pattern="(?=^.{4,12}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
                             #password="ngModel"
                             required
                         />
@@ -55,7 +57,13 @@
                                 Hasło jest wymagane!
                             </div>
                             <div class="invalid-data" *ngIf="password.errors?.['minlength']">
-                                Hasło musi mieć przynajmniej 5 znaków!
+                                Hasło musi mieć przynajmniej 4 znaki!
+                            </div>
+                            <div class="invalid-data" *ngIf="password.errors?.['maxlenght']">
+                                Hasło nie może mieć więcej niż 12 znaków!
+                            </div>
+                            <div class="invalid-data" *ngIf="password.errors?.['pattern']">
+                                Hasło musi mieć przynajmniej 1 znak, 1 cyfrę, 1 małą i 1 dużą literę!
                             </div>
                         </ng-container>
                     </div>  

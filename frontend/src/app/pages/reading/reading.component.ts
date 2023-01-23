@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TypeReading } from 'src/app/consts/type-consts';
+import { ReadingInstructionComponent } from './reading-instruction/reading-instruction.component';
 
 @Component({
   selector: 'app-reading',
@@ -13,7 +15,8 @@ export class ReadingComponent implements OnInit {
   FINDING_NUMBERS: string = TypeReading.FINDING_NUMBERS
   QUIZ :string = TypeReading.READING_WITH_QUIZ
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,
+    public dialog: MatDialog,) { }
 
   ngOnInit(): void {
   }
@@ -21,13 +24,19 @@ export class ReadingComponent implements OnInit {
   tabSchultz: string = "Tablice Schulza"
   findNumbers: string = "Znajdowanie liczb"
   eyeTraining: string = "Rozgrzewka oczu"
-  quiz: string = "Czytanie ze zrozumieniem"
+  quiz: string = "Quiz"
 
   linkToLevelChoice(type:string){
     this.router.navigate(["/courses/reading/level",
     {
       type: type
     }])
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ReadingInstructionComponent, {
+      width:'800px'
+    });
   }
 
 }

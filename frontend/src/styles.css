@@ -56,9 +56,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .NIGHT{
     --background-color: rgb(53, 53, 53);
-    --background-color-context-box:#134e7052;
-    --btn-pick-course-background-color:#74858f9f;
-    --color: #ffffffb4;
+    --background-color-context-box:rgba(19, 78, 112, 0.322);
+    --btn-pick-course-background-color:rgba(116, 133, 143, 0.624);
+    --color: rgba(255, 255, 255, 0.706);
     --color-a: rgba(255, 255, 255, 0.705);
     --color-a-hover: rgb(105, 206, 255);
     --color-a-active-breadcrumbs: rgb(1, 157, 253);
@@ -66,16 +66,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-footer: rgba(7, 39, 64, 0.522);
     --btn-pick-course-background-color-hover:rgba(83, 95, 102, 0.624);
     --color-pressed-button:rgba(62, 71, 77, 0.624);
-    --color-invalid: #b91e26;
+    --color-invalid: rgb(185, 30, 38);
     --color-invalid-bg: rgba(185, 30, 38, 0.295);
-    --color-valid: #076921;
+    --color-valid: rgb(7, 105, 33);
     --color-input: rgb(105, 206, 255);
     --color-footer-copyright: rgba(247, 245, 245, 0.041);
     --color-line:rgba(255, 255, 255, 0.075);
     --color-number: rgb(105, 206, 255);
     --bg-mat-dialog: rgba(53, 53, 53, 0.856);
-    --dotted-line-color:#ffffff83;
-    --btn-delete-bg-color: #b91e26;
+    --dotted-line-color:rgba(255, 255, 255, 0.514);
+    --btn-delete-bg-color: rgb(185, 30, 38);
 }
 
 .CONTRAST{
@@ -90,9 +90,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-footer: rgba(94, 97, 99, 0.733);
     --btn-pick-course-background-color-hover:rgba(34, 34, 34, 0.622);
     --color-pressed-button:rgba(0, 0, 0, 0.582);
-    --color-invalid: #070707;
+    --color-invalid: rgb(7, 7, 7);
     --color-invalid-bg: rgba(61, 61, 61, 0.226);
-    --color-valid: #070707;
+    --color-valid: rgb(7, 7, 7);
     --color-input: rgb(255, 255, 255);
     --color-footer-copyright: rgba(51, 51, 51, 0.08);
     --color-line:rgba(0, 0, 0, 0.103);
@@ -108,7 +108,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: var(--color-invalid);
     font-size: 14px;
     margin-left:45px;
-    border-color: var(--color-invalid);
+    /* border-color: var(--color-invalid); */
     text-align: center;
 }
 
@@ -372,21 +372,19 @@ main{
     color: var(--color-a-hover);
 }
 
-
-
-.mat-button-toggle-checked{
+.mat-button-toggle:checked{
     background-color: var(--color-pressed-button);
     color: var(--color-a-hover);
 }
 
 .mat-table{
     background-color: var(--background-color-context-box);
+    color: var(--color);
 }
 
 .mat-header-cell{
     font-weight: bolder;
     font-size: large;
-    
 }
 
 .mat-cell{
@@ -395,4 +393,27 @@ main{
 
 .mat-paginator{
     background-color: var(--background-color-context-box);
+    color: var(--color) !important;
+}
+
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: var(--color-a-hover);
+    background-color: var(--btn-pick-course-background-color-hover) !important;
+}
+
+.mat-header-cell, 
+.mat-paginator-container, 
+.mat-select-value, 
+.mat-paginator, .mat-paginator-page-size .mat-select-trigger,
+.mat-icon-button.mat-button-disabled.mat-button-disabled,
+.mat-select-arrow{
+    color: var(--color);
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline{
+    background-color: var(--color);
+}
+
+.mat-cell{
+    color: var(--color);
 }

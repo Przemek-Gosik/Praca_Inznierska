@@ -34,8 +34,7 @@
             <div class="word" #word>
               <div
                 *ngFor="let char of word | split; let j = index"
-                [ngStyle]="{ color: setTextColor(i, j) }"
-              >
+                [ngStyle]="{ color: setTextColor(i, j) }">
                 {{ char }}
               </div>
               &nbsp;&nbsp;

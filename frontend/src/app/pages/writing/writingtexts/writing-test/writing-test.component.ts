@@ -91,7 +91,6 @@ export class WritingTestComponent implements OnInit,GameService {
   openDialog(result: WritingTextResult):void{
     this.dialog.open(WritingTextResultDialogComponent,{
       width: '500px',
-      // height: '500px',
       data:{
         result: result
       }
