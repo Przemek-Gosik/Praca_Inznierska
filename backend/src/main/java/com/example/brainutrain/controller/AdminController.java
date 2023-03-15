@@ -22,7 +22,7 @@ import java.util.List;
         path = "/api/admin",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
     private final UserService userService;
 

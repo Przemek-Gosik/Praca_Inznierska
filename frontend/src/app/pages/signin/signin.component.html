@@ -1,0 +1,89 @@
+<div class="bg-color">
+    <nav class="breadcrumb-background">
+        <div>
+          <div class="col s12">
+            <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/account" class="breadcrumb breadcrumb-text" style="padding-top:500pxl"><b>Moje konto</b></a>
+            <a href="/account/signin" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Logowanie</b></a>
+          </div>
+        </div>
+    </nav>
+
+    <div class="row context-box">
+        <form class="col s12" #loginForm="ngForm" >
+            <div class="row">
+                <div class="font-title col s12">
+                    {{title}}
+                </div>
+                <div class="row">
+                    <div class="input-field col s5" style="margin-left:28%">
+                        <i class="material-icons prefix" (click)="clickedIcon">account_circle</i>
+                        <input 
+                            id="login" 
+                            type="text" 
+                            [(ngModel)]="user.login"
+                            name="login"
+                            class="validate input-text"
+                            #login="ngModel"
+                            required
+                        />
+                        <label for="login">Login</label>
+                        <ng-container *ngIf="login.invalid && login.touched">
+                            <div class="invalid-data" *ngIf="login.errors?.['required']">
+                                Login jest wymagany!
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="row row-pass">
+                    <div class="input-field col s5" style="margin-left:28%">
+                        <i class="material-icons prefix validate" >vpn_key</i>
+                        <input 
+                            id="password" 
+                            type="password" 
+                            name="password"
+                            [(ngModel)]="user.password"
+                            class="validate input-text"
+                            [type]="hide ? 'password' : 'text'"
+                            minlength="4"
+                            maxlength="12"
+                            pattern="(?=^.{4,12}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
+                            #password="ngModel"
+                            required
+                        />
+                        <label for="password" >Hasło</label>
+                        <ng-container *ngIf="password.invalid && password.touched">
+                            <div class="invalid-data" *ngIf="password.errors?.['required']">
+                                Hasło jest wymagane!
+                            </div>
+                            <div class="invalid-data" *ngIf="password.errors?.['minlength']">
+                                Hasło musi mieć przynajmniej 4 znaki!
+                            </div>
+                            <div class="invalid-data" *ngIf="password.errors?.['maxlenght']">
+                                Hasło nie może mieć więcej niż 12 znaków!
+                            </div>
+                            <div class="invalid-data" *ngIf="password.errors?.['pattern']">
+                                Hasło musi mieć przynajmniej 1 znak, 1 cyfrę, 1 małą i 1 dużą literę!
+                            </div>
+                        </ng-container>
+                    </div>  
+                    <button class="btn-visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </div>
+                <div class="center row">   
+                    <a routerLink="/account/signin/signup" class="font-link">Nie masz konta?</a>
+                    <a routerLink="/account/signin/forgotpassword" class="font-link font-forgot-pass">Zapomniałeś hasła?</a>    
+                </div>
+                <div class="center">
+                    <button class="btn-small btn-form" type="submit" [disabled]="loginForm.invalid" (click)="userLogin()">Zaloguj się</button>
+                    <button class="btn-small btn-form" type="reset" (click)="resetError()">Wyczyść</button>
+                </div>
+                <br> 
+                <div *ngIf="signinFailed" class="invalid-data col s5" style="margin-left:30%">
+                    {{errorResponse}}
+                </div>
+            </div>   
+        </form>
+    </div>
+</div>

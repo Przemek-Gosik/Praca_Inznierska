@@ -32,16 +32,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
          httpSecurity
-                .cors().and()
                 .csrf().disable()
                 .authorizeRequests(auth->auth
                         .antMatchers("/api/auth/emailIsTaken/*","/api/auth/loginIsTaken/*",
                                 "/api/auth/login","/api/auth/register","/api/auth/passwordRecovery/**",
-                                "/api/fast_reading/text/guest/**").permitAll()
+                                "/api/fast_reading/text/guest/**","/api/fast_writing/guest/**",
+                                "/api/memorizing/guest/**", "/api/report/guest")
+                        .permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(),userService, tokenCreator));
+         httpSecurity.cors();
                 return httpSecurity.build();
     }
 

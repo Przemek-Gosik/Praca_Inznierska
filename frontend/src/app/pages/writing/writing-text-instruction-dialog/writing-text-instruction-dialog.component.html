@@ -1,0 +1,14 @@
+<div class="center">
+    <mat-dialog-content>
+        <h2 mat-dialog-title>{{TITLE}}</h2>
+        <p>{{TEXT_LINE1}}</p>
+        <p>{{TEXT_LINE2}}</p>
+        <p>{{TEXT_LINE3}}</p>
+        <p>{{TEXT_LINE4}}</p>
+        <h4> POWODZENIA!</h4>
+    </mat-dialog-content>
+    <mat-dialog-actions style="margin-bottom: 5px;">
+        <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large" (click)="goBack()" >Powrót</button>
+        <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large" (click)="startTask()" >Start</button>
+    </mat-dialog-actions>
+</div>

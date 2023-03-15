@@ -42,8 +42,8 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        //return user.getIsEmailConfirmed();
-        return true;
+        return user.getIsEmailConfirmed();
+        //return true;
     }
 
     @Override

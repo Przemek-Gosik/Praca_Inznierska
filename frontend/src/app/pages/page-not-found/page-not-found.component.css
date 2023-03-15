@@ -1,0 +1,20 @@
+.page-not-found{
+    /* margin-top: 500px; */
+}
+
+h1{
+    font-size: 100px;
+    padding-bottom: 30px;
+    padding-top: 100px;
+    font-weight:bolder;
+    color: var(--color-a-active-breadcrumbs);
+}
+
+h2{
+    font-size: 40px;
+    font-weight: normal;
+    color: var(--color);
+    text-decoration: italic;
+    /* padding-bottom:100px; */
+
+}

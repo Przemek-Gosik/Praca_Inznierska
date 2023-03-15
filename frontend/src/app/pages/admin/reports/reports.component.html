@@ -1,0 +1,55 @@
+<div>
+    <nav class="breadcrumb-background">
+      <div class="">
+        <div class="col s12">
+          <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+          <a href="/account" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Moje konto</b></a>
+          <a href="/account/admin/reports" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Lista zgłoszeń</b></a>
+        </div>
+      </div>
+    </nav>
+  
+    <div class="row context-box">
+      <div class="row link">
+        <div class="font-title">Lista zgłoszeń</div>
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="number">
+            <th mat-header-cell *matHeaderCellDef>Numer</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Tytuł</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ element.title }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Adres email do odpowiedzi</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ element.email }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Data</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ element.email }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <button mat-raised-button>
+                  Zobacz treść
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
+        </mat-paginator>
+        </div>
+    </div>
+</div>

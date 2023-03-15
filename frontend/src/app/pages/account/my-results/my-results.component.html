@@ -1,0 +1,29 @@
+<div>
+    <nav class="breadcrumb-background">
+        <div class="col s12">
+            <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/account" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Moje konto</b></a>
+            <a href="/account/results" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Moje wyniki</b></a> 
+        </div>
+    </nav>
+    <div class="row context-box">
+        <div class="row">
+            <div class="col s12 font-title">
+                {{title}}
+            </div>
+            <div class="col s12">
+                <mat-tab-group dynamicHeight>
+                    <mat-tab [label]='memorizing'>
+                        <app-results-memorizing-table [results]="memorizingResults"></app-results-memorizing-table>
+                    </mat-tab>
+                    <mat-tab [label]='reading'>
+                        <app-results-reading-table [results]="readingResults"></app-results-reading-table>
+                    </mat-tab>
+                    <mat-tab [label]='writing'>
+                       <app-results-writing-table [results]=writingResults ></app-results-writing-table>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

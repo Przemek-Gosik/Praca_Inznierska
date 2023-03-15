@@ -1,0 +1,67 @@
+<div>
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s10">
+        <a
+          href="/"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Strona główna</b></a
+        >
+        <a
+        href="/courses"
+        class="breadcrumb breadcrumb-text"
+        style="padding-top: 500px"
+        ><b>Kursy</b></a
+      >
+        <a
+          href="/courses/memorizing"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Zapamiętywanie</b></a
+        >
+        <a
+          href="/courses/memorizing/level"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Wybór poziomu</b></a
+        >
+        <a
+          (click)="reset()"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Dopasuj obrazki</b></a
+        >
+      </div>
+    </div>
+  </nav>
+  <div class="row context-box center">
+    <div class="font-title">Dopasuj obrazki</div>
+    <div class="cards" style="margin-left: 2%; margin-right: 2%">
+      <app-memorizing-card
+        *ngFor="let card of cards; let i = index"
+        [data]="card"
+        (cardClicked)="cardClicked(i)"
+        style="padding: 0.5%"
+      ></app-memorizing-card>
+    </div>
+    <div class="">
+      <br>
+      <span class="points">Zdobyte punkty: {{points}}</span>
+      <br>
+    </div>
+    <div>
+      <br>
+      <button class="btn-small btn-form" (click)="reset()" >Resetuj</button>
+      <button class="btn-small btn-form" (click)="goBack()">Powrót</button>
+      <button
+        class="btn-small btn-form"
+        *ngIf="loggedIn()"
+        [disabled]="!finished || saved"
+        (click)="saveResult()"
+      >
+        Zapisz wynik
+      </button>
+    </div>
+  </div>
+</div>

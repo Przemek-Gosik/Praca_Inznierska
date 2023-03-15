@@ -1,0 +1,109 @@
+.input-text{
+  color: var(--color);
+}
+
+.input-field{
+  width:300px;
+  min-width:200px;
+}
+
+.input-field input{
+  border-bottom: 1px solid var(--color);
+  box-shadow: 0 1px 0 0 var(--color);
+
+}
+
+/* label color */
+.input-field input[type=text] ~label,
+.input-field input[type=email] ~label,
+.input-field input[type=password] ~label {
+  color: var(--color-a-active-breadcrumbs);
+} 
+
+/* label focus color */
+
+.input-field input[type=text]:not(.browser-default):focus + label,
+.input-field input[type=email]:not(.browser-default):focus + label,
+.input-field input[type=password]:not(.browser-default):focus + label {
+  color: var(--color-input);
+}
+
+/*indicator focus color */
+.input-field input[type=text]:not(.browser-default):focus,
+.input-field input[type=password]:not(.browser-default):focus,
+.input-field input[type=email]:not(.browser-default):focus{
+  border-bottom: 1px solid var(--color-input);
+  box-shadow: 0 1px 0 0 var(--color-input);
+}
+
+/* valid color */
+
+.input-field input[type=text].valid:focus ~label,
+.input-field input[type=email].valid:focus ~label,
+.input-field input[type=password].valid:focus ~label {
+  color: var(--color-valid);
+}
+
+.input-field input[type=text].valid, .input-field input[type=text].valid:focus, 
+.input-field input[type=email].valid, .input-field input[type=email].valid:focus,
+.input-field input[type=password].valid, .input-field input[type=password].valid:focus {
+  border-bottom: 1px solid var(--color-valid);
+  box-shadow: 0 1px 0 0 var(--color-valid);
+}
+
+/* invalid color */
+
+.input-field input[type=text].invalid, .input-field input[type=text].invalid:focus, 
+.input-field input[type=email].invalid, .input-field input[type=email].invalid:focus,
+.input-field input[type=password].invalid, .input-field input[type=password].invalid:focus {
+  border-bottom: 1px solid var(--color-invalid);
+  box-shadow: 0 1px 0 0 var(--color-invalid);
+}
+
+.input-field input[type=text].invalid:focus ~label,
+.input-field input[type=email].invalid:focus ~label,
+.input-field input[type=password].invalid:focus ~label  {
+  color: var(--color-invalid);
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active{
+  color: var(--color-input);
+}
+
+.btn-form {
+  margin: 0 auto;
+  margin-right:20px;
+  width: 200px;
+  height: 50px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+  background-color: var(--btn-pick-course-background-color);
+  color: var(--color);
+  font-weight: bold;
+  margin-top: 2%;
+  border-radius: 5px;
+  font-size:15px;
+}
+
+/*buttony */
+.btn-form:hover{
+  color: var(--color-a-hover);
+  background-color: var(--btn-pick-course-background-color-hover);
+  }
+  
+.btn-visibility{
+  background-color: transparent;
+}
+  
+.btn-visibility:hover{
+  color:var(--color-input);
+}
+  
+.btn-visibility:active{
+  color:var(--color-input);
+  background-color: transparent;
+}
+
+button:focus{
+  background-color: transparent;
+}

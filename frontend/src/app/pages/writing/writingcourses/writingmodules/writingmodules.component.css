@@ -1,0 +1,16 @@
+
+.panel{
+  background-color: var(--btn-pick-course-background-color);
+}
+
+.panel:hover{
+  background-color: var(--btn-pick-course-background-color-hover);
+}
+
+.mat-button{
+    background-color: transparent;
+}
+
+.mat-button:hover{
+    color: var(--color-a-hover);
+}

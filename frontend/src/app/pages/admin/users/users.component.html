@@ -1,0 +1,92 @@
+<div>
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s12">
+        <a
+          href="/"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Strona główna</b></a
+        >
+        <a
+          href="/account"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Moje konto</b></a
+        >
+        <a
+          href="/account/admin/users"
+          class="breadcrumb breadcrumb-text"
+          style="padding-top: 500px"
+          ><b>Lista użytkowników</b></a
+        >
+      </div>
+    </div>
+  </nav>
+
+  <div class="row context-box">
+    <div class="row link">
+      <div class="font-title">Lista użytkowników</div>
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef>Numer</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Identyfikator</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.idUser }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="login">
+          <th mat-header-cell *matHeaderCellDef>Login</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.login }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Adres email</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.email }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action1">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button
+                mat-raised-button
+                *ngIf="isUserAdmin(element)"
+                (click)="takeAdminRole(element)"
+                class="btn-admin btn-small"
+              >
+                Odbierz uprawnienia
+              </button>
+              <button
+                mat-raised-button
+                *ngIf="!isUserAdmin(element)"
+                (click)="giveAdminRole(element)"
+                class="btn-admin btn-small"
+              >
+                Mianuj administratorem
+              </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action2">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button class="btn-delete btn-small" (click)="deleteUser(element)">
+              <!-- <button mat-raised-button color="warn" (click)="deleteUser(user.idUser)"> -->
+                Usuń użytkownika
+              </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div>
+  <nav class="breadcrumb-background">
+      <div class="col s12">
+        <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+        <a href="/courses/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+        <a href="/courses/writing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Pisanie</b></a>
+        <a href="/courses/writing/text" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Poziom trudności</b></a>
+        <a href="/courses/writing/text" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Wybierz tekst</b></a>
+        <a class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>{{writingText.title}}</b></a>
+      </div>
+  </nav>
+  <div class="context-box">
+    <div class="col s12" >
+      <div class="row">
+        <div class="font-title col s12">
+          {{writingText.title}}
+        </div>
+      </div>
+      <div class="text" style="margin-left:5%; margin-right:2%">
+        <div *ngFor="let word of writingText.text | splitWords; let i = index">
+          <div style="display: inline-block;margin-right:2%;">
+            <div>
+              <input
+                #box
+                [style.width.px]="calculateInputWidth(word)"
+                [(ngModel)]="typedWords[i]"
+                [id]="i"
+                (keyup.space)="moveOn(i + 1, word)"
+                [maxlength]=getMaxLength(word)
+                autocomplete="off"
+                [disabled]="blockTyping"
+              />
+            </div>
+            <div class="word" #word>
+              <div
+                *ngFor="let char of word | split; let j = index"
+                [ngStyle]="{ color: setTextColor(i, j) }">
+                {{ char }}
+              </div>
+              &nbsp;&nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="row">
+        <p class="points center" style="margin-top:2%">Czas: {{ timerService.displayTime() }}</p>
+      </div>
+      <div class="row center">
+        <button class="btn-small btn-writing" (click)="startOrPause()">
+          {{ buttonActionName }}
+        </button>
+        <button class="btn-small btn-writing" (click)="reset()">
+          Zresetuj
+        </button>
+        <button class="btn-small btn-writing" (click)="goBack()">
+          Powrót
+        </button>
+        <button
+          class="btn-small btn-writing"
+          (click)="calculatePoints()"
+          [disabled]="!done"
+        >
+          Podsumowanie
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

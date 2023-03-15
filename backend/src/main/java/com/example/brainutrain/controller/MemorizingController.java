@@ -1,6 +1,7 @@
 package com.example.brainutrain.controller;
 
 import com.example.brainutrain.dto.MemorizingDto;
+import com.example.brainutrain.dto.response.ResponseWithNumbers;
 import com.example.brainutrain.service.MemorizingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,10 @@ public class MemorizingController {
     @GetMapping("/type/{type}")
     public ResponseEntity<List<MemorizingDto>> getResultsByType(@PathVariable("type") String type){
         return ResponseEntity.ok(memorizingService.getAllUserResultsByType(type));
+    }
+
+    @GetMapping("/guest/numbers/{level}")
+    public ResponseEntity<ResponseWithNumbers> getRandomNumbers(@PathVariable("level") String level){
+        return ResponseEntity.ok(memorizingService.generateRandomNumbers(level));
     }
 }

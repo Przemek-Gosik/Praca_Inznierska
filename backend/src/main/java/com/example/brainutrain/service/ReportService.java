@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- *
+ * Service for reports
  */
 @AllArgsConstructor
 @Service
@@ -28,8 +28,12 @@ public class ReportService {
     private final AuthenticationUtils authenticationUtils;
     private final UserRepository userRepository;
 
-
-    public void createReport(ReportDto reportDto){
+    /**
+     * Method to save new report
+     *
+     * @param reportDto is ReportDto
+     */
+    public void createUserReport(ReportDto reportDto){
         User user = authenticationUtils.getUserFromAuthentication();
         Report report = ReportMapper.INSTANCE.fromDto(reportDto);
         if(report.getEmail().equals("")){
@@ -41,6 +45,19 @@ public class ReportService {
         log.info("Nowy raport utworzony dla użytkownika o id: "+user.getIdUser());
     }
 
+    public void createReport(ReportDto reportDto){
+        Report report = ReportMapper.INSTANCE.fromDto(reportDto);
+        report.setActive(true);
+        reportRepository.save(report);
+        log.info("Nowy raport utworzony");
+    }
+
+    /**
+     * Method to get report if user has access
+     *
+     * @param idReport is Long
+     * @return is ReportDto
+     */
     public ReportDto getUserReport(Long idReport){
         User user = authenticationUtils.getUserFromAuthentication();
         Report report = reportRepository.findByIdReportAndActiveTrue(idReport).orElseThrow(
@@ -52,6 +69,12 @@ public class ReportService {
         return ReportMapper.INSTANCE.toDto(report);
     }
 
+    /**
+     * Method to get reports send by user
+     *
+     * @param username is String
+     * @return is List of ReportDto
+     */
     public List<ReportDto> getAllUserReports(String username) {
         if (!userRepository.existsByLogin(username)) {
             throw new ResourceNotFoundException("Nie odnaleziono użytkownika dla:" + username);
@@ -61,16 +84,32 @@ public class ReportService {
         return ReportMapper.INSTANCE.toDto(sortedReports);
     }
 
+    /**
+     * Method to get all reports
+     *
+     * @return is list of ReportDto
+     */
     public List<ReportDto> getAllReports(){
         List<Report> reports = reportRepository.findAllByActiveTrue();
         List<Report> sortedReports = sortReports(reports);
         return ReportMapper.INSTANCE.toDto(sortedReports);
     }
 
+    /**
+     * Method to sort reports by date
+     *
+     * @param reports is list of Report
+     * @return is list of Report
+     */
     private List<Report> sortReports(List<Report> reports){
         return reports.stream().sorted(Comparator.comparing(Report::getDate)).toList();
     }
 
+    /**
+     * Method to delete report
+     *
+     * @param idReport is Long
+     */
     public void deactivateReportById(Long idReport){
         Report report = reportRepository.findByIdReportAndActiveTrue(idReport).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono raportu dla id: "+idReport)

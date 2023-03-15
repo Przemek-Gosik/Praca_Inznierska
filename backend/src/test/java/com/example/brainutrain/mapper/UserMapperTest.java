@@ -66,7 +66,7 @@ public class UserMapperTest {
 
     @Test
     public void fromDto_givenRegisterRequest_getUser(){
-        RegisterRequest registerRequest = new RegisterRequest(user.getLogin(),user.getEmail(),user.getPassword());
+        RegisterRequest registerRequest = new RegisterRequest(user.getLogin(),user.getEmail(),user.getPassword(),user.getPassword());
         User user1 = userMapper.fromDto(registerRequest);
         assertAll(
                 ()->assertEquals(user1.getLogin(),registerRequest.getLogin()),

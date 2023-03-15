@@ -1,0 +1,81 @@
+.btn-writing {
+  margin: 0 auto;
+  margin-left:20px;
+  width: 200px;
+  height: 50px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+  background-color: var(--btn-pick-course-background-color);
+  color: var(--color);
+  font-weight: bold;
+  margin-top: 2%;
+  border-radius: 5px;
+  font-size:15px;
+}
+
+.btn-writing:hover{
+  background-color: var(--btn-pick-course-background-color-hover);
+  color: var(--color-a-hover);
+}
+
+.text{
+    flex-wrap: wrap;
+    display: flex;
+    align-items: flex-start;
+}
+
+.word{
+  display: flex;
+  flex-direction: row;
+  letter-spacing: 4px;
+  text-align: center;
+  font-size:20px;
+  color: var(--color)
+}
+
+.empty-space{
+   width: 100%;
+}
+
+.main-text{
+  display: flex;
+  flex-direction: row;
+  letter-spacing: 4px;
+  text-align: center;
+  font-size:20px;
+  color: var(--color)
+}
+
+input{
+  letter-spacing: 4px;
+  font-size: 20px;
+  color: var(--color);
+  border-bottom: 1px solid var(--color-input);
+}
+
+input:not([type]):disabled, 
+input:not([type])[readonly="readonly"], 
+input[type=text]:not(.browser-default):disabled, 
+input[type=text]:not(.browser-default)[readonly="readonly"]{
+  color: var(--dotted-line-color);
+  border-bottom: 1px dotted var(--dotted-line-color);
+}
+
+input:not([type]){
+  border-bottom: 1px solid var(--color);
+} 
+
+input:not([type]):focus {
+  border-bottom: 1px solid var(--color-input);
+  box-shadow: 0 1px 0 0 var(--color-input);
+}
+
+input:hover {
+  border-bottom: 1px solid var(--color-input);
+}
+
+.points{
+    font-size: 23px;
+    text-transform: uppercase;
+    padding-top: 3%;
+    margin-top: 5%;
+}

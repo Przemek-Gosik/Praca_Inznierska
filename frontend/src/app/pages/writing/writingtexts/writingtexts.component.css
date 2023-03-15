@@ -1,0 +1,71 @@
+
+.btn-chose-level{
+  margin: 0 auto;
+  margin-left:2%;
+  width: 200px;
+  height: 50px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+  background-color: var(--btn-pick-course-background-color);
+  color: var(--color);
+  font-weight: bold;
+  margin-top: 4%;
+  border-radius: 5px;
+  font-size:15px;
+}
+
+.btn-chose-level:hover{
+  color: var(--color-a-hover);
+  background-color: var(--btn-pick-course-background-color-hover);
+}
+
+.btn-test{
+  margin: 0 auto;
+  margin-left:2%;
+  width: 150px;
+  height: auto;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+  background-color: var(--btn-pick-course-background-color);
+  color: var(--color);
+  font-weight: bold;
+  margin-top: 4%;
+  border-radius: 5px;
+  font-size:13px;
+}
+
+.btn-test:hover{
+  color: var(--color-a-hover);
+  background-color: var(--btn-pick-course-background-color-hover);
+}
+
+label{
+  color: var(--color);
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+label:hover{
+  color:var(--color-a-hover);
+}
+
+[type=radio]:checked + span::after,
+[type="radio"].with-gap.checked + span::after{
+  background-color: var(--color-input);
+}
+
+[type="radio"]:not(:checked) + span:before, [type="radio"]:not(:checked) + span:after {
+  border: 2px solid var(--color);
+}
+
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+  border: 2px solid var(--color-input);
+}
+
+/* .radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+} */
+tr{
+  border-bottom: 1px solid var(--color-a-hover);
+  
+}

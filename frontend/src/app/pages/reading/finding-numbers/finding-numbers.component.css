@@ -1,0 +1,66 @@
+.mat-button {
+    margin: 0 auto;
+    width:50px; 
+    height:50px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: var(--btn-pick-course-background-color);
+    color: var(--color);
+    font-weight: bold;
+    border-radius: 2px;
+    font-size:18px;
+
+}
+
+.mat-button:hover{
+    background-color: var(--btn-pick-course-background-color-hover);
+    color: var(--color-a-hover);
+}
+
+.mat-button:focus{
+    background-color: var(--color-pressed-button);
+    color: var(--color-a-hover);
+}
+
+.points, .number{
+    font-size: 25px;
+    text-transform: uppercase;
+    padding-top: 3%;
+}
+
+.btn-position{
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%; 
+}
+
+table{
+    border-collapse:unset;
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: auto;
+}
+
+td{
+    text-align: center;
+}
+
+.btn-finding{
+    margin: 0 auto;
+    margin-left:20px;
+    width: 200px;
+    height: 50px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.2);    
+    background-color: var(--btn-pick-course-background-color);
+    color: var(--color);
+    font-weight: bold;
+    margin-top: 2%;
+    border-radius: 5px;
+    font-size:15px;
+}
+
+.btn-finding:hover{
+    color: var(--color-a-hover);
+    background-color: var(--btn-pick-course-background-color-hover);
+}

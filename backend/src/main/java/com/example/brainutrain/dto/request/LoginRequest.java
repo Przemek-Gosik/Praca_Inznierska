@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 public class LoginRequest {
     @NotNull(message = "Username should not be null")
-    String userName;
+    String login;
 
     @NotNull(message = "Password should not be null")
     String password;

@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -30,6 +31,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @EqualsAndHashCode
 @Entity
+@Table(name="validation_codes")
 public class ValidationCode {
 
     @Id

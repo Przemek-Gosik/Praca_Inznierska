@@ -1,0 +1,50 @@
+<div class="bg-color">
+  <nav class="breadcrumb-background">
+    <div class="">
+      <div class="col s10">
+        <a href="/" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+        <a href="/courses" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+        <a href="/courses/reading" class="breadcrumb  breadcrumb-text" style="padding-top:500px"><b>Czytanie</b></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row context-box center">
+    <div class="row font-title">
+        {{title}}
+    </div>
+
+    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(SCHULTZ)>
+      <span class="btn-hover">
+        <mat-icon>window</mat-icon>
+        <br>
+        {{tabSchultz}}
+      </span>
+    </button>
+
+    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(FINDING_NUMBERS)">
+      <span class="btn-hover">
+        <mat-icon class="icon-numbers">123</mat-icon>
+        <br>
+        {{findNumbers}}
+      </span>
+    </button>
+
+    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(EYE_WARM_UP)">
+      <span class="btn-hover">
+        <mat-icon>remove_red_eye</mat-icon>
+        <br>
+        {{eyeTraining}}
+      </span>
+    </button>
+
+    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(QUIZ)>
+      <span class="btn-hover">
+        <mat-icon>quiz</mat-icon>
+        <br>
+          {{quiz}}
+      </span>
+    </button>
+
+  </div>
+</div>

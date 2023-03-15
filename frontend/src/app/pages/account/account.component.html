@@ -1,0 +1,95 @@
+<div class="bg-color">
+    <nav class="breadcrumb-background">
+        <div class="">
+          <div class="col s10">
+            <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+            <a href="/account" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Moje konto</b></a>
+          </div>
+        </div>
+    </nav>
+    <div class="row context-box">
+      <div class="row link">
+        <div class="font-title">
+            Moje konto
+          </div>
+          <div class="col s12 center">
+            <div style="margin-left:1%; margin-right:1%">
+              <button mat-fab extended routerLink="/account/signin" class="btn-my-account btn-large" *ngIf="!loggedInUser()" > 
+                <span class="btn-hover">
+                  <mat-icon>login</mat-icon>
+                  <br>
+                  Zaloguj się 
+              </span> 
+              </button>
+
+              <button mat-fab extended routerLink="/account/signin/signup" class="btn-my-account btn-large" *ngIf="!loggedInUser()"> 
+                <span class="btn-hover">
+                  <mat-icon>app_registration</mat-icon>
+                  <br>
+                  Zarejestruj się 
+                </span>
+              </button>
+
+              <button mat-fab extended routerLink="/account/admin/users" class="btn-my-account btn-large" *ngIf="isUserAdmin()"> 
+                <span class="btn-hover">
+                  <!-- <mat-icon>format_list_bulleted</mat-icon> -->
+                  <!-- <mat-icon>people</mat-icon> -->
+                  <mat-icon>groups</mat-icon>
+                  <br>
+                  Użytkownicy 
+                </span>
+              </button>
+
+              <button mat-fab extended routerLink="/account/admin/reports" class="btn-my-account btn-large" *ngIf="isUserAdmin()"> 
+                <span class="btn-hover">
+                  <mat-icon>contact_mail</mat-icon>
+                  <br>
+                  Zgłoszenia  
+                </span>
+              </button>
+
+              <button mat-fab extended routerLink="/account/results" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
+                <span class="btn-hover">
+                  <mat-icon>fitness_center</mat-icon>
+                  <br>
+                  Moje wyniki
+                </span> 
+              </button>
+              
+              <button mat-fab extended routerLink="/account/editaccount" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
+                <span class="btn-hover">
+                  <mat-icon>edit</mat-icon>
+                  <br>
+                  Edytuj dane  
+                </span>
+              </button>
+
+              <button mat-fab extended routerLink="/account/verification" class="btn-my-account btn-large" *ngIf="loggedInUser()"> 
+                <span class="btn-hover">
+                  <mat-icon>beenhere</mat-icon>
+                  <br>
+                  Weryfikacja konta 
+                </span>
+              </button>
+
+              <button mat-fab extended class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="openDialog()"> 
+                <span class="btn-hover">
+                  <mat-icon>delete_outline</mat-icon>
+                  <br>
+                  Usuń konto 
+                </span> 
+              </button>   
+              
+              <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="logoutUser()"> 
+                <span class="btn-hover">
+                  <mat-icon>logout</mat-icon>
+                  <br>
+                  Wyloguj się 
+                </span> 
+              </button> 
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+          

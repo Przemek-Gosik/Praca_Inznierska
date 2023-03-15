@@ -1,0 +1,7 @@
+<p mat-dialog-title>Czy na pewno chcesz usunąć konto?</p>
+<div mat-dialog-content>
+</div>
+<div mat-dialog-actions class="center">
+    <button mat-button [ngClass]="this.themeService.getTheme()" class="btn-small btn-form" (click)="deleteUser()" cdkFocusInitial>Tak</button>
+    <button mat-button [ngClass]="this.themeService.getTheme()" class="btn-small btn-form" (click)="onNoClick()">Nie</button>
+</div>

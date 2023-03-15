@@ -1,0 +1,12 @@
+<p mat-dialog-title>Rezultat zadania</p>
+<mat-dialog-content style="height:auto">
+    <p>Zdobyte punkty: {{score}}</p>
+    <p>Ilość wpisanych znaków: {{typedLetters}}</p>
+    <p>Precyzja: {{calculatePrecision()}}</p>
+    <p>Czas: {{time}}s</p>
+    <p>Prędkość wpisywania: {{calculateSpeed()}} znaków na minutę</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button [ngClass]="this.themeService.getTheme()" class="btn-form btn-large" [disabled]=saved (click)="saveOrUpdate()" *ngIf=loggedIn()>Zapisz</button>
+    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large">Zamknij</button>
+</mat-dialog-actions>

@@ -1,0 +1,16 @@
+.btn-pick-up-course{
+    background-color:var(--btn-pick-course-background-color);
+    width:75%;
+    height: auto;
+    color:var(--color);
+    margin-top:3%;
+    border-radius: 5px;
+    font-size:18px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.btn-pick-up-course:hover{
+    background-color:var(--btn-pick-course-background-color-hover);
+    color: var(--color-a-hover);
+}

@@ -1,0 +1,76 @@
+<div>
+    <nav class="breadcrumb-background">
+        <div class="col s12">
+          <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+          <a href="/courses/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+          <a href="/courses/writing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Pisanie</b></a>
+          <a href="/courses/writing/text" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Poziom trudności</b></a>
+          <a href="/courses/writing/text" class="breadcrumb breadcrumb-text" style="padding-top:500px" *ngIf="chooseText"><b>Wybierz tekst</b></a>
+        </div>
+    </nav>
+    <div class="row context-box">
+        <div class="col s12" >
+            <div class="row">
+                <div class="font-title col s12">
+                    <ng-container *ngIf="!chooseText">
+                        Wybierz poziom trudności
+                    </ng-container>
+                    <ng-container *ngIf="chooseText">
+                        Wybierz tekst
+                    </ng-container>
+                </div> 
+                <ng-container *ngIf="!chooseText">
+                    <div class="input-field col s12" > 
+                        <form name="chosenLevel" #chosenLevelForm="ngForm" ngDefaultControl>
+                            <div style="margin-left:23.5%">
+                            <p *ngFor="let level of levels"style= "display:inline">
+                                <label class="center" style="margin-right:30px;"> 
+                                    <input [(ngModel)]="chosenLevelName" name="choselevel" class="with-gap" type="radio" [value]="level.value"/>
+                                    <span> {{level.name}} </span>
+                                </label>
+                            </p>
+                            </div>
+                            <div class="center">
+                                <button class="btn-chose-level btn-large" (click)="showTexts()" [disabled]="chosenLevelForm.invalid">
+                                    Wybierz tekst
+                                </button>
+                                <button class="btn-chose-level btn-large" (click)="startDrawedTest()">
+                                    Wylosuj tekst
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="chooseText" #texts>
+                    <table mat-table [dataSource]="dataSource" style="width:75%; margin-left:12%">
+                        <ng-container matColumnDef="number">
+                            <th mat-header-cell *matHeaderCellDef>Numer</th>
+                            <td mat-cell *matCellDef="let element;let i = index">{{ i+1 }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef>Tytuł</th>
+                            <td mat-cell *matCellDef="let element">{{element.title}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="level">
+                            <th mat-header-cell *matHeaderCellDef>Poziom trudności</th>
+                            <td mat-cell *matCellDef="let element">{{getLevelName(element.level)}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-raised-button class="btn-test" (click)="startTest(element.idWritingText)"> Rozpocznij tekst</button>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 15]" style="width:75%; margin-left:12%" showFirstLastButtons>
+                    </mat-paginator>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+                
+
+

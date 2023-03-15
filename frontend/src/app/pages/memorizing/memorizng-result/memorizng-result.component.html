@@ -1,0 +1,23 @@
+<div class="center">
+    <mat-dialog-content>
+        <p mat-dialog-title>Rezultat zadania</p>
+        <p>Zdobyte punkty: {{result.score}} / {{maxPoints}}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button [ngClass]="themeService.getTheme()" class="btn-form btn-large" [disabled]=saved (click)="saveResult()" *ngIf=loggedIn()>Zapisz</button>
+        <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large">Zakończ</button>
+    </mat-dialog-actions>
+</div>
+
+<!-- <div class="center">
+
+
+<mat-dialog-content [ngClass]="themeService.getTheme()">
+    <p mat-dialog-title>Rezultat zadania</p>
+    <p>Zdobyte punkty: {{result.score}} / {{maxPoints}}</p>
+</mat-dialog-content>
+<mat-dialog-actions [ngClass]="themeService.getTheme()">
+    <button class="btn-form btn-large" [disabled]=saved (click)="saveResult()" *ngIf=loggedIn()>Zapisz</button>
+    <button mat-dialog-close class="btn-form btn-large">Zakończ</button>
+</mat-dialog-actions>
+</div> -->

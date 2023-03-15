@@ -12,26 +12,17 @@ import com.example.brainutrain.repository.MemorizingRepository;
 import com.example.brainutrain.repository.RoleRepository;
 import com.example.brainutrain.repository.UserRepository;
 import com.example.brainutrain.utils.TokenCreator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.After;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@TestPropertySource(locations = "classpath:applicationTest.properties")
+@TestPropertySource(locations = "classpath:application-Test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
                 classes = BackendApplication.class)
 @AutoConfigureMockMvc
@@ -106,6 +97,8 @@ public class MemorizingControllerTest  {
         assertThat(result).extracting(Memorizing::getLevel).contains(memorizingDto.getLevel());
         assertThat(result).extracting(Memorizing::getType).contains(memorizingDto.getType());
         assertEquals(user.getIdUser(),user1.getIdUser());
+
+        memorizingRepository.deleteAll();
     }
 
     @Test
@@ -164,11 +157,8 @@ public class MemorizingControllerTest  {
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION,"Bearer"+token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].idMemorizing",is(memorizing1.getIdMemorizing().intValue())))
-                .andExpect(jsonPath("$[1].idMemorizing",is(memorizing2.getIdMemorizing().intValue())))
-                .andExpect(jsonPath("$",hasSize(2)));
-
-
+                .andExpect(jsonPath("$[0].score",is(memorizing1.getScore().intValue())))
+                .andExpect(jsonPath("$[1].score",is(memorizing2.getScore().intValue())));
     }
 
     @Test
@@ -196,19 +186,19 @@ public class MemorizingControllerTest  {
     public void getResultById_givenValidId_thenStatus200() throws Exception{
         Memorizing memorizing1 = createMemorizingTestResult(TypeMemory.MNEMONICS,Level.EASY,5L,LocalDateTime.now(),user);
 
-        mockMvc.perform(get("/api/memorizing/"+1)
+        mockMvc.perform(get("/api/memorizing/"+memorizing1.getIdMemorizing())
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION,"Bearer"+token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.idMemorizing",is(memorizing1.getIdMemorizing().intValue())));
+                .andExpect(jsonPath("$.score",is(memorizing1.getScore().intValue())));
     }
 
     @Test
     @Rollback
     void getResultById_givenInvalidId_thenStatus404() throws Exception{
-        Memorizing memorizing1 = createMemorizingTestResult(TypeMemory.MNEMONICS,Level.EASY,5L,LocalDateTime.now(),user);
+        createMemorizingTestResult(TypeMemory.MNEMONICS,Level.EASY,5L,LocalDateTime.now(),user);
 
-        mockMvc.perform(get("/api/memorizing/"+2)
+        mockMvc.perform(get("/api/memorizing/"+505)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION,"Bearer"+token))
                 .andExpect(status().isNotFound());

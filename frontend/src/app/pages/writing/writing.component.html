@@ -1,0 +1,33 @@
+<div>
+  <nav class="breadcrumb-background">
+      <div class="col s10">
+        <a href="/" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Strona główna</b></a>
+        <a href="/courses" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Kursy</b></a>
+        <a href="/courses/writing" class="breadcrumb breadcrumb-text" style="padding-top:500px"><b>Pisanie</b></a>
+      </div>
+  </nav>
+
+  <div class="row context-box center">
+    <div class="row font-title">
+        {{title}}
+    </div>
+    <div>
+      <button mat-fab extended (click)="openInstructionForLessons()" class="btn-writing btn-large" > 
+          <span class="btn-hover">
+              <!-- <mat-icon>spellcheck</mat-icon> -->
+              <mat-icon>type_specimen</mat-icon>
+              <br>
+              Kurs
+          </span> 
+      </button>
+
+      <button mat-fab extended (click)="openInstructionForTexts()" class="btn-writing btn-large" > 
+        <span class="btn-hover">
+            <mat-icon>notes</mat-icon>
+            <br>
+            Teksty
+        </span> 
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+.tabs{
+    height: 100px;
+    background-color: transparent;
+}
+
+.tabs .tab{
+    height: auto;
+    padding-top: 30px;
+}
+
+.tabs .tab a{
+    color: var(--color);
+    font-size: 20px;  
+} 
+.tabs .tab a:hover{
+    color: var(--color-a-hover);
+} 
+.tabs.tabs-transparent .indicator {
+    background-color: rgb(0, 0, 0);
+  }
+  
+/* .tab a.active{
+    color: red !important;
+    background-color: aliceblue !important;
+} */
+
+.menu{
+    height: 100px;
+    background-color: transparent;
+    text-transform: uppercase;
+}
+
+.menu .menu-item{
+    height: auto;
+    padding-top: 30px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.menu .menu-item a{
+    color: var(--color);
+    font-size: 20px;  
+} 
+.menu .menu-item a:hover{
+    color: var(--color-a-hover);
+} 
+
+nav{
+    background-color: transparent;
+}
+
+nav.nav-extended .nav-content {
+    position: relative;
+    line-height: 50px;
+    height: 100px;
+    background-color: var(--color-menu);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.151), 0 1px 6px 0 rgba(0, 0, 0, 0.267), 0 3px 1px -2px rgba(0, 0, 0, 0.048);
+}
+
+i.material-icons{
+    font-size: 40px;
+    color: var(--color); 
+    padding-bottom: 20px;
+}
+
+i.material-icons:hover{
+    color: var(--color-a-hover);
+}
+
+.logo{ 
+    width:139px; 
+    margin-top:0px; 
+    padding-top:20px
+}
+
+/* .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+} */
+
+.logo-bg a:hover{
+    background-color: transparent;
+}
+  
+ /* nav.nav-extended.nav-content.tabs.tabs-transparent .indicator {
+
+    background-color: blue;
+    color:blue;
+    border-bottom: 1px solid blue;
+   } */
+   /* li.indicator{
+    background-color :  blue !important;
+   } */
+
+   /* .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: var(--color-input);                     
+  } */
+  
+  /* .tabs .indicator{
+    background-color: blue !important;
+    bottom: 10;
+  }
+
+.tabs .tab li.indicator{
+    background-color: blue !important;
+  } */
