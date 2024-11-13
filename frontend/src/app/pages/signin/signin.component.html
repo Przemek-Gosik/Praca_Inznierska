@@ -45,9 +45,6 @@
                             [(ngModel)]="user.password"
                             class="validate input-text"
                             [type]="hide ? 'password' : 'text'"
-                            minlength="4"
-                            maxlength="12"
-                            pattern="(?=^.{4,12}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
                             #password="ngModel"
                             required
                         />
@@ -67,7 +64,7 @@
                             </div>
                         </ng-container>
                     </div>  
-                    <button class="btn-visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <button class="btn-visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" (keyup.enter)="onEnter()">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </div>

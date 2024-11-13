@@ -14,7 +14,7 @@
           </div>
           <div class="col s12 center">
             <div style="margin-left:1%; margin-right:1%">
-              <button mat-fab extended routerLink="/account/signin" class="btn-my-account btn-large" *ngIf="!loggedInUser()" > 
+              <button mat-fab extended routerLink="/account/signin" class="btn-my-account btn-large" *ngIf="!loggedInUser()" data-test="login-button">
                 <span class="btn-hover">
                   <mat-icon>login</mat-icon>
                   <br>
@@ -22,7 +22,7 @@
               </span> 
               </button>
 
-              <button mat-fab extended routerLink="/account/signin/signup" class="btn-my-account btn-large" *ngIf="!loggedInUser()"> 
+              <button mat-fab extended routerLink="/account/signin/signup" class="btn-my-account btn-large" *ngIf="!loggedInUser()" data-test="register-button">
                 <span class="btn-hover">
                   <mat-icon>app_registration</mat-icon>
                   <br>
