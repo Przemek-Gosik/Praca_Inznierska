@@ -16,7 +16,7 @@
                         <mat-tab label="Motyw"> 
                             <div>
                                 <ng-container *ngFor="let theme of themes" style="display:inline">
-                                    <button mat-fab extended (click)="this.themeService.setTheme(theme.value)" class="btn-settings btn-large"> 
+                                    <button mat-fab extended (click)="this.themeService.setTheme(theme.value)" class="btn-settings btn-large" [attr.data-test]="'button-'+theme.value">
                                         <span class="btn-hover" >
                                             <mat-icon>{{theme.icon}}</mat-icon>
                                             <br>
