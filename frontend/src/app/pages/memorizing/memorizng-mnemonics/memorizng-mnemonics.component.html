@@ -39,18 +39,19 @@
   <div class="row context-box center">
     <div class="font-title">Cyferki</div>
     <div *ngIf="isPresented" class="number-presentation">
-      <div class="number">
+      <div class="number" data-test="show-number">
         <br>
         <br>
         <p>{{ showNumber() }}</p>
       </div>
     </div>
     <div *ngIf="!isPresented">
-      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" data-test="drop-list-numbers">
         <div
           class="example-box"
           *ngFor="let number of numbers.shuffledRandomNumbers"
           cdkDrag
+          [attr.data-test]="'drag-number-'+number"
         >
           {{ number }}
         </div>
@@ -69,18 +70,21 @@
         <button
           class="btn-small btn-form"
           (click)="incrementIndex()"
+          data-test="show-next-number"
         >
           Następne
         </button>
       <button
         class="btn-small btn-form"
         (click)="reset()"
+        data-test="reset-showing"
       >
         Resetuj
       </button>
       <button
         class="btn-small btn-form"
         (click)="goBack()"
+        data-test="back-page"
       >
         Powrót
       </button>

@@ -14,7 +14,7 @@
         {{title}}
     </div>
 
-    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(SCHULTZ)>
+    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(SCHULTZ) data-test="schultz-table">
       <span class="btn-hover">
         <mat-icon>window</mat-icon>
         <br>
@@ -22,7 +22,7 @@
       </span>
     </button>
 
-    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(FINDING_NUMBERS)">
+    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(FINDING_NUMBERS)" data-test="find-numbers">
       <span class="btn-hover">
         <mat-icon class="icon-numbers">123</mat-icon>
         <br>
@@ -30,7 +30,7 @@
       </span>
     </button>
 
-    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(EYE_WARM_UP)">
+    <button mat-fab extended class="btn-reading btn-large" (click)="openDialog(EYE_WARM_UP)" data-test="eye-warm-up">
       <span class="btn-hover">
         <mat-icon>remove_red_eye</mat-icon>
         <br>
@@ -38,7 +38,7 @@
       </span>
     </button>
 
-    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(QUIZ)>
+    <button mat-fab extended class="btn-reading btn-large" (click)=openDialog(QUIZ) data-test="quiz">
       <span class="btn-hover">
         <mat-icon>quiz</mat-icon>
         <br>

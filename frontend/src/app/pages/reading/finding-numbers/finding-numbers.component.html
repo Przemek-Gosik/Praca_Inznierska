@@ -74,10 +74,10 @@
               <table style="margin:auto">
                 <tr *ngFor="let row of table; let i = index">
                   <td *ngFor="let number of row.column">
-                    <button mat-button class="btn-large" (click)="checkPoints(number)" *ngIf=!hidden>
+                    <button mat-button class="btn-large" (click)="checkPoints(number)" *ngIf=!hidden [attr.data-test]="'number-'+number">
                       {{ number }}
                     </button>
-                    <button mat-button class="btn-large" *ngIf=hidden></button>
+                    <button mat-button class="btn-large" *ngIf=hidden data-test="hidden-number"></button>
                   </td>
                 </tr>
               </table>
@@ -85,15 +85,15 @@
           </div>
         </div>
       <div class="row">
-        <div class="number">Znajdź liczbę: {{getNumberToFind()}}</div>
-        <div class="points">Zdobyte punkty: {{ points }}</div>
-        <div class="timer points">Czas: {{timerService.displayTime()}}</div>
+        <div class="number">Znajdź liczbę: <span data-test="find-number-text">{{getNumberToFind()}}</span></div>
+        <div class="points">Zdobyte punkty: <span data-test="points-text">{{ points }}</span></div>
+          <div class="timer points">Czas: <span data-test="time-text">{{timerService.displayTime()}}</span></div>
       </div>
       <div class="row">
-        <button class="btn-small btn-finding" (click)=startOrPause()>{{buttonActionName}}</button>
-        <button class="btn-small btn-finding" (click)=reset()>Zresetuj</button>
-        <button class="btn-small btn-finding" (click)=goBack()>Powrót</button>
-        <button class="btn-small btn-finding" (click)="saveResult()" *ngIf=loggedIn() [disabled]="!finished || saved" >Zapisz wynik</button>
+        <button class="btn-small btn-finding" (click)=startOrPause() data-test="button-start-test">{{buttonActionName}}</button>
+        <button class="btn-small btn-finding" (click)=reset() data-test="button-reset-time">Zresetuj</button>
+        <button class="btn-small btn-finding" (click)=goBack() data-test="button-go-back">Powrót</button>
+        <button class="btn-small btn-finding" (click)="saveResult()" *ngIf=loggedIn() [disabled]="!finished || saved" data-test="button-save-result">Zapisz wynik</button>
       </div>
     </div>
   </div>
