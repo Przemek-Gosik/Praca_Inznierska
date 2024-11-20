@@ -1,5 +1,4 @@
 describe("Sort digits spec", () => {
-
     it('should be able to drag and drop in the game', () => {
         cy.visit("/");
         cy.get('button[routerLink="/courses"]').should('be.visible').click();

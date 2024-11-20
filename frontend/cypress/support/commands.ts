@@ -6,10 +6,10 @@ Cypress.Commands.add('resetDB', () => {
 });
 
 Cypress.Commands.add('loginAsUser', () => {
-    cy.get('.nav-content').find('a[router-link="/account"]').should('be.visible').click();
+    cy.get('.nav-content').find('a[routerLink="/account"]').should('be.visible').click();
     cy.get('button[data-test="login-button"]').should('exist').click();
     cy.get('input#login').focus().type("user");
-    cy.get('input#passowrd').focus().type("Password1!");
+    cy.get('input#password').focus().type("Password1!");
     cy.intercept('POST', '/api/auth/login').as('login');
     cy.get('button[type="submit"]').should('exist').and('be.enabled').click();
     cy.wait('@login').its('response.statusCode').should('eq', 200);

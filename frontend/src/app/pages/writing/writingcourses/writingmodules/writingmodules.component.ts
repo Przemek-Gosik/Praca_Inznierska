@@ -32,6 +32,7 @@ export class WritingmodulesComponent implements OnInit {
   }
 
   calculateLastScore(score:number):number{
+    console.log(score);
     return score*100
   }
 

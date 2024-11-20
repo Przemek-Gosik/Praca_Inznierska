@@ -13,7 +13,7 @@
           {{title}}
       </div>
       <div class="row" *ngFor="let module of modules, let i = index">
-        <app-writingmodules class="column" [module]="module"></app-writingmodules>
+        <app-writingmodules class="column" [module]="module" [attr.data-test]="'writing-module'+i"></app-writingmodules>
       </div>
   </div>
 </div>
