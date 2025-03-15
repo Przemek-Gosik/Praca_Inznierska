@@ -34,13 +34,13 @@
           <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef>Data</th>
             <td mat-cell *matCellDef="let element; let i = index">
-              {{ element.email }}
+              {{ showDate(element.date) }}
             </td>
           </ng-container>
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element; let i = index">
-              <button mat-raised-button>
+              <button mat-raised-button (click)="showDetails(element)">
                   Zobacz treść
               </button>
             </td>

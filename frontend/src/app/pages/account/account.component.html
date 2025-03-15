@@ -40,7 +40,7 @@
                 </span>
               </button>
 
-              <button mat-fab extended routerLink="/account/admin/reports" class="btn-my-account btn-large" *ngIf="isUserAdmin()"> 
+              <button mat-fab extended routerLink="/account/admin/reports" class="btn-my-account btn-large" *ngIf="isUserAdmin()" data-test="reports-button">
                 <span class="btn-hover">
                   <mat-icon>contact_mail</mat-icon>
                   <br>
@@ -80,7 +80,7 @@
                 </span> 
               </button>   
               
-              <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="logoutUser()"> 
+              <button mat-fab extended routerLink="/" class="btn-my-account btn-large" *ngIf="loggedInUser()" (click)="logoutUser()" data-test="logout-button">
                 <span class="btn-hover">
                   <mat-icon>logout</mat-icon>
                   <br>

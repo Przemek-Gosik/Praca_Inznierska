@@ -1,7 +1,8 @@
 describe("Find numbers spec",()=>{
     const findNumber = () => {
         cy.get('span[data-test="find-number-text"]').as('findNumber').should('exist');
-        cy.get('@findNumber').invoke('text').then((text)=>{
+        cy.get('@findNumber')
+            .invoke('text').then((text)=>{
             let number = parseInt(text,10);
             cy.get(`button[data-test="number-${number}"]`).should('be.visible').click();
         });
@@ -31,8 +32,10 @@ describe("Find numbers spec",()=>{
        cy.get('button.btn-chose-level').should('be.visible').click();
        cy.wait('@getNumbers').its('response.statusCode').should('eq',200);
        cy.url().should('include','/courses/reading/level/finding_numbers;level=MEDIUM');
-       cy.get('button[data-test="hidden-number').as('buttonsWithHiddenNumbers').should("exist").and('have.length',16);
-       cy.get('.points').should('be.visible').and('contain.text','Zdobyte punkty: 0');
+       cy.get('button[data-test="hidden-number').as('buttonsWithHiddenNumbers').should("exist")
+           .and('have.length',16);
+       cy.get('.points').should('be.visible')
+           .and('contain.text','Zdobyte punkty: 0');
        cy.get('button[data-test="button-save-result"]').should('not.exist');
        cy.get('.timer').should('be.visible').and('contain.text','Czas: 00:00:00');
        cy.get('button[data-test="button-start-test"]').should('be.visible').and('be.enabled').click();

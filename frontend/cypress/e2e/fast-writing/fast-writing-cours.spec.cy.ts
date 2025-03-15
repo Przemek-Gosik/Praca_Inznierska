@@ -56,5 +56,4 @@ describe("Fast typing course spec", () => {
             expect(value).to.be.eq('80');
         });
     });
-
 });

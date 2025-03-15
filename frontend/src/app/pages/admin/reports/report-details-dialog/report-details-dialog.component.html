@@ -1,1 +1,12 @@
-<p>report-details-dialog works!</p>
+<div mat-dialog-title>{{ report.title }}</div>
+
+<div mat-dialog-content>
+    <p><strong>Date:</strong> {{ report.date | date: 'longDate' }}</p>
+    <p><strong>Email:</strong> {{ report.email || 'N/A' }}</p>
+    <p><strong>Text:</strong></p>
+    <p>{{ report.text }}</p>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</div>

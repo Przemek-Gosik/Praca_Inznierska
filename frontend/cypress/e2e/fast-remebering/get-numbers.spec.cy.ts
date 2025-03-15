@@ -34,7 +34,6 @@ describe("Sort digits spec", () => {
         cy.get('[data-test="drop-list-numbers"] .example-box').then((items) => {
             // @ts-ignore
             const initialOrder = [...items].map((item) => item.textContent.trim());
-            cy.log('Initial Order:', initialOrder[0]);
             const sourceSelector = `[data-test="drag-number-${initialOrder[3]}"]`;
             const targetSelector = '[data-test="drop-list-numbers"]';
             cy.get(targetSelector).then(($drop) => {
@@ -60,7 +59,6 @@ describe("Sort digits spec", () => {
             cy.get('[data-test="drop-list-numbers"] .example-box').then((updatedItems) => {
                 // @ts-ignore
                 const newOrder = [...updatedItems].map((item) => item.textContent.trim());
-                cy.log('New Order:', newOrder);
                 expect(newOrder).to.not.deep.equal(initialOrder);
             });
         });

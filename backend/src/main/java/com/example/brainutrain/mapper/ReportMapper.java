@@ -20,11 +20,6 @@ public interface ReportMapper {
 
     ReportDto toDto(Report report);
 
-    @Named("mapWithoutDetails")
-    @Mapping(target = "text",ignore = true)
-    ReportDto toDtoList(Report report);
-
-    @IterableMapping(qualifiedByName = "mapWithoutDetails")
     List<ReportDto> toDto(Collection<Report> reports);
 
     @Mapping(target = "user",ignore = true)

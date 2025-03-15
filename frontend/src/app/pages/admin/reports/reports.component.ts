@@ -4,6 +4,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Report } from "src/app/models/report";
 import { ReportService } from "src/app/services/report.service";
 import { TextService } from "src/app/services/text.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ReportDetailsDialogComponent} from "./report-details-dialog/report-details-dialog.component";
 
 @Component({
   selector: "app-reports",
@@ -18,7 +20,8 @@ export class ReportsComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private textService: TextService
+    private textService: TextService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -26,11 +29,17 @@ export class ReportsComponent implements OnInit {
       this.reports = res
       this.dataSource.data = this.reports
       this.dataSource.paginator = this.paginator!
+      console.log(res)
     })
   }
 
   showDetails(report:Report): void {
-    
+    this.dialog.open(ReportDetailsDialogComponent,{
+      width: '800px',
+      data:{
+        report: report
+      }
+    })
   }
 
   showDate(date:string){
