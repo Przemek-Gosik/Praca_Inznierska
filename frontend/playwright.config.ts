@@ -17,7 +17,7 @@ export default defineConfig({
   webServer: {
     command: 'npm start',
     port: 4200,
-    timeout: 30 * 1000,
+    timeout: 60 * 1000,
     reuseExistingServer: true
   },
   metadata: {

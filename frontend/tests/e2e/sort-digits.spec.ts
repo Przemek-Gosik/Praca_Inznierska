@@ -11,7 +11,7 @@ test.describe('Sort Digits Game', () => {
         await page.locator('button[data-test="start-test"]').click();
         await Promise.all([
             page.waitForResponse((res) => res.url().includes('/api/memorizing/guest/numbers/EASY') && res.status() === 200),
-            page.locator('button.btn-chose-level').click()
+             page.locator('button.btn-chose-level').click()
         ]);
         await expect(page).toHaveURL(/\/courses\/memorizing\/level\/mnemonics;level=EASY/);
         const numberBox = page.locator('div[data-test="show-number"]');

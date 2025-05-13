@@ -1,7 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 
 test.describe('Find Numbers Game', () => {
-
     const findNumber = async (page: Page) => {
         const findNumberText = page.locator('span[data-test="find-number-text"]');
         const numberText = await findNumberText.innerText();
