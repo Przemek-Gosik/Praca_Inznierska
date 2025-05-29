@@ -13,7 +13,8 @@ test('User registration form validation', async ({ page }) => {
     await page.locator('button[data-test="register-button"]').click();
     await checkValidationError(page, 'input#login', '123', ' Login musi mieć przynajmniej 5 znaków! ');
     await checkValidationError(page, 'input#email', 'bad_email', ' Adres e-mail jest niepoprawny! ');
-    await checkValidationError(page, 'input#password', 'badPassword', ' Hasło musi mieć przynajmniej 1 znak, 1 cyfrę, 1 małą i 1 dużą literę! ');
+    await checkValidationError(page, 'input#password', 'badPassword'
+        , ' Hasło musi mieć przynajmniej 1 znak, 1 cyfrę, 1 małą i 1 dużą literę! ');
     await checkValidationError(page, 'input#confirmPassword', '', ' Potwierdzenie hasła jest wymagane! ');
     const submitButton = page.locator('button[type="submit"]');
     await expect(submitButton).toBeDisabled();

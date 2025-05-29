@@ -23,11 +23,11 @@ describe("Report managment spec",()=>{
        cy.get('div[mat-dialog-title]').should('have.text', 'This is user report');
        cy.get('div[mat-dialog-content]').within(() => {
            cy.contains('strong', 'Date:')
-               .next().should('not.be.empty'); // Check Date is present
+               .next().should('not.be.empty');
            cy.contains('strong', 'Email:')
                .parent().should('contain', 'user@email.com');
-           cy.contains('strong', 'Text:'); // Ensure "Text:" label exists
-           cy.contains('Hello writing because my account has been blocked, please fix this'); // Check the actual text content
+           cy.contains('strong', 'Text:');
+           cy.contains('Hello writing because my account has been blocked, please fix this');
        });
        cy.get('button[mat-dialog-close]').click();
        cy.get('div[mat-dialog-title]').should('not.exist');

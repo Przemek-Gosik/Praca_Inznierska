@@ -27,12 +27,12 @@ test.describe('Sort Digits Game', () => {
         for (let i = 0; i < 3; i++) {
             await page.locator('button[data-test="show-next-number"]').click();
         }
-        await expect(numberBox).not.toBeVisible(); // Ensure number display disappears
+        await expect(numberBox).not.toBeVisible();
         page.locator('div[data-test="drop-list-numbers"]');
         const initialOrder = await page.locator('[data-test="drop-list-numbers"] .example-box')
             .evaluateAll((items) => items.map(item => item.textContent?.trim()));
         const source = page.locator('[data-test="drop-list-numbers"] [cdkDrag]').first();
-        const target = page.locator('[data-test="drop-list-numbers"] [cdkDrag]').nth(3); // Adjust index as needed
+        const target = page.locator('[data-test="drop-list-numbers"] [cdkDrag]').nth(3);
         const sourceBox = await source.boundingBox();
         const targetBox = await target.boundingBox();
         await page.mouse.move(sourceBox!.x + sourceBox!.width / 2, sourceBox!.y + sourceBox!.height / 2);

@@ -55,7 +55,6 @@ describe("Sort digits spec", () => {
                     .trigger('mouseup', {button: 0});
             });
             cy.wait(1000);
-            // Capture the new order of elements
             cy.get('[data-test="drop-list-numbers"] .example-box').then((updatedItems) => {
                 // @ts-ignore
                 const newOrder = [...updatedItems].map((item) => item.textContent.trim());

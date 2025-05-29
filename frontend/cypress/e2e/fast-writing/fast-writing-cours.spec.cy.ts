@@ -1,6 +1,7 @@
 describe("Fast typing course spec", () => {
     const typeCharacter = (wordIndex: number, charIndex: number) => {
-        cy.get(`div[data-test="${wordIndex}char${charIndex}"]`).should('have.css', 'color', 'rgb(0, 0, 0)').invoke('text').then((text) => {
+        cy.get(`div[data-test="${wordIndex}char${charIndex}"]`).should('have.css', 'color', 'rgb(0, 0, 0)')
+            .invoke('text').then((text) => {
             cy.get(`input[data-test="input${wordIndex}"]`).focus().should('be.enabled').type(text.trim());
             cy.get(`div[data-test="${wordIndex}char${charIndex}"]`).should('have.css', 'color', 'rgb(0, 128, 0)');
         });
