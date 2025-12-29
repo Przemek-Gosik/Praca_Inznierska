@@ -29,14 +29,14 @@
       {{ title }}
     </div>
     <div>
-      <button mat-fab extended class="btn-memory btn-large mat-size-4" (click)=openDialog(memory)>
+      <button mat-fab extended class="btn-memory btn-large mat-size-4" (click)=openDialog(memory) data-test="memory">
         <span class="btn-hover">
           <mat-icon>burst_mode</mat-icon>
           <br />
           {{ memoryGame }}
         </span>
       </button>
-      <button mat-fab extended class="btn-memory btn-large mat-size-3" (click)=openDialog(mnemonics)>
+      <button mat-fab extended class="btn-memory btn-large mat-size-3" (click)=openDialog(mnemonics) data-test="mnemonics">
         <span class="btn-hover">
           <mat-icon class="font-big">123</mat-icon>
           <br />

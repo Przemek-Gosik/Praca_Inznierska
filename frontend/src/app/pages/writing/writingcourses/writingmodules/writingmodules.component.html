@@ -1,4 +1,4 @@
-<mat-expansion-panel class="panel">
+<mat-expansion-panel class="panel" data-test="lessons-panel">
   <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
     <mat-panel-title>
       {{number}}
@@ -9,8 +9,8 @@
   </mat-expansion-panel-header>
     
   <div *ngFor="let lesson of lessons,let i = index" >
-    <button mat-button (click)="getLinkToLesson(i)"><mat-icon>forward</mat-icon>  {{lessonName}} {{lesson.number}} - {{lesson.name}}
-      <mat-progress-bar *ngIf="loggedInUser()" [value]=calculateLastScore(lesson.score!) ></mat-progress-bar>
+    <button mat-button (click)="getLinkToLesson(i)" [attr.data-test]="'lesson'+ lesson.number"><mat-icon>forward</mat-icon>  {{lessonName}} {{lesson.number}} - {{lesson.name}}
+      <mat-progress-bar *ngIf="loggedInUser()" [value]=calculateLastScore(lesson.score!) [attr.data-test]="'progress'+lesson.number"></mat-progress-bar>
     </button>
   </div>
 </mat-expansion-panel>

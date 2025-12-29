@@ -139,7 +139,7 @@
                             </div>
                         </ng-container> 
                     </div>
-                    <button class="btn-visibility" mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                    <button class="btn-visibility" mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" data-test="confirmPasswordVisibility">
                         <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </div>    

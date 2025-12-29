@@ -8,7 +8,7 @@
     </p>
 </mat-dialog-content>
 <mat-dialog-actions style="margin-bottom:5px; font-size: 20px">
-    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large">Powrót</button>
-    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large" (click)="linkToLevelChoice()">Start</button>
+    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large" data-test="back-button">Powrót</button>
+    <button mat-dialog-close [ngClass]="this.themeService.getTheme()" class="btn-form btn-large" (click)="linkToLevelChoice()" data-test="start-button">Start</button>
 
 </mat-dialog-actions>

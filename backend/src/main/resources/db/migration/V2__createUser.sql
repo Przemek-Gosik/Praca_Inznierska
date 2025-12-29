@@ -3,7 +3,7 @@ INSERT INTO `roles` (`id_role`, `role_name`) VALUES
 
 INSERT INTO `users` (`id_user`, `email`, `is_active`, `is_email_confirmed`, `login`, `password`)
 VALUES
-    (1, 'user@email.com', b'1', b'1', 'user', '$2a$10$rbqb1J3Zfv3Ad25kMhtfDe0eD5uvokEjC3HTgbRW.oVnWR9gKDuM2');
+    (1, 'user@email.com', b'1', b'1', 'user', '$2a$10$uHSXYNPqejYiME2slci.heu0Jn.FGScfl.IpHyJJ.9y9445JUp8Dq');
 
 INSERT INTO `user_roles` (`user_id_user`, `role_id_role`) VALUES
     (1, 1);

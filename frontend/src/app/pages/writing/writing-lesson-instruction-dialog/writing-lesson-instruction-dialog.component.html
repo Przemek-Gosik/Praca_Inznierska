@@ -9,6 +9,6 @@
     </mat-dialog-content>
     <mat-dialog-actions style="margin-bottom: 5px;">
         <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large" (click)="goBack()" >Powrót</button>
-        <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large" (click)="startTask()" >Start</button>
+        <button mat-dialog-close [ngClass]="themeService.getTheme()" class="btn-form btn-large" (click)="startTask()" data-test="start-task" >Start</button>
     </mat-dialog-actions>
 </div>

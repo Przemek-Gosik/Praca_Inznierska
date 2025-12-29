@@ -100,12 +100,15 @@ public class UserService implements UserDetailsService{
      */
     public ResponseWithToken logInUser(LoginRequest loginRequest, AuthenticationManager authenticationManager) {
         log.info(loginRequest.getLogin());
+        User user1 = findUser(loginRequest.getLogin());
+        log.info(user1.getPassword());
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getLogin(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String userName = loginRequest.getLogin();
         User user = findUser(userName);
+        log.info(user.getPassword());
         Setting setting = settingRepository.findSettingByUserIdUser(user.getIdUser()).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono ustawień dla użytkownika o id: "+user.getIdUser()));
         String token = tokenCreator.createUserToken(userName);
