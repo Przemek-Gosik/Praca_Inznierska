@@ -1,6 +1,5 @@
 package com.example.brainutrain.service;
 
-import com.example.brainutrain.config.security.UserDetailsImpl;
 import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
@@ -28,6 +27,7 @@ import com.example.brainutrain.repository.UserRepository;
 import com.example.brainutrain.repository.ValidationCodeRepository;
 import com.example.brainutrain.utils.AuthenticationUtils;
 import com.example.brainutrain.utils.EmailSender;
+import com.example.brainutrain.utils.PasswordUtils;
 import com.example.brainutrain.utils.StringGenerator;
 import com.example.brainutrain.utils.TokenCreator;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +46,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -86,11 +85,14 @@ public class UserServiceTest {
 
     @Mock
     private AuthenticationUtils utils;
+
+    @Mock
+    private PasswordUtils passwordUtils;
+
     @InjectMocks
     private UserService userService;
 
     private User user1;
-    private UserDetailsImpl userDetails1;
     private Setting setting1;
     private ValidationCode validationCode1;
     private ValidationCode validationCode2;
@@ -106,24 +108,9 @@ public class UserServiceTest {
         roles.add(roleUser);
         user1 = new User(1L,"login","email@com.pl","pass",false,true,roles);
         setting1 = new Setting(1L, FontSize.MEDIUM, Theme.DAY,user1);
-        userDetails1 = new UserDetailsImpl(user1);
         validationCode1=new ValidationCode(1L,"12345", Purpose.EMAIL_VERIFICATION,false,user1);
         validationCode2=new ValidationCode(2L,"54321",Purpose.PASSWORD_REMINDER,false,user1);
         token="token";
-    }
-
-    @Test
-    public void loadUserByUserName_GivenValidUserName_GetUserDetails(){
-        String username="login";
-        when(userRepository.findUserByLogin(username)).thenReturn(Optional.of(user1));
-        assertEquals(userDetails1.getUsername(),userService.loadUserByUsername(username).getUsername());
-    }
-
-    @Test
-    public void loadUserByUserName_GivenInValidUserName_ThrowsUserNameNotFoundException(){
-        String username="login2";
-        when(userRepository.findUserByLogin(username)).thenReturn(Optional.ofNullable(null));
-        assertThrows(UsernameNotFoundException.class,()->userService.loadUserByUsername(username));
     }
 
     @Test
@@ -145,8 +132,6 @@ public class UserServiceTest {
 
     @Test
     public void logInUser_GivenInvalidLogin_ThrowUserNameNotFoundException(){
-
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         AuthenticationManager manager = Mockito.mock(AuthenticationManager.class);
         String username="login1";
         String password="pass";
@@ -162,6 +147,7 @@ public class UserServiceTest {
         String username="login";
         String password="AAAAAA";
         LoginRequest loginRequest = new LoginRequest(username,password);
+        when(userRepository.findUserByLogin(username)).thenReturn(Optional.of(user1));
         when(manager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getLogin(),loginRequest.getPassword())))
                 .thenThrow(new BadCredentialsException("test"));
         assertThrows(BadCredentialsException.class,()->userService.logInUser(loginRequest,manager));
@@ -197,14 +183,14 @@ public class UserServiceTest {
 
     @Test
     public void createUser_GivenValidData_GetResponseWithToken(){
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword(),user1.getPassword());
         when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(false);
         when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(false);
         when(roleRepository.findByRoleName(RoleName.USER)).thenReturn(roleUser);
         when(settingRepository.save(any())).thenReturn(setting1);
         when(tokenCreator.createUserToken(registerRequest.getLogin())).thenReturn(token);
-        ResponseWithToken response = userService.createUser(registerRequest,encoder);
+        when(passwordUtils.encode(any())).thenReturn("encodedPassword");
+        ResponseWithToken response = userService.createUser(registerRequest);
         assertAll(
                 ()->assertEquals(user1.getLogin(),response.getUserDto().getLogin()),
                 ()->assertEquals(token,response.getToken())
@@ -213,19 +199,17 @@ public class UserServiceTest {
 
     @Test
     public void createUser_GivenAlreadyExistingEmail_ThrowIllegalArgumentException(){
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword(),user1.getPassword());
         when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(true);
         when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(false);
-        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest,encoder));
+        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest));
     }
 
     @Test
     public void createUser_GivenAlreadyExistingLogin_ThrowIllegalArgumentException(){
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         RegisterRequest registerRequest = new RegisterRequest(user1.getLogin(),user1.getEmail(),user1.getPassword(),user1.getPassword());
         when(userRepository.existsByLogin(registerRequest.getLogin())).thenReturn(true);
-        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest,encoder));
+        assertThrows(IllegalArgumentException.class,()->userService.createUser(registerRequest));
     }
 
     @Test
@@ -269,11 +253,10 @@ public class UserServiceTest {
     public void changeUserPassword_GivenValidPasswordRequest_ChangeUserPassword(){
         String newPassword = "New password";
         NewPasswordRequest passwordRequest = new NewPasswordRequest(user1.getPassword(),newPassword);
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         AuthenticationManager manager = Mockito.mock(AuthenticationManager.class);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
-        when(encoder.encode(passwordRequest.getNewPassword())).thenReturn(passwordRequest.getNewPassword());
-        userService.changeUserPassword(passwordRequest,encoder,manager);
+        when(passwordUtils.encode(passwordRequest.getNewPassword())).thenReturn(passwordRequest.getNewPassword());
+        userService.changeUserPassword(passwordRequest, manager);
         assertEquals(newPassword,user1.getPassword());
     }
 
@@ -281,11 +264,10 @@ public class UserServiceTest {
     public void changeUserPassword_GivenNewPasswordThatEqualsOld_ThrowIllegalArgumentException(){
         String newPassword="pass";
         NewPasswordRequest passwordRequest = new NewPasswordRequest(user1.getPassword(),newPassword);
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         AuthenticationManager manager = Mockito.mock(AuthenticationManager.class);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
         assertThrows(IllegalArgumentException.class,
-                ()->userService.changeUserPassword(passwordRequest,encoder,manager));
+                ()->userService.changeUserPassword(passwordRequest, manager));
     }
 
     @Test
@@ -378,7 +360,6 @@ public class UserServiceTest {
 
     @Test
     public void createNewPassword_GivenValidEmailAndRequest_GetNewUserPassword(){
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         String email = user1.getEmail();
         String code = "54321";
         String newPassword = "new password";
@@ -388,15 +369,14 @@ public class UserServiceTest {
                 findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user1,Purpose.PASSWORD_REMINDER))
                 .thenReturn(Optional.of(validationCode2));
         when(stringGenerator.generatePassword()).thenReturn(newPassword);
-        when(encoder.encode(newPassword)).thenReturn(newPassword);
-        ResponseWithPassword response = userService.createNewPassword(email,codeRequest,encoder);
+        when(passwordUtils.encode(newPassword)).thenReturn(newPassword);
+        ResponseWithPassword response = userService.createNewPassword(email, codeRequest);
         assertEquals(newPassword,user1.getPassword());
         assertEquals(newPassword,response.getNewPassword());
     }
 
     @Test
     public void createNewPassword_GivenInvalidCode_ThrowAuthenticationFailedException(){
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         String email = user1.getEmail();
         String code = "54322";
         CodeRequest codeRequest = new CodeRequest(code);
@@ -405,22 +385,20 @@ public class UserServiceTest {
                 findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user1,Purpose.PASSWORD_REMINDER))
                 .thenReturn(Optional.of(validationCode2));
         assertThrows(AuthenticationFailedException.class,
-                ()->userService.createNewPassword(email,codeRequest,encoder));
+                ()->userService.createNewPassword(email, codeRequest));
     }
 
     @Test
     public void createNewPassword_GivenInvalidCode_ThrowResourceNotFoundException(){
-        PasswordEncoder encoder = Mockito.mock(PasswordEncoder.class);
         String email = "email@email.pl";
         String code = "54321";
-        String newPassword = "new password";
         CodeRequest codeRequest = new CodeRequest(code);
         when(userRepository.findUsersByEmail(email)).thenReturn(Optional.ofNullable(user1));
         when(validationCodeRepository.
                 findValidationCodeByUserAndPurposeAndWasUsedIsFalse(user1,Purpose.PASSWORD_REMINDER))
                 .thenReturn(Optional.ofNullable(null));
         assertThrows(ResourceNotFoundException.class,
-                ()->userService.createNewPassword(email,codeRequest,encoder));
+                ()->userService.createNewPassword(email, codeRequest));
     }
 
     @Test
@@ -440,7 +418,7 @@ public class UserServiceTest {
                 "password",true,true,roles);
         List<User>users = List.of(user2,user3);
         when(utils.getUserFromAuthentication()).thenReturn(user1);
-        when(userRepository.findUsersByLoginIsNotLike(user1.getLogin())).thenReturn(users);
+        when(userRepository.findUsersByLoginIsNotLikeAndAndIsActive(user1.getLogin(), true)).thenReturn(users);
         List<UserDto> userDtos = userService.getAllUsers();
         assertEquals(users.size(),userDtos.size());
     }

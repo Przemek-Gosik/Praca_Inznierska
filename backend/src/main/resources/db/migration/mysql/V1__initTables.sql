@@ -26,7 +26,7 @@ CREATE TABLE `memorizings` (
 CREATE TABLE `reading_questions` (
                                      `id_reading_question` bigint(20) NOT NULL,
                                      `answer` bit(1) NOT NULL,
-                                     `question` longtext NOT NULL,
+                                     `question` TEXT NOT NULL,
                                      `reading_text_id_reading_text` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -56,7 +56,7 @@ CREATE TABLE `reading_results` (
 CREATE TABLE `reading_texts` (
                                  `id_reading_text` bigint(20) NOT NULL,
                                  `level` varchar(255) NOT NULL,
-                                 `text` longtext NOT NULL,
+                                 `text` TEXT NOT NULL,
                                  `title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -71,7 +71,7 @@ CREATE TABLE `reports` (
                            `active` bit(1) NOT NULL,
                            `date` datetime NOT NULL,
                            `email` varchar(45) DEFAULT NULL,
-                           `text` longtext DEFAULT NULL,
+                           `text` TEXT DEFAULT NULL,
                            `title` varchar(45) DEFAULT NULL,
                            `user_id_user` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -192,7 +192,7 @@ CREATE TABLE `writing_modules` (
 CREATE TABLE `writing_texts` (
                                  `id_writing_text` bigint(20) NOT NULL,
                                  `level` varchar(255) NOT NULL,
-                                 `text` longtext NOT NULL,
+                                 `text` TEXT NOT NULL,
                                  `title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -207,7 +207,7 @@ CREATE TABLE `writing_text_results` (
                                         `score` double NOT NULL,
                                         `start_time` datetime NOT NULL,
                                         `time` float NOT NULL,
-                                        `typed_text` longtext NOT NULL,
+                                        `typed_text` TEXT NOT NULL,
                                         `text_id_writing_text` bigint(20) DEFAULT NULL,
                                         `user_id_user` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
