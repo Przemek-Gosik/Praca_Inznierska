@@ -2,7 +2,7 @@ package com.example.brainutrain.config;
 
 import com.example.brainutrain.config.security.JwtAuthenticationFilter;
 import com.example.brainutrain.utils.TokenCreator;
-import com.example.brainutrain.service.UserService;
+import com.example.brainutrain.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 @AllArgsConstructor
 public class SecurityConfig {
 
-    private final UserService userService;
+    private final UserDetailsServiceImpl userDetailsService;
     private final TokenCreator tokenCreator;
 
     @Bean
@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 ).sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(),userService, tokenCreator));
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userDetailsService, tokenCreator));
          httpSecurity.cors();
                 return httpSecurity.build();
     }
@@ -50,7 +50,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userService);
+        authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(authenticationProvider);
     }

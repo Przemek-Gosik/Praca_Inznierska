@@ -1,8 +1,8 @@
 package com.example.brainutrain.service;
 
-import com.example.brainutrain.config.security.UserDetailsImpl;
 import com.example.brainutrain.dto.request.RegisterRequest;
 import com.example.brainutrain.utils.AuthenticationUtils;
+import com.example.brainutrain.utils.PasswordUtils;
 import com.example.brainutrain.constants.FontSize;
 import com.example.brainutrain.constants.Purpose;
 import com.example.brainutrain.constants.RoleName;
@@ -39,10 +39,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
@@ -55,7 +52,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Service
 @Slf4j
-public class UserService implements UserDetailsService{
+public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -65,20 +62,7 @@ public class UserService implements UserDetailsService{
     private final EmailSender emailSender;
     private final AuthenticationUtils authenticationUtils;
     private final StringGenerator stringGenerator;
-
-    /**
-     *Method to get UserDetails
-     *
-     * @param username is String
-     * @return is UserDetails
-     * @throws UsernameNotFoundException
-     */
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findUser(username);
-        return new UserDetailsImpl(user);
-    }
+    private final PasswordUtils passwordUtils;
 
     /**
      * Method to get user by username
@@ -138,7 +122,7 @@ public class UserService implements UserDetailsService{
     }
 
     @Transactional
-    public ResponseWithToken createUser(RegisterRequest registerRequest, PasswordEncoder passwordEncoder){
+    public ResponseWithToken createUser(RegisterRequest registerRequest){
         if(checkIfLoginIsAlreadyTaken(registerRequest.getLogin())){
             throw new IllegalArgumentException("Login zajęty dla: "+ registerRequest.getLogin());
         }
@@ -148,7 +132,7 @@ public class UserService implements UserDetailsService{
         if(!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())){
             throw new IllegalArgumentException("Hasła muszą być identyczne dla: "+registerRequest.getLogin());
         }
-        registerRequest.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        registerRequest.setPassword(passwordUtils.encode(registerRequest.getPassword()));
         User newUser=UserMapper.INSTANCE.fromDto(registerRequest);
         Role userRole = getUserRoleOrCreateIfNotExist();
         Set<Role> roles = new HashSet<>();
@@ -217,21 +201,19 @@ public class UserService implements UserDetailsService{
     }
 
     /**
-     * Method to change user's email
+     * Method to change user's password
      *
      * @param newPasswordRequest is NewPasswordRequest
-     * @param passwordEncoder is PasswordEncoder
      * @param authenticationManager is AuthenticationManager
      */
-    public void changeUserPassword(NewPasswordRequest newPasswordRequest,PasswordEncoder passwordEncoder
-            ,AuthenticationManager authenticationManager){
+    public void changeUserPassword(NewPasswordRequest newPasswordRequest, AuthenticationManager authenticationManager){
         User user = authenticationUtils.getUserFromAuthentication();
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getLogin(),newPasswordRequest.getOldPassword()));
         if(newPasswordRequest.getOldPassword().equals(newPasswordRequest.getNewPassword())){
             throw new IllegalArgumentException("Nowe hasło nie może być takie same jak stare dla użytkownika o id: "+user.getIdUser());
         }
-        user.setPassword(passwordEncoder.encode(newPasswordRequest.getNewPassword()));
+        user.setPassword(passwordUtils.encode(newPasswordRequest.getNewPassword()));
         userRepository.save(user);
         log.info("Nowe hasło dla użytkownika o id: "+user.getIdUser());
     }
@@ -332,10 +314,9 @@ public class UserService implements UserDetailsService{
      *
      * @param email is String
      * @param codeRequest is CodeRequest
-     * @param passwordEncoder is PasswordEncoder
      * @return is ResponseWithPassword
      */
-    public ResponseWithPassword createNewPassword(String email, CodeRequest codeRequest, PasswordEncoder passwordEncoder){
+    public ResponseWithPassword createNewPassword(String email, CodeRequest codeRequest){
         User user = userRepository.findUsersByEmail(email).orElseThrow(
                 ()->new ResourceNotFoundException("Nie odnaleziono użytkownika dla emaila: "+email)
         );
@@ -345,7 +326,7 @@ public class UserService implements UserDetailsService{
         );
         if(codeRequest.getCode().equals(validationCode.getCode())){
             String newPassword = stringGenerator.generatePassword();
-            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setPassword(passwordUtils.encode(newPassword));
             userRepository.save(user);
             validationCode.setWasUsed(true);
             validationCodeRepository.save(validationCode);

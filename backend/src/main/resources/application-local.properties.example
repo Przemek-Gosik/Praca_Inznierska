@@ -1,0 +1,11 @@
+# Local secrets - copy this file to application-local.properties
+# DO NOT commit application-local.properties to git!
+
+# Database password (required)
+spring.datasource.password=your_password_here
+
+# JWT secret (required)
+jwt.secret=your_jwt_secret_here
+
+# Mail password (required for email functionality)
+spring.mail.password=your_mail_app_password_here

@@ -12,7 +12,6 @@ import com.example.brainutrain.dto.request.RegisterRequest;
 import com.example.brainutrain.dto.response.ResponseWithPassword;
 import com.example.brainutrain.dto.response.ResponseWithToken;
 import com.example.brainutrain.exception.ResourceNotFoundException;
-import com.example.brainutrain.model.Role;
 import com.example.brainutrain.model.User;
 import com.example.brainutrain.model.ValidationCode;
 import com.example.brainutrain.repository.RoleRepository;
@@ -30,7 +29,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,16 +37,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.IOException;
-import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.springframework.http.RequestEntity.get;
-import static org.springframework.http.RequestEntity.patch;
-import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,9 +59,6 @@ public class FunctionalUserTest {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private PasswordEncoder encoder;
 
     private ObjectMapper mapper;
 
@@ -111,7 +99,7 @@ public class FunctionalUserTest {
         String login = "login1";
         String password = "password";
         RegisterRequest registerRequest = new RegisterRequest(login,"login1@email.com",password,password);
-        userService.createUser(registerRequest,encoder);
+        userService.createUser(registerRequest);
         User user = userRepository.findUserByLogin(login).orElseThrow(
                 ()-> new UsernameNotFoundException("error")
         );
@@ -140,7 +128,7 @@ public class FunctionalUserTest {
         String login = "login2";
         String password = "password";
         RegisterRequest registerRequest = new RegisterRequest(login,"login2@email.com",password,password);
-        userService.createUser(registerRequest,encoder);
+        userService.createUser(registerRequest);
         User user = userRepository.findUserByLogin(login).orElseThrow(
                 ()-> new UsernameNotFoundException("error")
         );
@@ -174,7 +162,7 @@ public class FunctionalUserTest {
         String login = "login2";
         String password = "password";
         RegisterRequest registerRequest = new RegisterRequest(login,"login2@email.com",password,password);
-        userService.createUser(registerRequest,encoder);
+        userService.createUser(registerRequest);
         User user = userRepository.findUserByLogin(login).orElseThrow(
                 ()-> new UsernameNotFoundException("error")
         );

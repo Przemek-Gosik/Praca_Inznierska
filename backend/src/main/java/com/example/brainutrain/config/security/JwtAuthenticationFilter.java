@@ -4,33 +4,32 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.brainutrain.exception.AuthenticationFailedException;
 import com.example.brainutrain.exception.message.ErrorMessage;
 import com.example.brainutrain.utils.TokenCreator;
-import com.example.brainutrain.service.UserService;
+import com.example.brainutrain.service.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import javax.persistence.Enumerated;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Enumeration;
 
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
-    private final UserService userService;
+    private final UserDetailsServiceImpl userDetailsService;
     private final TokenCreator tokenCreator;
     private static final String HEADER="Authorization";
     private static final String PREFIX="Bearer";
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, TokenCreator tokenCreator) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserDetailsServiceImpl userDetailsService, TokenCreator tokenCreator) {
         super(authenticationManager);
-        this.userService=userService;
+        this.userDetailsService = userDetailsService;
         this.tokenCreator = tokenCreator;
     }
 
@@ -67,7 +66,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         if(token !=null && token.startsWith(PREFIX)){
             String login = tokenCreator.getLoginFromToken(token);
             if(login!=null){
-                UserDetailsImpl userDetails =(UserDetailsImpl) userService.loadUserByUsername(login);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(login);
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 if(!userDetails.isEnabled()){
@@ -77,8 +76,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             }
         }
         logger.info("tutaj"+token);
-            throw new AuthenticationFailedException("Nie podano tokena, albo podano bez odpowiedniego prefiksa dla żądania : " +
-                    ""+request.getRequestURI());
+            throw new AuthenticationFailedException("Nie podano tokena, albo podano bez odpowiedniego prefiksa dla żądania : " +request.getRequestURI());
     }
 
 

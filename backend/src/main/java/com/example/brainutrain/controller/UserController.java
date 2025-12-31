@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,11 +30,10 @@ public class UserController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder encoder;
 
     @PostMapping("/register")
     public ResponseEntity<ResponseWithToken> register(@Valid @RequestBody RegisterRequest registerRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(registerRequest,encoder));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(registerRequest));
     }
 
     @PostMapping("/login")
@@ -61,7 +59,7 @@ public class UserController {
 
     @PatchMapping("/changePassword")
     public ResponseEntity<Void> changePassword(@Valid @RequestBody NewPasswordRequest newPasswordRequest){
-        userService.changeUserPassword(newPasswordRequest,encoder,authenticationManager);
+        userService.changeUserPassword(newPasswordRequest, authenticationManager);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -88,7 +86,7 @@ public class UserController {
 
     @PatchMapping("/passwordRecovery/code/{email}")
     public ResponseEntity<ResponseWithPassword> getNewPassword(@PathVariable String email,@Valid @RequestBody CodeRequest codeRequest){
-        return ResponseEntity.ok(userService.createNewPassword(email,codeRequest,encoder));
+        return ResponseEntity.ok(userService.createNewPassword(email, codeRequest));
     }
 
     @DeleteMapping("/deleteUser")
