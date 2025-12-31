@@ -75,3 +75,6 @@ Thumbs.db
 
 ### VS Code ###
 **/.vscode/
+
+### Local secrets ###
+**/application-local.properties
